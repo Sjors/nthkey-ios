@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		96637C2447F57A2EB0302F51 /* Pods_MultisigTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 41530191A13C8D1894C64B1D /* Pods_MultisigTests.framework */; };
 		A206E805238D65F300786824 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A206E804238D65F300786824 /* AppDelegate.swift */; };
 		A206E807238D65F300786824 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A206E806238D65F300786824 /* SceneDelegate.swift */; };
 		A206E80A238D65F300786824 /* Multisig.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A206E808238D65F300786824 /* Multisig.xcdatamodeld */; };
@@ -16,6 +17,8 @@
 		A206E814238D65FB00786824 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A206E812238D65FB00786824 /* LaunchScreen.storyboard */; };
 		A206E81F238D65FC00786824 /* MultisigTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A206E81E238D65FC00786824 /* MultisigTests.swift */; };
 		A206E82A238D65FC00786824 /* MultisigUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A206E829238D65FC00786824 /* MultisigUITests.swift */; };
+		AE716AF757D96BC11F4F0E17 /* Pods_Multisig.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F8F3384BDB2BF32D82C91288 /* Pods_Multisig.framework */; };
+		C10E267E872CDFB5CD2E41C1 /* Pods_Multisig_MultisigUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CAE4826CB64559C90D6D5E3A /* Pods_Multisig_MultisigUITests.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,6 +39,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		03787E2407FAE412530052FC /* Pods-Multisig.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Multisig.release.xcconfig"; path = "Target Support Files/Pods-Multisig/Pods-Multisig.release.xcconfig"; sourceTree = "<group>"; };
+		03E754B72B8C0A69CF96ECC6 /* Pods-MultisigTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MultisigTests.release.xcconfig"; path = "Target Support Files/Pods-MultisigTests/Pods-MultisigTests.release.xcconfig"; sourceTree = "<group>"; };
+		18164F1856E6D3E381CF90EC /* Pods-Multisig.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Multisig.debug.xcconfig"; path = "Target Support Files/Pods-Multisig/Pods-Multisig.debug.xcconfig"; sourceTree = "<group>"; };
+		257350CD86D0746C6502196E /* Pods-Multisig-MultisigUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Multisig-MultisigUITests.debug.xcconfig"; path = "Target Support Files/Pods-Multisig-MultisigUITests/Pods-Multisig-MultisigUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		41530191A13C8D1894C64B1D /* Pods_MultisigTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MultisigTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		8794092D4D7B86DD36D227CF /* Pods-Multisig-MultisigUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Multisig-MultisigUITests.release.xcconfig"; path = "Target Support Files/Pods-Multisig-MultisigUITests/Pods-Multisig-MultisigUITests.release.xcconfig"; sourceTree = "<group>"; };
 		A206E801238D65F300786824 /* Multisig.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Multisig.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A206E804238D65F300786824 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A206E806238D65F300786824 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -51,6 +60,9 @@
 		A206E825238D65FC00786824 /* MultisigUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MultisigUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A206E829238D65FC00786824 /* MultisigUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultisigUITests.swift; sourceTree = "<group>"; };
 		A206E82B238D65FC00786824 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A451BF0AE21C7337353DD56F /* Pods-MultisigTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MultisigTests.debug.xcconfig"; path = "Target Support Files/Pods-MultisigTests/Pods-MultisigTests.debug.xcconfig"; sourceTree = "<group>"; };
+		CAE4826CB64559C90D6D5E3A /* Pods_Multisig_MultisigUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Multisig_MultisigUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F8F3384BDB2BF32D82C91288 /* Pods_Multisig.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Multisig.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +70,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AE716AF757D96BC11F4F0E17 /* Pods_Multisig.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -65,6 +78,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				96637C2447F57A2EB0302F51 /* Pods_MultisigTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -72,12 +86,37 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C10E267E872CDFB5CD2E41C1 /* Pods_Multisig_MultisigUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		102B352A73AEA7A1B4069C13 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				18164F1856E6D3E381CF90EC /* Pods-Multisig.debug.xcconfig */,
+				03787E2407FAE412530052FC /* Pods-Multisig.release.xcconfig */,
+				257350CD86D0746C6502196E /* Pods-Multisig-MultisigUITests.debug.xcconfig */,
+				8794092D4D7B86DD36D227CF /* Pods-Multisig-MultisigUITests.release.xcconfig */,
+				A451BF0AE21C7337353DD56F /* Pods-MultisigTests.debug.xcconfig */,
+				03E754B72B8C0A69CF96ECC6 /* Pods-MultisigTests.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		691AC74BF311E9F3C07E2791 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				F8F3384BDB2BF32D82C91288 /* Pods_Multisig.framework */,
+				CAE4826CB64559C90D6D5E3A /* Pods_Multisig_MultisigUITests.framework */,
+				41530191A13C8D1894C64B1D /* Pods_MultisigTests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		A206E7F8238D65F300786824 = {
 			isa = PBXGroup;
 			children = (
@@ -85,6 +124,8 @@
 				A206E81D238D65FC00786824 /* MultisigTests */,
 				A206E828238D65FC00786824 /* MultisigUITests */,
 				A206E802238D65F300786824 /* Products */,
+				102B352A73AEA7A1B4069C13 /* Pods */,
+				691AC74BF311E9F3C07E2791 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -146,9 +187,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = A206E82E238D65FC00786824 /* Build configuration list for PBXNativeTarget "Multisig" */;
 			buildPhases = (
+				837479018739045E1296A47C /* [CP] Check Pods Manifest.lock */,
 				A206E7FD238D65F300786824 /* Sources */,
 				A206E7FE238D65F300786824 /* Frameworks */,
 				A206E7FF238D65F300786824 /* Resources */,
+				B787AEE348A13FEA86C55965 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -163,6 +206,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = A206E831238D65FC00786824 /* Build configuration list for PBXNativeTarget "MultisigTests" */;
 			buildPhases = (
+				5DC753AB80B556F113FB6A46 /* [CP] Check Pods Manifest.lock */,
 				A206E816238D65FC00786824 /* Sources */,
 				A206E817238D65FC00786824 /* Frameworks */,
 				A206E818238D65FC00786824 /* Resources */,
@@ -181,9 +225,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = A206E834238D65FC00786824 /* Build configuration list for PBXNativeTarget "MultisigUITests" */;
 			buildPhases = (
+				091652AD0ECBECFB1FCA5CCD /* [CP] Check Pods Manifest.lock */,
 				A206E821238D65FC00786824 /* Sources */,
 				A206E822238D65FC00786824 /* Frameworks */,
 				A206E823238D65FC00786824 /* Resources */,
+				B2DF31B1C0D6B762A14CF5F7 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -264,6 +310,109 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		091652AD0ECBECFB1FCA5CCD /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Multisig-MultisigUITests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		5DC753AB80B556F113FB6A46 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-MultisigTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		837479018739045E1296A47C /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Multisig-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		B2DF31B1C0D6B762A14CF5F7 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Multisig-MultisigUITests/Pods-Multisig-MultisigUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Multisig-MultisigUITests/Pods-Multisig-MultisigUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Multisig-MultisigUITests/Pods-Multisig-MultisigUITests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		B787AEE348A13FEA86C55965 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Multisig/Pods-Multisig-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Multisig/Pods-Multisig-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Multisig/Pods-Multisig-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		A206E7FD238D65F300786824 /* Sources */ = {
@@ -436,6 +585,7 @@
 		};
 		A206E82F238D65FC00786824 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 18164F1856E6D3E381CF90EC /* Pods-Multisig.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -457,6 +607,7 @@
 		};
 		A206E830238D65FC00786824 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 03787E2407FAE412530052FC /* Pods-Multisig.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -478,6 +629,7 @@
 		};
 		A206E832238D65FC00786824 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A451BF0AE21C7337353DD56F /* Pods-MultisigTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -500,6 +652,7 @@
 		};
 		A206E833238D65FC00786824 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 03E754B72B8C0A69CF96ECC6 /* Pods-MultisigTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -522,6 +675,7 @@
 		};
 		A206E835238D65FC00786824 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 257350CD86D0746C6502196E /* Pods-Multisig-MultisigUITests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -542,6 +696,7 @@
 		};
 		A206E836238D65FC00786824 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8794092D4D7B86DD36D227CF /* Pods-Multisig-MultisigUITests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
