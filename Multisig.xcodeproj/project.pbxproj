@@ -1,0 +1,618 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		A206E805238D65F300786824 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A206E804238D65F300786824 /* AppDelegate.swift */; };
+		A206E807238D65F300786824 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A206E806238D65F300786824 /* SceneDelegate.swift */; };
+		A206E80A238D65F300786824 /* Multisig.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A206E808238D65F300786824 /* Multisig.xcdatamodeld */; };
+		A206E80C238D65F300786824 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A206E80B238D65F300786824 /* ContentView.swift */; };
+		A206E80E238D65FB00786824 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A206E80D238D65FB00786824 /* Assets.xcassets */; };
+		A206E811238D65FB00786824 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A206E810238D65FB00786824 /* Preview Assets.xcassets */; };
+		A206E814238D65FB00786824 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A206E812238D65FB00786824 /* LaunchScreen.storyboard */; };
+		A206E81F238D65FC00786824 /* MultisigTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A206E81E238D65FC00786824 /* MultisigTests.swift */; };
+		A206E82A238D65FC00786824 /* MultisigUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A206E829238D65FC00786824 /* MultisigUITests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		A206E81B238D65FC00786824 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A206E7F9238D65F300786824 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = A206E800238D65F300786824;
+			remoteInfo = Multisig;
+		};
+		A206E826238D65FC00786824 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A206E7F9238D65F300786824 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = A206E800238D65F300786824;
+			remoteInfo = Multisig;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		A206E801238D65F300786824 /* Multisig.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Multisig.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		A206E804238D65F300786824 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		A206E806238D65F300786824 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		A206E809238D65F300786824 /* Multisig.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Multisig.xcdatamodel; sourceTree = "<group>"; };
+		A206E80B238D65F300786824 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		A206E80D238D65FB00786824 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		A206E810238D65FB00786824 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		A206E813238D65FB00786824 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		A206E815238D65FB00786824 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A206E81A238D65FC00786824 /* MultisigTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MultisigTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		A206E81E238D65FC00786824 /* MultisigTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultisigTests.swift; sourceTree = "<group>"; };
+		A206E820238D65FC00786824 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A206E825238D65FC00786824 /* MultisigUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MultisigUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		A206E829238D65FC00786824 /* MultisigUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultisigUITests.swift; sourceTree = "<group>"; };
+		A206E82B238D65FC00786824 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		A206E7FE238D65F300786824 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A206E817238D65FC00786824 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A206E822238D65FC00786824 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		A206E7F8238D65F300786824 = {
+			isa = PBXGroup;
+			children = (
+				A206E803238D65F300786824 /* Multisig */,
+				A206E81D238D65FC00786824 /* MultisigTests */,
+				A206E828238D65FC00786824 /* MultisigUITests */,
+				A206E802238D65F300786824 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		A206E802238D65F300786824 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				A206E801238D65F300786824 /* Multisig.app */,
+				A206E81A238D65FC00786824 /* MultisigTests.xctest */,
+				A206E825238D65FC00786824 /* MultisigUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		A206E803238D65F300786824 /* Multisig */ = {
+			isa = PBXGroup;
+			children = (
+				A206E804238D65F300786824 /* AppDelegate.swift */,
+				A206E806238D65F300786824 /* SceneDelegate.swift */,
+				A206E80B238D65F300786824 /* ContentView.swift */,
+				A206E80D238D65FB00786824 /* Assets.xcassets */,
+				A206E812238D65FB00786824 /* LaunchScreen.storyboard */,
+				A206E815238D65FB00786824 /* Info.plist */,
+				A206E808238D65F300786824 /* Multisig.xcdatamodeld */,
+				A206E80F238D65FB00786824 /* Preview Content */,
+			);
+			path = Multisig;
+			sourceTree = "<group>";
+		};
+		A206E80F238D65FB00786824 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				A206E810238D65FB00786824 /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		A206E81D238D65FC00786824 /* MultisigTests */ = {
+			isa = PBXGroup;
+			children = (
+				A206E81E238D65FC00786824 /* MultisigTests.swift */,
+				A206E820238D65FC00786824 /* Info.plist */,
+			);
+			path = MultisigTests;
+			sourceTree = "<group>";
+		};
+		A206E828238D65FC00786824 /* MultisigUITests */ = {
+			isa = PBXGroup;
+			children = (
+				A206E829238D65FC00786824 /* MultisigUITests.swift */,
+				A206E82B238D65FC00786824 /* Info.plist */,
+			);
+			path = MultisigUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		A206E800238D65F300786824 /* Multisig */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A206E82E238D65FC00786824 /* Build configuration list for PBXNativeTarget "Multisig" */;
+			buildPhases = (
+				A206E7FD238D65F300786824 /* Sources */,
+				A206E7FE238D65F300786824 /* Frameworks */,
+				A206E7FF238D65F300786824 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Multisig;
+			productName = Multisig;
+			productReference = A206E801238D65F300786824 /* Multisig.app */;
+			productType = "com.apple.product-type.application";
+		};
+		A206E819238D65FC00786824 /* MultisigTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A206E831238D65FC00786824 /* Build configuration list for PBXNativeTarget "MultisigTests" */;
+			buildPhases = (
+				A206E816238D65FC00786824 /* Sources */,
+				A206E817238D65FC00786824 /* Frameworks */,
+				A206E818238D65FC00786824 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				A206E81C238D65FC00786824 /* PBXTargetDependency */,
+			);
+			name = MultisigTests;
+			productName = MultisigTests;
+			productReference = A206E81A238D65FC00786824 /* MultisigTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		A206E824238D65FC00786824 /* MultisigUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A206E834238D65FC00786824 /* Build configuration list for PBXNativeTarget "MultisigUITests" */;
+			buildPhases = (
+				A206E821238D65FC00786824 /* Sources */,
+				A206E822238D65FC00786824 /* Frameworks */,
+				A206E823238D65FC00786824 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				A206E827238D65FC00786824 /* PBXTargetDependency */,
+			);
+			name = MultisigUITests;
+			productName = MultisigUITests;
+			productReference = A206E825238D65FC00786824 /* MultisigUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		A206E7F9238D65F300786824 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1120;
+				LastUpgradeCheck = 1120;
+				ORGANIZATIONNAME = "Purple Dunes";
+				TargetAttributes = {
+					A206E800238D65F300786824 = {
+						CreatedOnToolsVersion = 11.2.1;
+					};
+					A206E819238D65FC00786824 = {
+						CreatedOnToolsVersion = 11.2.1;
+						TestTargetID = A206E800238D65F300786824;
+					};
+					A206E824238D65FC00786824 = {
+						CreatedOnToolsVersion = 11.2.1;
+						TestTargetID = A206E800238D65F300786824;
+					};
+				};
+			};
+			buildConfigurationList = A206E7FC238D65F300786824 /* Build configuration list for PBXProject "Multisig" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = A206E7F8238D65F300786824;
+			productRefGroup = A206E802238D65F300786824 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				A206E800238D65F300786824 /* Multisig */,
+				A206E819238D65FC00786824 /* MultisigTests */,
+				A206E824238D65FC00786824 /* MultisigUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		A206E7FF238D65F300786824 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A206E814238D65FB00786824 /* LaunchScreen.storyboard in Resources */,
+				A206E811238D65FB00786824 /* Preview Assets.xcassets in Resources */,
+				A206E80E238D65FB00786824 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A206E818238D65FC00786824 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A206E823238D65FC00786824 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		A206E7FD238D65F300786824 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A206E805238D65F300786824 /* AppDelegate.swift in Sources */,
+				A206E807238D65F300786824 /* SceneDelegate.swift in Sources */,
+				A206E80C238D65F300786824 /* ContentView.swift in Sources */,
+				A206E80A238D65F300786824 /* Multisig.xcdatamodeld in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A206E816238D65FC00786824 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A206E81F238D65FC00786824 /* MultisigTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A206E821238D65FC00786824 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A206E82A238D65FC00786824 /* MultisigUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		A206E81C238D65FC00786824 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = A206E800238D65F300786824 /* Multisig */;
+			targetProxy = A206E81B238D65FC00786824 /* PBXContainerItemProxy */;
+		};
+		A206E827238D65FC00786824 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = A206E800238D65F300786824 /* Multisig */;
+			targetProxy = A206E826238D65FC00786824 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		A206E812238D65FB00786824 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				A206E813238D65FB00786824 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		A206E82C238D65FC00786824 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		A206E82D238D65FC00786824 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		A206E82F238D65FC00786824 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_ASSET_PATHS = "\"Multisig/Preview Content\"";
+				DEVELOPMENT_TEAM = 227MFQPYQ4;
+				ENABLE_PREVIEWS = YES;
+				INFOPLIST_FILE = Multisig/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = nl.multisig.Multisig;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		A206E830238D65FC00786824 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_ASSET_PATHS = "\"Multisig/Preview Content\"";
+				DEVELOPMENT_TEAM = 227MFQPYQ4;
+				ENABLE_PREVIEWS = YES;
+				INFOPLIST_FILE = Multisig/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = nl.multisig.Multisig;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		A206E832238D65FC00786824 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 227MFQPYQ4;
+				INFOPLIST_FILE = MultisigTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = nl.multisig.MultisigTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Multisig.app/Multisig";
+			};
+			name = Debug;
+		};
+		A206E833238D65FC00786824 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 227MFQPYQ4;
+				INFOPLIST_FILE = MultisigTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = nl.multisig.MultisigTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Multisig.app/Multisig";
+			};
+			name = Release;
+		};
+		A206E835238D65FC00786824 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 227MFQPYQ4;
+				INFOPLIST_FILE = MultisigUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = nl.multisig.MultisigUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = Multisig;
+			};
+			name = Debug;
+		};
+		A206E836238D65FC00786824 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 227MFQPYQ4;
+				INFOPLIST_FILE = MultisigUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = nl.multisig.MultisigUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = Multisig;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		A206E7FC238D65F300786824 /* Build configuration list for PBXProject "Multisig" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A206E82C238D65FC00786824 /* Debug */,
+				A206E82D238D65FC00786824 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A206E82E238D65FC00786824 /* Build configuration list for PBXNativeTarget "Multisig" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A206E82F238D65FC00786824 /* Debug */,
+				A206E830238D65FC00786824 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A206E831238D65FC00786824 /* Build configuration list for PBXNativeTarget "MultisigTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A206E832238D65FC00786824 /* Debug */,
+				A206E833238D65FC00786824 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A206E834238D65FC00786824 /* Build configuration list for PBXNativeTarget "MultisigUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A206E835238D65FC00786824 /* Debug */,
+				A206E836238D65FC00786824 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		A206E808238D65F300786824 /* Multisig.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				A206E809238D65F300786824 /* Multisig.xcdatamodel */,
+			);
+			currentVersion = A206E809238D65F300786824 /* Multisig.xcdatamodel */;
+			path = Multisig.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = A206E7F9238D65F300786824 /* Project object */;
+}
