@@ -103,7 +103,6 @@
 				A451BF0AE21C7337353DD56F /* Pods-MultisigTests.debug.xcconfig */,
 				03E754B72B8C0A69CF96ECC6 /* Pods-MultisigTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};

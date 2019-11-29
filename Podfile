@@ -6,7 +6,7 @@ target 'Multisig' do
   use_frameworks!
 
   # Pods for Multisig
-  pod 'LibWally', :git => 'https://github.com/blockchain/LibWally-Swift.git', :branch => 'master', :submodules => true
+  pod 'LibWally', :git => 'https://github.com/sjors/LibWally-Swift.git', :branch => 'dev', :submodules => true
 
   target 'MultisigTests' do
     inherit! :search_paths
