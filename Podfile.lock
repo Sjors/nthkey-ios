@@ -2,23 +2,23 @@ PODS:
   - LibWally (0.0.1)
 
 DEPENDENCIES:
-  - LibWally (from `https://github.com/blockchain/LibWally-Swift.git`, branch `master`)
+  - LibWally (from `https://github.com/sjors/LibWally-Swift.git`, branch `dev`)
 
 EXTERNAL SOURCES:
   LibWally:
-    :branch: master
-    :git: https://github.com/blockchain/LibWally-Swift.git
+    :branch: dev
+    :git: https://github.com/sjors/LibWally-Swift.git
     :submodules: true
 
 CHECKOUT OPTIONS:
   LibWally:
-    :commit: 97282e9b773ae867c70b547eb11f811ab56090c0
-    :git: https://github.com/blockchain/LibWally-Swift.git
+    :commit: 108aa89a410a4baa702084775620a3cb7d577ef4
+    :git: https://github.com/sjors/LibWally-Swift.git
     :submodules: true
 
 SPEC CHECKSUMS:
   LibWally: 37b7c926e9aa02cc7d4c5a2a2a3a4f8925ea5038
 
-PODFILE CHECKSUM: 46818b84e5c517c7e75addc8949b12ba1a97d9cf
+PODFILE CHECKSUM: f73c8939f60799198abb73888e002f652ff890ba
 
 COCOAPODS: 1.8.4
