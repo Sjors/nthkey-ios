@@ -18,6 +18,7 @@
 		A206E81F238D65FC00786824 /* MultisigTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A206E81E238D65FC00786824 /* MultisigTests.swift */; };
 		A206E82A238D65FC00786824 /* MultisigUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A206E829238D65FC00786824 /* MultisigUITests.swift */; };
 		A29DAAC12391657F006B38D9 /* KeychainEntropyItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A29DAAC02391657F006B38D9 /* KeychainEntropyItem.swift */; };
+		A29DAAC3239180CC006B38D9 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = A29DAAC2239180CC006B38D9 /* README.md */; };
 		AE716AF757D96BC11F4F0E17 /* Pods_Multisig.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F8F3384BDB2BF32D82C91288 /* Pods_Multisig.framework */; };
 		C10E267E872CDFB5CD2E41C1 /* Pods_Multisig_MultisigUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CAE4826CB64559C90D6D5E3A /* Pods_Multisig_MultisigUITests.framework */; };
 /* End PBXBuildFile section */
@@ -62,6 +63,7 @@
 		A206E829238D65FC00786824 /* MultisigUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultisigUITests.swift; sourceTree = "<group>"; };
 		A206E82B238D65FC00786824 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A29DAAC02391657F006B38D9 /* KeychainEntropyItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainEntropyItem.swift; sourceTree = "<group>"; };
+		A29DAAC2239180CC006B38D9 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = SOURCE_ROOT; };
 		A451BF0AE21C7337353DD56F /* Pods-MultisigTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MultisigTests.debug.xcconfig"; path = "Target Support Files/Pods-MultisigTests/Pods-MultisigTests.debug.xcconfig"; sourceTree = "<group>"; };
 		CAE4826CB64559C90D6D5E3A /* Pods_Multisig_MultisigUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Multisig_MultisigUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F8F3384BDB2BF32D82C91288 /* Pods_Multisig.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Multisig.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -143,6 +145,7 @@
 		A206E803238D65F300786824 /* Multisig */ = {
 			isa = PBXGroup;
 			children = (
+				A29DAAC2239180CC006B38D9 /* README.md */,
 				A206E804238D65F300786824 /* AppDelegate.swift */,
 				A29DAAC02391657F006B38D9 /* KeychainEntropyItem.swift */,
 				A206E806238D65F300786824 /* SceneDelegate.swift */,
@@ -293,6 +296,7 @@
 			files = (
 				A206E814238D65FB00786824 /* LaunchScreen.storyboard in Resources */,
 				A206E811238D65FB00786824 /* Preview Assets.xcassets in Resources */,
+				A29DAAC3239180CC006B38D9 /* README.md in Resources */,
 				A206E80E238D65FB00786824 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
