@@ -54,6 +54,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         let path = BIP32Path("m/48h/1h/0h/2h")!
         let account = try! masterKey.derive(path)
+
+        // Coldcard compatible JSON format:
+        NSLog("{\"xfp\": \"%@\", \"p2wsh_deriv\": \"m/48'/1'/0'/2'\", \"p2wsh\": \"%@\"}", masterKey.fingerprint.hexString.uppercased(), account.xpub)
+
         return true
     }
 
