@@ -9,14 +9,51 @@
 
 import UIKit
 import CoreData
+import LibWally
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
-
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+        var masterKey: HDKey
+        
+        let defaults = UserDefaults.standard
+        
+        if let fingerprint = defaults.data(forKey: "masterKeyFingerprint") {
+            let entropyItem = KeychainEntropyItem(service: "MultisigService", fingerprint: fingerprint, accessGroup: nil)
+
+            // Uncomment to reset
+//             defaults.removeObject(forKey: "masterKeyFingerprint")
+//             try! entropyItem.deleteItem()
+//             return false
+
+            // TODO: handle error
+            let entropy = try! entropyItem.readEntropy()
+            let mnemonic = BIP39Mnemonic(entropy)!
+            let seedHex = mnemonic.seedHex()
+            masterKey = HDKey(seedHex, .testnet)!
+            assert(masterKey.fingerprint == fingerprint)
+            // Uncomment to print mnemonic for backup (obviously unsafe)
+//            NSLog("%@", mnemonic.description)
+        } else {
+            var bytes = [Int8](repeating: 0, count: 32)
+            let status = SecRandomCopyBytes(kSecRandomDefault, bytes.count, &bytes)
+            let entropy = BIP39Entropy(Data(bytes: bytes, count: bytes.count))
+            let seedHex = BIP39Mnemonic(entropy)!.seedHex()
+            masterKey = HDKey(seedHex, .testnet)!
+
+            if status == errSecSuccess { // Always test the status.
+                let seedItem = KeychainEntropyItem(service: "MultisigService", fingerprint: masterKey.fingerprint, accessGroup: nil)
+                // TODO: handle error
+                try! seedItem.saveEntropy(entropy)
+                defaults.set(masterKey.fingerprint, forKey: "masterKeyFingerprint")
+            }
+            
+        }
+        
+        let path = BIP32Path("m/48h/1h/0h/2h")!
+        let account = try! masterKey.derive(path)
         return true
     }
 
