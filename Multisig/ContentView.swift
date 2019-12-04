@@ -11,25 +11,26 @@ import SwiftUI
 
 struct ContentView: View {
     @State private var selection = 0
+    
+    let settings = SettingsViewController()
  
     var body: some View {
         TabView(selection: $selection){
-            Text("First View")
+            Text("Addresses")
                 .font(.title)
                 .tabItem {
                     VStack {
                         Image("first")
-                        Text("First")
+                        Text("Addresses")
                     }
                 }
                 .tag(0)
-            Text("Second View")
+            Text("Settings")
                 .font(.title)
                 .tabItem {
-                    VStack {
-                        Image("second")
-                        Text("Second")
-                    }
+                    settings
+                }.onAppear {
+                    self.settings.viewDidAppear(false)
                 }
                 .tag(1)
         }

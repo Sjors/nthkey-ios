@@ -19,6 +19,7 @@
 		A206E82A238D65FC00786824 /* MultisigUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A206E829238D65FC00786824 /* MultisigUITests.swift */; };
 		A29DAAC12391657F006B38D9 /* KeychainEntropyItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A29DAAC02391657F006B38D9 /* KeychainEntropyItem.swift */; };
 		A29DAAC3239180CC006B38D9 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = A29DAAC2239180CC006B38D9 /* README.md */; };
+		A29DAAC523982271006B38D9 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A29DAAC423982271006B38D9 /* SettingsViewController.swift */; };
 		AE716AF757D96BC11F4F0E17 /* Pods_Multisig.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F8F3384BDB2BF32D82C91288 /* Pods_Multisig.framework */; };
 		C10E267E872CDFB5CD2E41C1 /* Pods_Multisig_MultisigUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CAE4826CB64559C90D6D5E3A /* Pods_Multisig_MultisigUITests.framework */; };
 /* End PBXBuildFile section */
@@ -64,6 +65,7 @@
 		A206E82B238D65FC00786824 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A29DAAC02391657F006B38D9 /* KeychainEntropyItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainEntropyItem.swift; sourceTree = "<group>"; };
 		A29DAAC2239180CC006B38D9 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = SOURCE_ROOT; };
+		A29DAAC423982271006B38D9 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		A451BF0AE21C7337353DD56F /* Pods-MultisigTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MultisigTests.debug.xcconfig"; path = "Target Support Files/Pods-MultisigTests/Pods-MultisigTests.debug.xcconfig"; sourceTree = "<group>"; };
 		CAE4826CB64559C90D6D5E3A /* Pods_Multisig_MultisigUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Multisig_MultisigUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F8F3384BDB2BF32D82C91288 /* Pods_Multisig.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Multisig.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -150,6 +152,7 @@
 				A29DAAC02391657F006B38D9 /* KeychainEntropyItem.swift */,
 				A206E806238D65F300786824 /* SceneDelegate.swift */,
 				A206E80B238D65F300786824 /* ContentView.swift */,
+				A29DAAC423982271006B38D9 /* SettingsViewController.swift */,
 				A206E80D238D65FB00786824 /* Assets.xcassets */,
 				A206E812238D65FB00786824 /* LaunchScreen.storyboard */,
 				A206E815238D65FB00786824 /* Info.plist */,
@@ -430,6 +433,7 @@
 				A206E807238D65F300786824 /* SceneDelegate.swift in Sources */,
 				A206E80C238D65F300786824 /* ContentView.swift in Sources */,
 				A206E80A238D65F300786824 /* Multisig.xcdatamodeld in Sources */,
+				A29DAAC523982271006B38D9 /* SettingsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
