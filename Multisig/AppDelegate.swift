@@ -57,6 +57,25 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         // Coldcard compatible JSON format:
         NSLog("{\"xfp\": \"%@\", \"p2wsh_deriv\": \"m/48'/1'/0'/2'\", \"p2wsh\": \"%@\"}", masterKey.fingerprint.hexString.uppercased(), account.xpub)
+        
+        // Print receive address
+        if let encodedCosigners = UserDefaults.standard.array(forKey: "cosigners") {
+            precondition(!encodedCosigners.isEmpty)
+            let encodedCosigner = encodedCosigners[0] as! Data
+            let cosigner = try! NSKeyedUnarchiver.unarchivedObject(ofClass: Signer.self, from: encodedCosigner)!
+            
+            let threshold = UserDefaults.standard.integer(forKey: "threshold")
+            precondition(threshold > 0)
+
+            let receiveIndex = 0
+            let ourKey = try! masterKey.derive(BIP32Path("m/48h/1'/0'/2'/0/" + String(receiveIndex))!)
+            let theirKey = try! cosigner.hdKey.derive(BIP32Path("0/" + String(receiveIndex))!)
+            let scriptPubKey = ScriptPubKey(multisig: [ourKey.pubKey, theirKey.pubKey], threshold: 2)
+            let receiveAddress = Address(scriptPubKey, .testnet)!
+            print(receiveAddress)
+        } else {
+            print("Configure cosigner in Settings")
+        }
 
         return true
     }
