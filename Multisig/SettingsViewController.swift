@@ -9,6 +9,7 @@
 import SwiftUI
 import UIKit
 import MobileCoreServices
+import LibWally
 
 final class SettingsViewController : UIViewController, UIDocumentPickerDelegate {
     
@@ -17,13 +18,25 @@ final class SettingsViewController : UIViewController, UIDocumentPickerDelegate 
     
     override func viewDidAppear(_ animated: Bool) {
         // Prompt user to open JSON file if no wallet exists yet
-        let types: [String] = [kUTTypeJSON as String]
-        let documentPicker = UIDocumentPickerViewController(documentTypes: types, in: .import)
-        documentPicker.delegate = self
-        documentPicker.modalPresentationStyle = .formSheet
-        
-        DispatchQueue.main.async {
-            self.getTopMostViewController()?.present(documentPicker, animated: true, completion: nil)
+        let defaults = UserDefaults.standard
+        if let encodedCosigners = defaults.array(forKey: "cosigners") {
+            if encodedCosigners.isEmpty {
+                print("Unexpected empty cosigners array")
+                return
+            }
+            let encodedCosigner = encodedCosigners[0] as! Data
+            let cosigner = try! NSKeyedUnarchiver.unarchivedObject(ofClass: Signer.self, from: encodedCosigner)!
+            print("Cosigner: " + cosigner.fingerprint.hexString.uppercased())
+
+        } else {
+            let types: [String] = [kUTTypeJSON as String]
+            let documentPicker = UIDocumentPickerViewController(documentTypes: types, in: .import)
+            documentPicker.delegate = self
+            documentPicker.modalPresentationStyle = .formSheet
+            
+            DispatchQueue.main.async {
+                self.getTopMostViewController()?.present(documentPicker, animated: true, completion: nil)
+            }
         }
     }
     
@@ -57,7 +70,19 @@ final class SettingsViewController : UIViewController, UIDocumentPickerDelegate 
                 let p2wsh_deriv = jsonResult["p2wsh_deriv"],
                 let p2wsh = jsonResult["p2wsh"]
             {
-                NSLog("%@ %@ %@" , xfp, p2wsh_deriv, p2wsh)
+                let vpub = Data(base58: p2wsh)!
+                let vpubMarker = Data("02575483")! // Vpub (testnet, p2wsh, public)
+                if (vpub.subdata(in: 0..<4) != vpubMarker) {
+                    NSLog("Expected Vpub marker 0x%@, got 0x%@", vpubMarker.hexString, vpub.subdata(in: 0..<4).hexString)
+                    return
+                }
+                let p2wsh_tpub = Data("043587cf")! + vpub.subdata(in: 4..<vpub.count)
+                let cosigner = Signer(fingerprint: Data(xfp)!, derivation: BIP32Path(p2wsh_deriv)!, hdKey: HDKey(p2wsh_tpub.base58)!)
+                let encoded = try! NSKeyedArchiver.archivedData(withRootObject: cosigner, requiringSecureCoding: true)
+                let defaults = UserDefaults.standard
+                defaults.set([encoded], forKey: "cosigners")
+                defaults.set(2, forKey: "threshold")
+                NSLog("Cosigner %@ added" , xfp)
             }
         } catch {
             NSLog("Something went wrong parsing JSON file")
