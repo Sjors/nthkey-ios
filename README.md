@@ -102,9 +102,11 @@ src/bitcoin-cli -testnet -rpcwallet=iOsMulti generatenewaddress "" bech32
 
 Or use Bitoin QT, load the wallet (File -> Open Wallet) and select it (top-right drop down), go to the Receive tab and click "Create new receiving address".
 
-There is currently no way to verify this address on either the Coldcard or iOs wallet. Work in progress pull requests:
+There is currently no way to verify this address on the Coldcard. Work in progress pull requests:
 * https://github.com/Coldcard/firmware/pull/25
 * https://github.com/bitcoin-core/HWI/pull/279 (requires [HWI](https://github.com/bitcoin-core/HWI/pull/279) and connecting via USB)
+
+To verify the address on iOs, go to the "Addresses" tab.
 
 I recommend funding the default Bitcoin Core testnet wallet from a faucet, and then send a small amount to the mutlisig wallet. That way you can try again if the coins are permanently lost. 
 
