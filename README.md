@@ -55,9 +55,11 @@ src/bitcoin-cli -testnet createwallet iOsMulti true true "" true true
 
 For testnet you can use either a physical device or a simulator: https://github.com/Coldcard/firmware
 
-In the example below `00000001` represents the master key fingerprint of your iOs wallet and `00000002` that of your Coldcard. 
+In the example below `00000001` represents the master key fingerprint of your iOs wallet and `00000002` that of your Coldcard.
 
-Copy the generated JSON from the debug console and save it as: `ccxp-00000001.json` on the SD card where you replace `00000001` with the value of the `"xfr"` field (master key fingerprint). On the Coldcard, go to "Setttings" -> "Multisig"  -> "Create Airgapped". The Coldcard will generate a multisig wallet between itself and iOs. It should show up as `CC-2-of-2`. Select it and click on "Electrum Wallet". This saves the wallet information we need to the SD card in a format compatible with Electrum (I haven't tested this):
+We need to give the Coldcard the iOs keys, by pretending it's another Coldcard. Conversely we need to give the iOs device the Coldcard keys.
+
+In the app, go to the Settings tab -> "Export public key". You can save it on iCloud Drive first, and then on a Mac drag it to an SD card. It'll be called  `ccxp-00000001.json` . On the Coldcard, go to "Setttings" -> "Multisig"  -> "Create Airgapped". The Coldcard will generate a multisig wallet between itself and iOs. It should show up as `CC-2-of-2`. Select it and click on "Electrum Wallet". This saves the wallet information we need to the SD card in a format compatible with Electrum (I haven't tested this):
 
 ```
 # Coldcard Multisig setup file (created on 00000002)
@@ -71,7 +73,10 @@ Format: P2WSH
 00000001: tpub...
 ```
 
-To import this into Bitcoin Core:
+Now let's export the key from Coldcard and import that into iOs. On the Coldcard, go to "Setttings" -> "Multisig"  -> "Export XPUB". This will create a file  `ccxp-00000002.json`. In the iOs app go to Settings -> "Add cosigner". Select the newly created file.
+
+
+To import into Bitcoin Core:
 
 ```
 F_CC=00000002

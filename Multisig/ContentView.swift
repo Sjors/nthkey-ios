@@ -8,12 +8,14 @@
 //
 
 import SwiftUI
+import Combine
 
 struct ContentView: View {
     @State private var selection = 0
+    @ObservedObject var defaults = UserDefaultsManager()
     
     let settings = SettingsViewController()
- 
+    
     var body: some View {
         TabView(selection: $selection){
             Text("Addresses")
@@ -25,14 +27,35 @@ struct ContentView: View {
                     }
                 }
                 .tag(0)
-            Text("Settings")
-                .font(.title)
-                .tabItem {
-                    settings
-                }.onAppear {
-                    self.settings.viewDidAppear(false)
+            HStack{
+                VStack(alignment: .leading, spacing: 20.0){
+                    Button(action: {
+                        self.settings.exportPublicKey()
+                    }) {
+                        Text("Export public key")
+                    }
+                    Button(action: {
+                        self.settings.addCosigner()
+                    }) {
+                        Text("Add cosigner")
+                    }
+                    .disabled(self.defaults.hasCosigners)
+                    Button(action: {
+                        UserDefaults.standard.removeObject(forKey: "cosigners")
+                    }) {
+                        Text("Wipe cosigners")
+                    }
+                    .disabled(!self.defaults.hasCosigners)
                 }
-                .tag(1)
+            }
+            .tabItem {
+                VStack {
+                    Image("second")
+                    Text("Settings")
+                }
+                settings // TODO: avoid sticking UIViewController in a tab item
+            }
+            .tag(1)
         }
     }
 }
@@ -42,3 +65,18 @@ struct ContentView_Previews: PreviewProvider {
         ContentView()
     }
 }
+
+class UserDefaultsManager: ObservableObject {
+    @Published var hasCosigners: Bool = UserDefaults.standard.array(forKey: "cosigners") != nil
+    private var notificationSubscription: AnyCancellable?
+
+    init() {
+        notificationSubscription = NotificationCenter.default.publisher(for: UserDefaults.didChangeNotification).sink { _ in
+            self.hasCosigners = UserDefaults.standard.array(forKey: "cosigners") != nil
+            self.objectWillChange.send()
+         }
+        
+    }
+    
+}
+
