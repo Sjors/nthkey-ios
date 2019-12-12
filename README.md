@@ -23,7 +23,12 @@ pod install --verbose
 
 ## Wallet setup
 
-Build the app in Xcode, connect an iOs device and run the application. A JSON string is printed in the debug console.
+You will be using Bitcoin Core to generate receive addresses, and this app to
+verify them. Similarly you'll use Bitcoin Core to compose transactions drafts,
+which you can then sign with this app.
+
+The second key can either be the same app on a different iOs device, a ColdCard
+or any hardware wallet with PSBT support and a compatible public key export format.
 
 ### Bitcoin Core
 
@@ -101,11 +106,20 @@ There is currently no way to verify this address on the Coldcard. Work in progre
 
 To verify the address on iOs, go to the "Addresses" tab.
 
-I recommend funding the default Bitcoin Core testnet wallet from a faucet, and then send a small amount to the mutlisig wallet. That way you can try again if the coins are permanently lost. 
+I recommend funding the default Bitcoin Core testnet wallet from a faucet, and then send a small amount to the mutlisig wallet. That way you can try again if the coins are permanently lost.
 
 ## Spend from wallet
 
 Warning:  there is no spending code yet. The instructions here only cover the other multisig participants.
+
+The first step is to create a draft transaction in Bitcoin and save the PSBT.
+
+## Bitcoin Core draft
+
+Go to the send screen and draft a transaction as usual. Instead of "Send"
+you'll see a button Create Unsigned. This copies a PSBT to your clipboard.
+
+Copy the "psbt" part of the result. You'll need this in the next steps.
 
 ### iOs
 
@@ -113,11 +127,7 @@ TODO
 
 ### Coldcard
 
-```
-src/bitcoin-cli -testnet -rpcwallet=iOsMulti walletcreatefundedpsbt '[]' '[{"tb1q...": 0.0001}]' 0 '{}' true
-```
-
-Copy the "psbt" part of the result and do:
+With the PSBT copied from Bitcoin Core:
 
 ```
 echo "cH...A=" | base64 --decode --output tx.psbt
@@ -131,16 +141,17 @@ You can inspect the partially signed PSBT:
 src/bitcoin-cli -testnet "`base64 --input tx-part.psbt`"
 ```
 
+## Bitcoin Core combine and broadcast
 
+TODO
 
 ### GUI future
 
 There is work in progress to allow creating, saving and load PSBTs from the GUI:
 
-* https://github.com/bitcoin/bitcoin/pull/16944 (descriptor wallet PR needs to be rebased to include this)
 * https://github.com/bitcoin/bitcoin/pull/17509
 * https://github.com/bitcoin/bitcoin/issues/17619
 
-Once that's in place, the GUI workflow will be to create a transaction as usual, but to click "Save PSBT" instead of "Send", save it on the SD card, sign with ColdCard and load it again with Bitcoin Core. Similarly and in parallel, once the app supports it, you would sign it there and load / copy the result back into Bitcoin Core. Once all signatures are found, it would combine them and broadcast the transaction. 
+Once that's in place, the GUI workflow will be to create a transaction as usual, but to click "Save PSBT" instead of "Send", save it on the SD card, sign with ColdCard and load it again with Bitcoin Core. Similarly and in parallel, once the app supports it, you would sign it there and load / copy the result back into Bitcoin Core. Once all signatures are found, it would combine them and broadcast the transaction.
 
 ## Known issues
