@@ -75,20 +75,13 @@ Format: P2WSH
 
 Now let's export the key from Coldcard and import that into iOs. On the Coldcard, go to "Setttings" -> "Multisig"  -> "Export XPUB". This will create a file  `ccxp-00000002.json`. In the iOs app go to Settings -> "Add cosigner". Select the newly created file.
 
+## Bitcoin Core
 
-To import into Bitcoin Core:
+To import into Bitcoin Core, in the app go to Settings ->  "Export to Bitcoin Core". This will print a command:
 
 ```
-F_CC=00000002
-F_IOS=00000001
-TPUB_CC=tpub...
-TPUB_IOS=tpub...
-src/bitcoin-cli -testnet -rpcwallet=iOsMulti importdescriptors "[{\"desc\": \"wsh(sortedmulti(2,[$F_CC/48h/1h/0h/2h]$TPUB_CC/0/*,[$F_IOS/48h/1h/0h/2h]$TPUB_IOS/0/*))#00000000\", \"range\": [0, 1000], \"timestamp\": \"now\", \"active\": true}, {\"desc\": \"wsh(sortedmulti(2,[$F_CC/48h/1h/0h/2h]$TPUB_CC/1/*,[$F_IOS/48h/1h/0h/2h]$TPUB_IOS/1/*))#00000000\", \"range\": [0, 1000], \"timestamp\": \"now\", \"active\": true, \"internal\": true}]"
+src/bitcoin-cli -testnet -rpcwallet=iOsMulti importdescriptors "[{\"desc\": \"wsh(sortedmulti( ... active":true}]'
 ```
-
-The `sortedmulti` part ensures it's [BIP67](https://github.com/bitcoin/bips/blob/master/bip-0067.mediawiki) compatible. This means order doesn't matter, but I suggest using the same order as in the setup file anyway. The pair of `tpub...` is repeated twice, once for receive `/0/*` and once for change `/1/*` addresses. We use `h` in the derivation instead of `'` to avoid the need for string escaping.
-
-If you set the policy to `1 of 2` just replace `sortedmulti(2` with `sortedmulti(1`.
 
 This will complain that the [descriptor](https://github.com/bitcoin/bitcoin/blob/master/doc/descriptors.md) has an incorrect checksum `#00000000`. Because this is testnet, just copy the correct checksums from the error message and try again.
 

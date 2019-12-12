@@ -24,6 +24,12 @@ struct SettingsView : View {
                     Text("Export public key")
                 }
                 Button(action: {
+                    self.settings.exportBitcoinCore()
+                }) {
+                    Text("Export to Bitcoin Core")
+                }
+                .disabled(!self.defaults.hasCosigners)
+                Button(action: {
                     self.settings.addCosigner()
                 }) {
                     Text("Add cosigner")
