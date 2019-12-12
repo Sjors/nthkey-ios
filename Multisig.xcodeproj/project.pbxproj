@@ -19,6 +19,8 @@
 		A206E82A238D65FC00786824 /* MultisigUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A206E829238D65FC00786824 /* MultisigUITests.swift */; };
 		A27180B223A291B500E9F443 /* MultisigAddress.swift in Sources */ = {isa = PBXBuildFile; fileRef = A27180B123A291B500E9F443 /* MultisigAddress.swift */; };
 		A27180B623A293EA00E9F443 /* AddressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A27180B523A293EA00E9F443 /* AddressView.swift */; };
+		A27D4BF623A2B4F30055B0B8 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A27D4BF523A2B4F30055B0B8 /* SettingsView.swift */; };
+		A27D4BF823A2B7040055B0B8 /* UserDefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A27D4BF723A2B7040055B0B8 /* UserDefaultsManager.swift */; };
 		A29DAAC12391657F006B38D9 /* KeychainEntropyItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A29DAAC02391657F006B38D9 /* KeychainEntropyItem.swift */; };
 		A29DAAC3239180CC006B38D9 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = A29DAAC2239180CC006B38D9 /* README.md */; };
 		A29DAAC523982271006B38D9 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A29DAAC423982271006B38D9 /* SettingsViewController.swift */; };
@@ -69,6 +71,8 @@
 		A206E82B238D65FC00786824 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A27180B123A291B500E9F443 /* MultisigAddress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultisigAddress.swift; sourceTree = "<group>"; };
 		A27180B523A293EA00E9F443 /* AddressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressView.swift; sourceTree = "<group>"; };
+		A27D4BF523A2B4F30055B0B8 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		A27D4BF723A2B7040055B0B8 /* UserDefaultsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsManager.swift; sourceTree = "<group>"; };
 		A29DAAC02391657F006B38D9 /* KeychainEntropyItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainEntropyItem.swift; sourceTree = "<group>"; };
 		A29DAAC2239180CC006B38D9 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = SOURCE_ROOT; };
 		A29DAAC423982271006B38D9 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
@@ -203,6 +207,7 @@
 				A29DAAC02391657F006B38D9 /* KeychainEntropyItem.swift */,
 				A27180B123A291B500E9F443 /* MultisigAddress.swift */,
 				A2F8575E23991354008A44E6 /* Signer.swift */,
+				A27D4BF723A2B7040055B0B8 /* UserDefaultsManager.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -212,6 +217,7 @@
 			children = (
 				A27180B523A293EA00E9F443 /* AddressView.swift */,
 				A206E80B238D65F300786824 /* ContentView.swift */,
+				A27D4BF523A2B4F30055B0B8 /* SettingsView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -460,7 +466,9 @@
 				A206E805238D65F300786824 /* AppDelegate.swift in Sources */,
 				A206E807238D65F300786824 /* SceneDelegate.swift in Sources */,
 				A206E80C238D65F300786824 /* ContentView.swift in Sources */,
+				A27D4BF823A2B7040055B0B8 /* UserDefaultsManager.swift in Sources */,
 				A206E80A238D65F300786824 /* Multisig.xcdatamodeld in Sources */,
+				A27D4BF623A2B4F30055B0B8 /* SettingsView.swift in Sources */,
 				A27180B623A293EA00E9F443 /* AddressView.swift in Sources */,
 				A29DAAC523982271006B38D9 /* SettingsViewController.swift in Sources */,
 				A27180B223A291B500E9F443 /* MultisigAddress.swift in Sources */,
