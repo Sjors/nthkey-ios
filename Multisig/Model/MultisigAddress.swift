@@ -15,7 +15,7 @@ struct MultisigAddress : Identifiable {
     
     static var receivePublicHDkeys: [HDKey] = []
     
-    init(_ receiveIndex: UInt) {
+    init(_ receiveIndex: UInt, network: Network = .testnet) {
         if MultisigAddress.receivePublicHDkeys.isEmpty {
             let encodedCosigners = UserDefaults.standard.array(forKey: "cosigners")!
             precondition(!encodedCosigners.isEmpty)
@@ -27,7 +27,7 @@ struct MultisigAddress : Identifiable {
             let entropy = try! entropyItem.readEntropy()
             let mnemonic = BIP39Mnemonic(entropy)!
             let seedHex = mnemonic.seedHex()
-            let masterKey = HDKey(seedHex, .testnet)!
+            let masterKey = HDKey(seedHex, network)!
             assert(masterKey.fingerprint == fingerprint)
         
             let encodedCosigner = encodedCosigners[0] as! Data
@@ -36,7 +36,15 @@ struct MultisigAddress : Identifiable {
             let threshold = UserDefaults.standard.integer(forKey: "threshold")
             precondition(threshold > 0)
 
-            MultisigAddress.receivePublicHDkeys.append(try! masterKey.derive(BIP32Path("m/48h/1'/0'/2'/0")!))
+            let cointype: String
+            switch (network) {
+            case .mainnet:
+                cointype = "0h"
+            case .testnet:
+                cointype = "1h"
+            }
+            
+            MultisigAddress.receivePublicHDkeys.append(try! masterKey.derive(BIP32Path("m/48h/\(cointype)/0h/2h/0")!))
             MultisigAddress.receivePublicHDkeys.append(try! cosigner.hdKey.derive(BIP32Path("0")!))
         }
         precondition(!MultisigAddress.receivePublicHDkeys.isEmpty)
@@ -49,7 +57,7 @@ struct MultisigAddress : Identifiable {
         }
 
         let scriptPubKey = ScriptPubKey(multisig: pubKeys, threshold: 2)
-        let receiveAddress = Address(scriptPubKey, .testnet)!
+        let receiveAddress = Address(scriptPubKey, network)!
 
         self.description = receiveAddress.description
         self.receiveIndex = receiveIndex
