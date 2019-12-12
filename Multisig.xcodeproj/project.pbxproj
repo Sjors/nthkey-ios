@@ -17,6 +17,8 @@
 		A206E814238D65FB00786824 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A206E812238D65FB00786824 /* LaunchScreen.storyboard */; };
 		A206E81F238D65FC00786824 /* MultisigTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A206E81E238D65FC00786824 /* MultisigTests.swift */; };
 		A206E82A238D65FC00786824 /* MultisigUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A206E829238D65FC00786824 /* MultisigUITests.swift */; };
+		A27180B223A291B500E9F443 /* MultisigAddress.swift in Sources */ = {isa = PBXBuildFile; fileRef = A27180B123A291B500E9F443 /* MultisigAddress.swift */; };
+		A27180B623A293EA00E9F443 /* AddressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A27180B523A293EA00E9F443 /* AddressView.swift */; };
 		A29DAAC12391657F006B38D9 /* KeychainEntropyItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A29DAAC02391657F006B38D9 /* KeychainEntropyItem.swift */; };
 		A29DAAC3239180CC006B38D9 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = A29DAAC2239180CC006B38D9 /* README.md */; };
 		A29DAAC523982271006B38D9 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A29DAAC423982271006B38D9 /* SettingsViewController.swift */; };
@@ -65,6 +67,8 @@
 		A206E825238D65FC00786824 /* MultisigUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MultisigUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A206E829238D65FC00786824 /* MultisigUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultisigUITests.swift; sourceTree = "<group>"; };
 		A206E82B238D65FC00786824 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A27180B123A291B500E9F443 /* MultisigAddress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultisigAddress.swift; sourceTree = "<group>"; };
+		A27180B523A293EA00E9F443 /* AddressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressView.swift; sourceTree = "<group>"; };
 		A29DAAC02391657F006B38D9 /* KeychainEntropyItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainEntropyItem.swift; sourceTree = "<group>"; };
 		A29DAAC2239180CC006B38D9 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = SOURCE_ROOT; };
 		A29DAAC423982271006B38D9 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
@@ -152,11 +156,10 @@
 			isa = PBXGroup;
 			children = (
 				A29DAAC2239180CC006B38D9 /* README.md */,
+				A27180B323A2939A00E9F443 /* Model */,
+				A27180B423A293BC00E9F443 /* View */,
 				A206E804238D65F300786824 /* AppDelegate.swift */,
-				A29DAAC02391657F006B38D9 /* KeychainEntropyItem.swift */,
-				A2F8575E23991354008A44E6 /* Signer.swift */,
 				A206E806238D65F300786824 /* SceneDelegate.swift */,
-				A206E80B238D65F300786824 /* ContentView.swift */,
 				A29DAAC423982271006B38D9 /* SettingsViewController.swift */,
 				A206E80D238D65FB00786824 /* Assets.xcassets */,
 				A206E812238D65FB00786824 /* LaunchScreen.storyboard */,
@@ -192,6 +195,25 @@
 				A206E82B238D65FC00786824 /* Info.plist */,
 			);
 			path = MultisigUITests;
+			sourceTree = "<group>";
+		};
+		A27180B323A2939A00E9F443 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				A29DAAC02391657F006B38D9 /* KeychainEntropyItem.swift */,
+				A27180B123A291B500E9F443 /* MultisigAddress.swift */,
+				A2F8575E23991354008A44E6 /* Signer.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		A27180B423A293BC00E9F443 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				A27180B523A293EA00E9F443 /* AddressView.swift */,
+				A206E80B238D65F300786824 /* ContentView.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -439,7 +461,9 @@
 				A206E807238D65F300786824 /* SceneDelegate.swift in Sources */,
 				A206E80C238D65F300786824 /* ContentView.swift in Sources */,
 				A206E80A238D65F300786824 /* Multisig.xcdatamodeld in Sources */,
+				A27180B623A293EA00E9F443 /* AddressView.swift in Sources */,
 				A29DAAC523982271006B38D9 /* SettingsViewController.swift in Sources */,
+				A27180B223A291B500E9F443 /* MultisigAddress.swift in Sources */,
 				A2F8575F23991354008A44E6 /* Signer.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
