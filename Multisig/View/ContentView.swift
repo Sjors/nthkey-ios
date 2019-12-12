@@ -13,7 +13,6 @@ import LibWally
 
 struct ContentView: View {
     @State private var selection = 0
-    @ObservedObject var addressManager = AddressManager() // TODO: use Core Data
     @ObservedObject var defaults = UserDefaultsManager()
     
     let settings = SettingsViewController()
@@ -25,7 +24,12 @@ struct ContentView: View {
                     Text("Addresses")
                         .font(.title)
                     if (self.defaults.hasCosigners) {
-                        Text(self.addressManager.address).font(.system(.body, design: .monospaced))
+                        List {
+                            ForEach((0...1000).map {i in MultisigAddress(i)}) { address in
+                                AddressView(address)
+                            }
+                        }
+
                     } else {
                         Text("Go to Settings to add cosigners")
                     }
@@ -90,47 +94,3 @@ class UserDefaultsManager: ObservableObject {
     }
     
 }
-
-class AddressManager: ObservableObject {
-    @Published var address: String = ""
-    private var notificationSubscription: AnyCancellable?
-
-    init() {
-        notificationSubscription = NotificationCenter.default.publisher(for: UserDefaults.didChangeNotification).sink { _ in
-            
-            if let encodedCosigners = UserDefaults.standard.array(forKey: "cosigners") {
-                precondition(!encodedCosigners.isEmpty)
-                
-                let fingerprint = UserDefaults.standard.data(forKey: "masterKeyFingerprint")!
-                
-                let entropyItem = KeychainEntropyItem(service: "MultisigService", fingerprint: fingerprint, accessGroup: nil)
-
-                // TODO: handle error
-                let entropy = try! entropyItem.readEntropy()
-                let mnemonic = BIP39Mnemonic(entropy)!
-                let seedHex = mnemonic.seedHex()
-                let masterKey = HDKey(seedHex, .testnet)!
-                assert(masterKey.fingerprint == fingerprint)
-            
-                let encodedCosigner = encodedCosigners[0] as! Data
-                let cosigner = try! NSKeyedUnarchiver.unarchivedObject(ofClass: Signer.self, from: encodedCosigner)!
-                
-                let threshold = UserDefaults.standard.integer(forKey: "threshold")
-                precondition(threshold > 0)
-
-                let receiveIndex = 0
-                let ourKey = try! masterKey.derive(BIP32Path("m/48h/1'/0'/2'/0/" + String(receiveIndex))!)
-                let theirKey = try! cosigner.hdKey.derive(BIP32Path("0/" + String(receiveIndex))!)
-                let scriptPubKey = ScriptPubKey(multisig: [ourKey.pubKey, theirKey.pubKey], threshold: 2)
-                let receiveAddress = Address(scriptPubKey, .testnet)!
-                self.address = receiveAddress.description
-            }
-
-            self.objectWillChange.send()
-         }
-        
-    }
-    
-}
-
-
