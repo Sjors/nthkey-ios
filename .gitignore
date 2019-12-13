@@ -6,3 +6,7 @@ xcuserdata/
 
 ## Cocoapods
 Pods/
+
+## Jekyll
+_site
+docs/.jekyll-metadata
