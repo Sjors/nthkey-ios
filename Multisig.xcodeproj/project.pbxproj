@@ -26,6 +26,7 @@
 		A29DAAC12391657F006B38D9 /* KeychainEntropyItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A29DAAC02391657F006B38D9 /* KeychainEntropyItem.swift */; };
 		A29DAAC3239180CC006B38D9 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = A29DAAC2239180CC006B38D9 /* README.md */; };
 		A29DAAC523982271006B38D9 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A29DAAC423982271006B38D9 /* SettingsViewController.swift */; };
+		A2C800F523A3943000111EAF /* FileViewControllerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2C800F423A3943000111EAF /* FileViewControllerManager.swift */; };
 		A2F8575F23991354008A44E6 /* Signer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2F8575E23991354008A44E6 /* Signer.swift */; };
 		A2F85761239918FF008A44E6 /* SignerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2F85760239918FF008A44E6 /* SignerTests.swift */; };
 		AE716AF757D96BC11F4F0E17 /* Pods_Multisig.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F8F3384BDB2BF32D82C91288 /* Pods_Multisig.framework */; };
@@ -80,6 +81,7 @@
 		A29DAAC02391657F006B38D9 /* KeychainEntropyItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainEntropyItem.swift; sourceTree = "<group>"; };
 		A29DAAC2239180CC006B38D9 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = SOURCE_ROOT; };
 		A29DAAC423982271006B38D9 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		A2C800F423A3943000111EAF /* FileViewControllerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileViewControllerManager.swift; sourceTree = "<group>"; };
 		A2F8575E23991354008A44E6 /* Signer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Signer.swift; sourceTree = "<group>"; };
 		A2F85760239918FF008A44E6 /* SignerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignerTests.swift; sourceTree = "<group>"; };
 		A451BF0AE21C7337353DD56F /* Pods-MultisigTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MultisigTests.debug.xcconfig"; path = "Target Support Files/Pods-MultisigTests/Pods-MultisigTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -167,6 +169,7 @@
 				A27180B323A2939A00E9F443 /* Model */,
 				A27180B423A293BC00E9F443 /* View */,
 				A206E804238D65F300786824 /* AppDelegate.swift */,
+				A2C800F423A3943000111EAF /* FileViewControllerManager.swift */,
 				A206E806238D65F300786824 /* SceneDelegate.swift */,
 				A29DAAC423982271006B38D9 /* SettingsViewController.swift */,
 				A206E80D238D65FB00786824 /* Assets.xcassets */,
@@ -476,6 +479,7 @@
 				A206E80A238D65F300786824 /* Multisig.xcdatamodeld in Sources */,
 				A27D4BF623A2B4F30055B0B8 /* SettingsView.swift in Sources */,
 				A27180B623A293EA00E9F443 /* AddressView.swift in Sources */,
+				A2C800F523A3943000111EAF /* FileViewControllerManager.swift in Sources */,
 				A29DAAC523982271006B38D9 /* SettingsViewController.swift in Sources */,
 				A27180B223A291B500E9F443 /* MultisigAddress.swift in Sources */,
 				A27D4BFA23A2BA1A0055B0B8 /* BitcoinCoreImport.swift in Sources */,
