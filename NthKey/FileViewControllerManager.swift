@@ -88,7 +88,6 @@ struct FileViewControllerManager {
               NSLog("Something went wrong parsing JSON file")
               return
           }
-          NSLog("Restart app to see first wallet address")
       }
     
       func exportBitcoinCore(_ url: URL) {
@@ -96,7 +95,7 @@ struct FileViewControllerManager {
             precondition(!encodedCosigners.isEmpty)
             
             let fingerprint = UserDefaults.standard.data(forKey: "masterKeyFingerprint")!
-            let entropyItem = KeychainEntropyItem(service: "MultisigService", fingerprint: fingerprint, accessGroup: nil)
+            let entropyItem = KeychainEntropyItem(service: "NthKeyService", fingerprint: fingerprint, accessGroup: nil)
 
             // TODO: deduplicate from MultisigAddress.swift
             let entropy = try! entropyItem.readEntropy()
@@ -125,7 +124,7 @@ struct FileViewControllerManager {
     func savePublicKeyFile(_ url: URL) {
         precondition(UserDefaults.standard.data(forKey: "masterKeyFingerprint") != nil)
         let fingerprint = UserDefaults.standard.data(forKey: "masterKeyFingerprint")!
-        let entropyItem = KeychainEntropyItem(service: "MultisigService", fingerprint: fingerprint, accessGroup: nil)
+        let entropyItem = KeychainEntropyItem(service: "NthKeyService", fingerprint: fingerprint, accessGroup: nil)
 
         // TODO: handle error
         let entropy = try! entropyItem.readEntropy()

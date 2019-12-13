@@ -1,4 +1,4 @@
-# Multisig iOs
+# Nth Key for iOs
 
 Use your iOs device as part of a Bitcoin multi-signature setup.
 

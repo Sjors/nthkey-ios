@@ -1,6 +1,6 @@
 //
-//  MultisigTests.swift
-//  MultisigTests
+//   Nth KeyTests.swift
+//   Nth KeyTests
 //
 //  Created by Sjors Provoost on 26/11/2019.
 //  Copyright © 2019 Purple Dunes. Distributed under the MIT software
@@ -8,10 +8,9 @@
 //
 
 import XCTest
-@testable import Multisig
+@testable import NthKey
 import LibWally
-
-class MultisigTests: XCTestCase {
+class NthKeyTests: XCTestCase {
     
     var signer1: Signer?
     var signer2: Signer?

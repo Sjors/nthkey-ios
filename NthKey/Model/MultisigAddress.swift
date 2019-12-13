@@ -1,6 +1,6 @@
 //
-//  MultisigAddress.swift
-//  MultisigAddress
+//   Nth KeyAddress.swift
+//   Nth KeyAddress
 //
 //  Created by Sjors Provoost on 12/12/2019.
 //  Copyright © 2019 Purple Dunes. Distributed under the MIT software
@@ -21,7 +21,7 @@ struct MultisigAddress : Identifiable {
             precondition(!encodedCosigners.isEmpty)
             
             let fingerprint = UserDefaults.standard.data(forKey: "masterKeyFingerprint")!
-            let entropyItem = KeychainEntropyItem(service: "MultisigService", fingerprint: fingerprint, accessGroup: nil)
+            let entropyItem = KeychainEntropyItem(service: "NthKeyService", fingerprint: fingerprint, accessGroup: nil)
 
             // TODO: handle error
             let entropy = try! entropyItem.readEntropy()

@@ -1,6 +1,6 @@
 //
 //  AppDelegate.swift
-//  Multisig
+//  Nth Key
 //
 //  Created by Sjors Provoost on 26/11/2019.
 //  Copyright © 2019 Purple Dunes. Distributed under the MIT software
@@ -21,7 +21,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let defaults = UserDefaults.standard
         
         if let fingerprint = defaults.data(forKey: "masterKeyFingerprint") {
-            let entropyItem = KeychainEntropyItem(service: "MultisigService", fingerprint: fingerprint, accessGroup: nil)
+            let entropyItem = KeychainEntropyItem(service: "NthKeyService", fingerprint: fingerprint, accessGroup: nil)
 
             // Uncomment to reset
 //             defaults.removeObject(forKey: "masterKeyFingerprint")
@@ -44,7 +44,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             masterKey = HDKey(seedHex, .testnet)!
 
             if status == errSecSuccess { // Always test the status.
-                let seedItem = KeychainEntropyItem(service: "MultisigService", fingerprint: masterKey.fingerprint, accessGroup: nil)
+                let seedItem = KeychainEntropyItem(service: "NthKeyService", fingerprint: masterKey.fingerprint, accessGroup: nil)
                 // TODO: handle error
                 try! seedItem.saveEntropy(entropy)
                 defaults.set(masterKey.fingerprint, forKey: "masterKeyFingerprint")
@@ -78,7 +78,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
          application to it. This property is optional since there are legitimate
          error conditions that could cause the creation of the store to fail.
         */
-        let container = NSPersistentContainer(name: "Multisig")
+        let container = NSPersistentContainer(name: "NthKey")
         container.loadPersistentStores(completionHandler: { (storeDescription, error) in
             if let error = error as NSError? {
                 // Replace this implementation with code to handle the error appropriately.

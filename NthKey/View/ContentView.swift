@@ -1,6 +1,6 @@
 //
 //  ContentView.swift
-//  Multisig
+//  Nth Key
 //
 //  Created by Sjors Provoost on 26/11/2019.
 //  Copyright © 2019 Purple Dunes. Distributed under the MIT software
