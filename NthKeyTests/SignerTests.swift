@@ -7,7 +7,7 @@
 //  license, see the accompanying file LICENSE.md
 
 import XCTest
-import Multisig
+import NthKey
 import LibWally
 
 class SignerTests: XCTestCase {

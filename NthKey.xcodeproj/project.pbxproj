@@ -7,16 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		96637C2447F57A2EB0302F51 /* Pods_MultisigTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 41530191A13C8D1894C64B1D /* Pods_MultisigTests.framework */; };
+		1F6A2E586F1545C3C5EFA149 /* Pods_NthKey.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CA4B65438CE45530547E491B /* Pods_NthKey.framework */; };
 		A206E805238D65F300786824 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A206E804238D65F300786824 /* AppDelegate.swift */; };
 		A206E807238D65F300786824 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A206E806238D65F300786824 /* SceneDelegate.swift */; };
-		A206E80A238D65F300786824 /* Multisig.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A206E808238D65F300786824 /* Multisig.xcdatamodeld */; };
 		A206E80C238D65F300786824 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A206E80B238D65F300786824 /* ContentView.swift */; };
 		A206E80E238D65FB00786824 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A206E80D238D65FB00786824 /* Assets.xcassets */; };
 		A206E811238D65FB00786824 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A206E810238D65FB00786824 /* Preview Assets.xcassets */; };
 		A206E814238D65FB00786824 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A206E812238D65FB00786824 /* LaunchScreen.storyboard */; };
 		A206E81F238D65FC00786824 /* MultisigTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A206E81E238D65FC00786824 /* MultisigTests.swift */; };
 		A206E82A238D65FC00786824 /* MultisigUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A206E829238D65FC00786824 /* MultisigUITests.swift */; };
+		A20D76CE23A406C500A24A38 /* NthKey.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A20D76CD23A406AF00A24A38 /* NthKey.xcdatamodeld */; };
 		A27180B223A291B500E9F443 /* MultisigAddress.swift in Sources */ = {isa = PBXBuildFile; fileRef = A27180B123A291B500E9F443 /* MultisigAddress.swift */; };
 		A27180B623A293EA00E9F443 /* AddressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A27180B523A293EA00E9F443 /* AddressView.swift */; };
 		A27D4BF623A2B4F30055B0B8 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A27D4BF523A2B4F30055B0B8 /* SettingsView.swift */; };
@@ -29,8 +29,8 @@
 		A2C800F523A3943000111EAF /* FileViewControllerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2C800F423A3943000111EAF /* FileViewControllerManager.swift */; };
 		A2F8575F23991354008A44E6 /* Signer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2F8575E23991354008A44E6 /* Signer.swift */; };
 		A2F85761239918FF008A44E6 /* SignerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2F85760239918FF008A44E6 /* SignerTests.swift */; };
-		AE716AF757D96BC11F4F0E17 /* Pods_Multisig.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F8F3384BDB2BF32D82C91288 /* Pods_Multisig.framework */; };
-		C10E267E872CDFB5CD2E41C1 /* Pods_Multisig_MultisigUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CAE4826CB64559C90D6D5E3A /* Pods_Multisig_MultisigUITests.framework */; };
+		D9E078D843A0946168D9E8C8 /* Pods_NthKey_NthKeyUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC084A378751F9293E3E617F /* Pods_NthKey_NthKeyUITests.framework */; };
+		E31E99105AB9A6A021B21A4D /* Pods_NthKeyTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FABD6653C6A4DFA5E5321CCA /* Pods_NthKeyTests.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,23 +55,25 @@
 		03E754B72B8C0A69CF96ECC6 /* Pods-MultisigTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MultisigTests.release.xcconfig"; path = "Target Support Files/Pods-MultisigTests/Pods-MultisigTests.release.xcconfig"; sourceTree = "<group>"; };
 		18164F1856E6D3E381CF90EC /* Pods-Multisig.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Multisig.debug.xcconfig"; path = "Target Support Files/Pods-Multisig/Pods-Multisig.debug.xcconfig"; sourceTree = "<group>"; };
 		257350CD86D0746C6502196E /* Pods-Multisig-MultisigUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Multisig-MultisigUITests.debug.xcconfig"; path = "Target Support Files/Pods-Multisig-MultisigUITests/Pods-Multisig-MultisigUITests.debug.xcconfig"; sourceTree = "<group>"; };
-		41530191A13C8D1894C64B1D /* Pods_MultisigTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MultisigTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		84AF76B40CC938375286A873 /* Pods-NthKeyTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NthKeyTests.debug.xcconfig"; path = "Target Support Files/Pods-NthKeyTests/Pods-NthKeyTests.debug.xcconfig"; sourceTree = "<group>"; };
+		84F9C6E2BA22077B17980104 /* Pods-NthKey-NthKeyUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NthKey-NthKeyUITests.release.xcconfig"; path = "Target Support Files/Pods-NthKey-NthKeyUITests/Pods-NthKey-NthKeyUITests.release.xcconfig"; sourceTree = "<group>"; };
 		8794092D4D7B86DD36D227CF /* Pods-Multisig-MultisigUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Multisig-MultisigUITests.release.xcconfig"; path = "Target Support Files/Pods-Multisig-MultisigUITests/Pods-Multisig-MultisigUITests.release.xcconfig"; sourceTree = "<group>"; };
-		A206E801238D65F300786824 /* Multisig.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Multisig.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		961606B1A1E0A92814FFB0B7 /* Pods-NthKey-NthKeyUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NthKey-NthKeyUITests.debug.xcconfig"; path = "Target Support Files/Pods-NthKey-NthKeyUITests/Pods-NthKey-NthKeyUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		A206E801238D65F300786824 /* NthKey.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NthKey.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A206E804238D65F300786824 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A206E806238D65F300786824 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		A206E809238D65F300786824 /* Multisig.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Multisig.xcdatamodel; sourceTree = "<group>"; };
 		A206E80B238D65F300786824 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		A206E80D238D65FB00786824 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A206E810238D65FB00786824 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		A206E813238D65FB00786824 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A206E815238D65FB00786824 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		A206E81A238D65FC00786824 /* MultisigTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MultisigTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		A206E81A238D65FC00786824 /* NthKeyTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NthKeyTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A206E81E238D65FC00786824 /* MultisigTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultisigTests.swift; sourceTree = "<group>"; };
 		A206E820238D65FC00786824 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		A206E825238D65FC00786824 /* MultisigUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MultisigUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		A206E825238D65FC00786824 /* NthKeyUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NthKeyUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A206E829238D65FC00786824 /* MultisigUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultisigUITests.swift; sourceTree = "<group>"; };
 		A206E82B238D65FC00786824 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A20D76CD23A406AF00A24A38 /* NthKey.xcdatamodeld */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodeld; name = NthKey.xcdatamodeld; path = /Volumes/SSD/dev/nthKey/NthKey/NthKey.xcdatamodeld; sourceTree = "<absolute>"; };
 		A27180B123A291B500E9F443 /* MultisigAddress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultisigAddress.swift; sourceTree = "<group>"; };
 		A27180B523A293EA00E9F443 /* AddressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressView.swift; sourceTree = "<group>"; };
 		A27D4BF523A2B4F30055B0B8 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
@@ -85,8 +87,12 @@
 		A2F8575E23991354008A44E6 /* Signer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Signer.swift; sourceTree = "<group>"; };
 		A2F85760239918FF008A44E6 /* SignerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignerTests.swift; sourceTree = "<group>"; };
 		A451BF0AE21C7337353DD56F /* Pods-MultisigTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MultisigTests.debug.xcconfig"; path = "Target Support Files/Pods-MultisigTests/Pods-MultisigTests.debug.xcconfig"; sourceTree = "<group>"; };
-		CAE4826CB64559C90D6D5E3A /* Pods_Multisig_MultisigUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Multisig_MultisigUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		F8F3384BDB2BF32D82C91288 /* Pods_Multisig.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Multisig.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C15308E93FE31FF32769F0F6 /* Pods-NthKey.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NthKey.release.xcconfig"; path = "Target Support Files/Pods-NthKey/Pods-NthKey.release.xcconfig"; sourceTree = "<group>"; };
+		CA4B65438CE45530547E491B /* Pods_NthKey.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NthKey.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D563F384D6FB8028F125CBCA /* Pods-NthKeyTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NthKeyTests.release.xcconfig"; path = "Target Support Files/Pods-NthKeyTests/Pods-NthKeyTests.release.xcconfig"; sourceTree = "<group>"; };
+		DCA6C0E2D91C14D0C6B5CF70 /* Pods-NthKey.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NthKey.debug.xcconfig"; path = "Target Support Files/Pods-NthKey/Pods-NthKey.debug.xcconfig"; sourceTree = "<group>"; };
+		EC084A378751F9293E3E617F /* Pods_NthKey_NthKeyUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NthKey_NthKeyUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		FABD6653C6A4DFA5E5321CCA /* Pods_NthKeyTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NthKeyTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,7 +100,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AE716AF757D96BC11F4F0E17 /* Pods_Multisig.framework in Frameworks */,
+				1F6A2E586F1545C3C5EFA149 /* Pods_NthKey.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -102,7 +108,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				96637C2447F57A2EB0302F51 /* Pods_MultisigTests.framework in Frameworks */,
+				E31E99105AB9A6A021B21A4D /* Pods_NthKeyTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -110,7 +116,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C10E267E872CDFB5CD2E41C1 /* Pods_Multisig_MultisigUITests.framework in Frameworks */,
+				D9E078D843A0946168D9E8C8 /* Pods_NthKey_NthKeyUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -126,6 +132,12 @@
 				8794092D4D7B86DD36D227CF /* Pods-Multisig-MultisigUITests.release.xcconfig */,
 				A451BF0AE21C7337353DD56F /* Pods-MultisigTests.debug.xcconfig */,
 				03E754B72B8C0A69CF96ECC6 /* Pods-MultisigTests.release.xcconfig */,
+				DCA6C0E2D91C14D0C6B5CF70 /* Pods-NthKey.debug.xcconfig */,
+				C15308E93FE31FF32769F0F6 /* Pods-NthKey.release.xcconfig */,
+				961606B1A1E0A92814FFB0B7 /* Pods-NthKey-NthKeyUITests.debug.xcconfig */,
+				84F9C6E2BA22077B17980104 /* Pods-NthKey-NthKeyUITests.release.xcconfig */,
+				84AF76B40CC938375286A873 /* Pods-NthKeyTests.debug.xcconfig */,
+				D563F384D6FB8028F125CBCA /* Pods-NthKeyTests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -133,9 +145,9 @@
 		691AC74BF311E9F3C07E2791 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				F8F3384BDB2BF32D82C91288 /* Pods_Multisig.framework */,
-				CAE4826CB64559C90D6D5E3A /* Pods_Multisig_MultisigUITests.framework */,
-				41530191A13C8D1894C64B1D /* Pods_MultisigTests.framework */,
+				CA4B65438CE45530547E491B /* Pods_NthKey.framework */,
+				EC084A378751F9293E3E617F /* Pods_NthKey_NthKeyUITests.framework */,
+				FABD6653C6A4DFA5E5321CCA /* Pods_NthKeyTests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -143,9 +155,9 @@
 		A206E7F8238D65F300786824 = {
 			isa = PBXGroup;
 			children = (
-				A206E803238D65F300786824 /* Multisig */,
-				A206E81D238D65FC00786824 /* MultisigTests */,
-				A206E828238D65FC00786824 /* MultisigUITests */,
+				A206E803238D65F300786824 /* NthKey */,
+				A206E81D238D65FC00786824 /* NthKeyTests */,
+				A206E828238D65FC00786824 /* NthKeyUITests */,
 				A206E802238D65F300786824 /* Products */,
 				102B352A73AEA7A1B4069C13 /* Pods */,
 				691AC74BF311E9F3C07E2791 /* Frameworks */,
@@ -155,14 +167,14 @@
 		A206E802238D65F300786824 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				A206E801238D65F300786824 /* Multisig.app */,
-				A206E81A238D65FC00786824 /* MultisigTests.xctest */,
-				A206E825238D65FC00786824 /* MultisigUITests.xctest */,
+				A206E801238D65F300786824 /* NthKey.app */,
+				A206E81A238D65FC00786824 /* NthKeyTests.xctest */,
+				A206E825238D65FC00786824 /* NthKeyUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		A206E803238D65F300786824 /* Multisig */ = {
+		A206E803238D65F300786824 /* NthKey */ = {
 			isa = PBXGroup;
 			children = (
 				A29DAAC2239180CC006B38D9 /* README.md */,
@@ -175,10 +187,10 @@
 				A206E80D238D65FB00786824 /* Assets.xcassets */,
 				A206E812238D65FB00786824 /* LaunchScreen.storyboard */,
 				A206E815238D65FB00786824 /* Info.plist */,
-				A206E808238D65F300786824 /* Multisig.xcdatamodeld */,
+				A20D76CD23A406AF00A24A38 /* NthKey.xcdatamodeld */,
 				A206E80F238D65FB00786824 /* Preview Content */,
 			);
-			path = Multisig;
+			path = NthKey;
 			sourceTree = "<group>";
 		};
 		A206E80F238D65FB00786824 /* Preview Content */ = {
@@ -189,7 +201,7 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
-		A206E81D238D65FC00786824 /* MultisigTests */ = {
+		A206E81D238D65FC00786824 /* NthKeyTests */ = {
 			isa = PBXGroup;
 			children = (
 				A27D4BFB23A2BECC0055B0B8 /* BitcoinCoreImportTests.swift */,
@@ -197,16 +209,16 @@
 				A206E81E238D65FC00786824 /* MultisigTests.swift */,
 				A206E820238D65FC00786824 /* Info.plist */,
 			);
-			path = MultisigTests;
+			path = NthKeyTests;
 			sourceTree = "<group>";
 		};
-		A206E828238D65FC00786824 /* MultisigUITests */ = {
+		A206E828238D65FC00786824 /* NthKeyUITests */ = {
 			isa = PBXGroup;
 			children = (
 				A206E829238D65FC00786824 /* MultisigUITests.swift */,
 				A206E82B238D65FC00786824 /* Info.plist */,
 			);
-			path = MultisigUITests;
+			path = NthKeyUITests;
 			sourceTree = "<group>";
 		};
 		A27180B323A2939A00E9F443 /* Model */ = {
@@ -234,9 +246,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		A206E800238D65F300786824 /* Multisig */ = {
+		A206E800238D65F300786824 /* NthKey */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = A206E82E238D65FC00786824 /* Build configuration list for PBXNativeTarget "Multisig" */;
+			buildConfigurationList = A206E82E238D65FC00786824 /* Build configuration list for PBXNativeTarget "NthKey" */;
 			buildPhases = (
 				837479018739045E1296A47C /* [CP] Check Pods Manifest.lock */,
 				A206E7FD238D65F300786824 /* Sources */,
@@ -248,14 +260,14 @@
 			);
 			dependencies = (
 			);
-			name = Multisig;
+			name = NthKey;
 			productName = Multisig;
-			productReference = A206E801238D65F300786824 /* Multisig.app */;
+			productReference = A206E801238D65F300786824 /* NthKey.app */;
 			productType = "com.apple.product-type.application";
 		};
-		A206E819238D65FC00786824 /* MultisigTests */ = {
+		A206E819238D65FC00786824 /* NthKeyTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = A206E831238D65FC00786824 /* Build configuration list for PBXNativeTarget "MultisigTests" */;
+			buildConfigurationList = A206E831238D65FC00786824 /* Build configuration list for PBXNativeTarget "NthKeyTests" */;
 			buildPhases = (
 				5DC753AB80B556F113FB6A46 /* [CP] Check Pods Manifest.lock */,
 				A206E816238D65FC00786824 /* Sources */,
@@ -267,14 +279,14 @@
 			dependencies = (
 				A206E81C238D65FC00786824 /* PBXTargetDependency */,
 			);
-			name = MultisigTests;
+			name = NthKeyTests;
 			productName = MultisigTests;
-			productReference = A206E81A238D65FC00786824 /* MultisigTests.xctest */;
+			productReference = A206E81A238D65FC00786824 /* NthKeyTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		A206E824238D65FC00786824 /* MultisigUITests */ = {
+		A206E824238D65FC00786824 /* NthKeyUITests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = A206E834238D65FC00786824 /* Build configuration list for PBXNativeTarget "MultisigUITests" */;
+			buildConfigurationList = A206E834238D65FC00786824 /* Build configuration list for PBXNativeTarget "NthKeyUITests" */;
 			buildPhases = (
 				091652AD0ECBECFB1FCA5CCD /* [CP] Check Pods Manifest.lock */,
 				A206E821238D65FC00786824 /* Sources */,
@@ -287,9 +299,9 @@
 			dependencies = (
 				A206E827238D65FC00786824 /* PBXTargetDependency */,
 			);
-			name = MultisigUITests;
+			name = NthKeyUITests;
 			productName = MultisigUITests;
-			productReference = A206E825238D65FC00786824 /* MultisigUITests.xctest */;
+			productReference = A206E825238D65FC00786824 /* NthKeyUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */
@@ -315,7 +327,7 @@
 					};
 				};
 			};
-			buildConfigurationList = A206E7FC238D65F300786824 /* Build configuration list for PBXProject "Multisig" */;
+			buildConfigurationList = A206E7FC238D65F300786824 /* Build configuration list for PBXProject "NthKey" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -328,9 +340,9 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				A206E800238D65F300786824 /* Multisig */,
-				A206E819238D65FC00786824 /* MultisigTests */,
-				A206E824238D65FC00786824 /* MultisigUITests */,
+				A206E800238D65F300786824 /* NthKey */,
+				A206E819238D65FC00786824 /* NthKeyTests */,
+				A206E824238D65FC00786824 /* NthKeyUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -379,7 +391,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-Multisig-MultisigUITests-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-NthKey-NthKeyUITests-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -401,7 +413,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-MultisigTests-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-NthKeyTests-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -423,7 +435,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-Multisig-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-NthKey-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -436,15 +448,15 @@
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Multisig-MultisigUITests/Pods-Multisig-MultisigUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-NthKey-NthKeyUITests/Pods-NthKey-NthKeyUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Multisig-MultisigUITests/Pods-Multisig-MultisigUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-NthKey-NthKeyUITests/Pods-NthKey-NthKeyUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Multisig-MultisigUITests/Pods-Multisig-MultisigUITests-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-NthKey-NthKeyUITests/Pods-NthKey-NthKeyUITests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		B787AEE348A13FEA86C55965 /* [CP] Embed Pods Frameworks */ = {
@@ -453,15 +465,15 @@
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Multisig/Pods-Multisig-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-NthKey/Pods-NthKey-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Multisig/Pods-Multisig-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-NthKey/Pods-NthKey-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Multisig/Pods-Multisig-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-NthKey/Pods-NthKey-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -472,11 +484,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				A29DAAC12391657F006B38D9 /* KeychainEntropyItem.swift in Sources */,
+				A20D76CE23A406C500A24A38 /* NthKey.xcdatamodeld in Sources */,
 				A206E805238D65F300786824 /* AppDelegate.swift in Sources */,
 				A206E807238D65F300786824 /* SceneDelegate.swift in Sources */,
 				A206E80C238D65F300786824 /* ContentView.swift in Sources */,
 				A27D4BF823A2B7040055B0B8 /* UserDefaultsManager.swift in Sources */,
-				A206E80A238D65F300786824 /* Multisig.xcdatamodeld in Sources */,
 				A27D4BF623A2B4F30055B0B8 /* SettingsView.swift in Sources */,
 				A27180B623A293EA00E9F443 /* AddressView.swift in Sources */,
 				A2C800F523A3943000111EAF /* FileViewControllerManager.swift in Sources */,
@@ -510,12 +522,12 @@
 /* Begin PBXTargetDependency section */
 		A206E81C238D65FC00786824 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = A206E800238D65F300786824 /* Multisig */;
+			target = A206E800238D65F300786824 /* NthKey */;
 			targetProxy = A206E81B238D65FC00786824 /* PBXContainerItemProxy */;
 		};
 		A206E827238D65FC00786824 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = A206E800238D65F300786824 /* Multisig */;
+			target = A206E800238D65F300786824 /* NthKey */;
 			targetProxy = A206E826238D65FC00786824 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -648,21 +660,21 @@
 		};
 		A206E82F238D65FC00786824 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 18164F1856E6D3E381CF90EC /* Pods-Multisig.debug.xcconfig */;
+			baseConfigurationReference = DCA6C0E2D91C14D0C6B5CF70 /* Pods-NthKey.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_ASSET_PATHS = "\"Multisig/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"NthKey/Preview Content\"";
 				DEVELOPMENT_TEAM = 227MFQPYQ4;
 				ENABLE_PREVIEWS = YES;
-				INFOPLIST_FILE = Multisig/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/NthKey/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = nl.multisig.Multisig;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.nthkey.app;
+				PRODUCT_NAME = NthKey;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -670,21 +682,21 @@
 		};
 		A206E830238D65FC00786824 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 03787E2407FAE412530052FC /* Pods-Multisig.release.xcconfig */;
+			baseConfigurationReference = C15308E93FE31FF32769F0F6 /* Pods-NthKey.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_ASSET_PATHS = "\"Multisig/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"NthKey/Preview Content\"";
 				DEVELOPMENT_TEAM = 227MFQPYQ4;
 				ENABLE_PREVIEWS = YES;
-				INFOPLIST_FILE = Multisig/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/NthKey/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = nl.multisig.Multisig;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.nthkey.app;
+				PRODUCT_NAME = NthKey;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -692,96 +704,96 @@
 		};
 		A206E832238D65FC00786824 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = A451BF0AE21C7337353DD56F /* Pods-MultisigTests.debug.xcconfig */;
+			baseConfigurationReference = 84AF76B40CC938375286A873 /* Pods-NthKeyTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 227MFQPYQ4;
-				INFOPLIST_FILE = MultisigTests/Info.plist;
+				INFOPLIST_FILE = NthKeyTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = nl.multisig.MultisigTests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.nthkey.NthKeyTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Multisig.app/Multisig";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/NthKey.app/NthKey";
 			};
 			name = Debug;
 		};
 		A206E833238D65FC00786824 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 03E754B72B8C0A69CF96ECC6 /* Pods-MultisigTests.release.xcconfig */;
+			baseConfigurationReference = D563F384D6FB8028F125CBCA /* Pods-NthKeyTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 227MFQPYQ4;
-				INFOPLIST_FILE = MultisigTests/Info.plist;
+				INFOPLIST_FILE = NthKeyTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = nl.multisig.MultisigTests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.nthkey.NthKeyTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Multisig.app/Multisig";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/NthKey.app/NthKey";
 			};
 			name = Release;
 		};
 		A206E835238D65FC00786824 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 257350CD86D0746C6502196E /* Pods-Multisig-MultisigUITests.debug.xcconfig */;
+			baseConfigurationReference = 961606B1A1E0A92814FFB0B7 /* Pods-NthKey-NthKeyUITests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 227MFQPYQ4;
-				INFOPLIST_FILE = MultisigUITests/Info.plist;
+				INFOPLIST_FILE = NthKeyUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = nl.multisig.MultisigUITests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.nthkey.NthKeyUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = Multisig;
+				TEST_TARGET_NAME = NthKey;
 			};
 			name = Debug;
 		};
 		A206E836238D65FC00786824 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 8794092D4D7B86DD36D227CF /* Pods-Multisig-MultisigUITests.release.xcconfig */;
+			baseConfigurationReference = 84F9C6E2BA22077B17980104 /* Pods-NthKey-NthKeyUITests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 227MFQPYQ4;
-				INFOPLIST_FILE = MultisigUITests/Info.plist;
+				INFOPLIST_FILE = NthKeyUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = nl.multisig.MultisigUITests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.nthkey.NthKeyUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = Multisig;
+				TEST_TARGET_NAME = NthKey;
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		A206E7FC238D65F300786824 /* Build configuration list for PBXProject "Multisig" */ = {
+		A206E7FC238D65F300786824 /* Build configuration list for PBXProject "NthKey" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				A206E82C238D65FC00786824 /* Debug */,
@@ -790,7 +802,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		A206E82E238D65FC00786824 /* Build configuration list for PBXNativeTarget "Multisig" */ = {
+		A206E82E238D65FC00786824 /* Build configuration list for PBXNativeTarget "NthKey" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				A206E82F238D65FC00786824 /* Debug */,
@@ -799,7 +811,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		A206E831238D65FC00786824 /* Build configuration list for PBXNativeTarget "MultisigTests" */ = {
+		A206E831238D65FC00786824 /* Build configuration list for PBXNativeTarget "NthKeyTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				A206E832238D65FC00786824 /* Debug */,
@@ -808,7 +820,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		A206E834238D65FC00786824 /* Build configuration list for PBXNativeTarget "MultisigUITests" */ = {
+		A206E834238D65FC00786824 /* Build configuration list for PBXNativeTarget "NthKeyUITests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				A206E835238D65FC00786824 /* Debug */,
@@ -818,19 +830,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCVersionGroup section */
-		A206E808238D65F300786824 /* Multisig.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				A206E809238D65F300786824 /* Multisig.xcdatamodel */,
-			);
-			currentVersion = A206E809238D65F300786824 /* Multisig.xcdatamodel */;
-			path = Multisig.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
-		};
-/* End XCVersionGroup section */
 	};
 	rootObject = A206E7F9238D65F300786824 /* Project object */;
 }

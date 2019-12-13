@@ -1,6 +1,6 @@
 //
-//  MultisigUITests.swift
-//  MultisigUITests
+//   NthKeyUITests.swift
+//   NthKeyUITests
 //
 //  Created by Sjors Provoost on 26/11/2019.
 //  Copyright © 2019 Purple Dunes. Distributed under the MIT software
@@ -9,7 +9,7 @@
 
 import XCTest
 
-class MultisigUITests: XCTestCase {
+class NthKeyUITests: XCTestCase {
 
     override func setUp() {
         // Put setup code here. This method is called before the invocation of each test method in the class.
