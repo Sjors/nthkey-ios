@@ -90,8 +90,6 @@ On your computer that runs Bitcoin Core, open the file and copy the command in i
 src/bitcoin-cli -testnet -rpcwallet=iOsMulti importdescriptors "[{\"desc\": \"wsh(sortedmulti( ... active":true}]'
 ```
 
-This will complain that the [descriptor](https://github.com/bitcoin/bitcoin/blob/master/doc/descriptors.md) has an incorrect checksum `#00000000`. Because this is testnet, just copy the correct checksums from the error message and try again.
-
 ## Deposit to wallet
 
 Warning: there is no spending code yet, so unless you set the multisig threshold to 1, these coins will be locked.

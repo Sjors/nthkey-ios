@@ -7,6 +7,7 @@ target 'Multisig' do
 
   # Pods for Multisig
   pod 'LibWally', :git => 'https://github.com/sjors/LibWally-Swift.git', :branch => 'dev', :submodules => true
+  pod 'OutputDescriptors', :git => 'https://github.com/sjors/output-descriptors-swift.git', :tag => "v0.0.1"
 
   target 'MultisigTests' do
     inherit! :search_paths
