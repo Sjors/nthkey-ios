@@ -15,6 +15,7 @@ struct FileViewControllerManager {
     enum Task {
         case loadCosigner
         case savePublicKey
+        case exportBitcoinCore
     }
     
     let task: Task
@@ -26,7 +27,7 @@ struct FileViewControllerManager {
         case .loadCosigner:
             let types: [String] = [kUTTypeJSON as String]
             documentPicker = UIDocumentPickerViewController(documentTypes: types, in: .import)
-        case .savePublicKey:
+        case .savePublicKey, .exportBitcoinCore:
             documentPicker =
             UIDocumentPickerViewController(documentTypes: [kUTTypeFolder as String], in: .open)
         }
@@ -51,7 +52,13 @@ struct FileViewControllerManager {
             }
             precondition(urls[0].hasDirectoryPath)
             savePublicKeyFile(urls[0])
-        }
+        case .exportBitcoinCore:
+          if (urls.count != 1) {
+              NSLog("Please select 1 directory")
+          }
+          precondition(urls[0].hasDirectoryPath)
+          exportBitcoinCore(urls[0])
+      }
     }
         
     func loadCosignerFile(_ url: URL) {
@@ -83,6 +90,37 @@ struct FileViewControllerManager {
           }
           NSLog("Restart app to see first wallet address")
       }
+    
+      func exportBitcoinCore(_ url: URL) {
+            let encodedCosigners = UserDefaults.standard.array(forKey: "cosigners")!
+            precondition(!encodedCosigners.isEmpty)
+            
+            let fingerprint = UserDefaults.standard.data(forKey: "masterKeyFingerprint")!
+            let entropyItem = KeychainEntropyItem(service: "MultisigService", fingerprint: fingerprint, accessGroup: nil)
+
+            // TODO: deduplicate from MultisigAddress.swift
+            let entropy = try! entropyItem.readEntropy()
+            let mnemonic = BIP39Mnemonic(entropy)!
+            let seedHex = mnemonic.seedHex()
+            let masterKey = HDKey(seedHex, .testnet)!
+            assert(masterKey.fingerprint == fingerprint)
+            
+            let path = BIP32Path("m/48h/1h/0h/2h")!
+            let ourKey = try! masterKey.derive(path)
+            let us = Signer(fingerprint: fingerprint, derivation: path, hdKey: ourKey)
+        
+            let encodedCosigner = encodedCosigners[0] as! Data
+            let cosigner = try! NSKeyedUnarchiver.unarchivedObject(ofClass: Signer.self, from: encodedCosigner)!
+            
+            let threshold = UserDefaults.standard.integer(forKey: "threshold")
+            precondition(threshold > 0)
+            
+            let importData = BitcoinCoreImport([us, cosigner], threshold: UInt(threshold))
+        
+            let fileName = "bitcoin-core-importdescriptors-" + fingerprint.hexString + ".txt";
+            let textData = importData!.importDescriptorsRPC.data(using: .utf8)!
+            writeFile(folderUrl: url, fileName: fileName, textData: textData)
+    }
       
     func savePublicKeyFile(_ url: URL) {
         precondition(UserDefaults.standard.data(forKey: "masterKeyFingerprint") != nil)
