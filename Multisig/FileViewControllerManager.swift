@@ -84,57 +84,62 @@ struct FileViewControllerManager {
           NSLog("Restart app to see first wallet address")
       }
       
-      func savePublicKeyFile(_ url: URL) {
-          precondition(UserDefaults.standard.data(forKey: "masterKeyFingerprint") != nil)
-          let fingerprint = UserDefaults.standard.data(forKey: "masterKeyFingerprint")!
-          let entropyItem = KeychainEntropyItem(service: "MultisigService", fingerprint: fingerprint, accessGroup: nil)
+    func savePublicKeyFile(_ url: URL) {
+        precondition(UserDefaults.standard.data(forKey: "masterKeyFingerprint") != nil)
+        let fingerprint = UserDefaults.standard.data(forKey: "masterKeyFingerprint")!
+        let entropyItem = KeychainEntropyItem(service: "MultisigService", fingerprint: fingerprint, accessGroup: nil)
 
-          // TODO: handle error
-          let entropy = try! entropyItem.readEntropy()
-          let mnemonic = BIP39Mnemonic(entropy)!
-          let seedHex = mnemonic.seedHex()
-          let masterKey = HDKey(seedHex, .testnet)!
-          assert(masterKey.fingerprint == fingerprint)
-                      
-          let path = BIP32Path("m/48h/1h/0h/2h")!
-          let account = try! masterKey.derive(path)
+        // TODO: handle error
+        let entropy = try! entropyItem.readEntropy()
+        let mnemonic = BIP39Mnemonic(entropy)!
+        let seedHex = mnemonic.seedHex()
+        let masterKey = HDKey(seedHex, .testnet)!
+        assert(masterKey.fingerprint == fingerprint)
+              
+        let path = BIP32Path("m/48h/1h/0h/2h")!
+        let account = try! masterKey.derive(path)
 
-          // Coldcard compatible JSON format:
-          struct ColdcardExport : Codable {
-              var xfp: String
-              var p2wsh_deriv: String
-              var p2wsh: String
-          }
-          let export = ColdcardExport(xfp: fingerprint.hexString.uppercased(), p2wsh_deriv: "m/48'/1'/0'/2'", p2wsh: account.xpub)
+        // Coldcard compatible JSON format:
+        struct ColdcardExport : Codable {
+            var xfp: String
+            var p2wsh_deriv: String
+            var p2wsh: String
+        }
+        let export = ColdcardExport(xfp: fingerprint.hexString.uppercased(), p2wsh_deriv: "m/48'/1'/0'/2'", p2wsh: account.xpub)
 
-          let encoder = JSONEncoder()
-          let data = try! encoder.encode(export)
-          
-          guard url.startAccessingSecurityScopedResource() else {
-              print("Access failure")
-              return
-          }
-          defer { url.stopAccessingSecurityScopedResource() }
+        let encoder = JSONEncoder()
+        let data = try! encoder.encode(export)
 
-          let fileName = "ccxp-" + fingerprint.hexString.uppercased() + ".json";
-          let fileURL = NSURL.fileURL(withPath: fileName, relativeTo: url)
-
-          do {
-              try data.write(to: fileURL)
-          } catch {
-              print("Failed to write")
-          }
-            
-      }
+        let fileName = "ccxp-" + fingerprint.hexString.uppercased() + ".json";
+        writeFile(folderUrl: url, fileName: fileName, textData: data)
+    }
     
-     func getTopMostViewController() -> UIViewController? {
+    func writeFile(folderUrl: URL, fileName: String, textData: Data) {
+        guard folderUrl.startAccessingSecurityScopedResource() else {
+            print("Access failure")
+            return
+        }
+        defer { folderUrl.stopAccessingSecurityScopedResource() }
+
+        let fileURL = NSURL.fileURL(withPath: fileName, relativeTo: folderUrl)
+
+        do {
+            try textData.write(to: fileURL)
+        } catch {
+            print("Failed to write")
+        }
+
+    }
+    
+    
+    func getTopMostViewController() -> UIViewController? {
         let keyWindow = UIApplication.shared.connectedScenes
         .filter({$0.activationState == .foregroundActive})
         .map({$0 as? UIWindowScene})
         .compactMap({$0})
         .first?.windows
         .filter({$0.isKeyWindow}).first
-        
+
         var topMostViewController = keyWindow?.rootViewController
 
         while let presentedViewController = topMostViewController?.presentedViewController {
