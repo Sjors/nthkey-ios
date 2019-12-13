@@ -8,6 +8,7 @@
 
 import Foundation
 import LibWally
+import OutputDescriptors
 
 public struct BitcoinCoreImport {
     struct ImportDescriptorsRPC : Codable {
@@ -55,8 +56,9 @@ public struct BitcoinCoreImport {
                 let origin = "\(signer.fingerprint.hexString)/48h/\(cointype)/0h/2h"
                 return "[\(origin)]\(signer.hdKey.xpub)/\(internalKey ? "1" : "0")/*"
             }.joined(separator: ",")
-            let checksum = "00000000" // TODO: calculate descriptor checksum
-            return ImportDescriptorsRPC.Request(desc: "wsh(sortedmulti(\(self.threshold),\(keys)))#\(checksum)",
+            let descriptor = "wsh(sortedmulti(\(self.threshold),\(keys)))"
+            let desc = try! OutputDescriptor(descriptor)
+            return ImportDescriptorsRPC.Request(desc: "\(descriptor)#\(desc.checksum)",
                 timestamp: "now", range: 1000, watchonly: true, internalKey: internalKey, active: true)
         }
         let rpc = ImportDescriptorsRPC(requests: requests)
