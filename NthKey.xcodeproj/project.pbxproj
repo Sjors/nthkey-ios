@@ -23,6 +23,7 @@
 		A27D4BF823A2B7040055B0B8 /* UserDefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A27D4BF723A2B7040055B0B8 /* UserDefaultsManager.swift */; };
 		A27D4BFA23A2BA1A0055B0B8 /* BitcoinCoreImport.swift in Sources */ = {isa = PBXBuildFile; fileRef = A27D4BF923A2BA1A0055B0B8 /* BitcoinCoreImport.swift */; };
 		A27D4BFC23A2BECC0055B0B8 /* BitcoinCoreImportTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A27D4BFB23A2BECC0055B0B8 /* BitcoinCoreImportTests.swift */; };
+		A285870623AD0B0300930566 /* psbt-128.png in Resources */ = {isa = PBXBuildFile; fileRef = A285870523AD0B0300930566 /* psbt-128.png */; };
 		A29DAAC12391657F006B38D9 /* KeychainEntropyItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A29DAAC02391657F006B38D9 /* KeychainEntropyItem.swift */; };
 		A29DAAC3239180CC006B38D9 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = A29DAAC2239180CC006B38D9 /* README.md */; };
 		A29DAAC523982271006B38D9 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A29DAAC423982271006B38D9 /* SettingsViewController.swift */; };
@@ -80,6 +81,7 @@
 		A27D4BF723A2B7040055B0B8 /* UserDefaultsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsManager.swift; sourceTree = "<group>"; };
 		A27D4BF923A2BA1A0055B0B8 /* BitcoinCoreImport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BitcoinCoreImport.swift; sourceTree = "<group>"; };
 		A27D4BFB23A2BECC0055B0B8 /* BitcoinCoreImportTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BitcoinCoreImportTests.swift; sourceTree = "<group>"; };
+		A285870523AD0B0300930566 /* psbt-128.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "psbt-128.png"; sourceTree = "<group>"; };
 		A29DAAC02391657F006B38D9 /* KeychainEntropyItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainEntropyItem.swift; sourceTree = "<group>"; };
 		A29DAAC2239180CC006B38D9 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = SOURCE_ROOT; };
 		A29DAAC423982271006B38D9 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
@@ -177,6 +179,7 @@
 		A206E803238D65F300786824 /* NthKey */ = {
 			isa = PBXGroup;
 			children = (
+				A285870423AD0AF800930566 /* Artwork */,
 				A29DAAC2239180CC006B38D9 /* README.md */,
 				A27180B323A2939A00E9F443 /* Model */,
 				A27180B423A293BC00E9F443 /* View */,
@@ -241,6 +244,22 @@
 				A27D4BF523A2B4F30055B0B8 /* SettingsView.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		A285870423AD0AF800930566 /* Artwork */ = {
+			isa = PBXGroup;
+			children = (
+				A285870523AD0B0300930566 /* psbt-128.png */,
+			);
+			path = Artwork;
+			sourceTree = "<group>";
+		};
+		A285870723AD1ACC00930566 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				A285870823AD1AE200930566 /* PSBTOutput.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -353,6 +372,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A206E814238D65FB00786824 /* LaunchScreen.storyboard in Resources */,
+				A285870623AD0B0300930566 /* psbt-128.png in Resources */,
 				A206E811238D65FB00786824 /* Preview Assets.xcassets in Resources */,
 				A29DAAC3239180CC006B38D9 /* README.md in Resources */,
 				A206E80E238D65FB00786824 /* Assets.xcassets in Resources */,
