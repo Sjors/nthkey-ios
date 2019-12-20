@@ -39,14 +39,21 @@ struct ContentView: View {
                 }
             }
             .tag(0)
-            SettingsView()
+            SignView()
             .tabItem {
                 VStack {
                     Image("second")
-                    Text("Settings")
+                    Text("Sign")
                 }
             }
             .tag(1)
+            SettingsView()
+            .tabItem {
+                VStack {
+                    Text("Settings")
+                }
+            }
+            .tag(2)
         }
     }
 }

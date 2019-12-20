@@ -16,9 +16,12 @@ struct FileViewControllerManager {
         case loadCosigner
         case savePublicKey
         case exportBitcoinCore
+        case loadPSBT
+        case savePSBT
     }
     
     let task: Task
+    var payload: Data?
     
     func prompt<T: UIViewController & UIDocumentPickerDelegate>(vc: T) {
         let documentPicker: UIDocumentPickerViewController
@@ -27,7 +30,9 @@ struct FileViewControllerManager {
         case .loadCosigner:
             let types: [String] = [kUTTypeJSON as String]
             documentPicker = UIDocumentPickerViewController(documentTypes: types, in: .import)
-        case .savePublicKey, .exportBitcoinCore:
+        case .loadPSBT:
+            documentPicker = UIDocumentPickerViewController(documentTypes: ["org.bitcoin.psbt"], in: .import)
+        case .savePublicKey, .exportBitcoinCore, .savePSBT:
             documentPicker =
             UIDocumentPickerViewController(documentTypes: [kUTTypeFolder as String], in: .open)
         }
@@ -39,14 +44,20 @@ struct FileViewControllerManager {
         }
     }
     
-    func didPickDocumentsAt(urls: [URL]) -> Void {
+    mutating func didPickDocumentsAt(urls: [URL]) -> Void {
         switch task {
         case .loadCosigner:
             if (urls.count != 1) {
                 NSLog("Please select 1 JSON file")
             }
             loadCosignerFile(urls[0])
+        case .loadPSBT:
+            if (urls.count != 1) {
+                NSLog("Please select 1 PSBT file")
+            }
+            loadPSBTFile(urls[0])
         case .savePublicKey:
+            print(urls[0])
             if (urls.count != 1) {
                 NSLog("Please select 1 directory")
             }
@@ -58,6 +69,13 @@ struct FileViewControllerManager {
           }
           precondition(urls[0].hasDirectoryPath)
           exportBitcoinCore(urls[0])
+        case .savePSBT:
+          if (urls.count != 1) {
+              NSLog("Please select 1 directory")
+          }
+          precondition(urls[0].hasDirectoryPath)
+          savePSBT(urls[0])
+            
       }
     }
         
@@ -90,6 +108,15 @@ struct FileViewControllerManager {
           }
       }
     
+    mutating func loadPSBTFile(_ url: URL) {
+        do {
+            self.payload = try Data(contentsOf: URL(fileURLWithPath: url.path), options: .mappedIfSafe)
+        } catch {
+           NSLog("Something went wrong parsing PSBT file")
+           return
+        }
+    }
+
     func exportBitcoinCore(_ url: URL) {
         let (_, us, cosigner) = Signer.getSigners()
 
@@ -102,6 +129,12 @@ struct FileViewControllerManager {
         let textData = importData!.importDescriptorsRPC.data(using: .utf8)!
         writeFile(folderUrl: url, fileName: fileName, textData: textData)
     }
+    
+    func savePSBT(_ url: URL) {
+        precondition(self.payload != nil)
+
+        let fileName = "transaction-signed.psbt"; // TODO: use txid, and also save hex if complete
+        writeFile(folderUrl: url, fileName: fileName, textData: self.payload!)
     }
       
     func savePublicKeyFile(_ url: URL) {
