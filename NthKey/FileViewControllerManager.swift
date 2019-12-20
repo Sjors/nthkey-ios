@@ -90,35 +90,18 @@ struct FileViewControllerManager {
           }
       }
     
-      func exportBitcoinCore(_ url: URL) {
-            let encodedCosigners = UserDefaults.standard.array(forKey: "cosigners")!
-            precondition(!encodedCosigners.isEmpty)
-            
-            let fingerprint = UserDefaults.standard.data(forKey: "masterKeyFingerprint")!
-            let entropyItem = KeychainEntropyItem(service: "NthKeyService", fingerprint: fingerprint, accessGroup: nil)
+    func exportBitcoinCore(_ url: URL) {
+        let (_, us, cosigner) = Signer.getSigners()
 
-            // TODO: deduplicate from MultisigAddress.swift
-            let entropy = try! entropyItem.readEntropy()
-            let mnemonic = BIP39Mnemonic(entropy)!
-            let seedHex = mnemonic.seedHex()
-            let masterKey = HDKey(seedHex, .testnet)!
-            assert(masterKey.fingerprint == fingerprint)
-            
-            let path = BIP32Path("m/48h/1h/0h/2h")!
-            let ourKey = try! masterKey.derive(path)
-            let us = Signer(fingerprint: fingerprint, derivation: path, hdKey: ourKey)
-        
-            let encodedCosigner = encodedCosigners[0] as! Data
-            let cosigner = try! NSKeyedUnarchiver.unarchivedObject(ofClass: Signer.self, from: encodedCosigner)!
-            
-            let threshold = UserDefaults.standard.integer(forKey: "threshold")
-            precondition(threshold > 0)
-            
-            let importData = BitcoinCoreImport([us, cosigner], threshold: UInt(threshold))
-        
-            let fileName = "bitcoin-core-importdescriptors-" + fingerprint.hexString + ".txt";
-            let textData = importData!.importDescriptorsRPC.data(using: .utf8)!
-            writeFile(folderUrl: url, fileName: fileName, textData: textData)
+        let threshold = UserDefaults.standard.integer(forKey: "threshold")
+        precondition(threshold > 0)
+
+        let importData = BitcoinCoreImport([us, cosigner], threshold: UInt(threshold))
+
+        let fileName = "bitcoin-core-importdescriptors-" + us.fingerprint.hexString + ".txt";
+        let textData = importData!.importDescriptorsRPC.data(using: .utf8)!
+        writeFile(folderUrl: url, fileName: fileName, textData: textData)
+    }
     }
       
     func savePublicKeyFile(_ url: URL) {
