@@ -25,10 +25,13 @@
 		A27D4BFC23A2BECC0055B0B8 /* BitcoinCoreImportTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A27D4BFB23A2BECC0055B0B8 /* BitcoinCoreImportTests.swift */; };
 		A285870623AD0B0300930566 /* psbt-128.png in Resources */ = {isa = PBXBuildFile; fileRef = A285870523AD0B0300930566 /* psbt-128.png */; };
 		A285870923AD1AE200930566 /* PSBTOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = A285870823AD1AE200930566 /* PSBTOutput.swift */; };
+		A285870D23AD31C600930566 /* Destination.swift in Sources */ = {isa = PBXBuildFile; fileRef = A285870C23AD31C600930566 /* Destination.swift */; };
 		A29DAAC12391657F006B38D9 /* KeychainEntropyItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A29DAAC02391657F006B38D9 /* KeychainEntropyItem.swift */; };
 		A29DAAC3239180CC006B38D9 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = A29DAAC2239180CC006B38D9 /* README.md */; };
 		A29DAAC523982271006B38D9 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A29DAAC423982271006B38D9 /* SettingsViewController.swift */; };
 		A2C800F523A3943000111EAF /* FileViewControllerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2C800F423A3943000111EAF /* FileViewControllerManager.swift */; };
+		A2E9E37F23ACF1140049645D /* SignView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2E9E37E23ACF1140049645D /* SignView.swift */; };
+		A2E9E38123ACF1A30049645D /* SignViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2E9E38023ACF1A30049645D /* SignViewController.swift */; };
 		A2F8575F23991354008A44E6 /* Signer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2F8575E23991354008A44E6 /* Signer.swift */; };
 		A2F85761239918FF008A44E6 /* SignerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2F85760239918FF008A44E6 /* SignerTests.swift */; };
 		D9E078D843A0946168D9E8C8 /* Pods_NthKey_NthKeyUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC084A378751F9293E3E617F /* Pods_NthKey_NthKeyUITests.framework */; };
@@ -84,10 +87,13 @@
 		A27D4BFB23A2BECC0055B0B8 /* BitcoinCoreImportTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BitcoinCoreImportTests.swift; sourceTree = "<group>"; };
 		A285870523AD0B0300930566 /* psbt-128.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "psbt-128.png"; sourceTree = "<group>"; };
 		A285870823AD1AE200930566 /* PSBTOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PSBTOutput.swift; sourceTree = "<group>"; };
+		A285870C23AD31C600930566 /* Destination.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Destination.swift; sourceTree = "<group>"; };
 		A29DAAC02391657F006B38D9 /* KeychainEntropyItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainEntropyItem.swift; sourceTree = "<group>"; };
 		A29DAAC2239180CC006B38D9 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = SOURCE_ROOT; };
 		A29DAAC423982271006B38D9 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		A2C800F423A3943000111EAF /* FileViewControllerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileViewControllerManager.swift; sourceTree = "<group>"; };
+		A2E9E37E23ACF1140049645D /* SignView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignView.swift; sourceTree = "<group>"; };
+		A2E9E38023ACF1A30049645D /* SignViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignViewController.swift; sourceTree = "<group>"; };
 		A2F8575E23991354008A44E6 /* Signer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Signer.swift; sourceTree = "<group>"; };
 		A2F85760239918FF008A44E6 /* SignerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignerTests.swift; sourceTree = "<group>"; };
 		A451BF0AE21C7337353DD56F /* Pods-MultisigTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MultisigTests.debug.xcconfig"; path = "Target Support Files/Pods-MultisigTests/Pods-MultisigTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -190,6 +196,7 @@
 				A2C800F423A3943000111EAF /* FileViewControllerManager.swift */,
 				A206E806238D65F300786824 /* SceneDelegate.swift */,
 				A29DAAC423982271006B38D9 /* SettingsViewController.swift */,
+				A2E9E38023ACF1A30049645D /* SignViewController.swift */,
 				A206E80D238D65FB00786824 /* Assets.xcassets */,
 				A206E812238D65FB00786824 /* LaunchScreen.storyboard */,
 				A206E815238D65FB00786824 /* Info.plist */,
@@ -244,7 +251,9 @@
 			children = (
 				A27180B523A293EA00E9F443 /* AddressView.swift */,
 				A206E80B238D65F300786824 /* ContentView.swift */,
+				A285870C23AD31C600930566 /* Destination.swift */,
 				A27D4BF523A2B4F30055B0B8 /* SettingsView.swift */,
+				A2E9E37E23ACF1140049645D /* SignView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -514,9 +523,12 @@
 				A285870923AD1AE200930566 /* PSBTOutput.swift in Sources */,
 				A27D4BF823A2B7040055B0B8 /* UserDefaultsManager.swift in Sources */,
 				A27D4BF623A2B4F30055B0B8 /* SettingsView.swift in Sources */,
+				A2E9E38123ACF1A30049645D /* SignViewController.swift in Sources */,
 				A27180B623A293EA00E9F443 /* AddressView.swift in Sources */,
 				A2C800F523A3943000111EAF /* FileViewControllerManager.swift in Sources */,
+				A2E9E37F23ACF1140049645D /* SignView.swift in Sources */,
 				A29DAAC523982271006B38D9 /* SettingsViewController.swift in Sources */,
+				A285870D23AD31C600930566 /* Destination.swift in Sources */,
 				A27180B223A291B500E9F443 /* MultisigAddress.swift in Sources */,
 				A27D4BFA23A2BA1A0055B0B8 /* BitcoinCoreImport.swift in Sources */,
 				A2F8575F23991354008A44E6 /* Signer.swift in Sources */,

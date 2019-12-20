@@ -61,4 +61,13 @@ public class Signer: NSObject, NSSecureCoding {
         
         return (masterKey, us, cosigner)
     }
+    
+    static func signPSBT(_ psbt: PSBT) -> PSBT {
+        var psbtOut = psbt
+        // ignoring co-signer for now, but will be used for change detection later
+        // TODO: use account level hdKey instead of masterkey
+        let (masterKey, _, _) = Signer.getSigners()
+        psbtOut.sign(masterKey)
+        return psbtOut
+    }
 }
