@@ -138,7 +138,7 @@ Put this on the SD card and sign it on the Coldcard.
 You can inspect the partially signed PSBT:
 
 ```
-src/bitcoin-cli -testnet "`base64 --input tx-part.psbt`"
+src/bitcoin-cli -testnet finalizepsbt "`base64 --input tx-part.psbt`"
 ```
 
 ## Bitcoin Core combine and broadcast
