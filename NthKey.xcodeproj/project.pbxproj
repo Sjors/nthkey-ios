@@ -24,6 +24,7 @@
 		A27D4BFA23A2BA1A0055B0B8 /* BitcoinCoreImport.swift in Sources */ = {isa = PBXBuildFile; fileRef = A27D4BF923A2BA1A0055B0B8 /* BitcoinCoreImport.swift */; };
 		A27D4BFC23A2BECC0055B0B8 /* BitcoinCoreImportTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A27D4BFB23A2BECC0055B0B8 /* BitcoinCoreImportTests.swift */; };
 		A285870623AD0B0300930566 /* psbt-128.png in Resources */ = {isa = PBXBuildFile; fileRef = A285870523AD0B0300930566 /* psbt-128.png */; };
+		A285870923AD1AE200930566 /* PSBTOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = A285870823AD1AE200930566 /* PSBTOutput.swift */; };
 		A29DAAC12391657F006B38D9 /* KeychainEntropyItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A29DAAC02391657F006B38D9 /* KeychainEntropyItem.swift */; };
 		A29DAAC3239180CC006B38D9 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = A29DAAC2239180CC006B38D9 /* README.md */; };
 		A29DAAC523982271006B38D9 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A29DAAC423982271006B38D9 /* SettingsViewController.swift */; };
@@ -82,6 +83,7 @@
 		A27D4BF923A2BA1A0055B0B8 /* BitcoinCoreImport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BitcoinCoreImport.swift; sourceTree = "<group>"; };
 		A27D4BFB23A2BECC0055B0B8 /* BitcoinCoreImportTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BitcoinCoreImportTests.swift; sourceTree = "<group>"; };
 		A285870523AD0B0300930566 /* psbt-128.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "psbt-128.png"; sourceTree = "<group>"; };
+		A285870823AD1AE200930566 /* PSBTOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PSBTOutput.swift; sourceTree = "<group>"; };
 		A29DAAC02391657F006B38D9 /* KeychainEntropyItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainEntropyItem.swift; sourceTree = "<group>"; };
 		A29DAAC2239180CC006B38D9 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = SOURCE_ROOT; };
 		A29DAAC423982271006B38D9 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
@@ -181,6 +183,7 @@
 			children = (
 				A285870423AD0AF800930566 /* Artwork */,
 				A29DAAC2239180CC006B38D9 /* README.md */,
+				A285870723AD1ACC00930566 /* Extensions */,
 				A27180B323A2939A00E9F443 /* Model */,
 				A27180B423A293BC00E9F443 /* View */,
 				A206E804238D65F300786824 /* AppDelegate.swift */,
@@ -508,6 +511,7 @@
 				A206E805238D65F300786824 /* AppDelegate.swift in Sources */,
 				A206E807238D65F300786824 /* SceneDelegate.swift in Sources */,
 				A206E80C238D65F300786824 /* ContentView.swift in Sources */,
+				A285870923AD1AE200930566 /* PSBTOutput.swift in Sources */,
 				A27D4BF823A2B7040055B0B8 /* UserDefaultsManager.swift in Sources */,
 				A27D4BF623A2B4F30055B0B8 /* SettingsView.swift in Sources */,
 				A27180B623A293EA00E9F443 /* AddressView.swift in Sources */,
