@@ -50,7 +50,7 @@ struct MultisigAddress : Identifiable {
         precondition(!MultisigAddress.receivePublicHDkeys.isEmpty)
         
 
-        let pubKeys = MultisigAddress.receivePublicHDkeys.map {key -> Data in
+        let pubKeys = MultisigAddress.receivePublicHDkeys.map {key -> PubKey in
             let path = try! BIP32Path(Int(receiveIndex), relative: true)
             let childKey: HDKey = try! key.derive(path)
             return childKey.pubKey
