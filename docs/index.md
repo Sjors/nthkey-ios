@@ -36,7 +36,7 @@ You can run the app on different iOs devices, each with its own[^trust] private 
 
 ### Coldcard
 
-You can export your public keys to Coldcard and vice versa, to create a multisig wallet with it. 
+You can export your public keys to Coldcard and vice versa, to create a multisig wallet with it.
 
 ![](/assets/cc_create_airgapped.png){:height="400pt"}
 
@@ -50,7 +50,6 @@ Coming soon (tm)
 * Testnet only
 * No M-of-N (only 2-of-2)
 * No change address detection
-* Can't verify pre-SegWit destination addresses
 * See [Github issues](https://github.com/Sjors/nthkey-ios/issues)
 
 ## Contact
