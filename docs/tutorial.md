@@ -3,7 +3,7 @@
 # nthKey Tutorial
 
 Prerequisites:
-* install NthKey via [TestFlight](https://testflight.apple.com/join/....)
+* install NthKey via [TestFlight](https://testflight.apple.com/join/Y6cbJbEe)
 * Understand the [limitations](/#known-limitations)
 * learn how to compile Bitcoin Core from source ([macOS](https://github.com/bitcoin/bitcoin/blob/master/doc/build-osx.md), [Linux](https://github.com/bitcoin/bitcoin/blob/master/doc/build-unix.md), [Windows](https://github.com/bitcoin/bitcoin/blob/master/doc/build-windows.md))
 * learn how to use [Github forks](https://help.github.com/en/github/using-git/adding-a-remote)
