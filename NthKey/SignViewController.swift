@@ -10,87 +10,74 @@ import SwiftUI
 import UIKit
 import LibWally
 
-final class SignViewController : UIViewController, UIDocumentPickerDelegate, ObservableObject {
+final class SignViewController :  UIHostingController<SignView>, ObservableObject, UIViewControllerRepresentable {
+
+    typealias UIViewControllerType = SignViewController
     
     var activeFileViewControllerManager: FileViewControllerManager?
-    @Published var psbt: PSBT?
-    @Published var destinations: [Destination]?
-    @Published var signed: Bool = false
-    @Published var canSign: Bool = false
-    @Published var fee: String = ""
+
+    var coordinator: Coordinator?
+        
+    func makeCoordinator() -> Coordinator {
+        Coordinator(self)
+    }
     
     override func viewDidLoad() {
     }
-
-    func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
-        switch self.activeFileViewControllerManager!.task {
-        case .loadPSBT:
-            let (us, _) = Signer.getSigners()
-            precondition(activeFileViewControllerManager != nil)
-            activeFileViewControllerManager!.didPickDocumentsAt(urls: urls)
-            if let payload = activeFileViewControllerManager!.payload {
-                if let psbt = try? PSBT(payload, .testnet) {
-                    self.psbt = psbt
-                    self.destinations = psbt.outputs.map { output in
-                        return Destination(output: output, inputs: self.psbt!.inputs)
-                    }
-                    if let fee = psbt.fee {
-                        self.fee = "\(fee) sats"
-                    }
-                } else {
-                    NSLog("Something went wrong parsing JSON file")
-                }
-     
-            }
-            activeFileViewControllerManager = nil
-            self.canSign = false
-            for input in self.psbt!.inputs {
-                self.canSign = self.canSign || input.canSign(us.hdKey) as Bool
-            }
-        case .savePSBT:
-            self.signed = true
-            activeFileViewControllerManager!.didPickDocumentsAt(urls: urls)
-        default:
-            precondition(false)
-        }
-        
-
-    }
     
-    func loadPSBT() {
+    func loadPSBT(_ callback: @escaping (Data) -> Void ) {
         precondition(activeFileViewControllerManager == nil)
         precondition(UserDefaults.standard.array(forKey: "cosigners") != nil)
-        
+        coordinator!.callbackDidLoad = callback
         activeFileViewControllerManager = FileViewControllerManager(task: .loadPSBT)
-        activeFileViewControllerManager!.prompt(vc: self)
-        self.signed = false
+        activeFileViewControllerManager!.prompt(vc: self, delegate: coordinator!)
     }
     
-    func signPSBT() {
-        let signedPsbt = Signer.signPSBT(self.psbt!)
+    func savePSBT(_ psbt: PSBT, _ callback: @escaping () -> Void) {
         activeFileViewControllerManager = FileViewControllerManager(task: .savePSBT)
-        activeFileViewControllerManager!.payload = signedPsbt.data
-        activeFileViewControllerManager!.prompt(vc: self)
-        // We've signed, but there's no seperate save button yet
-        // self.signed = true
-    }
-    
-    func clearPSBT() {
-        self.psbt = nil
-        self.signed = false
-        self.fee = ""
+        activeFileViewControllerManager!.payload = psbt.data
+        activeFileViewControllerManager!.prompt(vc: self, delegate: coordinator!)
+        coordinator!.callbackDidSave = callback
     }
 
-}
-
-extension SignViewController: UIViewControllerRepresentable {
-    typealias UIViewControllerType = SignViewController
-    
     func makeUIViewController(context: UIViewControllerRepresentableContext<SignViewController>) -> SignViewController.UIViewControllerType {
-        return SignViewController()
+        
+        self.coordinator = context.coordinator
+        self.rootView.vc = self
+        return self
     }
 
     func updateUIViewController(_ uiViewController: SignViewController.UIViewControllerType, context: UIViewControllerRepresentableContext<SignViewController>) {
     }
     
 }
+
+class Coordinator: NSObject, UIDocumentPickerDelegate {
+    var callbackDidLoad: ((Data) -> Void)?
+    var callbackDidSave: (() -> Void)?
+    var vc: SignViewController
+
+    init(_ vc: SignViewController) {
+        self.vc = vc
+    }
+    
+    func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
+        switch vc.activeFileViewControllerManager!.task {
+        case .loadPSBT:
+            precondition(vc.activeFileViewControllerManager != nil)
+            vc.activeFileViewControllerManager!.didPickDocumentsAt(urls: urls)
+            if let payload = vc.activeFileViewControllerManager!.payload {
+                callbackDidLoad!(payload)
+            }
+            vc.activeFileViewControllerManager = nil
+        case .savePSBT:
+            vc.activeFileViewControllerManager!.didPickDocumentsAt(urls: urls)
+            callbackDidSave!()
+        default:
+            precondition(false)
+        }
+        
+
+    }
+}
+

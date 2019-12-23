@@ -12,39 +12,56 @@ import LibWally
 
 struct SignView : View {
     @ObservedObject var defaults = UserDefaultsManager()
-    @ObservedObject var sign = SignViewController()
-
+    @EnvironmentObject var appState: AppState
+    
+    var vc: SignViewController? = nil
+    
+    func loadPSBT(_ data: Data) {
+        DispatchQueue.main.async() {
+            self.appState.psbtManager.loadPSBT(data)
+        }
+    }
+    
+    func didSavePSBT() {
+        DispatchQueue.main.async() {
+            self.appState.psbtManager.signed = true
+        }
+    }
+    
     var body: some View {
         HStack{
             VStack(alignment: .leading, spacing: 20.0){
                 Button(action: {
-                    self.sign.loadPSBT()
+                    self.vc!.loadPSBT(self.loadPSBT)
                 }) {
                     Text("Load PSBT")
                 }
-                .disabled(!self.defaults.hasCosigners || self.sign.psbt != nil)
-                if self.sign.psbt != nil {
-                    if self.sign.signed {
+                .disabled(!self.defaults.hasCosigners || self.appState.psbtManager.psbt != nil)
+                if self.appState.psbtManager.psbt != nil {
+                    if self.appState.psbtManager.signed {
                         Text("Signed Transaction")
                     } else {
                         Text("Proposed Transaction")
                     }
-                    if self.sign.destinations != nil {
-                        ForEach(self.sign.destinations!.filter({ (dest) -> Bool in
+                    if self.appState.psbtManager.destinations != nil {
+                        ForEach(self.appState.psbtManager.destinations!.filter({ (dest) -> Bool in
                             return !dest.isChange;
                         })) { destination in
                             Text(destination.description).font(.system(.body, design: .monospaced))
                         }
-                        Text("Fee: " + self.sign.fee)
+                        Text("Fee: " + appState.psbtManager.fee)
                     }
                     Button(action: {
-                        self.sign.signPSBT()
+                        let signedPsbt = Signer.signPSBT(self.appState.psbtManager.psbt!)
+                        // We've signed, but there's no seperate save button yet
+                        // self.appState.psbtManager.signed = true
+                        self.vc!.savePSBT(signedPsbt, self.didSavePSBT)
                     }) {
                         Text("Sign")
                     }
-                    .disabled(!self.sign.canSign || self.sign.signed)
+                    .disabled(!appState.psbtManager.canSign || appState.psbtManager.signed)
                     Button(action: {
-                        self.sign.clearPSBT()
+                        self.appState.psbtManager.clear()
                     }) {
                         Text("Clear")
                     }
@@ -53,3 +70,4 @@ struct SignView : View {
         }
     }
 }
+

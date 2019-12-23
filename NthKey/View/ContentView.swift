@@ -11,11 +11,11 @@ import SwiftUI
 import LibWally
 
 struct ContentView: View {
-    @State private var selection = 0
+    @EnvironmentObject var appState: AppState
     @ObservedObject var defaults = UserDefaultsManager()
         
     var body: some View {
-        TabView(selection: $selection){
+        TabView(selection: $appState.selectedTab){
             HStack {
                 VStack(alignment: .leading, spacing: 10.0){
                     Text("Addresses")
@@ -38,28 +38,36 @@ struct ContentView: View {
                     Text("Addresses")
                 }
             }
-            .tag(0)
-            SignView()
+            .tag(Tab.addresses)
+            SignViewController(rootView: SignView()).environmentObject(appState)
             .tabItem {
                 VStack {
                     Image("second")
                     Text("Sign")
                 }
             }
-            .tag(1)
+            .tag(Tab.sign)
             SettingsView()
             .tabItem {
                 VStack {
                     Text("Settings")
                 }
             }
-            .tag(2)
+            .tag(Tab.settings)
         }
     }
 }
 
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView()
+//struct ContentView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        ContentView()
+//    }
+//}
+
+extension ContentView {
+    enum Tab: Hashable {
+        case addresses
+        case sign
+        case settings
     }
 }

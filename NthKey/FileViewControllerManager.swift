@@ -23,7 +23,7 @@ struct FileViewControllerManager {
     let task: Task
     var payload: Data?
     
-    func prompt<T: UIViewController & UIDocumentPickerDelegate>(vc: T) {
+    func prompt<T: UIViewController>(vc: T, delegate: UIDocumentPickerDelegate) {
         let documentPicker: UIDocumentPickerViewController
 
         switch task {
@@ -36,7 +36,7 @@ struct FileViewControllerManager {
             documentPicker =
             UIDocumentPickerViewController(documentTypes: [kUTTypeFolder as String], in: .open)
         }
-        documentPicker.delegate = vc
+        documentPicker.delegate = delegate
         documentPicker.modalPresentationStyle = .formSheet
         
         DispatchQueue.main.async {

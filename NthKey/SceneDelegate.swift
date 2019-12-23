@@ -9,9 +9,17 @@
 
 import UIKit
 import SwiftUI
+import LibWally
+
+class AppState: ObservableObject {
+    @Published var selectedTab: ContentView.Tab = .addresses
+    @Published var psbtManager: PSBTManager = PSBTManager()
+}
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
+    var appState = AppState()
+    
     var window: UIWindow?
 
 
@@ -25,7 +33,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         // Create the SwiftUI view and set the context as the value for the managedObjectContext environment keyPath.
         // Add `@Environment(\.managedObjectContext)` in the views that will need the context.
-        let contentView = ContentView().environment(\.managedObjectContext, context)
+        let contentView = ContentView().environmentObject(appState).environment(\.managedObjectContext, context)
 
         // Use a UIHostingController as window root view controller.
         if let windowScene = scene as? UIWindowScene {
