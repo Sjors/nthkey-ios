@@ -9,13 +9,16 @@
 import Foundation
 import LibWally
 
-struct Destination : Identifiable {
+struct Destination : Identifiable, Equatable {
     public let description: String
     public let id: String
+    public let isChange: Bool
     
-    init(output: PSBTOutput) {
+    init(output: PSBTOutput, inputs: [PSBTInput]) {
         self.description = String(output.txOutput.amount) + " sats" + ": " + output.txOutput.address!.description
         self.id = output.id
+        let (masterKey, _, cosigner) = Signer.getSigners()
+        self.isChange = output.isChange(signer: masterKey, inputs: inputs, cosigners: [cosigner.hdKey], threshold: 2)
     }
     
 }

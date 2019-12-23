@@ -27,7 +27,7 @@ public class Signer: NSObject, NSSecureCoding {
         let derivation = coder.decodeObject(forKey: "derivation") as! String // TODO: add raw initializer to BIP32Path
         let path = BIP32Path(derivation)!
         let xpub: String = coder.decodeObject(forKey: "xpub") as! String // TODO: add raw initializer to HDKey
-        let hdKey = HDKey(xpub)!
+        let hdKey = HDKey(xpub, masterKeyFingerprint:fingerprint)!
         
         self.init(fingerprint: fingerprint, derivation: path, hdKey: hdKey)
     }
