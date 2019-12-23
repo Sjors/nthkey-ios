@@ -38,7 +38,7 @@ public class Signer: NSObject, NSSecureCoding {
         coder.encode(hdKey.description, forKey:"xpub")
     }
 
-    public static func getSigners() -> (HDKey, Signer, Signer) {
+    public static func getSigners() -> (Signer, [Signer]) {
         let encodedCosigners = UserDefaults.standard.array(forKey: "cosigners")!
         precondition(!encodedCosigners.isEmpty)
 
@@ -59,15 +59,13 @@ public class Signer: NSObject, NSSecureCoding {
         let encodedCosigner = encodedCosigners[0] as! Data
         let cosigner = try! NSKeyedUnarchiver.unarchivedObject(ofClass: Signer.self, from: encodedCosigner)!
         
-        return (masterKey, us, cosigner)
+        return (us, [cosigner])
     }
     
     static func signPSBT(_ psbt: PSBT) -> PSBT {
         var psbtOut = psbt
-        // ignoring co-signer for now, but will be used for change detection later
-        // TODO: use account level hdKey instead of masterkey
-        let (masterKey, _, _) = Signer.getSigners()
-        psbtOut.sign(masterKey)
+        let (us, _) = Signer.getSigners()
+        psbtOut.sign(us.hdKey)
         return psbtOut
     }
 }

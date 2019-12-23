@@ -16,12 +16,14 @@ class NthKeyTests: XCTestCase {
     var signer2: Signer?
 
     override func setUp() {
-        let master1 = "xprv9s21ZrQH143K3QTDL4LXw2F7HEK3wJUD2nW2nRk4stbPy6cq3jPPqjiChkVvvNKmPGJxWUtg6LnF5kejMRNNU3TGtRBeJgk33yuGBxrMPHi"
-        let master2 = "xprv9s21ZrQH143K31xYSDQpPDxsXRTUcvj2iNHm5NUtrGiGG5e2DtALGdso3pGz6ssrdK4PFmM8NSpSBHNqPqm55Qn3LqFtT2emdEXVYsCzC2U"
+        let outMasterKey = "xprv9s21ZrQH143K3QTDL4LXw2F7HEK3wJUD2nW2nRk4stbPy6cq3jPPqjiChkVvvNKmPGJxWUtg6LnF5kejMRNNU3TGtRBeJgk33yuGBxrMPHi"
+        let theirXpub = "xpub6DwQ4gBCmJZM3TaKogP41tpjuEwnMH2nWEi3PFev37LfsWPvjZrh1GfAG8xvoDYMPWGKG1oBPMCfKpkVbJtUHRaqRdCb6X6o1e9PQTVK88a"
+        let theirFingerprint = Data("bd16bee5")!
         
-        let ours = try! HDKey(master1)!.derive(BIP32Path("m/48'/0'/0'/2'/0")!)
-        let theirs = try! HDKey(master2)!.derive(BIP32Path("m/48'/0'/0'/2'/0")!)
-        MultisigAddress.receivePublicHDkeys = [ours, theirs]
+        let ours = try! HDKey(outMasterKey)!.derive(BIP32Path("m/48'/0'/0'/2'/0")!)
+        let theirs = HDKey(theirXpub, masterKeyFingerprint:theirFingerprint)!
+        let theirReceiveHDKey = try! theirs.derive(BIP32Path(0))
+        MultisigAddress.receivePublicHDkeys = [ours, theirReceiveHDKey]
     }
 
     override func tearDown() {
