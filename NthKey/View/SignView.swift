@@ -35,6 +35,7 @@ struct SignView : View {
                         })) { destination in
                             Text(destination.description).font(.system(.body, design: .monospaced))
                         }
+                        Text("Fee: " + self.sign.fee)
                     }
                     Button(action: {
                         self.sign.signPSBT()
