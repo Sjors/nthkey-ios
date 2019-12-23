@@ -31,7 +31,7 @@ final class SignViewController : UIViewController, UIDocumentPickerDelegate, Obs
                 if let payload = activeFileViewControllerManager!.payload {
                     self.psbt = try PSBT(payload, .testnet)
                     self.destinations = self.psbt!.outputs.map { output in
-                        return Destination(output: output)
+                        return Destination(output: output, inputs: self.psbt!.inputs)
                     }
                 }
                 activeFileViewControllerManager = nil

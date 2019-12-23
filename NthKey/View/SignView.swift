@@ -30,7 +30,9 @@ struct SignView : View {
                         Text("Proposed Transaction")
                     }
                     if self.sign.destinations != nil {
-                        ForEach(self.sign.destinations!) { destination in
+                        ForEach(self.sign.destinations!.filter({ (dest) -> Bool in
+                            return !dest.isChange;
+                        })) { destination in
                             Text(destination.description).font(.system(.body, design: .monospaced))
                         }
                     }
