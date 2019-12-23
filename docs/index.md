@@ -49,7 +49,6 @@ Coming soon (tm)
 
 * Testnet only
 * No M-of-N (only 2-of-2)
-* No change address detection
 * See [Github issues](https://github.com/Sjors/nthkey-ios/issues)
 
 ## Contact
