@@ -17,8 +17,11 @@ struct Destination : Identifiable, Equatable {
     init(output: PSBTOutput, inputs: [PSBTInput]) {
         self.description = String(output.txOutput.amount) + " sats" + ": " + output.txOutput.address!.description
         self.id = output.id
-        let (masterKey, _, cosigner) = Signer.getSigners()
-        self.isChange = output.isChange(signer: masterKey, inputs: inputs, cosigners: [cosigner.hdKey], threshold: 2)
+        let (us, cosigners) = Signer.getSigners()
+        let cosignerKeys = cosigners.map { (signer) -> HDKey in
+            signer.hdKey
+        }
+        self.isChange = output.isChange(signer: us.hdKey, inputs: inputs, cosigners: cosignerKeys, threshold: 2)
     }
     
 }

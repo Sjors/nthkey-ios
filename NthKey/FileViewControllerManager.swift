@@ -118,12 +118,12 @@ struct FileViewControllerManager {
     }
 
     func exportBitcoinCore(_ url: URL) {
-        let (_, us, cosigner) = Signer.getSigners()
+        let (us, cosigners) = Signer.getSigners()
 
         let threshold = UserDefaults.standard.integer(forKey: "threshold")
         precondition(threshold > 0)
 
-        let importData = BitcoinCoreImport([us, cosigner], threshold: UInt(threshold))
+        let importData = BitcoinCoreImport([us] + cosigners, threshold: UInt(threshold))
 
         let fileName = "bitcoin-core-importdescriptors-" + us.fingerprint.hexString + ".txt";
         let textData = importData!.importDescriptorsRPC.data(using: .utf8)!

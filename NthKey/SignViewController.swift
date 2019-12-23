@@ -17,6 +17,7 @@ final class SignViewController : UIViewController, UIDocumentPickerDelegate, Obs
     @Published var destinations: [Destination]?
     @Published var signed: Bool = false
     @Published var canSign: Bool = false
+    @Published var fee: String = ""
     
     override func viewDidLoad() {
     }
@@ -24,25 +25,24 @@ final class SignViewController : UIViewController, UIDocumentPickerDelegate, Obs
     func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
         switch self.activeFileViewControllerManager!.task {
         case .loadPSBT:
-            let (masterKey, _, _) = Signer.getSigners()
-            do {
-                precondition(activeFileViewControllerManager != nil)
-                activeFileViewControllerManager!.didPickDocumentsAt(urls: urls)
-                if let payload = activeFileViewControllerManager!.payload {
-                    self.psbt = try PSBT(payload, .testnet)
-                    self.destinations = self.psbt!.outputs.map { output in
+            let (us, _) = Signer.getSigners()
+            precondition(activeFileViewControllerManager != nil)
+            activeFileViewControllerManager!.didPickDocumentsAt(urls: urls)
+            if let payload = activeFileViewControllerManager!.payload {
+                if let psbt = try? PSBT(payload, .testnet) {
+                    self.psbt = psbt
+                    self.destinations = psbt.outputs.map { output in
                         return Destination(output: output, inputs: self.psbt!.inputs)
                     }
+                } else {
+                    NSLog("Something went wrong parsing JSON file")
                 }
-                activeFileViewControllerManager = nil
-                self.canSign = false
-                for input in self.psbt!.inputs {
-                    // TODO: use account level hdKey instead of masterkey, and use only public key
-                    self.canSign = self.canSign || input.canSign(masterKey) as Bool
-                }
-            } catch {
-                NSLog("Something went wrong parsing JSON file")
-                return
+     
+            }
+            activeFileViewControllerManager = nil
+            self.canSign = false
+            for input in self.psbt!.inputs {
+                self.canSign = self.canSign || input.canSign(us.hdKey) as Bool
             }
         case .savePSBT:
             self.signed = true
