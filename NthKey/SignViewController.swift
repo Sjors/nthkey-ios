@@ -34,6 +34,9 @@ final class SignViewController : UIViewController, UIDocumentPickerDelegate, Obs
                     self.destinations = psbt.outputs.map { output in
                         return Destination(output: output, inputs: self.psbt!.inputs)
                     }
+                    if let fee = psbt.fee {
+                        self.fee = "\(fee) sats"
+                    }
                 } else {
                     NSLog("Something went wrong parsing JSON file")
                 }
@@ -75,6 +78,7 @@ final class SignViewController : UIViewController, UIDocumentPickerDelegate, Obs
     func clearPSBT() {
         self.psbt = nil
         self.signed = false
+        self.fee = ""
     }
 
 }
