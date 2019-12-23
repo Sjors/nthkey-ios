@@ -25,10 +25,10 @@ final class SignViewController :  UIHostingController<SignView>, ObservableObjec
     override func viewDidLoad() {
     }
     
-    func loadPSBT(_ callback: @escaping (Data) -> Void ) {
+    func openPSBT(_ callback: @escaping (URL) -> Void ) {
         precondition(activeFileViewControllerManager == nil)
         precondition(UserDefaults.standard.array(forKey: "cosigners") != nil)
-        coordinator!.callbackDidLoad = callback
+        coordinator!.callbackDidGetURL = callback
         activeFileViewControllerManager = FileViewControllerManager(task: .loadPSBT)
         activeFileViewControllerManager!.prompt(vc: self, delegate: coordinator!)
     }
@@ -53,7 +53,7 @@ final class SignViewController :  UIHostingController<SignView>, ObservableObjec
 }
 
 class Coordinator: NSObject, UIDocumentPickerDelegate {
-    var callbackDidLoad: ((Data) -> Void)?
+    var callbackDidGetURL: ((URL) -> Void)?
     var callbackDidSave: (() -> Void)?
     var vc: SignViewController
 
@@ -66,8 +66,8 @@ class Coordinator: NSObject, UIDocumentPickerDelegate {
         case .loadPSBT:
             precondition(vc.activeFileViewControllerManager != nil)
             vc.activeFileViewControllerManager!.didPickDocumentsAt(urls: urls)
-            if let payload = vc.activeFileViewControllerManager!.payload {
-                callbackDidLoad!(payload)
+            if let url = vc.activeFileViewControllerManager!.url {
+                callbackDidGetURL!(url)
             }
             vc.activeFileViewControllerManager = nil
         case .savePSBT:

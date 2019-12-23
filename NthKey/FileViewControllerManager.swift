@@ -22,6 +22,7 @@ struct FileViewControllerManager {
     
     let task: Task
     var payload: Data?
+    var url: URL?
     
     func prompt<T: UIViewController>(vc: T, delegate: UIDocumentPickerDelegate) {
         let documentPicker: UIDocumentPickerViewController
@@ -55,7 +56,7 @@ struct FileViewControllerManager {
             if (urls.count != 1) {
                 NSLog("Please select 1 PSBT file")
             }
-            loadPSBTFile(urls[0])
+            self.url = urls[0]
         case .savePublicKey:
             print(urls[0])
             if (urls.count != 1) {
@@ -107,15 +108,6 @@ struct FileViewControllerManager {
               return
           }
       }
-    
-    mutating func loadPSBTFile(_ url: URL) {
-        do {
-            self.payload = try Data(contentsOf: URL(fileURLWithPath: url.path), options: .mappedIfSafe)
-        } catch {
-           NSLog("Something went wrong parsing PSBT file")
-           return
-        }
-    }
 
     func exportBitcoinCore(_ url: URL) {
         let (us, cosigners) = Signer.getSigners()

@@ -38,7 +38,18 @@ struct PSBTManager {
             }
             self.signed = false
        } else {
-           NSLog("Something went wrong parsing JSON file")
+           NSLog("Something went wrong parsing PSBT data")
        }
+    }
+    
+    mutating func open(_ url: URL) {
+        let payload: Data
+        do {
+           payload = try Data(contentsOf: URL(fileURLWithPath: url.path), options: .mappedIfSafe)
+        } catch {
+           NSLog("Something went wrong parsing PSBT file")
+           return
+        }
+        loadPSBT(payload)
     }
 }

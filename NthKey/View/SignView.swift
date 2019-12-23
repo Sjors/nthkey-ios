@@ -16,9 +16,9 @@ struct SignView : View {
     
     var vc: SignViewController? = nil
     
-    func loadPSBT(_ data: Data) {
+    func openPSBT(_ url: URL) {
         DispatchQueue.main.async() {
-            self.appState.psbtManager.loadPSBT(data)
+            self.appState.psbtManager.open(url)
         }
     }
     
@@ -32,7 +32,7 @@ struct SignView : View {
         HStack{
             VStack(alignment: .leading, spacing: 20.0){
                 Button(action: {
-                    self.vc!.loadPSBT(self.loadPSBT)
+                    self.vc!.openPSBT(self.openPSBT)
                 }) {
                     Text("Load PSBT")
                 }
