@@ -13,6 +13,10 @@
 			</array>
 			<key>CFBundleTypeName</key>
 			<string>PSBT</string>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>LSHandlerRank</key>
+			<string>Default</string>
 			<key>LSItemContentTypes</key>
 			<array>
 				<string>org.bitcoin.psbt</string>
@@ -98,8 +102,8 @@
 			</array>
 			<key>UTTypeIdentifier</key>
 			<string>org.bitcoin.psbt</string>
-      <key>UTTypeReferenceURL></key>
-      <string>https://github.com/bitcoin/bips/blob/master/bip-0174.mediawiki</string>
+			<key>UTTypeReferenceURL</key>
+			<string>https://github.com/bitcoin/bips/blob/master/bip-0174.mediawiki</string>
 			<key>UTTypeTagSpecification</key>
 			<dict>
 				<key>public.filename-extension</key>
