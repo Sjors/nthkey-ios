@@ -1,4 +1,4 @@
-# Nth Key for iOs
+# Nth Key for iOs [![Build Status](https://travis-ci.org/Sjors/nthkey-ios.svg?branch=master)](https://travis-ci.org/Sjors/nthkey-ios)
 
 Use your iOs device as part of a Bitcoin multi-signature setup.
 
