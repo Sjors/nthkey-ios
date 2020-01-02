@@ -23,6 +23,6 @@ pod install --verbose
 
 ## Usage
 
-See [tutorial](https://nthkey.com/tutorial).
+Install from [TestFlight](https://testflight.apple.com/join/Y6cbJbEe) and follow the [tutorial](https://nthkey.com/tutorial).
 
 ## Known issues
