@@ -5,3 +5,6 @@ tagline: Bitcoin multi-signature for iOs
 author:
   twitter: nthKeyApp
 logo: /assets/logo.png
+twitter:
+  creator: @provoost
+  card: summary_large_image
