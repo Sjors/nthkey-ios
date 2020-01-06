@@ -1,5 +1,5 @@
 ---
-description: How to use Bitcoin Core and the NthKey app to send and receive Bitcoin in a multi-signature wallet setup.
+description: How to use NthKey for iOs with Bitcoin Core to send and receive Bitcoin in a multi-signature wallet setup.
 image: /assets/ios_confirm.png
 author:
   twitter: provoost
