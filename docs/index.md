@@ -1,4 +1,6 @@
 ---
+description: Your iOs device in a Bitcoin multi-sig
+image: /assets/ios_confirm.png
 ---
 # Your iOs device in a Bitcoin multi-sig
 
