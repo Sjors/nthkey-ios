@@ -21,6 +21,12 @@ gem install cocoapods
 pod install --verbose
 ```
 
+To preview documentation:
+
+```sh
+bundle exec jekyll server --incremental --source docs
+```
+
 ## Usage
 
 Install from [TestFlight](https://testflight.apple.com/join/Y6cbJbEe) and follow the [tutorial](https://nthkey.com/tutorial).

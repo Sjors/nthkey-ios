@@ -1,1 +1,7 @@
 theme: jekyll-theme-hacker
+title: NthKey
+tagline: Bitcoin multi-signature for iOs
+logo: /assets/logo.png
+twitter:
+  card: summary_large_image
+  username: nthKeyApp
