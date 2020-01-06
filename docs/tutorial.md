@@ -26,31 +26,28 @@ Follow the instructions for compiling Bitcoin Core (see #prerequisites), try the
 
 We going to use a highly experimental branch of Bitcoin Core. Only use this with testnet!
 
-[Bitcoin Core PR 16528: Descriptor Wallets](https://github.com/bitcoin/bitcoin/pull/16528) by [Andrew Chow](https://twitter.com/achow101).
+[Bitcoin Core experimental branch](https://github.com/Sjors/bitcoin/pull/13).
 
 In order to use the branch from this pull request:
 
 ```
-git remote add achow101 git@github.com:achow101/bitcoin.git
-git fetch achow101
-git checkout achow101/wallet-of-the-glorious-future
+git remote add sjors git@github.com:sjors/bitcoin.git
+git fetch sjors
+git checkout 2020/01/descriptor-and-psbt
 ```
 
 Compile as usual and start Bitcoin QT. It's recommended to set `addresstype=bech32` in [bitcoin.conf](https://github.com/bitcoin/bitcoin/blob/master/share/examples/bitcoin.conf).
+
+Do not use this branch with your mainnet wallet, and be very cautious when running
+code from strangers on the internet!
 
 ```sh
 src/qt/bitcoin-qt -testnet
 ```
 
-Open the debug window via "Window" -> "Console" and create a new [descriptor aware](https://github.com/bitcoin/bitcoin/blob/master/doc/descriptors.md) wallet:
+Go to the "File" -> "Create Wallet..." menu and fill out the form as follows:
 
-```
-createwallet iOsMulti true true "" true true
-```
-
-![createwallet](/assets/createwallet.png)
-
-For an explanation the `createwallet` RPC command arguments see the [documentation](https://bitcoincore.org/en/doc/0.19.0/rpc/wallet/createwallet/). The final `true` is added in this custom branch and enables native descriptors.
+![createwallet](/assets/core_createwallet.png){:height="200pt"}
 
 ### Coldcard
 
@@ -62,13 +59,13 @@ We need to give the Coldcard the iOs keys, by pretending it's another Coldcard. 
 
 In NthKey go to the Settings tab -> "Export public key".
 
-![Export Public Key](/assets/export_pubkey.png)
+![Export Public Key](/assets/export_pubkey.png){:height="300pt"}
 
 You can save it on iCloud Drive first, and then on a Mac drag it to an SD card. It'll be called  `ccxp-00000001.json` . On the Coldcard, go to "Setttings" -> "Multisig"  -> "Create Airgapped".
 
 Create Airgapped           |  Number of signers
 :-------------------------:|:-------------------------:
-![](/assets/cc_create_airgapped.png) | ![](/assets/cc_n_signers.png)
+![](/assets/cc_create_airgapped.png){:height="400pt"} | ![](/assets/cc_n_signers.png){:height="400pt"}
 
 The Coldcard will generate a multisig wallet between itself and iOs. Click OK to save it to the SD card in a format compatible with Electrum. If all goes well the new wallet appears in the menu as `CC-2-of-2`:
 
@@ -92,13 +89,13 @@ Now that ColdCard is aware of both keys, we need export the key from Coldcard an
 
 To import into Bitcoin Core, in the app go to Settings ->  "Export to Bitcoin Core". Save the text file to iCloud drive so you can open it on your Mac or download it from icloud.com. This file does not contain private keys, but it is privacy sensitive. At least delete it when you're done.
 
-On your computer that runs Bitcoin Core, open the console again. Be sure to select your new wallet first. Then copy the command from the file (skip the `src/bitcoin-cli -testnet -rpcwallet=iOsMulti` bit unless you're using the command line):
+On your computer that runs Bitcoin Core, open the debug window via "Window" -> "Console" . Be sure to select your new wallet first. Then copy the command from the file (skip the `src/bitcoin-cli -testnet -rpcwallet=iOsMulti` bit unless you're using the command line):
 
 ```
 importdescriptors "[{\"desc\": \"wsh(sortedmulti( ... active":true}]'
 ```
 
-![](/assets/importdescriptors.png)
+![](/assets/core_importdescriptors.png){:height="500pt"}
 
 If you restart Bitcoin Core you need to load it again (File -> Open Wallet) and select it (top-right drop down).
 
@@ -106,7 +103,7 @@ If you restart Bitcoin Core you need to load it again (File -> Open Wallet) and 
 
 In Bitcoin Core go to the Receive tab and click "Create new receiving address".
 
-![](/assets/receive.png)
+![](/assets/core_receive.png){:height="500pt"}
 
 There is currently no way to verify this address on the Coldcard. Work in progress pull requests:
 * [Colcard firmware #25](https://github.com/Coldcard/firmware/pull/25)
@@ -114,7 +111,7 @@ There is currently no way to verify this address on the Coldcard. Work in progre
 
 To verify the address on iOs, go to the "Addresses" tab:
 
-![](/assets/addresses.png)
+![](/assets/ios_addresses.png){:height="300pt"}
 
 I recommend funding the default Bitcoin Core testnet wallet from a [faucet](https://www.google.com/search?q=bitcoin+testnet+faucet), and then send a small amount to the mutlisig wallet. That way you can try again if the coins are permanently lost.
 
@@ -125,75 +122,34 @@ The first step is to create a draft transaction in Bitcoin Core and save the PSB
 ### Bitcoin Core draft
 
 Go to the send screen and draft a transaction as usual. Instead of "Send"
-you'll see a button Create Unsigned. This copies a PSBT to your clipboard.
+you'll see a button Create Unsigned. This copies a PSBT to your clipboard and
+lets you save it as a `.psbt` file.
 
-![](/assets/spend.png)
-
-Paste the result somewhere so you don't lose it. You'll need this in the next steps.
+![](/assets/core_create_unsigned.png){:height="500pt"}
 
 ### Coldcard
 
-With the PSBT copied from Bitcoin Core:
+Save the PSBT file on an SD card and sign it on the Coldcard.
 
-```
-echo "cH...A=" | base64 --decode --output tx.psbt
-```
-
-Put this on the SD card and sign it on the Coldcard.
-
-![](/assets/cc_sign.png)
-
-You can inspect the partially signed PSBT:
-
-```
-src/bitcoin-cli -testnet analyzepsbt "`base64 --input tx-part.psbt`"
-```
-
-![](/assets/core_analyze.png)
-
-It should say that the next step is a signer.
-
-(or with `decodepsbt`)
+![](/assets/cc_sign.png){:height="300pt"}
 
 ### iOs
 
-Open the PSBT via the Sign tab:
+Open the PSBT, with the ColdCard signature, via the Sign tab:
 
-![](/assets/ios_load_psbt.png)
+![](/assets/ios_load_psbt.png){:height="300pt"}
 
 Check the destination address:
 
-![](/assets/ios_confirm.png)
+![](/assets/ios_confirm.png){:height="300pt"}
 
-## Bitcoin Core combine and broadcast
+## Bitcoin Core broadcast
 
 In case you signed in parallel, use the [combinepsbt](https://bitcoincore.org/en/doc/0.19.0/rpc/rawtransactions/combinepsbt/) RPC method first. If you signed them sequentially you should be good to go.
 
-Use `finalizepsbt` to produce a transaction in hex format:
+Go to the "File" -> "Load PSBT..." menu and find the singed PSBT. If all went
+well, Bitcoin Core will offer to broadcast the transaction:
 
-```
-cat transaction-signed.psbt | base64 --encode
-```
-
-![](/assets/core_finalize.png)
-
-```
-finalizepsbt "..."
-```
-
-Check that `complete` is `true` and copy the hex value. To broadcast:
-
-```
-sendrawtransaction ...
-```
+![](/assets/core_send_psbt.png){:height="150pt"}
 
 The transaction should appear in your wallet and eventually confirm.
-
-### GUI future
-
-There is work in progress to allow creating, saving and load PSBTs from the GUI:
-
-* [Bitcoin Core PR #17509](https://github.com/bitcoin/bitcoin/pull/17509)
-* [Bitcoin Core PR #17619](https://github.com/bitcoin/bitcoin/issues/17619)
-
-Once that's in place, the GUI workflow will be to create a transaction as usual, but to click "Save PSBT" instead of "Send", save it on the SD card, sign with ColdCard and load it again with Bitcoin Core. Similarly and in parallel, once the app supports it, you would sign it there and load / copy the result back into Bitcoin Core. Once all signatures are found, it would combine them and broadcast the transaction.
