@@ -26,7 +26,7 @@ any hardware wallet.
 
 ### Bitcoin Core
 
-Follow the instructions for compiling Bitcoin Core (see #prerequisites), try the master branch first.
+Follow the instructions for compiling Bitcoin Core (see prerequisites above), try the master branch first.
 
 We going to use a highly experimental branch of Bitcoin Core. Only use this with testnet!
 
