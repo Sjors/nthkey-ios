@@ -6,6 +6,8 @@ author:
 ---
 # nthKey Tutorial
 
+[![Tutorial video](assets/youtube.png)](https://www.youtube.com/watch?v=1YgkAOY08iE)
+
 Prerequisites:
 * install NthKey via [TestFlight](https://testflight.apple.com/join/Y6cbJbEe)
 * Understand the [limitations](/#known-limitations)
