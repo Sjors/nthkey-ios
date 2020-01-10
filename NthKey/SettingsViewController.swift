@@ -24,6 +24,10 @@ final class SettingsViewController : UIViewController, UIDocumentPickerDelegate 
         activeFileViewControllerManager = nil
     }
     
+    func documentPickerWasCancelled(_ controller: UIDocumentPickerViewController) {
+        activeFileViewControllerManager = nil
+    }
+    
     func exportPublicKey() {
         precondition(activeFileViewControllerManager == nil)
         precondition(UserDefaults.standard.data(forKey: "masterKeyFingerprint") != nil)
