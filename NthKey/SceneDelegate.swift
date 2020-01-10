@@ -14,6 +14,7 @@ import LibWally
 class AppState: ObservableObject {
     @Published var selectedTab: ContentView.Tab = .addresses
     @Published var psbtManager: PSBTManager = PSBTManager()
+    @Published var walletManager: WalletManager = WalletManager()
 }
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {

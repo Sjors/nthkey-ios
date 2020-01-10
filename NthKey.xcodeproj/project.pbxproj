@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		1F6A2E586F1545C3C5EFA149 /* Pods_NthKey.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CA4B65438CE45530547E491B /* Pods_NthKey.framework */; };
+		A2067AC123C8549700F46862 /* WalletManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2067AC023C8549700F46862 /* WalletManager.swift */; };
 		A206E805238D65F300786824 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A206E804238D65F300786824 /* AppDelegate.swift */; };
 		A206E807238D65F300786824 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A206E806238D65F300786824 /* SceneDelegate.swift */; };
 		A206E80C238D65F300786824 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A206E80B238D65F300786824 /* ContentView.swift */; };
@@ -64,6 +65,7 @@
 		84F9C6E2BA22077B17980104 /* Pods-NthKey-NthKeyUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NthKey-NthKeyUITests.release.xcconfig"; path = "Target Support Files/Pods-NthKey-NthKeyUITests/Pods-NthKey-NthKeyUITests.release.xcconfig"; sourceTree = "<group>"; };
 		8794092D4D7B86DD36D227CF /* Pods-Multisig-MultisigUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Multisig-MultisigUITests.release.xcconfig"; path = "Target Support Files/Pods-Multisig-MultisigUITests/Pods-Multisig-MultisigUITests.release.xcconfig"; sourceTree = "<group>"; };
 		961606B1A1E0A92814FFB0B7 /* Pods-NthKey-NthKeyUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NthKey-NthKeyUITests.debug.xcconfig"; path = "Target Support Files/Pods-NthKey-NthKeyUITests/Pods-NthKey-NthKeyUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		A2067AC023C8549700F46862 /* WalletManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletManager.swift; sourceTree = "<group>"; };
 		A206E801238D65F300786824 /* NthKey.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NthKey.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A206E804238D65F300786824 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A206E806238D65F300786824 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -242,6 +244,7 @@
 				A2F8575E23991354008A44E6 /* Signer.swift */,
 				A27D4BF723A2B7040055B0B8 /* UserDefaultsManager.swift */,
 				A2C8545F23B157F2008E4AA1 /* PSBTManager.swift */,
+				A2067AC023C8549700F46862 /* WalletManager.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -513,6 +516,7 @@
 				A206E807238D65F300786824 /* SceneDelegate.swift in Sources */,
 				A206E80C238D65F300786824 /* ContentView.swift in Sources */,
 				A27D4BF823A2B7040055B0B8 /* UserDefaultsManager.swift in Sources */,
+				A2067AC123C8549700F46862 /* WalletManager.swift in Sources */,
 				A27D4BF623A2B4F30055B0B8 /* SettingsView.swift in Sources */,
 				A2C8546023B157F2008E4AA1 /* PSBTManager.swift in Sources */,
 				A2E9E38123ACF1A30049645D /* SignViewController.swift in Sources */,

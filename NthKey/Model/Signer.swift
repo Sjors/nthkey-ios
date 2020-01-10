@@ -9,7 +9,7 @@
 import Foundation
 import LibWally
 
-public class Signer: NSObject, NSSecureCoding {
+public class Signer: NSObject, NSSecureCoding, Identifiable {
     public static var supportsSecureCoding = true
     
     public let fingerprint: Data

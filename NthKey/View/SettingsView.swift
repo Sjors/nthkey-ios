@@ -12,35 +12,61 @@ import SwiftUI
 struct SettingsView : View {
     
     @ObservedObject var defaults = UserDefaultsManager()
-    
+    @EnvironmentObject var appState: AppState
+
     let settings = SettingsViewController()
+    
+    func loadCosignerFile(_ url: URL) {
+        DispatchQueue.main.async() {
+            self.appState.walletManager.loadCosignerFile(url)
+        }
+    }
     
     var body: some View {
         HStack{
             VStack(alignment: .leading, spacing: 20.0){
-                Button(action: {
-                    self.settings.exportPublicKey()
-                }) {
-                    Text("Export public key")
+                VStack(alignment: .leading, spacing: 20.0) {
+                    Text("Step 1").font(.headline)
+                    Text("Add cosigners by importing their public key here.")
+                    Text("* \( appState.walletManager.us.fingerprint.hexString )").font(.system(.body, design: .monospaced)) + Text(" (us)")
+                    ForEach(appState.walletManager.cosigners) { cosigner in
+                        Text("* \( cosigner.fingerprint.hexString )").font(.system(.body, design: .monospaced))
+                    }
                 }
                 Button(action: {
-                    self.settings.exportBitcoinCore()
-                }) {
-                    Text("Export to Bitcoin Core")
-                }
-                .disabled(!self.defaults.hasCosigners)
-                Button(action: {
-                    self.settings.addCosigner()
+                    self.settings.addCosigner(self.loadCosignerFile)
                 }) {
                     Text("Add cosigner")
                 }
                 .disabled(self.defaults.hasCosigners)
                 Button(action: {
-                    UserDefaults.standard.removeObject(forKey: "cosigners")
+                    self.appState.walletManager.wipeCosigners()
                 }) {
                     Text("Wipe cosigners")
                 }
                 .disabled(!self.defaults.hasCosigners)
+                Spacer()
+                VStack(alignment: .leading, spacing: 20.0) {
+                    Text("Step 2").font(.headline)
+                    Text("Announce your key to your cosigners.")
+                }
+                Button(action: {
+                    self.settings.exportPublicKey()
+                }) {
+                    Text("Export public key")
+                }
+                Spacer()
+                VStack(alignment: .leading, spacing: 20.0) {
+                    Text("Step 3").font(.headline)
+                    Text("Use this wallet Bitcoin Core.")
+                }
+                Button(action: {
+                    self.settings.exportBitcoinCore()
+                }) {
+                    Text("Bitcoin Core import script")
+                }
+                .disabled(!self.defaults.hasCosigners)
+                Spacer()
             }
         }
     }
