@@ -28,7 +28,7 @@ After you create a receive address in Bitcoin Core, you can verify it on the dev
 
 ### Export and import keys
 
-![](/assets/export_pubkey.png){:height="300pt"}
+![](/assets/export_pubkey.png){:width="300pt"}
 
 ### Multiple NthKey apps
 

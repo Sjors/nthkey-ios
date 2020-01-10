@@ -65,7 +65,7 @@ We need to give the Coldcard the iOs keys, by pretending it's another Coldcard. 
 
 In NthKey go to the Settings tab -> "Export public key".
 
-![Export Public Key](/assets/export_pubkey.png){:height="300pt"}
+![Export Public Key](/assets/export_pubkey.png){:width="300pt"}
 
 You can save it on iCloud Drive first, and then on a Mac drag it to an SD card. It'll be called  `ccxp-00000001.json` . On the Coldcard, go to "Setttings" -> "Multisig"  -> "Create Airgapped".
 
