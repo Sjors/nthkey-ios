@@ -39,9 +39,8 @@ public class Signer: NSObject, NSSecureCoding {
     }
 
     public static func getSigners() -> (Signer, [Signer]) {
-        let encodedCosigners = UserDefaults.standard.array(forKey: "cosigners")!
-        precondition(!encodedCosigners.isEmpty)
-
+        let encodedCosigners = UserDefaults.standard.array(forKey: "cosigners")
+        
         let fingerprint = UserDefaults.standard.data(forKey: "masterKeyFingerprint")!
         let entropyItem = KeychainEntropyItem(service: "NthKeyService", fingerprint: fingerprint, accessGroup: nil)
 
@@ -56,7 +55,10 @@ public class Signer: NSObject, NSSecureCoding {
         let ourKey = try! masterKey.derive(path)
         let us = Signer(fingerprint: fingerprint, derivation: path, hdKey: ourKey)
 
-        let encodedCosigner = encodedCosigners[0] as! Data
+        guard encodedCosigners != nil && encodedCosigners!.count > 0 else {
+            return (us, [])
+        }
+        let encodedCosigner = encodedCosigners![0] as! Data
         let cosigner = try! NSKeyedUnarchiver.unarchivedObject(ofClass: Signer.self, from: encodedCosigner)!
         
         return (us, [cosigner])
