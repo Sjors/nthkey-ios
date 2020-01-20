@@ -58,11 +58,13 @@ struct FileViewControllerManager {
             }
             self.url = urls[0]
         case .savePublicKey:
-            print(urls[0])
             if (urls.count != 1) {
                 NSLog("Please select 1 directory")
             }
             precondition(urls[0].hasDirectoryPath)
+            #if targetEnvironment(simulator)
+            print(urls[0])
+            #endif
             savePublicKeyFile(urls[0])
         case .exportBitcoinCore:
           if (urls.count != 1) {
