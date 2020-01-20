@@ -31,13 +31,18 @@ struct WalletManager {
                 let p2wsh_deriv = jsonResult["p2wsh_deriv"],
                 let p2wsh = jsonResult["p2wsh"]
             {
-                let vpub = Data(base58: p2wsh)!
-                let vpubMarker = Data("02575483")! // Vpub (testnet, p2wsh, public)
-                if (vpub.subdata(in: 0..<4) != vpubMarker) {
-                    NSLog("Expected Vpub marker 0x%@, got 0x%@", vpubMarker.hexString, vpub.subdata(in: 0..<4).hexString)
+                let extendedKey = Data(base58: p2wsh)!
+                let expectedMarkers: Set<Data> = [
+                    Data("043587cf")!, // tpub (testnet)
+                    Data("02575483")! // Vpub (testnet, p2wsh, public)
+                ]
+                let marker = Data(extendedKey.subdata(in: 0..<4))
+                if !expectedMarkers.contains(marker) {
+                    NSLog("Expected tpub or Vpub marker (0x043587cf or 0x02575483), got 0x%@", marker.hexString)
                     return
                 }
-                let p2wsh_tpub = Data("043587cf")! + vpub.subdata(in: 4..<vpub.count)
+                // Always convert marker to tpub:
+                let p2wsh_tpub = Data("043587cf")! + extendedKey.subdata(in: 4..<extendedKey.count)
                 let cosigner = Signer(fingerprint: Data(xfp)!, derivation: BIP32Path(p2wsh_deriv)!, hdKey: HDKey(p2wsh_tpub.base58)!)
                 let encoded = try! NSKeyedArchiver.archivedData(withRootObject: cosigner, requiringSecureCoding: true)
                 let defaults = UserDefaults.standard
