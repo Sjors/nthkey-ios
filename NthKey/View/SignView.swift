@@ -11,7 +11,6 @@ import SwiftUI
 import LibWally
 
 struct SignView : View {
-    @ObservedObject var defaults = UserDefaultsManager()
     @EnvironmentObject var appState: AppState
     
     var vc: SignViewController? = nil
@@ -36,7 +35,7 @@ struct SignView : View {
                 }) {
                     Text("Load PSBT")
                 }
-                .disabled(!self.defaults.hasCosigners || self.appState.psbtManager.psbt != nil)
+                .disabled(!self.appState.walletManager.hasWallet || self.appState.psbtManager.psbt != nil)
                 if self.appState.psbtManager.psbt != nil {
                     if self.appState.psbtManager.signed {
                         Text("Signed Transaction")

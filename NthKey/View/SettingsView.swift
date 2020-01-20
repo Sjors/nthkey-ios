@@ -11,7 +11,6 @@ import SwiftUI
 
 struct SettingsView : View {
     
-    @ObservedObject var defaults = UserDefaultsManager()
     @EnvironmentObject var appState: AppState
 
     let settings = SettingsViewController()
@@ -32,19 +31,19 @@ struct SettingsView : View {
                     ForEach(appState.walletManager.cosigners) { cosigner in
                         Text("* \( cosigner.fingerprint.hexString )").font(.system(.body, design: .monospaced))
                     }
+                    Button(action: {
+                        self.settings.addCosigner(self.loadCosignerFile)
+                    }) {
+                        Text("Add cosigner")
+                    }
+                    .disabled(self.appState.walletManager.hasWallet)
+                    Button(action: {
+                        self.appState.walletManager.wipeCosigners()
+                    }) {
+                        Text("Wipe cosigners")
+                    }
+                    .disabled(!self.appState.walletManager.hasCosigners)
                 }
-                Button(action: {
-                    self.settings.addCosigner(self.loadCosignerFile)
-                }) {
-                    Text("Add cosigner")
-                }
-                .disabled(self.defaults.hasCosigners)
-                Button(action: {
-                    self.appState.walletManager.wipeCosigners()
-                }) {
-                    Text("Wipe cosigners")
-                }
-                .disabled(!self.defaults.hasCosigners)
                 Spacer()
                 VStack(alignment: .leading, spacing: 20.0) {
                     Text("Step 2").font(.headline)
@@ -65,7 +64,7 @@ struct SettingsView : View {
                 }) {
                     Text("Bitcoin Core import script")
                 }
-                .disabled(!self.defaults.hasCosigners)
+                .disabled(!self.appState.walletManager.hasCosigners)
                 Spacer()
             }
         }

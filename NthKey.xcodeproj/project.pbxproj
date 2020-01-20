@@ -21,7 +21,6 @@
 		A27180B223A291B500E9F443 /* MultisigAddress.swift in Sources */ = {isa = PBXBuildFile; fileRef = A27180B123A291B500E9F443 /* MultisigAddress.swift */; };
 		A27180B623A293EA00E9F443 /* AddressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A27180B523A293EA00E9F443 /* AddressView.swift */; };
 		A27D4BF623A2B4F30055B0B8 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A27D4BF523A2B4F30055B0B8 /* SettingsView.swift */; };
-		A27D4BF823A2B7040055B0B8 /* UserDefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A27D4BF723A2B7040055B0B8 /* UserDefaultsManager.swift */; };
 		A27D4BFA23A2BA1A0055B0B8 /* BitcoinCoreImport.swift in Sources */ = {isa = PBXBuildFile; fileRef = A27D4BF923A2BA1A0055B0B8 /* BitcoinCoreImport.swift */; };
 		A27D4BFC23A2BECC0055B0B8 /* BitcoinCoreImportTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A27D4BFB23A2BECC0055B0B8 /* BitcoinCoreImportTests.swift */; };
 		A285870623AD0B0300930566 /* psbt-128.png in Resources */ = {isa = PBXBuildFile; fileRef = A285870523AD0B0300930566 /* psbt-128.png */; };
@@ -84,7 +83,6 @@
 		A27180B123A291B500E9F443 /* MultisigAddress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultisigAddress.swift; sourceTree = "<group>"; };
 		A27180B523A293EA00E9F443 /* AddressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressView.swift; sourceTree = "<group>"; };
 		A27D4BF523A2B4F30055B0B8 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
-		A27D4BF723A2B7040055B0B8 /* UserDefaultsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsManager.swift; sourceTree = "<group>"; };
 		A27D4BF923A2BA1A0055B0B8 /* BitcoinCoreImport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BitcoinCoreImport.swift; sourceTree = "<group>"; };
 		A27D4BFB23A2BECC0055B0B8 /* BitcoinCoreImportTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BitcoinCoreImportTests.swift; sourceTree = "<group>"; };
 		A285870523AD0B0300930566 /* psbt-128.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "psbt-128.png"; sourceTree = "<group>"; };
@@ -242,7 +240,6 @@
 				A29DAAC02391657F006B38D9 /* KeychainEntropyItem.swift */,
 				A27180B123A291B500E9F443 /* MultisigAddress.swift */,
 				A2F8575E23991354008A44E6 /* Signer.swift */,
-				A27D4BF723A2B7040055B0B8 /* UserDefaultsManager.swift */,
 				A2C8545F23B157F2008E4AA1 /* PSBTManager.swift */,
 				A2067AC023C8549700F46862 /* WalletManager.swift */,
 			);
@@ -515,7 +512,6 @@
 				A206E805238D65F300786824 /* AppDelegate.swift in Sources */,
 				A206E807238D65F300786824 /* SceneDelegate.swift in Sources */,
 				A206E80C238D65F300786824 /* ContentView.swift in Sources */,
-				A27D4BF823A2B7040055B0B8 /* UserDefaultsManager.swift in Sources */,
 				A2067AC123C8549700F46862 /* WalletManager.swift in Sources */,
 				A27D4BF623A2B4F30055B0B8 /* SettingsView.swift in Sources */,
 				A2C8546023B157F2008E4AA1 /* PSBTManager.swift in Sources */,

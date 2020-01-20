@@ -12,14 +12,25 @@ import LibWally
 struct WalletManager {
     var us: Signer
     var cosigners: [Signer]
+    var threshold: Int = 0
     
     init() {
         (us, cosigners) = Signer.getSigners()
+        threshold = UserDefaults.standard.integer(forKey:"threshold")
+    }
+    
+    var hasWallet: Bool {
+        return threshold > 0 && cosigners.count > 0
+    }
+    
+    var hasCosigners: Bool {
+        return cosigners.count > 0
     }
     
     mutating func wipeCosigners() {
         UserDefaults.standard.removeObject(forKey: "cosigners")
         self.cosigners = []
+        self.threshold = 0
     }
     
     mutating func loadCosignerFile(_ url: URL) {
@@ -47,12 +58,17 @@ struct WalletManager {
                 let encoded = try! NSKeyedArchiver.archivedData(withRootObject: cosigner, requiringSecureCoding: true)
                 let defaults = UserDefaults.standard
                 defaults.set([encoded], forKey: "cosigners")
-                defaults.set(2, forKey: "threshold")
                 self.cosigners.append(cosigner)
             }
         } catch {
             NSLog("Something went wrong parsing JSON file")
             return
         }
+    }
+    
+    mutating func createWallet() {
+        threshold = 2
+        let defaults = UserDefaults.standard
+        defaults.set(threshold, forKey: "threshold")
     }
 }
