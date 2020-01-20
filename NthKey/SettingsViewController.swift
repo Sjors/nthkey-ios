@@ -49,8 +49,6 @@ final class SettingsViewController : UIViewController, UIDocumentPickerDelegate 
     
     func addCosigner(_ callback: @escaping (URL) -> Void) {
         precondition(activeFileViewControllerManager == nil)
-        // Prompt user to open JSON file if no wallet exists yet
-        precondition(UserDefaults.standard.array(forKey: "cosigners") == nil)
         
         self.callbackDidGetURL = callback
         activeFileViewControllerManager = FileViewControllerManager(task: .loadCosigner)

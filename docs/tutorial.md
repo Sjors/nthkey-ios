@@ -91,6 +91,8 @@ I haven't tested importing the above, but it's a good sanity check.
 
 Now that ColdCard is aware of both keys, we need export the key from Coldcard and import that into iOs, so that it too becomes aware of both keys. On the Coldcard, go to "Setttings" -> "Multisig"  -> "Export XPUB". This will create a file  `ccxp-00000002.json`. In the iOs app go to Settings -> "Add cosigner". Select the newly created file.
 
+Unless you want to add more cosigners, click on Create Wallet.
+
 ## Bitcoin Core
 
 To import into Bitcoin Core, in the app go to Settings ->  "Export to Bitcoin Core". Save the text file to iCloud drive so you can open it on your Mac or download it from icloud.com. This file does not contain private keys, but it is privacy sensitive. At least delete it when you're done.

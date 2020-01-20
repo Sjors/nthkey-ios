@@ -38,6 +38,12 @@ struct SettingsView : View {
                     }
                     .disabled(self.appState.walletManager.hasWallet)
                     Button(action: {
+                        self.appState.walletManager.createWallet()
+                    }) {
+                        Text("Create wallet")
+                    }
+                    .disabled(self.appState.walletManager.hasWallet || !self.appState.walletManager.hasCosigners)
+                    Button(action: {
                         self.appState.walletManager.wipeCosigners()
                     }) {
                         Text("Wipe cosigners")

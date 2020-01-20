@@ -55,15 +55,23 @@ struct WalletManager {
                 // Always convert marker to tpub:
                 let p2wsh_tpub = Data("043587cf")! + extendedKey.subdata(in: 4..<extendedKey.count)
                 let cosigner = Signer(fingerprint: Data(xfp)!, derivation: BIP32Path(p2wsh_deriv)!, hdKey: HDKey(p2wsh_tpub.base58)!)
-                let encoded = try! NSKeyedArchiver.archivedData(withRootObject: cosigner, requiringSecureCoding: true)
-                let defaults = UserDefaults.standard
-                defaults.set([encoded], forKey: "cosigners")
                 self.cosigners.append(cosigner)
+                self.saveCosigners()
             }
         } catch {
             NSLog("Something went wrong parsing JSON file")
             return
         }
+    }
+    
+    func saveCosigners() {
+        var encodedCosigners: [Data] = []
+        for cosigner in self.cosigners {
+            let encoded = try! NSKeyedArchiver.archivedData(withRootObject: cosigner, requiringSecureCoding: true)
+            encodedCosigners.append(encoded)
+        }
+        let defaults = UserDefaults.standard
+        defaults.set(encodedCosigners, forKey: "cosigners")
     }
     
     mutating func createWallet() {

@@ -58,10 +58,13 @@ public class Signer: NSObject, NSSecureCoding, Identifiable {
         guard encodedCosigners != nil && encodedCosigners!.count > 0 else {
             return (us, [])
         }
-        let encodedCosigner = encodedCosigners![0] as! Data
-        let cosigner = try! NSKeyedUnarchiver.unarchivedObject(ofClass: Signer.self, from: encodedCosigner)!
+        var cosigners: [Signer] = []
+        for encodedCosigner in encodedCosigners! {
+            let cosigner: Signer = try! NSKeyedUnarchiver.unarchivedObject(ofClass: Signer.self, from: encodedCosigner as! Data)!
+            cosigners.append(cosigner)
+        }
         
-        return (us, [cosigner])
+        return (us, cosigners)
     }
     
     static func signPSBT(_ psbt: PSBT) -> PSBT {
