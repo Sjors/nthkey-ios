@@ -66,16 +66,7 @@ public struct BitcoinCoreImport {
         let encoder = JSONEncoder()
         let argRequestsData = try! encoder.encode(rpc.requests)
         let argRequestsString = String(data: argRequestsData, encoding: .utf8)!
-        let bitcoinCli = "src/bitcoin-cli" // TODO: drop src/ once we can use a release binary
-        let walletName = "iOsMulti"
-        var networkString: String = ""
-        switch network {
-        case .mainnet:
-            break
-        case .testnet:
-            networkString = " -testnet"
-        }
-        return "\(bitcoinCli)\(networkString) -rpcwallet=\"\(walletName)\" importdescriptors '\(argRequestsString)'"
+        return "importdescriptors '\(argRequestsString)'"
     }
 
 }

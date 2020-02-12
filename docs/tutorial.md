@@ -97,7 +97,7 @@ Unless you want to add more cosigners, click on Create Wallet.
 
 To import into Bitcoin Core, in the app go to Settings ->  "Export to Bitcoin Core". Save the text file to iCloud drive so you can open it on your Mac or download it from icloud.com. This file does not contain private keys, but it is privacy sensitive. At least delete it when you're done.
 
-On your computer that runs Bitcoin Core, open the debug window via "Window" -> "Console" . Be sure to select your new wallet first. Then copy the command from the file (skip the `src/bitcoin-cli -testnet -rpcwallet=iOsMulti` bit unless you're using the command line):
+On your computer that runs Bitcoin Core, open the debug window via "Window" -> "Console" . Be sure to select your new wallet first. Then copy the command from the file:
 
 ```
 importdescriptors "[{\"desc\": \"wsh(sortedmulti( ... active":true}]'
