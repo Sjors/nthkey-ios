@@ -70,7 +70,7 @@ struct SettingsView : View {
                 }) {
                     Text("Bitcoin Core import script")
                 }
-                .disabled(!self.appState.walletManager.hasCosigners)
+                .disabled(!self.appState.walletManager.hasWallet)
                 Spacer()
             }
         }
