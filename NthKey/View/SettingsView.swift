@@ -40,7 +40,7 @@ struct SettingsView : View {
                     Button(action: {
                         self.appState.walletManager.createWallet()
                     }) {
-                        Text("Create wallet")
+                        Text("Create 2 of \(max(2, self.appState.walletManager.cosigners.count + 1)) wallet")
                     }
                     .disabled(self.appState.walletManager.hasWallet || !self.appState.walletManager.hasCosigners)
                     Button(action: {
