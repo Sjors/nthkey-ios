@@ -123,7 +123,11 @@ struct FileViewControllerManager {
             var p2wsh_deriv: String
             var p2wsh: String
         }
-        let export = ColdcardExport(xfp: fingerprint.hexString.uppercased(), p2wsh_deriv: "m/48'/1'/0'/2'", p2wsh: account.xpub)
+        // TODO: get Vpub or Data directly from LibWally
+        let xpub = Data(base58: account.xpub)!
+        // Convert tpub to Electrum compatible Vpub:
+        let p2wsh_tpub = Data("02575483")! + xpub.subdata(in: 4..<xpub.count)
+        let export = ColdcardExport(xfp: fingerprint.hexString.uppercased(), p2wsh_deriv: "m/48'/1'/0'/2'", p2wsh: p2wsh_tpub.base58)
 
         let encoder = JSONEncoder()
         let data = try! encoder.encode(export)

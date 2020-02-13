@@ -52,7 +52,7 @@ struct WalletManager {
                     NSLog("Expected tpub or Vpub marker (0x043587cf or 0x02575483), got 0x%@", marker.hexString)
                     return
                 }
-                // Always convert marker to tpub:
+                // Convert marker to tpub for internal use:
                 let p2wsh_tpub = Data("043587cf")! + extendedKey.subdata(in: 4..<extendedKey.count)
                 let cosigner = Signer(fingerprint: Data(xfp)!, derivation: BIP32Path(p2wsh_deriv)!, hdKey: HDKey(p2wsh_tpub.base58)!)
                 self.cosigners.append(cosigner)
