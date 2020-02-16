@@ -60,7 +60,7 @@ class WalletComposerTests: XCTestCase {
     
     func testAnnounceWalletPolicy() {
         let expected = #"""
-         {"policy":"thresh(2,pk(3442193e),pk(bd16bee5))","announcements":[{"fingerprint":"3442193e","name":"NthKey"},{"fingerprint":"bd16bee5","name":""}]}
+         {"policy":"thresh(2,pk(3442193e),pk(bd16bee5))","policy_template":"thresh(2,sub_policy(3442193e),sub_policy(bd16bee5))","announcements":[{"fingerprint":"3442193e","name":"NthKey"},{"fingerprint":"bd16bee5","name":""}]}
          """#
          let composer = WalletComposer(us: us!, signers: [us!, cosigner1!], threshold: 2)
          XCTAssertNotNil(composer)

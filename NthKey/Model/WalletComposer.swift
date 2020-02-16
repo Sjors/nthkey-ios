@@ -13,6 +13,7 @@ public struct WalletComposer : Codable {
     
     var announcements: [SignerAnnouncement]
     var policy: String?
+    var policy_template: String?
 
     public struct SignerAnnouncement: Codable {
         private var fingerprint: Data
@@ -82,6 +83,7 @@ public struct WalletComposer : Codable {
         }
         if let threshold = threshold {
             self.policy = "thresh(\(threshold),\(signers.map { signer in "pk(\( signer.fingerprint.hexString ))" }.joined(separator:",") ))"
+            self.policy_template = "thresh(\(threshold),\(signers.map { signer in "sub_policy(\( signer.fingerprint.hexString ))" }.joined(separator:",") ))"
         }
     }
 }
