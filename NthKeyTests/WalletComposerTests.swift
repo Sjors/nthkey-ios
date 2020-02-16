@@ -32,7 +32,7 @@ class WalletComposerTests: XCTestCase {
 
     func testAnnounceOurKey() {
         let expected = #"""
-        {"announcements":[{"fingerprint":"3442193e","name":"NthKey"}]}
+        {"announcements":[{"can_decompile_miniscript":false,"fingerprint":"3442193e","name":"NthKey"}]}
         """#
         let composer = WalletComposer(us: us!, signers: [us!])
         XCTAssertNotNil(composer)
@@ -47,7 +47,7 @@ class WalletComposerTests: XCTestCase {
     
     func testAnnounceOtherKeys() {
         let expected = #"""
-        {"announcements":[{"fingerprint":"3442193e","name":"NthKey"},{"fingerprint":"bd16bee5","name":""}]}
+        {"announcements":[{"can_decompile_miniscript":false,"fingerprint":"3442193e","name":"NthKey"},{"can_decompile_miniscript":null,"fingerprint":"bd16bee5","name":""}]}
         """#
         let composer = WalletComposer(us: us!, signers: [us!, cosigner1!])
         XCTAssertNotNil(composer)
@@ -62,7 +62,7 @@ class WalletComposerTests: XCTestCase {
     
     func testAnnounceWalletPolicy() {
         let expected = #"""
-         {"announcements":[{"fingerprint":"3442193e","name":"NthKey"},{"fingerprint":"bd16bee5","name":""}],"policy":"thresh(2,pk(3442193e),pk(bd16bee5))","policy_template":"thresh(2,sub_policies(3442193e),sub_policies(bd16bee5))","sub_policies":{"3442193e":"pk(3442193e)","bd16bee5":"pk(bd16bee5)"}}
+         {"announcements":[{"can_decompile_miniscript":false,"fingerprint":"3442193e","name":"NthKey"},{"can_decompile_miniscript":null,"fingerprint":"bd16bee5","name":""}],"policy":"thresh(2,pk(3442193e),pk(bd16bee5))","policy_template":"thresh(2,sub_policies(3442193e),sub_policies(bd16bee5))","sub_policies":{"3442193e":"pk(3442193e)","bd16bee5":"pk(bd16bee5)"}}
          """#
          let composer = WalletComposer(us: us!, signers: [us!, cosigner1!], threshold: 2)
          XCTAssertNotNil(composer)

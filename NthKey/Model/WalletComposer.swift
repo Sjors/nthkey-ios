@@ -22,21 +22,27 @@ public struct WalletComposer : Codable {
         var fingerprintString: String {
             get { return fingerprint.hexString }
         }
+        var can_decompile_miniscript: Bool?
 
         private enum CodingKeys : String, CodingKey {
             case fingerprintString = "fingerprint"
             case name
             case sub_policies
+            case can_decompile_miniscript
         }
         
-        init(fingerprint: Data, name: String) {
+        init(fingerprint: Data, name: String, us: Bool) {
             self.fingerprint = fingerprint
             self.name = name
+            if (us) {
+                self.can_decompile_miniscript = false
+            }
         }
 
         public init(from decoder:Decoder) throws {
             let container = try decoder.container(keyedBy: CodingKeys.self)
             name = try container.decode(String.self, forKey: .name)
+            can_decompile_miniscript = try container.decode(Bool.self, forKey: .can_decompile_miniscript)
             let fingerprintString = try container.decode(String.self, forKey: .fingerprintString)
 
             if fingerprintString.count != 8 {
@@ -76,12 +82,13 @@ public struct WalletComposer : Codable {
             var container = encoder.container(keyedBy: CodingKeys.self)
             try container.encode(fingerprintString, forKey: .fingerprintString)
             try container.encode(name, forKey: .name)
+            try container.encode(can_decompile_miniscript, forKey: .can_decompile_miniscript)
         }
     }
 
     public init?(us: Signer, signers: [Signer], threshold: Int? = nil) {
         self.announcements = signers.map { signer in
-            return SignerAnnouncement(fingerprint: signer.fingerprint, name: us == signer ? "NthKey" : "")
+            return SignerAnnouncement(fingerprint: signer.fingerprint, name: us == signer ? "NthKey" : "", us: us == signer)
         }
         if let threshold = threshold {
             self.sub_policies = [:]
