@@ -22,14 +22,14 @@ class SignerTests: XCTestCase {
     }
     
     func testInitialize() {
-        let signer = Signer(fingerprint: Data("3442193e")!, derivation: BIP32Path("m/0'/1")!, hdKey: HDKey(xpub)!)
+        let signer = Signer(fingerprint: Data("3442193e")!, derivation: BIP32Path("m/0'/1")!, hdKey: HDKey(xpub)!, name: "NthKey")
         XCTAssertEqual(signer.fingerprint.hexString, "3442193e")
         XCTAssertEqual(signer.derivation.description, "m/0h/1")
         XCTAssertEqual(signer.hdKey.description, xpub)
     }
 
     func testEncode() {
-        let signer1 = Signer(fingerprint: Data("3442193e")!, derivation: BIP32Path("m/0'/1")!, hdKey: HDKey(xpub)!)
+        let signer1 = Signer(fingerprint: Data("3442193e")!, derivation: BIP32Path("m/0'/1")!, hdKey: HDKey(xpub)!, name: "NthKey")
         let encoded = try! NSKeyedArchiver.archivedData(withRootObject: signer1, requiringSecureCoding: true)
         let signer2 = try! NSKeyedUnarchiver.unarchivedObject(ofClass: Signer.self, from: encoded)!
         

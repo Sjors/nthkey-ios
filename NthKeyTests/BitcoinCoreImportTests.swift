@@ -23,8 +23,8 @@ class BitcoinCoreImportTests: XCTestCase {
         let multisigKey1 = try! HDKey(master1)!.derive(path)
         let multisigKey2 = try! HDKey(master2)!.derive(path)
     
-        signer1 = Signer(fingerprint: Data("3442193e")!, derivation: path, hdKey: multisigKey1)
-        signer2 = Signer(fingerprint: Data("bd16bee5")!, derivation: path, hdKey: multisigKey2)
+        signer1 = Signer(fingerprint: Data("3442193e")!, derivation: path, hdKey: multisigKey1, name: "NthKey")
+        signer2 = Signer(fingerprint: Data("bd16bee5")!, derivation: path, hdKey: multisigKey2, name:"")
     }
 
     override func tearDown() {

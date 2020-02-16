@@ -15,9 +15,11 @@ public class Signer: NSObject, NSSecureCoding, Identifiable {
     public let fingerprint: Data
     public let derivation: BIP32Path
     public let hdKey: HDKey // TODO: store derivation and fingerprint in HDKey?
+    public let name: String
     
-    public init(fingerprint: Data, derivation: BIP32Path, hdKey: HDKey) {
+    public init(fingerprint: Data, derivation: BIP32Path, hdKey: HDKey, name: String) {
         self.fingerprint = fingerprint
+        self.name = name
         self.derivation = derivation
         self.hdKey = hdKey
     }
@@ -28,8 +30,11 @@ public class Signer: NSObject, NSSecureCoding, Identifiable {
         let path = BIP32Path(derivation)!
         let xpub: String = coder.decodeObject(forKey: "xpub") as! String // TODO: add raw initializer to HDKey
         let hdKey = HDKey(xpub, masterKeyFingerprint:fingerprint)!
-        
-        self.init(fingerprint: fingerprint, derivation: path, hdKey: hdKey)
+        var name = coder.decodeObject(forKey: "name") as? String
+        if name == nil {
+            name = ""
+        }
+        self.init(fingerprint: fingerprint, derivation: path, hdKey: hdKey, name: name!)
     }
     
     public func encode(with coder: NSCoder) {
@@ -53,7 +58,7 @@ public class Signer: NSObject, NSSecureCoding, Identifiable {
 
         let path = BIP32Path("m/48h/1h/0h/2h")!
         let ourKey = try! masterKey.derive(path)
-        let us = Signer(fingerprint: fingerprint, derivation: path, hdKey: ourKey)
+        let us = Signer(fingerprint: fingerprint, derivation: path, hdKey: ourKey, name: "NthKey")
 
         guard encodedCosigners != nil && encodedCosigners!.count > 0 else {
             return (us, [])
