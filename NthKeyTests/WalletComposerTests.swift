@@ -57,5 +57,19 @@ class WalletComposerTests: XCTestCase {
             XCTAssertEqual(json, expected)
         }
     }
+    
+    func testAnnounceWalletPolicy() {
+        let expected = #"""
+         {"policy":"thresh(2,pk(3442193e),pk(bd16bee5))","announcements":[{"fingerprint":"3442193e","name":"NthKey"},{"fingerprint":"bd16bee5","name":""}]}
+         """#
+         let composer = WalletComposer(us: us!, signers: [us!, cosigner1!], threshold: 2)
+         XCTAssertNotNil(composer)
+         if (composer != nil) {
+             let encoder = JSONEncoder()
+             let encoded = try! encoder.encode(composer)
+             let json = String(data: encoded, encoding: .utf8)!
+             XCTAssertEqual(json, expected)
+         }
+    }
 
 }

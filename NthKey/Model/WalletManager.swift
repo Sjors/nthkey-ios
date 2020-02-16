@@ -69,7 +69,7 @@ struct WalletManager {
         if self.hasWallet {
             signers.append(contentsOf: self.cosigners)
         }
-        let composer = WalletComposer(us: self.us, signers: signers)
+        let composer = WalletComposer(us: self.us, signers: signers, threshold: self.hasWallet ? self.threshold : nil)
         let fileName = "wallet-" + signers.map { signer in
             return signer.fingerprint.hexString
         }.joined(separator: "-") + ".json";

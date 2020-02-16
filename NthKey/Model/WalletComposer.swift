@@ -12,6 +12,7 @@ import LibWally
 public struct WalletComposer : Codable {
     
     var announcements: [SignerAnnouncement]
+    var policy: String?
 
     public struct SignerAnnouncement: Codable {
         private var fingerprint: Data
@@ -75,9 +76,12 @@ public struct WalletComposer : Codable {
         }
     }
     
-    public init?(us: Signer, signers: [Signer]) {
+    public init?(us: Signer, signers: [Signer], threshold: Int? = nil) {
         self.announcements = signers.map { signer in
             return SignerAnnouncement(fingerprint: signer.fingerprint, name: us == signer ? "NthKey" : "")
+        }
+        if let threshold = threshold {
+            self.policy = "thresh(\(threshold),\(signers.map { signer in "pk(\( signer.fingerprint.hexString ))" }.joined(separator:",") ))"
         }
     }
 }
