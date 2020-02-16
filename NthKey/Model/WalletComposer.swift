@@ -8,10 +8,13 @@
 
 import Foundation
 import LibWally
+import OutputDescriptors
 
 public struct WalletComposer : Codable {
     
     var announcements: [SignerAnnouncement]
+    var descriptor_receive: String?
+    var descriptor_change: String?
     var policy: String?
     var policy_template: String?
     var sub_policies: [String: String]?
@@ -97,6 +100,26 @@ public struct WalletComposer : Codable {
             for signer in signers {
                 self.sub_policies![signer.fingerprint.hexString] = "pk(\(signer.fingerprint.hexString))"
             }
+            let network = signers[0].hdKey.network
+            self.descriptor_receive = self.descriptor(signers: signers, threshold: threshold, internalKey: false, network: network)
+            self.descriptor_change = self.descriptor(signers: signers, threshold: threshold, internalKey: true, network: network)
         }
+    }
+    
+    func descriptor(signers: [Signer], threshold: Int, internalKey: Bool, network: Network) -> String {
+        let keys = signers.map { signer in
+            let cointype: String
+            switch (network) {
+            case .mainnet:
+                cointype = "0h"
+            case .testnet:
+                cointype = "1h"
+            }
+            let origin = "\(signer.fingerprint.hexString)/48h/\(cointype)/0h/2h"
+            return "[\(origin)]\(signer.hdKey.xpub)/\(internalKey ? "1" : "0")/*"
+        }.joined(separator: ",")
+        let descriptor = "wsh(sortedmulti(\(threshold),\(keys)))"
+        let desc = try! OutputDescriptor(descriptor)
+        return "\(descriptor)#\(desc.checksum)"
     }
 }
