@@ -64,6 +64,21 @@ struct WalletManager {
         }
     }
     
+    mutating func saveWalletComposer(_ url: URL) {
+        var signers: [Signer] = [self.us]
+        if self.hasWallet {
+            signers.append(contentsOf: self.cosigners)
+        }
+        let composer = WalletComposer(us: self.us, signers: signers)
+        let fileName = "wallet-" + signers.map { signer in
+            return signer.fingerprint.hexString
+        }.joined(separator: "-") + ".json";
+        let encoder = JSONEncoder()
+        encoder.outputFormatting = .prettyPrinted
+        let encoded = try! encoder.encode(composer)
+        writeFile(folderUrl: url, fileName: fileName, textData: encoded)
+    }
+    
     func saveCosigners() {
         var encodedCosigners: [Data] = []
         for cosigner in self.cosigners {
@@ -78,5 +93,26 @@ struct WalletManager {
         threshold = 2
         let defaults = UserDefaults.standard
         defaults.set(threshold, forKey: "threshold")
+    }
+    
+    func writeFile(folderUrl: URL, fileName: String, textData: Data) {
+        guard folderUrl.startAccessingSecurityScopedResource() else {
+            print("Access failure")
+            return
+        }
+        defer { folderUrl.stopAccessingSecurityScopedResource() }
+
+        let fileURL = NSURL.fileURL(withPath: fileName, relativeTo: folderUrl)
+
+        do {
+            try textData.write(to: fileURL)
+        } catch {
+            print("Failed to write")
+        }
+        
+        #if targetEnvironment(simulator)
+        print(folderUrl)
+        #endif
+
     }
 }
