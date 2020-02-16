@@ -38,6 +38,7 @@ class WalletComposerTests: XCTestCase {
         XCTAssertNotNil(composer)
         if (composer != nil) {
             let encoder = JSONEncoder()
+            encoder.outputFormatting = .sortedKeys
             let encoded = try! encoder.encode(composer)
             let json = String(data: encoded, encoding: .utf8)!
             XCTAssertEqual(json, expected)
@@ -52,6 +53,7 @@ class WalletComposerTests: XCTestCase {
         XCTAssertNotNil(composer)
         if (composer != nil) {
             let encoder = JSONEncoder()
+            encoder.outputFormatting = .sortedKeys
             let encoded = try! encoder.encode(composer)
             let json = String(data: encoded, encoding: .utf8)!
             XCTAssertEqual(json, expected)
@@ -60,12 +62,13 @@ class WalletComposerTests: XCTestCase {
     
     func testAnnounceWalletPolicy() {
         let expected = #"""
-         {"policy":"thresh(2,pk(3442193e),pk(bd16bee5))","policy_template":"thresh(2,sub_policy(3442193e),sub_policy(bd16bee5))","announcements":[{"fingerprint":"3442193e","name":"NthKey"},{"fingerprint":"bd16bee5","name":""}]}
+         {"announcements":[{"fingerprint":"3442193e","name":"NthKey"},{"fingerprint":"bd16bee5","name":""}],"policy":"thresh(2,pk(3442193e),pk(bd16bee5))","policy_template":"thresh(2,sub_policies(3442193e),sub_policies(bd16bee5))","sub_policies":{"3442193e":"pk(3442193e)","bd16bee5":"pk(bd16bee5)"}}
          """#
          let composer = WalletComposer(us: us!, signers: [us!, cosigner1!], threshold: 2)
          XCTAssertNotNil(composer)
          if (composer != nil) {
              let encoder = JSONEncoder()
+             encoder.outputFormatting = .sortedKeys
              let encoded = try! encoder.encode(composer)
              let json = String(data: encoded, encoding: .utf8)!
              XCTAssertEqual(json, expected)

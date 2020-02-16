@@ -14,6 +14,7 @@ public struct WalletComposer : Codable {
     var announcements: [SignerAnnouncement]
     var policy: String?
     var policy_template: String?
+    var sub_policies: [String: String]?
 
     public struct SignerAnnouncement: Codable {
         private var fingerprint: Data
@@ -25,6 +26,7 @@ public struct WalletComposer : Codable {
         private enum CodingKeys : String, CodingKey {
             case fingerprintString = "fingerprint"
             case name
+            case sub_policies
         }
         
         init(fingerprint: Data, name: String) {
@@ -76,14 +78,18 @@ public struct WalletComposer : Codable {
             try container.encode(name, forKey: .name)
         }
     }
-    
+
     public init?(us: Signer, signers: [Signer], threshold: Int? = nil) {
         self.announcements = signers.map { signer in
             return SignerAnnouncement(fingerprint: signer.fingerprint, name: us == signer ? "NthKey" : "")
         }
         if let threshold = threshold {
+            self.sub_policies = [:]
             self.policy = "thresh(\(threshold),\(signers.map { signer in "pk(\( signer.fingerprint.hexString ))" }.joined(separator:",") ))"
-            self.policy_template = "thresh(\(threshold),\(signers.map { signer in "sub_policy(\( signer.fingerprint.hexString ))" }.joined(separator:",") ))"
+            self.policy_template = "thresh(\(threshold),\(signers.map { signer in "sub_policies(\( signer.fingerprint.hexString ))" }.joined(separator:",") ))"
+            for signer in signers {
+                self.sub_policies![signer.fingerprint.hexString] = "pk(\(signer.fingerprint.hexString))"
+            }
         }
     }
 }
