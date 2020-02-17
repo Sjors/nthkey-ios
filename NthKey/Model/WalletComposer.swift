@@ -23,27 +23,39 @@ public struct WalletComposer : Codable {
         var name: String
         var can_decompile_miniscript: Bool?
         var sub_policy: String?
+        var keys: [String:[String:String]]?
         
-        init(name: String, us: Bool, sub_policy: String?) {
+        init(name: String, us: Bool, sub_policy: String?, keys: [String:[String:String]]?) {
             self.name = name
             self.sub_policy = sub_policy
             if (us) {
                 self.can_decompile_miniscript = false
             }
+            self.keys = keys
         }
 
     }
 
     public init?(us: Signer, signers: [Signer], threshold: Int? = nil) {
+        let network = signers[0].hdKey.network
         self.announcements = signers.reduce(into: [:]) { announcements, signer in
-            announcements[signer.fingerprint.hexString] = SignerAnnouncement(name: us == signer ? "NthKey" : "", us: us == signer, sub_policy: "pk(\(signer.fingerprint.hexString))")
+            announcements[signer.fingerprint.hexString] = SignerAnnouncement(
+                name: us == signer ? "NthKey" : "",
+                us: us == signer,
+                sub_policy: "pk(\(signer.fingerprint.hexString))",
+                keys: [
+                    "wsh":[
+                        "receive": WalletComposer.key(signer: signer, network:network, internalKey: false),
+                        "change": WalletComposer.key(signer: signer, network:network, internalKey: true)
+                    ]
+                ]
+            )
         }
         if let threshold = threshold {
             self.policy = "thresh(\(threshold),\(signers.map { signer in "pk(\( signer.fingerprint.hexString ))" }.joined(separator:",") ))"
             self.policy_template = "thresh(\(threshold),\(signers.map { signer in "sub_policies(\( signer.fingerprint.hexString ))" }.joined(separator:",") ))"
-            let network = signers[0].hdKey.network
-            self.descriptor_receive = self.descriptor(signers: signers, threshold: threshold, internalKey: false, network: network)
-            self.descriptor_change = self.descriptor(signers: signers, threshold: threshold, internalKey: true, network: network)
+            self.descriptor_receive = WalletComposer.descriptor(signers: signers, threshold: threshold, internalKey: false, network: network)
+            self.descriptor_change = WalletComposer.descriptor(signers: signers, threshold: threshold, internalKey: true, network: network)
         }
     }
     
@@ -87,17 +99,21 @@ public struct WalletComposer : Codable {
         
     }
     
-    func descriptor(signers: [Signer], threshold: Int, internalKey: Bool, network: Network) -> String {
+    static func key(signer: Signer, network: Network, internalKey: Bool) -> String {
+        let cointype: String
+        switch (network) {
+        case .mainnet:
+            cointype = "0h"
+        case .testnet:
+            cointype = "1h"
+        }
+        let origin = "\(signer.fingerprint.hexString)/48h/\(cointype)/0h/2h"
+        return "[\(origin)]\(signer.hdKey.xpub)/\(internalKey ? "1" : "0")/*"
+    }
+    
+    static func descriptor(signers: [Signer], threshold: Int, internalKey: Bool, network: Network) -> String {
         let keys = signers.map { signer in
-            let cointype: String
-            switch (network) {
-            case .mainnet:
-                cointype = "0h"
-            case .testnet:
-                cointype = "1h"
-            }
-            let origin = "\(signer.fingerprint.hexString)/48h/\(cointype)/0h/2h"
-            return "[\(origin)]\(signer.hdKey.xpub)/\(internalKey ? "1" : "0")/*"
+            key(signer: signer, network: network, internalKey: internalKey)
         }.joined(separator: ",")
         let descriptor = "wsh(sortedmulti(\(threshold),\(keys)))"
         let desc = try! OutputDescriptor(descriptor)
