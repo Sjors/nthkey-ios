@@ -76,6 +76,11 @@ struct WalletManager {
                     guard let (change_derivation, change_xpub) = try? WalletComposer.parseKey(wsh_key_change, expectedFingerprint: fingerprint) else { continue }
                     guard receive_derivation == change_derivation && receive_xpub == change_xpub else { continue }
                     
+                    if let sub_policy = announcement.sub_policy { // Assume pk(fingerprint) is not set
+                        guard let subPolicy = try? WalletComposer.parseSubPolicy(sub_policy, expectedFingerprint: fingerprint) else { continue }
+                        guard subPolicy == .pk else { continue }
+                    }
+                    
                     let derivation = BIP32Path(receive_derivation)!
                     guard let hdKey = HDKey(receive_xpub) else { return }
                     

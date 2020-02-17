@@ -14,6 +14,11 @@ public struct WalletComposer : Codable {
     
     enum WalletComposerError: Error {
         case invalidKey
+        case invalidSubPolicy
+    }
+    
+    enum SubPolicy {
+        case pk
     }
     
     public var announcements: [String:SignerAnnouncement]
@@ -142,5 +147,17 @@ public struct WalletComposer : Codable {
         guard nsrange.location != NSNotFound, let range3 = Range(xpub_nsrange, in: key) else { throw WalletComposerError.invalidKey }
         let xpub_match = key[range3]
         return (String(derivation_match), String(xpub_match))
+    }
+    
+    static func parseSubPolicy(_ subPolicy: String, expectedFingerprint: Data) throws -> SubPolicy {
+        let pattern = #"^pk\((?<fingerprint>[0-9a-f]{8})\)$"#
+        let regex = try! NSRegularExpression(pattern: pattern, options: [])
+        let nsrange = NSRange(subPolicy.startIndex..<subPolicy.endIndex, in: subPolicy)
+        guard let match = regex.firstMatch(in: subPolicy, options: [], range: nsrange) else { throw WalletComposerError.invalidKey }
+        let fingerprint_nsrange = match.range(withName: "fingerprint")
+        guard nsrange.location != NSNotFound, let range = Range(fingerprint_nsrange, in: subPolicy) else { throw WalletComposerError.invalidSubPolicy }
+        let fingerprint_match = subPolicy[range]
+        guard fingerprint_match == expectedFingerprint.hexString else { throw WalletComposerError.invalidKey }
+        return .pk
     }
 }
