@@ -32,7 +32,7 @@ class WalletComposerTests: XCTestCase {
 
     func testAnnounceOurKey() {
         let expected = #"""
-        {"announcements":[{"can_decompile_miniscript":false,"fingerprint":"3442193e","name":"NthKey"}]}
+        {"announcements":{"3442193e":{"can_decompile_miniscript":false,"name":"NthKey"}}}
         """#
         let composer = WalletComposer(us: us!, signers: [us!])
         XCTAssertNotNil(composer)
@@ -45,9 +45,27 @@ class WalletComposerTests: XCTestCase {
         }
     }
     
+    func testParse() {
+        let composer = #"""
+        {"announcements":{"3442193e":{"can_decompile_miniscript":false,"name":"NthKey"}}}
+        """#
+        let jsonData = composer.data(using: .utf8)!
+        let wallet = try! JSONDecoder().decode(WalletComposer.self, from: jsonData)
+
+        XCTAssertEqual(wallet.announcements.count, 1)
+    }
+    
+    func testParseFingerprint() {
+        let composerMalformed = #"""
+        {"announcements":{"344219":{"can_decompile_miniscript":false,"name":"NthKey"}}}
+        """#
+        let jsonData = composerMalformed.data(using: .utf8)!
+        XCTAssertThrowsError(try JSONDecoder().decode(WalletComposer.self, from: jsonData))
+    }
+    
     func testAnnounceOtherKeys() {
         let expected = #"""
-        {"announcements":[{"can_decompile_miniscript":false,"fingerprint":"3442193e","name":"NthKey"},{"can_decompile_miniscript":null,"fingerprint":"bd16bee5","name":""}]}
+        {"announcements":{"3442193e":{"can_decompile_miniscript":false,"name":"NthKey"},"bd16bee5":{"can_decompile_miniscript":null,"name":""}}}
         """#
         let composer = WalletComposer(us: us!, signers: [us!, cosigner1!])
         XCTAssertNotNil(composer)
@@ -62,7 +80,7 @@ class WalletComposerTests: XCTestCase {
     
     func testAnnounceWalletPolicy() {
         let expected = #"""
-         {"announcements":[{"can_decompile_miniscript":false,"fingerprint":"3442193e","name":"NthKey"},{"can_decompile_miniscript":null,"fingerprint":"bd16bee5","name":""}],"descriptor_change":"wsh(sortedmulti(2,[3442193e\/48h\/0h\/0h\/2h]xpub6E64WfdQwBGz85XhbZryr9gUGUPBgoSu5WV6tJWpzAvgAmpVpdPHkT3XYm9R5J6MeWzvLQoz4q845taC9Q28XutbptxAmg7q8QPkjvTL4oi\/1\/*,[bd16bee5\/48h\/0h\/0h\/2h]xpub6DwQ4gBCmJZM3TaKogP41tpjuEwnMH2nWEi3PFev37LfsWPvjZrh1GfAG8xvoDYMPWGKG1oBPMCfKpkVbJtUHRaqRdCb6X6o1e9PQTVK88a\/1\/*))#8837llds","descriptor_receive":"wsh(sortedmulti(2,[3442193e\/48h\/0h\/0h\/2h]xpub6E64WfdQwBGz85XhbZryr9gUGUPBgoSu5WV6tJWpzAvgAmpVpdPHkT3XYm9R5J6MeWzvLQoz4q845taC9Q28XutbptxAmg7q8QPkjvTL4oi\/0\/*,[bd16bee5\/48h\/0h\/0h\/2h]xpub6DwQ4gBCmJZM3TaKogP41tpjuEwnMH2nWEi3PFev37LfsWPvjZrh1GfAG8xvoDYMPWGKG1oBPMCfKpkVbJtUHRaqRdCb6X6o1e9PQTVK88a\/0\/*))#75z63vc9","policy":"thresh(2,pk(3442193e),pk(bd16bee5))","policy_template":"thresh(2,sub_policies(3442193e),sub_policies(bd16bee5))","sub_policies":{"3442193e":"pk(3442193e)","bd16bee5":"pk(bd16bee5)"}}
+         {"announcements":{"3442193e":{"can_decompile_miniscript":false,"name":"NthKey"},"bd16bee5":{"can_decompile_miniscript":null,"name":""}},"descriptor_change":"wsh(sortedmulti(2,[3442193e\/48h\/0h\/0h\/2h]xpub6E64WfdQwBGz85XhbZryr9gUGUPBgoSu5WV6tJWpzAvgAmpVpdPHkT3XYm9R5J6MeWzvLQoz4q845taC9Q28XutbptxAmg7q8QPkjvTL4oi\/1\/*,[bd16bee5\/48h\/0h\/0h\/2h]xpub6DwQ4gBCmJZM3TaKogP41tpjuEwnMH2nWEi3PFev37LfsWPvjZrh1GfAG8xvoDYMPWGKG1oBPMCfKpkVbJtUHRaqRdCb6X6o1e9PQTVK88a\/1\/*))#8837llds","descriptor_receive":"wsh(sortedmulti(2,[3442193e\/48h\/0h\/0h\/2h]xpub6E64WfdQwBGz85XhbZryr9gUGUPBgoSu5WV6tJWpzAvgAmpVpdPHkT3XYm9R5J6MeWzvLQoz4q845taC9Q28XutbptxAmg7q8QPkjvTL4oi\/0\/*,[bd16bee5\/48h\/0h\/0h\/2h]xpub6DwQ4gBCmJZM3TaKogP41tpjuEwnMH2nWEi3PFev37LfsWPvjZrh1GfAG8xvoDYMPWGKG1oBPMCfKpkVbJtUHRaqRdCb6X6o1e9PQTVK88a\/0\/*))#75z63vc9","policy":"thresh(2,pk(3442193e),pk(bd16bee5))","policy_template":"thresh(2,sub_policies(3442193e),sub_policies(bd16bee5))","sub_policies":{"3442193e":"pk(3442193e)","bd16bee5":"pk(bd16bee5)"}}
          """#
          let composer = WalletComposer(us: us!, signers: [us!, cosigner1!], threshold: 2)
          XCTAssertNotNil(composer)

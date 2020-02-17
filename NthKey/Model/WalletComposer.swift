@@ -12,19 +12,15 @@ import OutputDescriptors
 
 public struct WalletComposer : Codable {
     
-    var announcements: [SignerAnnouncement]
-    var descriptor_receive: String?
-    var descriptor_change: String?
-    var policy: String?
-    var policy_template: String?
-    var sub_policies: [String: String]?
+    public var announcements: [String:SignerAnnouncement]
+    public var descriptor_receive: String?
+    public var descriptor_change: String?
+    public var policy: String?
+    public var policy_template: String?
+    public var sub_policies: [String: String]?
 
     public struct SignerAnnouncement: Codable {
-        private var fingerprint: Data
         var name: String
-        var fingerprintString: String {
-            get { return fingerprint.hexString }
-        }
         var can_decompile_miniscript: Bool?
 
         private enum CodingKeys : String, CodingKey {
@@ -34,8 +30,7 @@ public struct WalletComposer : Codable {
             case can_decompile_miniscript
         }
         
-        init(fingerprint: Data, name: String, us: Bool) {
-            self.fingerprint = fingerprint
+        init(name: String, us: Bool) {
             self.name = name
             if (us) {
                 self.can_decompile_miniscript = false
@@ -46,52 +41,18 @@ public struct WalletComposer : Codable {
             let container = try decoder.container(keyedBy: CodingKeys.self)
             name = try container.decode(String.self, forKey: .name)
             can_decompile_miniscript = try container.decode(Bool.self, forKey: .can_decompile_miniscript)
-            let fingerprintString = try container.decode(String.self, forKey: .fingerprintString)
-
-            if fingerprintString.count != 8 {
-                throw DecodingError.dataCorruptedError(
-                    forKey:.fingerprintString,
-                    in: container,
-                    debugDescription: """
-                    Expected "\(fingerprintString)" to have 8 characters
-                    """
-                )
-            }
-    
-            guard let value = Data(fingerprintString) else {
-                throw DecodingError.dataCorruptedError(
-                    forKey: .fingerprintString,
-                    in: container,
-                    debugDescription: """
-                    Failed to convert an instance of \(Data.self) from "\(fingerprintString)"
-                    """
-                )
-            }
-            
-            if value.hexString != fingerprintString {
-                  throw DecodingError.dataCorruptedError(
-                      forKey:.fingerprintString,
-                      in: container,
-                      debugDescription: """
-                      "\(fingerprintString)" is not hex
-                      """
-                  )
-            }
-
-            fingerprint = value
         }
         
         public func encode(to encoder: Encoder) throws {
             var container = encoder.container(keyedBy: CodingKeys.self)
-            try container.encode(fingerprintString, forKey: .fingerprintString)
             try container.encode(name, forKey: .name)
             try container.encode(can_decompile_miniscript, forKey: .can_decompile_miniscript)
         }
     }
 
     public init?(us: Signer, signers: [Signer], threshold: Int? = nil) {
-        self.announcements = signers.map { signer in
-            return SignerAnnouncement(fingerprint: signer.fingerprint, name: us == signer ? "NthKey" : "", us: us == signer)
+        self.announcements = signers.reduce(into: [:]) { announcements, signer in
+            announcements[signer.fingerprint.hexString] = SignerAnnouncement(name: us == signer ? "NthKey" : "", us: us == signer)
         }
         if let threshold = threshold {
             self.sub_policies = [:]
@@ -104,6 +65,46 @@ public struct WalletComposer : Codable {
             self.descriptor_receive = self.descriptor(signers: signers, threshold: threshold, internalKey: false, network: network)
             self.descriptor_change = self.descriptor(signers: signers, threshold: threshold, internalKey: true, network: network)
         }
+    }
+    
+    public init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        announcements = try container.decode([String:SignerAnnouncement].self, forKey: .announcements)
+
+        for announcement in announcements {
+            let fingerprint = announcement.key
+            if fingerprint.count != 8 {
+                throw DecodingError.dataCorruptedError(
+                    forKey:.announcements,
+                    in: container,
+                    debugDescription: """
+                    Expected "\(fingerprint)" to have 8 characters
+                    """
+                )
+            }
+
+            guard let value = Data(fingerprint) else {
+                throw DecodingError.dataCorruptedError(
+                    forKey: .announcements,
+                    in: container,
+                    debugDescription: """
+                    Failed to convert an instance of \(Data.self) from "\(fingerprint)"
+                    """
+                )
+            }
+
+            if value.hexString != fingerprint {
+                  throw DecodingError.dataCorruptedError(
+                      forKey:.announcements,
+                      in: container,
+                      debugDescription: """
+                      "\(fingerprint)" is not hex
+                      """
+                  )
+            }
+
+        }
+        
     }
     
     func descriptor(signers: [Signer], threshold: Int, internalKey: Bool, network: Network) -> String {
