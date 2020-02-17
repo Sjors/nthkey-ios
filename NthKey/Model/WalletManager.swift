@@ -74,7 +74,7 @@ struct WalletManager {
             return signer.fingerprint.hexString
         }.joined(separator: "-") + ".json";
         let encoder = JSONEncoder()
-        encoder.outputFormatting = .prettyPrinted
+        encoder.outputFormatting = [.prettyPrinted,.sortedKeys]
         let encoded = try! encoder.encode(composer)
         writeFile(folderUrl: url, fileName: fileName, textData: encoded)
     }
