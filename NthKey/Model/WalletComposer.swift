@@ -15,7 +15,6 @@ public struct WalletComposer : Codable {
     public var announcements: [String:SignerAnnouncement]
     public var descriptors: [String: [String: String]]?
     public var policy: String?
-    public var policy_template: String?
     public var sub_policies: [String: String]?
 
     public struct SignerAnnouncement: Codable {
@@ -52,7 +51,6 @@ public struct WalletComposer : Codable {
         }
         if let threshold = threshold {
             self.policy = "thresh(\(threshold),\(signers.map { signer in "pk(\( signer.fingerprint.hexString ))" }.joined(separator:",") ))"
-            self.policy_template = "thresh(\(threshold),\(signers.map { signer in "sub_policies(\( signer.fingerprint.hexString ))" }.joined(separator:",") ))"
             self.descriptors = [
                 "wsh":[
                     "receive": WalletComposer.descriptor(signers: signers, threshold: threshold, internalKey: false, network: network),
