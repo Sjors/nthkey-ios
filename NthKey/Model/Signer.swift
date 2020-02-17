@@ -41,6 +41,7 @@ public class Signer: NSObject, NSSecureCoding, Identifiable {
         coder.encode(fingerprint, forKey:"fingerprint") // TODO: use constants for keys
         coder.encode(derivation.description, forKey:"derivation")
         coder.encode(hdKey.description, forKey:"xpub")
+        coder.encode(name, forKey:"name")
     }
 
     public static func getSigners() -> (Signer, [Signer]) {

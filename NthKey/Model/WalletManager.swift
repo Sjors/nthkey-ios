@@ -37,6 +37,8 @@ struct WalletManager {
         do {
             let data = try Data(contentsOf: URL(fileURLWithPath: url.path), options: .mappedIfSafe)
             let jsonResult = try JSONSerialization.jsonObject(with: data, options: .mutableLeaves)
+            
+            // Check if it uses ColdCard format:
             if let jsonResult = jsonResult as? Dictionary<String, String>,
                 let xfp = jsonResult["xfp"],
                 let p2wsh_deriv = jsonResult["p2wsh_deriv"],
@@ -57,6 +59,32 @@ struct WalletManager {
                 let cosigner = Signer(fingerprint: Data(xfp)!, derivation: BIP32Path(p2wsh_deriv)!, hdKey: HDKey(p2wsh_tpub.base58)!, name: "")
                 self.cosigners.append(cosigner)
                 self.saveCosigners()
+            } else if let composer = try? JSONDecoder().decode(WalletComposer.self, from: data) {
+                outer: for item in composer.announcements {
+                    let fingerprint = Data(item.key)! // WalletComposer already sanity checked this
+                    let announcement = item.value
+                    if fingerprint == us.fingerprint { continue }
+                    for cosigner in cosigners {
+                        if cosigner.fingerprint == fingerprint { continue outer }
+                    }
+                    guard let keys = announcement.keys else { continue }
+                    guard let wsh_keys = keys["wsh"] else { continue }
+                    guard let wsh_key_receive = wsh_keys["receive"] else { continue }
+                    guard let wsh_key_change = wsh_keys["change"] else { continue }
+                    
+                    guard let (receive_derivation, receive_xpub) = try? WalletComposer.parseKey(wsh_key_receive, expectedFingerprint: fingerprint) else { continue }
+                    guard let (change_derivation, change_xpub) = try? WalletComposer.parseKey(wsh_key_change, expectedFingerprint: fingerprint) else { continue }
+                    guard receive_derivation == change_derivation && receive_xpub == change_xpub else { continue }
+                    
+                    let derivation = BIP32Path(receive_derivation)!
+                    guard let hdKey = HDKey(receive_xpub) else { return }
+                    
+                    let cosigner = Signer(fingerprint: fingerprint, derivation: derivation, hdKey: hdKey, name: announcement.name)
+                    self.cosigners.append(cosigner)
+                    self.saveCosigners()
+                }
+            } else {
+                print("JSON format not recognized")
             }
         } catch {
             NSLog("Something went wrong parsing JSON file")

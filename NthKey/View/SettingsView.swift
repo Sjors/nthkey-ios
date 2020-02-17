@@ -35,7 +35,7 @@ struct SettingsView : View {
                     Text("Add cosigners by importing their public key here.")
                     Text("* \( appState.walletManager.us.fingerprint.hexString )").font(.system(.body, design: .monospaced)) + Text(" (us)")
                     ForEach(appState.walletManager.cosigners) { cosigner in
-                        Text("* \( cosigner.fingerprint.hexString )").font(.system(.body, design: .monospaced))
+                        Text("* \( cosigner.fingerprint.hexString )" ).font(.system(.body, design: .monospaced)) + Text(cosigner.name != "" ? " (\(cosigner.name))" : "")
                     }
                     Button(action: {
                         self.settings.addCosigner(self.loadCosignerFile)

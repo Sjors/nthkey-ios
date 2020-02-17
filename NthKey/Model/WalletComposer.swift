@@ -12,6 +12,10 @@ import OutputDescriptors
 
 public struct WalletComposer : Codable {
     
+    enum WalletComposerError: Error {
+        case invalidKey
+    }
+    
     public var announcements: [String:SignerAnnouncement]
     public var descriptors: [String: [String: String]]?
     public var policy: String?
@@ -38,7 +42,7 @@ public struct WalletComposer : Codable {
         let network = signers[0].hdKey.network
         self.announcements = signers.reduce(into: [:]) { announcements, signer in
             announcements[signer.fingerprint.hexString] = SignerAnnouncement(
-                name: us == signer ? "NthKey" : "",
+                name: signer.name,
                 us: us == signer,
                 sub_policy: "pk(\(signer.fingerprint.hexString))",
                 keys: [
@@ -119,5 +123,24 @@ public struct WalletComposer : Codable {
         let descriptor = "wsh(sortedmulti(\(threshold),\(keys)))"
         let desc = try! OutputDescriptor(descriptor)
         return "\(descriptor)#\(desc.checksum)"
+    }
+    
+    static func parseKey(_ key: String, expectedFingerprint: Data) throws -> (String, String) {
+        let pattern = #"^\[(?<fingerprint>[0-9a-f]{8})(?<derivation>(/\d+h)+)](?<xpub>.*)/[01]/\*$"#
+        let regex = try! NSRegularExpression(pattern: pattern, options: [])
+        let nsrange = NSRange(key.startIndex..<key.endIndex,
+        in: key)
+        guard let match = regex.firstMatch(in: key, options: [], range: nsrange) else { throw WalletComposerError.invalidKey }
+        let fingerprint_nsrange = match.range(withName: "fingerprint")
+        guard nsrange.location != NSNotFound, let range = Range(fingerprint_nsrange, in: key) else { throw WalletComposerError.invalidKey }
+        let fingerprint_match = key[range]
+        guard fingerprint_match == expectedFingerprint.hexString else { throw WalletComposerError.invalidKey }
+        let derivation_nsrange = match.range(withName: "derivation")
+        guard nsrange.location != NSNotFound, let range2 = Range(derivation_nsrange, in: key) else { throw WalletComposerError.invalidKey }
+        let derivation_match = key[range2]
+        let xpub_nsrange = match.range(withName: "xpub")
+        guard nsrange.location != NSNotFound, let range3 = Range(xpub_nsrange, in: key) else { throw WalletComposerError.invalidKey }
+        let xpub_match = key[range3]
+        return (String(derivation_match), String(xpub_match))
     }
 }
