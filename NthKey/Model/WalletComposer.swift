@@ -22,9 +22,11 @@ public struct WalletComposer : Codable {
     public struct SignerAnnouncement: Codable {
         var name: String
         var can_decompile_miniscript: Bool?
+        var sub_policy: String?
         
-        init(name: String, us: Bool) {
+        init(name: String, us: Bool, sub_policy: String?) {
             self.name = name
+            self.sub_policy = sub_policy
             if (us) {
                 self.can_decompile_miniscript = false
             }
@@ -34,15 +36,11 @@ public struct WalletComposer : Codable {
 
     public init?(us: Signer, signers: [Signer], threshold: Int? = nil) {
         self.announcements = signers.reduce(into: [:]) { announcements, signer in
-            announcements[signer.fingerprint.hexString] = SignerAnnouncement(name: us == signer ? "NthKey" : "", us: us == signer)
+            announcements[signer.fingerprint.hexString] = SignerAnnouncement(name: us == signer ? "NthKey" : "", us: us == signer, sub_policy: "pk(\(signer.fingerprint.hexString))")
         }
         if let threshold = threshold {
-            self.sub_policies = [:]
             self.policy = "thresh(\(threshold),\(signers.map { signer in "pk(\( signer.fingerprint.hexString ))" }.joined(separator:",") ))"
             self.policy_template = "thresh(\(threshold),\(signers.map { signer in "sub_policies(\( signer.fingerprint.hexString ))" }.joined(separator:",") ))"
-            for signer in signers {
-                self.sub_policies![signer.fingerprint.hexString] = "pk(\(signer.fingerprint.hexString))"
-            }
             let network = signers[0].hdKey.network
             self.descriptor_receive = self.descriptor(signers: signers, threshold: threshold, internalKey: false, network: network)
             self.descriptor_change = self.descriptor(signers: signers, threshold: threshold, internalKey: true, network: network)
