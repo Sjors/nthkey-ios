@@ -15,10 +15,7 @@ struct MultisigAddress : Identifiable {
     
     static var receivePublicHDkeys: [HDKey] = []
     
-    init(_ receiveIndex: UInt, network: Network = .testnet) {
-        // TODO: use wallet manager
-        let threshold = UInt(UserDefaults.standard.integer(forKey: "threshold"))
-        precondition(threshold > 0)
+    init(threshold: UInt, receiveIndex: UInt, network: Network = .testnet) {
         if MultisigAddress.receivePublicHDkeys.isEmpty {
             let (us, cosigners) = Signer.getSigners()
 

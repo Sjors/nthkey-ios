@@ -31,7 +31,7 @@ class NthKeyTests: XCTestCase {
     }
 
     func testDeriveAddress() {
-        let address = MultisigAddress(0, network: .mainnet)
+        let address = MultisigAddress(threshold: 2, receiveIndex: 0, network: .mainnet)
         XCTAssertEqual(address.description, "bc1qlpsgumjm2dlcljqc96c38n6q74jtn88enkr3wrz0rtp9jp6war7s2h4lrs")
     }
 
