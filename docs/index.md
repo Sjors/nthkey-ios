@@ -50,7 +50,6 @@ Coming soon (tm)
 ## Known limitations
 
 * Testnet only
-* No M-of-N (only 2-of-2)
 * See [Github issues](https://github.com/Sjors/nthkey-ios/issues)
 
 ## Contact

@@ -13,16 +13,14 @@ struct WalletManager {
     var us: Signer
     var cosigners: [Signer]
     var threshold: Int = 0
+    var hasWallet: Bool = false
     
     init() {
         (us, cosigners) = Signer.getSigners()
         threshold = UserDefaults.standard.integer(forKey:"threshold")
+        hasWallet = UserDefaults.standard.bool(forKey:"hasWallet")
     }
-    
-    var hasWallet: Bool {
-        return threshold > 0 && cosigners.count > 0
-    }
-    
+
     var hasCosigners: Bool {
         return cosigners.count > 0
     }
@@ -67,9 +65,14 @@ struct WalletManager {
     }
     
     mutating func wipeCosigners() {
+        assert(!self.hasWallet)
         UserDefaults.standard.removeObject(forKey: "cosigners")
         self.cosigners = []
-        self.threshold = 0
+    }
+    
+    mutating func wipeWallet() {
+        UserDefaults.standard.removeObject(forKey: "hasWallet")
+        self.hasWallet = false
     }
     
     mutating func loadCosignerFile(_ url: URL) {
@@ -151,7 +154,7 @@ struct WalletManager {
         writeFile(folderUrl: url, fileName: fileName, textData: encoded)
     }
     
-    func saveCosigners() {
+    mutating func saveCosigners() {
         var encodedCosigners: [Data] = []
         for cosigner in self.cosigners {
             let encoded = try! NSKeyedArchiver.archivedData(withRootObject: cosigner, requiringSecureCoding: true)
@@ -161,10 +164,11 @@ struct WalletManager {
         defaults.set(encodedCosigners, forKey: "cosigners")
     }
     
-    mutating func createWallet() {
-        threshold = 2
+    mutating func createWallet(threshold: Int) {
         let defaults = UserDefaults.standard
         defaults.set(threshold, forKey: "threshold")
+        defaults.set(true, forKey: "hasWallet")
+        self.hasWallet = true
     }
     
     func mnemonic() -> String {

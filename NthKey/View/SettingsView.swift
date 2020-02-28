@@ -8,12 +8,14 @@
 
 import Foundation
 import SwiftUI
+import Combine
 
 struct SettingsView : View {
     
     @EnvironmentObject var appState: AppState
     
     @State private var showMnemonic = false
+    @State private var threshold = "2"
 
     let settings = SettingsViewController()
     
@@ -33,35 +35,60 @@ struct SettingsView : View {
         HStack{
             VStack(alignment: .leading, spacing: 20.0){
                 VStack(alignment: .leading, spacing: 20.0) {
-                    Text("Step 1").font(.headline)
-                    Text("Add cosigners by importing their public key here.")
+                    Text("Cosigners").font(.headline)
+                    if !self.appState.walletManager.hasWallet {
+                        Text("Add cosigners by importing their public key here.")
+                    }
                     Text("* \( appState.walletManager.us.fingerprint.hexString )").font(.system(.body, design: .monospaced)) + Text(" (us)")
                     ForEach(appState.walletManager.cosigners) { cosigner in
                         Text("* \( cosigner.fingerprint.hexString )" ).font(.system(.body, design: .monospaced)) + Text(cosigner.name != "" ? " (\(cosigner.name))" : "")
                     }
-                    Button(action: {
-                        self.settings.addCosigner(self.loadCosignerFile)
-                    }) {
-                        Text("Add cosigner")
+                    if !self.appState.walletManager.hasWallet {
+                        Button(action: {
+                            self.settings.addCosigner(self.loadCosignerFile)
+                        }) {
+                            Text("Add cosigner")
+                        }
+                        HStack{
+                            Text("Threshold:")
+                            TextField("Threshold", text: $threshold)
+                            .keyboardType(.numberPad)
+                            .onReceive(Just(threshold)) { newValue in
+                                let filtered = newValue.filter { "0123456789".contains($0) }
+                                if filtered != newValue {
+                                    self.threshold = filtered
+                                }
+                            }
+                        }
+                        Button(action: {
+                              self.appState.walletManager.createWallet(threshold: Int(self.threshold) ?? 0)
+                          }) {
+                              Text("Create \(threshold) of \(max(2, self.appState.walletManager.cosigners.count + 1)) wallet")
+                          }
+                          .disabled(Int(self.threshold) ?? 0 <= 1 || Int(self.threshold)! > self.appState.walletManager.cosigners.count + 1)
+                    } else {
+                        Text("Threshold: \(self.appState.walletManager.threshold)")
                     }
-                    .disabled(self.appState.walletManager.hasWallet)
-                    Button(action: {
-                        self.appState.walletManager.createWallet()
-                    }) {
-                        Text("Create 2 of \(max(2, self.appState.walletManager.cosigners.count + 1)) wallet")
+
+                    if !self.appState.walletManager.hasWallet && self.appState.walletManager.hasCosigners {
+                        Button(action: {
+                            self.appState.walletManager.wipeCosigners()
+                        }) {
+                            Text("Wipe cosigners")
+                        }
                     }
-                    .disabled(self.appState.walletManager.hasWallet || !self.appState.walletManager.hasCosigners)
-                    Button(action: {
-                        self.appState.walletManager.wipeCosigners()
-                    }) {
-                        Text("Wipe cosigners")
+                    if (self.appState.walletManager.hasWallet) {
+                        Button(action: {
+                            self.appState.walletManager.wipeWallet()
+                        }) {
+                            Text("Wipe wallet")
+                        }
                     }
-                    .disabled(!self.appState.walletManager.hasCosigners)
                 }
                 Spacer()
                 VStack(alignment: .leading, spacing: 20.0) {
-                    Text("Step 2").font(.headline)
-                    Text("Announce your key to your cosigners.")
+                    Text("Announce").font(.headline)
+                    Text("Announce your key to your cosigners and import the wallet into Bitcoin Core")
                 }
                 Button(action: {
                     self.settings.exportPublicKey()
@@ -73,17 +100,12 @@ struct SettingsView : View {
                 }) {
                     Text("Experimental format")
                 }
-                Spacer()
-                VStack(alignment: .leading, spacing: 20.0) {
-                    Text("Step 3").font(.headline)
-                    Text("Use this wallet Bitcoin Core.")
-                    Button(action: {
-                        self.settings.exportBitcoinCore()
-                    }) {
-                        Text("Bitcoin Core import script")
-                    }
-                    .disabled(!self.appState.walletManager.hasWallet)
+                Button(action: {
+                    self.settings.exportBitcoinCore()
+                }) {
+                    Text("Bitcoin Core import script")
                 }
+                .disabled(!self.appState.walletManager.hasWallet)
                 Spacer()
                 VStack(alignment: .leading, spacing: 20.0) {
                     Text("Misc").font(.headline)

@@ -16,12 +16,11 @@ struct MultisigAddress : Identifiable {
     static var receivePublicHDkeys: [HDKey] = []
     
     init(_ receiveIndex: UInt, network: Network = .testnet) {
+        // TODO: use wallet manager
+        let threshold = UInt(UserDefaults.standard.integer(forKey: "threshold"))
+        precondition(threshold > 0)
         if MultisigAddress.receivePublicHDkeys.isEmpty {
             let (us, cosigners) = Signer.getSigners()
-
-            // TODO: use wallet manager
-            let threshold = UserDefaults.standard.integer(forKey: "threshold")
-            precondition(threshold > 0)
 
             MultisigAddress.receivePublicHDkeys.append(try! us.hdKey.derive(BIP32Path("0")!))
             for cosigner in cosigners {
@@ -37,7 +36,7 @@ struct MultisigAddress : Identifiable {
             return childKey.pubKey
         }
 
-        let scriptPubKey = ScriptPubKey(multisig: pubKeys, threshold: 2)
+        let scriptPubKey = ScriptPubKey(multisig: pubKeys, threshold: threshold)
         let receiveAddress = Address(scriptPubKey, network)!
 
         self.description = receiveAddress.description
