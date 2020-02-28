@@ -36,8 +36,6 @@ struct WalletManager {
             let seedHex = mnemonic.seedHex()
             masterKey = HDKey(seedHex, .testnet)!
             assert(masterKey.fingerprint == fingerprint)
-            // Uncomment to print mnemonic for backup (obviously unsafe)
-//            NSLog("%@", mnemonic.description)
         } else {
             var bytes = [Int8](repeating: 0, count: 32)
             let status = SecRandomCopyBytes(kSecRandomDefault, bytes.count, &bytes)
@@ -167,6 +165,10 @@ struct WalletManager {
         threshold = 2
         let defaults = UserDefaults.standard
         defaults.set(threshold, forKey: "threshold")
+    }
+    
+    func mnemonic() -> String {
+        return WalletManager.getMnemonic(us.fingerprint).description
     }
     
     func writeFile(folderUrl: URL, fileName: String, textData: Data) {

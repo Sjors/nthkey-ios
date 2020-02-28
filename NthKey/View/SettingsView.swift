@@ -12,6 +12,8 @@ import SwiftUI
 struct SettingsView : View {
     
     @EnvironmentObject var appState: AppState
+    
+    @State private var showMnemonic = false
 
     let settings = SettingsViewController()
     
@@ -75,15 +77,27 @@ struct SettingsView : View {
                 VStack(alignment: .leading, spacing: 20.0) {
                     Text("Step 3").font(.headline)
                     Text("Use this wallet Bitcoin Core.")
+                    Button(action: {
+                        self.settings.exportBitcoinCore()
+                    }) {
+                        Text("Bitcoin Core import script")
+                    }
+                    .disabled(!self.appState.walletManager.hasWallet)
                 }
-                Button(action: {
-                    self.settings.exportBitcoinCore()
-                }) {
-                    Text("Bitcoin Core import script")
+                Spacer()
+                VStack(alignment: .leading, spacing: 20.0) {
+                    Text("Misc").font(.headline)
+                    Button(action: {
+                        self.showMnemonic = true
+                    }) {
+                        Text("Show mnemonic")
+                    }
                 }
-                .disabled(!self.appState.walletManager.hasWallet)
+
                 Spacer()
             }
+        }.alert(isPresented: $showMnemonic) {
+            Alert(title: Text("BIP 39 mnemonic"), message: Text(self.appState.walletManager.mnemonic()), dismissButton: .default(Text("OK")))
         }
     }
 }
