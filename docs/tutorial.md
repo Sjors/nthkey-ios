@@ -153,7 +153,7 @@ lets you save it as a `.psbt` file.
 
 ### Electrum draft
 
-Go to the send tab and draft a transaction as usual. Click Pay and then Send. In the bottom left corner click Export, Export to File. Rename the `.txn` extension to `.psbt`  in order to sign with NthKey. See also [Electrum Issue #5954](https://github.com/spesmilo/electrum/issues/5954).
+Go to the send tab and draft a transaction as usual. Click Pay and then Send. In the bottom left corner click Export, Export to File.
 
 Unfortunately we can't sign the resulting PSBT yet, which requires either a change to NthKey or to Electrum. See [Electrum Issue #5955](https://github.com/spesmilo/electrum/issues/5955)
 
