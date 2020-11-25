@@ -20,11 +20,11 @@ struct FileViewControllerManager {
         case savePSBT
         case saveWalletComposer
     }
-    
+
     let task: Task
     var payload: Data?
     var url: URL?
-    
+
     func prompt<T: UIViewController>(vc: T, delegate: UIDocumentPickerDelegate) {
         let documentPicker: UIDocumentPickerViewController
 
@@ -40,12 +40,12 @@ struct FileViewControllerManager {
         }
         documentPicker.delegate = delegate
         documentPicker.modalPresentationStyle = .formSheet
-        
+
         DispatchQueue.main.async {
             self.getTopMostViewController()!.present(documentPicker, animated: true, completion: nil)
         }
     }
-    
+
     mutating func didPickDocumentsAt(urls: [URL]) -> Void {
         switch task {
         case .loadCosigner:
@@ -99,14 +99,14 @@ struct FileViewControllerManager {
         let textData = importData!.importDescriptorsRPC.data(using: .utf8)!
         writeFile(folderUrl: url, fileName: fileName, textData: textData)
     }
-    
+
     func savePSBT(_ url: URL) {
         precondition(self.payload != nil)
 
         let fileName = "transaction-signed.psbt"; // TODO: use txid, and also save hex if complete
         writeFile(folderUrl: url, fileName: fileName, textData: self.payload!)
     }
-      
+
     func savePublicKeyFile(_ url: URL) {
         precondition(UserDefaults.standard.data(forKey: "masterKeyFingerprint") != nil)
         let fingerprint = UserDefaults.standard.data(forKey: "masterKeyFingerprint")!
@@ -118,7 +118,7 @@ struct FileViewControllerManager {
         let seedHex = mnemonic.seedHex()
         let masterKey = HDKey(seedHex, .testnet)!
         assert(masterKey.fingerprint == fingerprint)
-              
+
         let path = BIP32Path("m/48h/1h/0h/2h")!
         let account = try! masterKey.derive(path)
 
@@ -128,11 +128,8 @@ struct FileViewControllerManager {
             var p2wsh_deriv: String
             var p2wsh: String
         }
-        // TODO: get Vpub or Data directly from LibWally
         let xpub = Data(base58: account.xpub)!
-        // Convert tpub to Electrum compatible Vpub:
-        let p2wsh_tpub = Data("02575483")! + xpub.subdata(in: 4..<xpub.count)
-        let export = ColdcardExport(xfp: fingerprint.hexString.uppercased(), p2wsh_deriv: "m/48'/1'/0'/2'", p2wsh: p2wsh_tpub.base58)
+        let export = ColdcardExport(xfp: fingerprint.hexString.uppercased(), p2wsh_deriv: "m/48'/1'/0'/2'", p2wsh: xpub.base58)
 
         let encoder = JSONEncoder()
         let data = try! encoder.encode(export)
@@ -140,7 +137,7 @@ struct FileViewControllerManager {
         let fileName = "ccxp-" + fingerprint.hexString.uppercased() + ".json";
         writeFile(folderUrl: url, fileName: fileName, textData: data)
     }
-    
+
     func writeFile(folderUrl: URL, fileName: String, textData: Data) {
         guard folderUrl.startAccessingSecurityScopedResource() else {
             print("Access failure")
