@@ -11,8 +11,6 @@ author:
 Prerequisites:
 * install NthKey via [TestFlight](https://testflight.apple.com/join/Y6cbJbEe)
 * Understand the [limitations](/#known-limitations)
-* learn how to compile Bitcoin Core from source ([macOS](https://github.com/bitcoin/bitcoin/blob/master/doc/build-osx.md), [Linux](https://github.com/bitcoin/bitcoin/blob/master/doc/build-unix.md), [Windows](https://github.com/bitcoin/bitcoin/blob/master/doc/build-windows.md))
-* learn how to use [Github forks](https://help.github.com/en/github/using-git/adding-a-remote)
 
 ## Wallet setup
 
@@ -26,29 +24,15 @@ or any hardware wallet with PSBT support and a compatible public key export form
 When practing on Testnet you can also use a device simulator, for iOs and/or
 any hardware wallet.
 
-### Compile Bitcoin Core
+### Install Bitcoin Core
 
-Follow the instructions for compiling Bitcoin Core (see prerequisites above), try the master branch first.
+Download the most recent [release candidate](https://bitcoincore.org/bin/bitcoin-core-0.21.0/)
+of Bitcoin Core v0.21.0 (may not be available yet, wait a few weeks or manually compile it).
 
-We going to use a highly experimental branch of Bitcoin Core. Only use this with testnet!
-
-[Bitcoin Core experimental branch](https://github.com/Sjors/bitcoin/pull/13).
-
-In order to use the branch from this pull request:
-
-```
-git remote add sjors git@github.com:sjors/bitcoin.git
-git fetch sjors
-git checkout 2020/01/descriptor-and-psbt
-```
-
-Compile as usual and start Bitcoin QT. It's recommended to set `addresstype=bech32` in [bitcoin.conf](https://github.com/bitcoin/bitcoin/blob/master/share/examples/bitcoin.conf).
-
-Do not use this branch with your mainnet wallet, and be very cautious when running
-code from strangers on the internet!
+Do not use this pre-release with your mainnet wallet. To launch with testnet on macOS:
 
 ```sh
-src/qt/bitcoin-qt -testnet
+/Applications/Bitcoin-Qt.app/Contents/MacOS/Bitcoin-Qt  -testnet
 ```
 
 Go to the "File" -> "Create Wallet..." menu and fill out the form as follows:
