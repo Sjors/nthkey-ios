@@ -13,11 +13,11 @@ Install dependencies:
 brew install gnu-sed
 ```
 
-Install Ruby, e.g. using [RBenv](https://github.com/rbenv/rbenv) and Cocoapods:
+Install Ruby, e.g. using [RBenv](https://github.com/rbenv/rbenv):
 
 ```sh
 rbenv install `cat .ruby-version`
-gem install cocoapods
+bundle install
 pod install --verbose
 ```
 
