@@ -11,26 +11,20 @@ import SwiftUI
 import Combine
 
 struct SettingsView : View {
-    
+
     @EnvironmentObject var appState: AppState
-    
+
     @State private var showMnemonic = false
     @State private var threshold = "2"
 
     let settings = SettingsViewController()
-    
+
     func loadCosignerFile(_ url: URL) {
         DispatchQueue.main.async() {
             self.appState.walletManager.loadCosignerFile(url)
         }
     }
-    
-    func saveWalletComposer(_ url: URL) {
-        DispatchQueue.main.async() {
-            self.appState.walletManager.saveWalletComposer(url)
-        }
-    }
-    
+
     var body: some View {
         HStack{
             VStack(alignment: .leading, spacing: 20.0){
@@ -94,11 +88,6 @@ struct SettingsView : View {
                     self.settings.exportPublicKey()
                 }) {
                     Text("ColdCard format")
-                }
-                Button(action: {
-                    self.settings.saveWalletComposer(self.saveWalletComposer)
-                }) {
-                    Text("Experimental format")
                 }
                 Button(action: {
                     self.settings.exportBitcoinCore()

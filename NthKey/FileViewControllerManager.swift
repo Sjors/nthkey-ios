@@ -18,7 +18,6 @@ struct FileViewControllerManager {
         case exportBitcoinCore
         case loadPSBT
         case savePSBT
-        case saveWalletComposer
     }
 
     let task: Task
@@ -34,7 +33,7 @@ struct FileViewControllerManager {
             documentPicker = UIDocumentPickerViewController(documentTypes: types, in: .import)
         case .loadPSBT:
             documentPicker = UIDocumentPickerViewController(documentTypes: ["org.bitcoin.psbt"], in: .import)
-        case .savePublicKey, .exportBitcoinCore, .savePSBT, .saveWalletComposer:
+        case .savePublicKey, .exportBitcoinCore, .savePSBT:
             documentPicker =
             UIDocumentPickerViewController(documentTypes: [kUTTypeFolder as String], in: .open)
         }
@@ -79,11 +78,6 @@ struct FileViewControllerManager {
             }
             precondition(urls[0].hasDirectoryPath)
             savePSBT(urls[0])
-        case .saveWalletComposer:
-            if (urls.count != 1) {
-                NSLog("Please select 1 directory")
-            }
-            self.url = urls[0]
         }
     }
 

@@ -18,8 +18,6 @@
 		A206E81F238D65FC00786824 /* MultisigTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A206E81E238D65FC00786824 /* MultisigTests.swift */; };
 		A206E82A238D65FC00786824 /* MultisigUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A206E829238D65FC00786824 /* MultisigUITests.swift */; };
 		A20D76CE23A406C500A24A38 /* NthKey.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A20D76CD23A406AF00A24A38 /* NthKey.xcdatamodeld */; };
-		A2229EDE23F9928300231791 /* WalletComposer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2229EDD23F9928300231791 /* WalletComposer.swift */; };
-		A2229EE023F994C700231791 /* WalletComposerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2229EDF23F994C700231791 /* WalletComposerTests.swift */; };
 		A27180B223A291B500E9F443 /* MultisigAddress.swift in Sources */ = {isa = PBXBuildFile; fileRef = A27180B123A291B500E9F443 /* MultisigAddress.swift */; };
 		A27180B623A293EA00E9F443 /* AddressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A27180B523A293EA00E9F443 /* AddressView.swift */; };
 		A27D4BF623A2B4F30055B0B8 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A27D4BF523A2B4F30055B0B8 /* SettingsView.swift */; };
@@ -82,8 +80,6 @@
 		A206E829238D65FC00786824 /* MultisigUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultisigUITests.swift; sourceTree = "<group>"; };
 		A206E82B238D65FC00786824 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A20D76CD23A406AF00A24A38 /* NthKey.xcdatamodeld */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodeld; name = NthKey.xcdatamodeld; path = NthKey/NthKey.xcdatamodeld; sourceTree = SOURCE_ROOT; };
-		A2229EDD23F9928300231791 /* WalletComposer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletComposer.swift; sourceTree = "<group>"; };
-		A2229EDF23F994C700231791 /* WalletComposerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletComposerTests.swift; sourceTree = "<group>"; };
 		A27180B123A291B500E9F443 /* MultisigAddress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultisigAddress.swift; sourceTree = "<group>"; };
 		A27180B523A293EA00E9F443 /* AddressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressView.swift; sourceTree = "<group>"; };
 		A27D4BF523A2B4F30055B0B8 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
@@ -221,7 +217,6 @@
 			isa = PBXGroup;
 			children = (
 				A27D4BFB23A2BECC0055B0B8 /* BitcoinCoreImportTests.swift */,
-				A2229EDF23F994C700231791 /* WalletComposerTests.swift */,
 				A2F85760239918FF008A44E6 /* SignerTests.swift */,
 				A206E81E238D65FC00786824 /* MultisigTests.swift */,
 				A206E820238D65FC00786824 /* Info.plist */,
@@ -242,7 +237,6 @@
 			isa = PBXGroup;
 			children = (
 				A27D4BF923A2BA1A0055B0B8 /* BitcoinCoreImport.swift */,
-				A2229EDD23F9928300231791 /* WalletComposer.swift */,
 				A29DAAC02391657F006B38D9 /* KeychainEntropyItem.swift */,
 				A27180B123A291B500E9F443 /* MultisigAddress.swift */,
 				A2F8575E23991354008A44E6 /* Signer.swift */,
@@ -517,7 +511,6 @@
 				A20D76CE23A406C500A24A38 /* NthKey.xcdatamodeld in Sources */,
 				A206E805238D65F300786824 /* AppDelegate.swift in Sources */,
 				A206E807238D65F300786824 /* SceneDelegate.swift in Sources */,
-				A2229EDE23F9928300231791 /* WalletComposer.swift in Sources */,
 				A206E80C238D65F300786824 /* ContentView.swift in Sources */,
 				A2067AC123C8549700F46862 /* WalletManager.swift in Sources */,
 				A27D4BF623A2B4F30055B0B8 /* SettingsView.swift in Sources */,
@@ -538,7 +531,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A2229EE023F994C700231791 /* WalletComposerTests.swift in Sources */,
 				A27D4BFC23A2BECC0055B0B8 /* BitcoinCoreImportTests.swift in Sources */,
 				A206E81F238D65FC00786824 /* MultisigTests.swift in Sources */,
 				A2F85761239918FF008A44E6 /* SignerTests.swift in Sources */,
