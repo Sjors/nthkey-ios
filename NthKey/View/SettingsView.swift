@@ -50,95 +50,97 @@ struct SettingsView : View {
     }
 
     var body: some View {
-        HStack{
-            VStack(alignment: .leading, spacing: 20.0){
-                VStack(alignment: .leading, spacing: 20.0) {
-                    Text("Cosigners").font(.headline)
-                    if !self.appState.walletManager.hasWallet {
-                        Text("Add cosigners by importing their public key here.")
+        ScrollView {
+            HStack{
+                VStack(alignment: .leading, spacing: 20.0){
+                    VStack(alignment: .leading, spacing: 20.0) {
+                        Text("Announce").font(.headline)
+                        Text("In Specter go to 'Add new device', select Other and scan the QR code.")
                     }
-                    Text("* \( appState.walletManager.us.fingerprint.hexString )").font(.system(.body, design: .monospaced)) + Text(" (us)")
-                    ForEach(appState.walletManager.cosigners) { cosigner in
-                        Text("* \( cosigner.fingerprint.hexString )" ).font(.system(.body, design: .monospaced)) + Text(cosigner.name != "" ? " (\(cosigner.name))" : "")
+                    Button(action: {
+                        self.togglePubKeyQR()
+                    }) {
+                        Text(self.showPubKeyQR ? "Hide QR" : "Show QR")
                     }
-                    if !self.appState.walletManager.hasWallet {
-                        Button(action: {
-                            self.settings.addCosigner(self.loadCosignerFile)
-                        }) {
-                            Text("Add cosigner")
+                    if (self.showPubKeyQR) {
+                        Image(uiImage: generateQRCode(from: String(data: self.appState.walletManager.ourPubKey(), encoding: .utf8)!))
+                            .interpolation(.none)
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 350, height: 350)
+                    }
+                    Button(action: {
+                        self.settings.exportPublicKey(data: self.appState.walletManager.ourPubKey())
+                    }) {
+                        Text("Save as JSON")
+                    }
+                    Spacer()
+                    VStack(alignment: .leading, spacing: 20.0) {
+                        Text("Cosigners").font(.headline)
+                        if !self.appState.walletManager.hasWallet {
+                            Text("Add cosigners by importing their public key here.")
                         }
-                        HStack{
-                            Text("Threshold:")
-                            TextField("Threshold", text: $threshold)
-                            .keyboardType(.numberPad)
-                            .onReceive(Just(threshold)) { newValue in
-                                let filtered = newValue.filter { "0123456789".contains($0) }
-                                if filtered != newValue {
-                                    self.threshold = filtered
+                        Text("* \( appState.walletManager.us.fingerprint.hexString )").font(.system(.body, design: .monospaced)) + Text(" (us)")
+                        ForEach(appState.walletManager.cosigners) { cosigner in
+                            Text("* \( cosigner.fingerprint.hexString )" ).font(.system(.body, design: .monospaced)) + Text(cosigner.name != "" ? " (\(cosigner.name))" : "")
+                        }
+                        if !self.appState.walletManager.hasWallet {
+                            Button(action: {
+                                self.settings.addCosigner(self.loadCosignerFile)
+                            }) {
+                                Text("Add cosigner")
+                            }
+                            HStack{
+                                Text("Threshold:")
+                                TextField("Threshold", text: $threshold)
+                                .keyboardType(.numberPad)
+                                .onReceive(Just(threshold)) { newValue in
+                                    let filtered = newValue.filter { "0123456789".contains($0) }
+                                    if filtered != newValue {
+                                        self.threshold = filtered
+                                    }
                                 }
                             }
+                            Button(action: {
+                                  self.appState.walletManager.createWallet(threshold: Int(self.threshold) ?? 0)
+                              }) {
+                                  Text("Create \(threshold) of \(max(2, self.appState.walletManager.cosigners.count + 1)) wallet")
+                              }
+                              .disabled(Int(self.threshold) ?? 0 <= 1 || Int(self.threshold)! > self.appState.walletManager.cosigners.count + 1)
+                        } else {
+                            Text("Threshold: \(self.appState.walletManager.threshold)")
                         }
+
+                        if !self.appState.walletManager.hasWallet && self.appState.walletManager.hasCosigners {
+                            Button(action: {
+                                self.appState.walletManager.wipeCosigners()
+                            }) {
+                                Text("Wipe cosigners")
+                            }
+                        }
+                        if (self.appState.walletManager.hasWallet) {
+                            Button(action: {
+                                self.appState.walletManager.wipeWallet()
+                            }) {
+                                Text("Wipe wallet")
+                            }
+                        }
+                    }
+                    Spacer()
+                    VStack(alignment: .leading, spacing: 20.0) {
+                        Text("Misc").font(.headline)
                         Button(action: {
-                              self.appState.walletManager.createWallet(threshold: Int(self.threshold) ?? 0)
-                          }) {
-                              Text("Create \(threshold) of \(max(2, self.appState.walletManager.cosigners.count + 1)) wallet")
-                          }
-                          .disabled(Int(self.threshold) ?? 0 <= 1 || Int(self.threshold)! > self.appState.walletManager.cosigners.count + 1)
-                    } else {
-                        Text("Threshold: \(self.appState.walletManager.threshold)")
+                            self.showMnemonic = true
+                        }) {
+                            Text("Show mnemonic")
+                        }
                     }
 
-                    if !self.appState.walletManager.hasWallet && self.appState.walletManager.hasCosigners {
-                        Button(action: {
-                            self.appState.walletManager.wipeCosigners()
-                        }) {
-                            Text("Wipe cosigners")
-                        }
-                    }
-                    if (self.appState.walletManager.hasWallet) {
-                        Button(action: {
-                            self.appState.walletManager.wipeWallet()
-                        }) {
-                            Text("Wipe wallet")
-                        }
-                    }
+                    Spacer()
                 }
-                Spacer()
-                VStack(alignment: .leading, spacing: 20.0) {
-                    Text("Announce").font(.headline)
-                    Text("In Specter go to 'Add new device', select Other and scan the QR code.")
-                }
-                Button(action: {
-                    self.togglePubKeyQR()
-                }) {
-                    Text(self.showPubKeyQR ? "Hide QR" : "Show QR")
-                }
-                if (self.showPubKeyQR) {
-                    Image(uiImage: generateQRCode(from: String(data: self.appState.walletManager.ourPubKey(), encoding: .utf8)!))
-                        .interpolation(.none)
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 350, height: 350)
-                }
-                Button(action: {
-                    self.settings.exportPublicKey(data: self.appState.walletManager.ourPubKey())
-                }) {
-                    Text("Save as JSON")
-                }
-                Spacer()
-                VStack(alignment: .leading, spacing: 20.0) {
-                    Text("Misc").font(.headline)
-                    Button(action: {
-                        self.showMnemonic = true
-                    }) {
-                        Text("Show mnemonic")
-                    }
-                }
-
-                Spacer()
+            }.alert(isPresented: $showMnemonic) {
+                Alert(title: Text("BIP 39 mnemonic"), message: Text(self.appState.walletManager.mnemonic()), dismissButton: .default(Text("OK")))
             }
-        }.alert(isPresented: $showMnemonic) {
-            Alert(title: Text("BIP 39 mnemonic"), message: Text(self.appState.walletManager.mnemonic()), dismissButton: .default(Text("OK")))
         }
     }
 }
