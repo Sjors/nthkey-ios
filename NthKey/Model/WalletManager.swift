@@ -63,6 +63,33 @@ struct WalletManager {
         let entropy = try! entropyItem.readEntropy()
         return BIP39Mnemonic(entropy)!
     }
+    
+    func ourPubKey()  -> Data {
+        let fingerprint = UserDefaults.standard.data(forKey: "masterKeyFingerprint")!
+        let entropyItem = KeychainEntropyItem(service: "NthKeyService", fingerprint: fingerprint, accessGroup: nil)
+
+        // TODO: handle error
+        let entropy = try! entropyItem.readEntropy()
+        let mnemonic = BIP39Mnemonic(entropy)!
+        let seedHex = mnemonic.seedHex()
+        let masterKey = HDKey(seedHex, .testnet)!
+        assert(masterKey.fingerprint == fingerprint)
+
+        let path = BIP32Path("m/48h/1h/0h/2h")!
+        let account = try! masterKey.derive(path)
+
+        // Coldcard compatible JSON format:
+        struct ColdcardExport : Codable {
+            var xfp: String
+            var p2wsh_deriv: String
+            var p2wsh: String
+        }
+        let xpub = Data(base58: account.xpub)!
+        let export = ColdcardExport(xfp: fingerprint.hexString.uppercased(), p2wsh_deriv: "m/48'/1'/0'/2'", p2wsh: xpub.base58)
+
+        let encoder = JSONEncoder()
+        return try! encoder.encode(export)
+    }
 
     mutating func wipeCosigners() {
         assert(!self.hasWallet)

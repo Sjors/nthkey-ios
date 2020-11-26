@@ -85,7 +85,7 @@ struct SettingsView : View {
                     Text("Announce your key to your cosigners")
                 }
                 Button(action: {
-                    self.settings.exportPublicKey()
+                    self.settings.exportPublicKey(data: self.appState.walletManager.ourPubKey())
                 }) {
                     Text("Save as JSON")
                 }
