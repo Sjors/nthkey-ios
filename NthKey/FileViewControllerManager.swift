@@ -13,7 +13,7 @@ import LibWally
 
 struct FileViewControllerManager {
     enum Task {
-        case loadCosigner
+        case loadWallet
         case savePublicKey
         case loadPSBT
         case savePSBT
@@ -27,7 +27,7 @@ struct FileViewControllerManager {
         let documentPicker: UIDocumentPickerViewController
 
         switch task {
-        case .loadCosigner:
+        case .loadWallet:
             let types: [String] = [kUTTypeJSON as String]
             documentPicker = UIDocumentPickerViewController(documentTypes: types, in: .import)
         case .loadPSBT:
@@ -46,7 +46,7 @@ struct FileViewControllerManager {
 
     mutating func didPickDocumentsAt(urls: [URL]) -> Void {
         switch task {
-        case .loadCosigner:
+        case .loadWallet:
             if (urls.count != 1) {
                 NSLog("Please select 1 JSON file")
             }

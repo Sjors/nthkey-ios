@@ -44,7 +44,7 @@ struct SettingsView : View {
     
     func loadWalletFile(_ url: URL) {
         DispatchQueue.main.async() {
-            self.appState.walletManager.loadCosignerFile(url)
+            self.appState.walletManager.loadWalletFile(url)
         }
     }
 
@@ -84,7 +84,7 @@ struct SettingsView : View {
 //                            Text("Scan Specter wallet QR")
 //                        }
                         Button(action: {
-                            self.settings.addCosigner(self.loadWalletFile)
+                            self.settings.loadWallet(self.loadWalletFile)
                         }) {
                             Text("Import Specter wallet JSON")
                         }

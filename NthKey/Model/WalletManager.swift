@@ -98,34 +98,48 @@ struct WalletManager {
         self.hasWallet = false
     }
 
-    mutating func loadCosignerFile(_ url: URL) {
+    mutating func loadWalletFile(_ url: URL) {
         do {
             let data = try Data(contentsOf: URL(fileURLWithPath: url.path), options: .mappedIfSafe)
             let jsonResult = try JSONSerialization.jsonObject(with: data, options: .mutableLeaves)
 
-            // Check if it uses ColdCard format:
-            if let jsonResult = jsonResult as? Dictionary<String, String>,
-                let xfp = jsonResult["xfp"],
-                let p2wsh_deriv = jsonResult["p2wsh_deriv"],
-                let p2wsh = jsonResult["p2wsh"]
+            // Check if it uses Specter format:
+            if let jsonResult = jsonResult as? Dictionary<String, AnyObject>,
+               let descriptor = jsonResult["descriptor"] as? String
             {
-                let extendedKey = Data(base58: p2wsh)!
-                let expectedMarkers: Set<Data> = [
-                    Data("043587cf")!, // tpub (testnet)
-                    Data("02575483")! // Vpub (testnet, p2wsh, public)
-                ]
-                let marker = Data(extendedKey.subdata(in: 0..<4))
-                if !expectedMarkers.contains(marker) {
-                    NSLog("Expected tpub or Vpub marker (0x043587cf or 0x02575483), got 0x%@", marker.hexString)
-                    return
-                }
-                // Convert marker to tpub for internal use:
-                let p2wsh_tpub = Data("043587cf")! + extendedKey.subdata(in: 4..<extendedKey.count)
-                let cosigner = Signer(fingerprint: Data(xfp)!, derivation: BIP32Path(p2wsh_deriv)!, hdKey: HDKey(p2wsh_tpub.base58)!, name: "")
-                self.cosigners.append(cosigner)
-                self.saveCosigners()
+                print(descriptor)
+                // TODO:
+                // * check that it matches $wsh(sortedmulti(:n,.*))#checksum, take n, the middel stuff, checksum
+                // * split middle stuff at comma, for each
+                //   * check matches [048117aa/48h/1h/0h/2h]tpubDF , take fingerprint, path, xpub
+                //   * add cosigner
+                // * set threshold
+                // * create wallet
+                
+//                let extendedKey = Data(base58: p2wsh)!
+//                let expectedMarkers: Set<Data> = [
+//                    Data("043587cf")!, // tpub (testnet)
+//                    Data("02575483")! // Vpub (testnet, p2wsh, public)
+//                ]
+//                let marker = Data(extendedKey.subdata(in: 0..<4))
+//                if !expectedMarkers.contains(marker) {
+//                    NSLog("Expected tpub or Vpub marker (0x043587cf or 0x02575483), got 0x%@", marker.hexString)
+//                    return
+//                }
+//                // Convert marker to tpub for internal use:
+//                let p2wsh_tpub = Data("043587cf")! + extendedKey.subdata(in: 4..<extendedKey.count)
+//                let cosigner = Signer(fingerprint: Data(xfp)!, derivation: BIP32Path(p2wsh_deriv)!, hdKey: HDKey(p2wsh_tpub.base58)!, name: "")
+//                self.cosigners.append(cosigner)
+//                self.saveCosigners()
+                
+                // Wallet creation:
+//                let defaults = UserDefaults.standard
+//                defaults.set(threshold, forKey: "threshold")
+//                defaults.set(true, forKey: "hasWallet")
+//                self.hasWallet = true
             } else {
-                print("JSON format not recognized")
+                print("JSON format not recognized:")
+                print(jsonResult)
             }
         } catch {
             NSLog("Something went wrong parsing JSON file")
@@ -141,13 +155,6 @@ struct WalletManager {
         }
         let defaults = UserDefaults.standard
         defaults.set(encodedCosigners, forKey: "cosigners")
-    }
-
-    mutating func createWallet(threshold: Int) {
-        let defaults = UserDefaults.standard
-        defaults.set(threshold, forKey: "threshold")
-        defaults.set(true, forKey: "hasWallet")
-        self.hasWallet = true
     }
 
     func mnemonic() -> String {

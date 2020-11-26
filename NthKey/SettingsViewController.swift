@@ -41,11 +41,11 @@ final class SettingsViewController : UIViewController, UIDocumentPickerDelegate 
         activeFileViewControllerManager!.prompt(vc: self, delegate: self)
     }
 
-    func addCosigner(_ callback: @escaping (URL) -> Void) {
+    func loadWallet(_ callback: @escaping (URL) -> Void) {
         precondition(activeFileViewControllerManager == nil)
 
         self.callbackDidGetURL = callback
-        activeFileViewControllerManager = FileViewControllerManager(task: .loadCosigner)
+        activeFileViewControllerManager = FileViewControllerManager(task: .loadWallet)
         activeFileViewControllerManager!.prompt(vc: self, delegate: self)
     }
 
