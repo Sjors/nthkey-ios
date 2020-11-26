@@ -115,9 +115,10 @@ struct SettingsView : View {
                 }
                 if (self.showPubKeyQR) {
                     Image(uiImage: generateQRCode(from: String(data: self.appState.walletManager.ourPubKey(), encoding: .utf8)!))
+                        .interpolation(.none)
                         .resizable()
                         .scaledToFit()
-                        .frame(width: 200, height: 200)
+                        .frame(width: 350, height: 350)
                 }
                 Button(action: {
                     self.settings.exportPublicKey(data: self.appState.walletManager.ourPubKey())
