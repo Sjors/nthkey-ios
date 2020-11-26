@@ -82,17 +82,12 @@ struct SettingsView : View {
                 Spacer()
                 VStack(alignment: .leading, spacing: 20.0) {
                     Text("Announce").font(.headline)
-                    Text("Announce your key to your cosigners and import the wallet into Bitcoin Core")
+                    Text("Announce your key to your cosigners")
                 }
                 Button(action: {
                     self.settings.exportPublicKey()
                 }) {
                     Text("ColdCard format")
-                }
-                Button(action: {
-                    self.settings.exportBitcoinCore()
-                }) {
-                    Text("Bitcoin Core import script")
                 }
                 .disabled(!self.appState.walletManager.hasWallet)
                 Spacer()

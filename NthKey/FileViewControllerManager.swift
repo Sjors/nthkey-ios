@@ -15,7 +15,6 @@ struct FileViewControllerManager {
     enum Task {
         case loadCosigner
         case savePublicKey
-        case exportBitcoinCore
         case loadPSBT
         case savePSBT
     }
@@ -33,7 +32,7 @@ struct FileViewControllerManager {
             documentPicker = UIDocumentPickerViewController(documentTypes: types, in: .import)
         case .loadPSBT:
             documentPicker = UIDocumentPickerViewController(documentTypes: ["org.bitcoin.psbt"], in: .import)
-        case .savePublicKey, .exportBitcoinCore, .savePSBT:
+        case .savePublicKey, .savePSBT:
             documentPicker =
             UIDocumentPickerViewController(documentTypes: [kUTTypeFolder as String], in: .open)
         }
@@ -66,12 +65,6 @@ struct FileViewControllerManager {
             print(urls[0])
             #endif
             savePublicKeyFile(urls[0])
-        case .exportBitcoinCore:
-            if (urls.count != 1) {
-                NSLog("Please select 1 directory")
-            }
-            precondition(urls[0].hasDirectoryPath)
-            exportBitcoinCore(urls[0])
         case .savePSBT:
             if (urls.count != 1) {
                 NSLog("Please select 1 directory")
@@ -79,19 +72,6 @@ struct FileViewControllerManager {
             precondition(urls[0].hasDirectoryPath)
             savePSBT(urls[0])
         }
-    }
-
-    func exportBitcoinCore(_ url: URL) {
-        let (us, cosigners) = Signer.getSigners()
-
-        let threshold = UserDefaults.standard.integer(forKey: "threshold")
-        precondition(threshold > 0)
-
-        let importData = BitcoinCoreImport([us] + cosigners, threshold: UInt(threshold))
-
-        let fileName = "bitcoin-core-importdescriptors-" + us.fingerprint.hexString + ".txt";
-        let textData = importData!.importDescriptorsRPC.data(using: .utf8)!
-        writeFile(folderUrl: url, fileName: fileName, textData: textData)
     }
 
     func savePSBT(_ url: URL) {

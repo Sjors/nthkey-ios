@@ -40,13 +40,6 @@ final class SettingsViewController : UIViewController, UIDocumentPickerDelegate 
         activeFileViewControllerManager!.prompt(vc: self, delegate: self)
     }
 
-    func exportBitcoinCore() {
-        precondition(UserDefaults.standard.data(forKey: "masterKeyFingerprint") != nil)
-        precondition(UserDefaults.standard.array(forKey: "cosigners") != nil)
-        activeFileViewControllerManager = FileViewControllerManager(task: .exportBitcoinCore)
-        activeFileViewControllerManager!.prompt(vc: self, delegate: self)
-    }
-
     func addCosigner(_ callback: @escaping (URL) -> Void) {
         precondition(activeFileViewControllerManager == nil)
 

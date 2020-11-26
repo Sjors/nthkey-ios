@@ -21,8 +21,6 @@
 		A27180B223A291B500E9F443 /* MultisigAddress.swift in Sources */ = {isa = PBXBuildFile; fileRef = A27180B123A291B500E9F443 /* MultisigAddress.swift */; };
 		A27180B623A293EA00E9F443 /* AddressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A27180B523A293EA00E9F443 /* AddressView.swift */; };
 		A27D4BF623A2B4F30055B0B8 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A27D4BF523A2B4F30055B0B8 /* SettingsView.swift */; };
-		A27D4BFA23A2BA1A0055B0B8 /* BitcoinCoreImport.swift in Sources */ = {isa = PBXBuildFile; fileRef = A27D4BF923A2BA1A0055B0B8 /* BitcoinCoreImport.swift */; };
-		A27D4BFC23A2BECC0055B0B8 /* BitcoinCoreImportTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A27D4BFB23A2BECC0055B0B8 /* BitcoinCoreImportTests.swift */; };
 		A285870623AD0B0300930566 /* psbt-128.png in Resources */ = {isa = PBXBuildFile; fileRef = A285870523AD0B0300930566 /* psbt-128.png */; };
 		A285870D23AD31C600930566 /* Destination.swift in Sources */ = {isa = PBXBuildFile; fileRef = A285870C23AD31C600930566 /* Destination.swift */; };
 		A29DAAC12391657F006B38D9 /* KeychainEntropyItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A29DAAC02391657F006B38D9 /* KeychainEntropyItem.swift */; };
@@ -83,8 +81,6 @@
 		A27180B123A291B500E9F443 /* MultisigAddress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultisigAddress.swift; sourceTree = "<group>"; };
 		A27180B523A293EA00E9F443 /* AddressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressView.swift; sourceTree = "<group>"; };
 		A27D4BF523A2B4F30055B0B8 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
-		A27D4BF923A2BA1A0055B0B8 /* BitcoinCoreImport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BitcoinCoreImport.swift; sourceTree = "<group>"; };
-		A27D4BFB23A2BECC0055B0B8 /* BitcoinCoreImportTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BitcoinCoreImportTests.swift; sourceTree = "<group>"; };
 		A285870523AD0B0300930566 /* psbt-128.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "psbt-128.png"; sourceTree = "<group>"; };
 		A285870C23AD31C600930566 /* Destination.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Destination.swift; sourceTree = "<group>"; };
 		A29DAAC02391657F006B38D9 /* KeychainEntropyItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainEntropyItem.swift; sourceTree = "<group>"; };
@@ -216,7 +212,6 @@
 		A206E81D238D65FC00786824 /* NthKeyTests */ = {
 			isa = PBXGroup;
 			children = (
-				A27D4BFB23A2BECC0055B0B8 /* BitcoinCoreImportTests.swift */,
 				A2F85760239918FF008A44E6 /* SignerTests.swift */,
 				A206E81E238D65FC00786824 /* MultisigTests.swift */,
 				A206E820238D65FC00786824 /* Info.plist */,
@@ -236,7 +231,6 @@
 		A27180B323A2939A00E9F443 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				A27D4BF923A2BA1A0055B0B8 /* BitcoinCoreImport.swift */,
 				A29DAAC02391657F006B38D9 /* KeychainEntropyItem.swift */,
 				A27180B123A291B500E9F443 /* MultisigAddress.swift */,
 				A2F8575E23991354008A44E6 /* Signer.swift */,
@@ -522,7 +516,6 @@
 				A29DAAC523982271006B38D9 /* SettingsViewController.swift in Sources */,
 				A285870D23AD31C600930566 /* Destination.swift in Sources */,
 				A27180B223A291B500E9F443 /* MultisigAddress.swift in Sources */,
-				A27D4BFA23A2BA1A0055B0B8 /* BitcoinCoreImport.swift in Sources */,
 				A2F8575F23991354008A44E6 /* Signer.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -531,7 +524,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A27D4BFC23A2BECC0055B0B8 /* BitcoinCoreImportTests.swift in Sources */,
 				A206E81F238D65FC00786824 /* MultisigTests.swift in Sources */,
 				A2F85761239918FF008A44E6 /* SignerTests.swift in Sources */,
 			);

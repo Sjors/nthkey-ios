@@ -6,7 +6,6 @@ target 'NthKey' do
   use_frameworks!
 
   pod 'LibWally', :git => 'https://github.com/blockchain/LibWally-Swift.git', :branch => "2020/10/libwally_8_0", :submodules => true
-  pod 'OutputDescriptors', :git => 'https://github.com/sjors/output-descriptors-swift.git', :tag => "v0.0.1"
 
   target 'NthKeyTests' do
     inherit! :search_paths
