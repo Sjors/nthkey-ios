@@ -78,14 +78,14 @@ struct WalletManager {
         let path = BIP32Path("m/48h/1h/0h/2h")!
         let account = try! masterKey.derive(path)
 
-        // Coldcard compatible JSON format:
-        struct ColdcardExport : Codable {
-            var xfp: String
-            var p2wsh_deriv: String
-            var p2wsh: String
+        // Specter compatible JSON format:
+        struct SpecterExport : Codable {
+            var MasterFingerprint: String
+            var AccountKeyPath: String
+            var ExtPubKey: String
         }
         let xpub = Data(base58: account.xpub)!
-        let export = ColdcardExport(xfp: fingerprint.hexString.uppercased(), p2wsh_deriv: "m/48'/1'/0'/2'", p2wsh: xpub.base58)
+        let export = SpecterExport(MasterFingerprint: fingerprint.hexString.uppercased(), AccountKeyPath: "48h/1h/0h/2h", ExtPubKey: xpub.base58)
 
         let encoder = JSONEncoder()
         return try! encoder.encode(export)
