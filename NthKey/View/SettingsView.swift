@@ -106,12 +106,12 @@ struct SettingsView : View {
                 Spacer()
                 VStack(alignment: .leading, spacing: 20.0) {
                     Text("Announce").font(.headline)
-                    Text("Announce your key to your cosigners")
+                    Text("In Specter go to 'Add new device', select Other and scan the QR code.")
                 }
                 Button(action: {
                     self.togglePubKeyQR()
                 }) {
-                    Text("QR")
+                    Text(self.showPubKeyQR ? "Hide QR" : "Show QR")
                 }
                 if (self.showPubKeyQR) {
                     Image(uiImage: generateQRCode(from: String(data: self.appState.walletManager.ourPubKey(), encoding: .utf8)!))
