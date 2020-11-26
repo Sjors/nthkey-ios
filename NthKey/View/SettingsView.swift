@@ -87,7 +87,7 @@ struct SettingsView : View {
                 Button(action: {
                     self.settings.exportPublicKey()
                 }) {
-                    Text("ColdCard format")
+                    Text("Save as JSON")
                 }
                 .disabled(!self.appState.walletManager.hasWallet)
                 Spacer()
