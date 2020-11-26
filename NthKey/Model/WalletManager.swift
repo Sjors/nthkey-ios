@@ -91,13 +91,9 @@ struct WalletManager {
         return try! encoder.encode(export)
     }
 
-    mutating func wipeCosigners() {
-        assert(!self.hasWallet)
+    mutating func wipeWallet() {
         UserDefaults.standard.removeObject(forKey: "cosigners")
         self.cosigners = []
-    }
-
-    mutating func wipeWallet() {
         UserDefaults.standard.removeObject(forKey: "hasWallet")
         self.hasWallet = false
     }
