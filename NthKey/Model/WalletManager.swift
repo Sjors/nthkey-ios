@@ -8,6 +8,7 @@
 
 import Foundation
 import LibWally
+import OutputDescriptors
 
 struct WalletManager {
     var us: Signer
@@ -107,36 +108,50 @@ struct WalletManager {
             if let jsonResult = jsonResult as? Dictionary<String, AnyObject>,
                let descriptor = jsonResult["descriptor"] as? String
             {
-                print(descriptor)
-                // TODO:
-                // * check that it matches $wsh(sortedmulti(:n,.*))#checksum, take n, the middel stuff, checksum
-                // * split middle stuff at comma, for each
-                //   * check matches [048117aa/48h/1h/0h/2h]tpubDF , take fingerprint, path, xpub
-                //   * add cosigner
-                // * set threshold
-                // * create wallet
-                
-//                let extendedKey = Data(base58: p2wsh)!
-//                let expectedMarkers: Set<Data> = [
-//                    Data("043587cf")!, // tpub (testnet)
-//                    Data("02575483")! // Vpub (testnet, p2wsh, public)
-//                ]
-//                let marker = Data(extendedKey.subdata(in: 0..<4))
-//                if !expectedMarkers.contains(marker) {
-//                    NSLog("Expected tpub or Vpub marker (0x043587cf or 0x02575483), got 0x%@", marker.hexString)
-//                    return
-//                }
-//                // Convert marker to tpub for internal use:
-//                let p2wsh_tpub = Data("043587cf")! + extendedKey.subdata(in: 4..<extendedKey.count)
-//                let cosigner = Signer(fingerprint: Data(xfp)!, derivation: BIP32Path(p2wsh_deriv)!, hdKey: HDKey(p2wsh_tpub.base58)!, name: "")
-//                self.cosigners.append(cosigner)
-//                self.saveCosigners()
-                
-                // Wallet creation:
-//                let defaults = UserDefaults.standard
-//                defaults.set(threshold, forKey: "threshold")
-//                defaults.set(true, forKey: "hasWallet")
-//                self.hasWallet = true
+                if let desc = try? OutputDescriptor(descriptor) {
+                    switch desc.descType {
+                    case .sortedMulti(let threshold):
+                        if desc.extendedKeys.count < 2 {
+                            print("Require at least 2 keys")
+                            return
+                        }
+                        if !desc.extendedKeys.contains(where: { (key) -> Bool in
+                            key.fingerprint == us.fingerprint.hexString
+                        }) {
+                            print("We're not part of the wallet")
+                            return
+                        }
+                        desc.extendedKeys.forEach { (key) in
+                            if (key.fingerprint == us.fingerprint.hexString) { return }
+                                let extendedKey = Data(base58: key.xpub)!
+                                // Check that this is a testnet tpub
+                                let marker = Data(extendedKey.subdata(in: 0..<4))
+                                if marker != Data("043587cf")! {
+                                    NSLog("Expected tpub marker (0x043587cf), got 0x%@", marker.hexString)
+                                    return
+                                }
+                            if let hdKey = HDKey(key.xpub) {
+                                let cosigner = Signer(fingerprint: Data(key.fingerprint)!, derivation: BIP32Path(key.origin)!, hdKey: hdKey, name: "")
+                                self.cosigners.append(cosigner)
+                            } else {
+                                NSLog("Malformated cosigner xpub")
+                                return
+                            }    
+                        }
+                        self.saveCosigners()
+                        // Wallet creation:
+                        let defaults = UserDefaults.standard
+                        self.threshold = threshold
+                        defaults.set(threshold, forKey: "threshold")
+                        defaults.set(true, forKey: "hasWallet")
+                        self.hasWallet = true
+                    default:
+                        print("Expected sortedmulti descriptor")
+                        return
+                    }
+                } else {
+                    print("Unable to parse descriptor: \(descriptor)")
+                }
             } else {
                 print("JSON format not recognized:")
                 print(jsonResult)
