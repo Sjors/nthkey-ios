@@ -22,21 +22,32 @@ struct PSBTManager {
         self.fee = ""
     }
     
+    mutating func processPSBT(_ psbt: PSBT) {
+        self.psbt = psbt
+        self.destinations = psbt.outputs.map { output in
+            return Destination(output: output, inputs: psbt.inputs)
+        }
+        if let fee = psbt.fee {
+            self.fee = "\(fee) sats"
+        }
+        self.canSign = false
+        let (us, _) = Signer.getSigners()
+        for input in psbt.inputs {
+            self.canSign = self.canSign || input.canSign(us.hdKey) as Bool
+        }
+        self.signed = false
+    }
+
+    
+    mutating func loadPSBT(_ psbt: String) {
+        if let psbt = try? PSBT(psbt, .testnet) {
+            processPSBT(psbt)
+        }
+    }
+    
     mutating func loadPSBT(_ data: Data) {
         if let psbt = try? PSBT(data, .testnet) {
-            self.psbt = psbt
-            self.destinations = psbt.outputs.map { output in
-                return Destination(output: output, inputs: psbt.inputs)
-            }
-            if let fee = psbt.fee {
-                self.fee = "\(fee) sats"
-            }
-            self.canSign = false
-            let (us, _) = Signer.getSigners()
-            for input in psbt.inputs {
-                self.canSign = self.canSign || input.canSign(us.hdKey) as Bool
-            }
-            self.signed = false
+            processPSBT(psbt)
        } else {
            NSLog("Something went wrong parsing PSBT data")
        }

@@ -9,11 +9,27 @@
 import Foundation
 import SwiftUI
 import LibWally
+import CodeScanner
 
 struct SignView : View {
     @EnvironmentObject var appState: AppState
+
+    @State private var isShowingScanner = false
     
     var vc: SignViewController? = nil
+    
+    func handleScan(result: Result<String, CodeScannerView.ScanError>) {
+       self.isShowingScanner = false
+        switch result {
+        case .success(let code):
+            DispatchQueue.main.async() {
+                self.appState.psbtManager.loadPSBT(code)
+            }
+        case .failure(let error):
+            print("Scanning failed")
+            print(error)
+        }
+    }
     
     func openPSBT(_ url: URL) {
         DispatchQueue.main.async() {
@@ -30,6 +46,12 @@ struct SignView : View {
     var body: some View {
         HStack{
             VStack(alignment: .leading, spacing: 20.0){
+                Button(action: {
+                    self.isShowingScanner = true
+                }) {
+                    Text("Scan PSBT")
+                }
+                .disabled(!self.appState.walletManager.hasWallet || self.appState.psbtManager.psbt != nil)
                 Button(action: {
                     self.vc!.openPSBT(self.openPSBT)
                 }) {
@@ -66,6 +88,8 @@ struct SignView : View {
                     }
                 }
             }
+        }.sheet(isPresented: $isShowingScanner) {
+            CodeScannerView(codeTypes: [.qr], completion: self.handleScan)
         }
     }
 }
