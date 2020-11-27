@@ -73,14 +73,19 @@ struct SignView : View {
                         Text("Fee: " + appState.psbtManager.fee)
                     }
                     Button(action: {
-                        let signedPsbt = Signer.signPSBT(self.appState.psbtManager.psbt!)
-                        // We've signed, but there's no seperate save button yet
-                        // self.appState.psbtManager.signed = true
-                        self.vc!.savePSBT(signedPsbt, self.didSavePSBT)
+                        let psbt = Signer.signPSBT(self.appState.psbtManager.psbt!)
+                        self.appState.psbtManager.signed = true
+                        self.appState.psbtManager.psbt = psbt
                     }) {
                         Text("Sign")
                     }
                     .disabled(!appState.psbtManager.canSign || appState.psbtManager.signed)
+                    Button(action: {
+                        self.vc!.savePSBT(self.appState.psbtManager.psbt!, self.didSavePSBT)
+                    }) {
+                        Text("Save")
+                    }
+                    .disabled(!appState.psbtManager.signed)
                     Button(action: {
                         self.appState.psbtManager.clear()
                     }) {
