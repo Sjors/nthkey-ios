@@ -61,67 +61,70 @@ struct SignView : View {
     }
     
     var body: some View {
-        HStack{
-            VStack(alignment: .leading, spacing: 20.0){
-                Button(action: {
-                    self.isShowingScanner = true
-                }) {
-                    Text("Scan PSBT")
-                }
-                .disabled(!self.appState.walletManager.hasWallet || self.appState.psbtManager.psbt != nil)
-                Button(action: {
-                    self.vc!.openPSBT(self.openPSBT)
-                }) {
-                    Text("Load PSBT")
-                }
-                .disabled(!self.appState.walletManager.hasWallet || self.appState.psbtManager.psbt != nil)
-                if self.appState.psbtManager.psbt != nil {
-                    if self.appState.psbtManager.signed {
-                        Text("Signed Transaction")
-                    } else {
-                        Text("Proposed Transaction")
-                    }
-                    if self.appState.psbtManager.destinations != nil {
-                        ForEach(self.appState.psbtManager.destinations!.filter({ (dest) -> Bool in
-                            return !dest.isChange;
-                        })) { destination in
-                            Text(destination.description).font(.system(.body, design: .monospaced))
-                        }
-                        Text("Fee: " + appState.psbtManager.fee)
-                    }
+        ScrollView {
+            Spacer()
+            HStack{
+                VStack(alignment: .leading, spacing: 20.0){
                     Button(action: {
-                        let psbt = Signer.signPSBT(self.appState.psbtManager.psbt!)
-                        self.appState.psbtManager.signed = true
-                        self.appState.psbtManager.psbt = psbt
+                        self.isShowingScanner = true
                     }) {
-                        Text("Sign")
+                        Text("Scan PSBT")
                     }
-                    .disabled(!appState.psbtManager.canSign || appState.psbtManager.signed)
-                    if (appState.psbtManager.signed) {
-                        Image(uiImage: generateQRCode(from: self.appState.psbtManager.psbt!.description))
-                            .interpolation(.none)
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 350, height: 350)
-                    }
-                    if (appState.psbtManager.signed) {
-                        Button(action: {
-                            self.vc!.savePSBT(self.appState.psbtManager.psbt!, self.didSavePSBT)
-                        }) {
-                            Text("Save")
-                        }
-                    }
-                    if (appState.psbtManager.signed) {
-                        Button(action: {
-                            UIPasteboard.general.string = self.appState.psbtManager.psbt!.description
-                        }) {
-                            Text("Copy")
-                        }
-                    }
+                    .disabled(!self.appState.walletManager.hasWallet || self.appState.psbtManager.psbt != nil)
                     Button(action: {
-                        self.appState.psbtManager.clear()
+                        self.vc!.openPSBT(self.openPSBT)
                     }) {
-                        Text("Clear")
+                        Text("Load PSBT")
+                    }
+                    .disabled(!self.appState.walletManager.hasWallet || self.appState.psbtManager.psbt != nil)
+                    if self.appState.psbtManager.psbt != nil {
+                        if self.appState.psbtManager.signed {
+                            Text("Signed Transaction")
+                        } else {
+                            Text("Proposed Transaction")
+                        }
+                        if self.appState.psbtManager.destinations != nil {
+                            ForEach(self.appState.psbtManager.destinations!.filter({ (dest) -> Bool in
+                                return !dest.isChange;
+                            })) { destination in
+                                Text(destination.description).font(.system(.body, design: .monospaced))
+                            }
+                            Text("Fee: " + appState.psbtManager.fee)
+                        }
+                        Button(action: {
+                            let psbt = Signer.signPSBT(self.appState.psbtManager.psbt!)
+                            self.appState.psbtManager.signed = true
+                            self.appState.psbtManager.psbt = psbt
+                        }) {
+                            Text("Sign")
+                        }
+                        .disabled(!appState.psbtManager.canSign || appState.psbtManager.signed)
+                        if (appState.psbtManager.signed) {
+                            Image(uiImage: generateQRCode(from: self.appState.psbtManager.psbt!.description))
+                                .interpolation(.none)
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 350, height: 350)
+                        }
+                        if (appState.psbtManager.signed) {
+                            Button(action: {
+                                self.vc!.savePSBT(self.appState.psbtManager.psbt!, self.didSavePSBT)
+                            }) {
+                                Text("Save")
+                            }
+                        }
+                        if (appState.psbtManager.signed) {
+                            Button(action: {
+                                UIPasteboard.general.string = self.appState.psbtManager.psbt!.description
+                            }) {
+                                Text("Copy")
+                            }
+                        }
+                        Button(action: {
+                            self.appState.psbtManager.clear()
+                        }) {
+                            Text("Clear")
+                        }
                     }
                 }
             }
