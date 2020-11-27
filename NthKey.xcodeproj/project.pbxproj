@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 51;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -30,6 +30,7 @@
 		A2C8546023B157F2008E4AA1 /* PSBTManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2C8545F23B157F2008E4AA1 /* PSBTManager.swift */; };
 		A2E9E37F23ACF1140049645D /* SignView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2E9E37E23ACF1140049645D /* SignView.swift */; };
 		A2E9E38123ACF1A30049645D /* SignViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2E9E38023ACF1A30049645D /* SignViewController.swift */; };
+		A2F519B425712D2800FEB810 /* CodeScanner in Frameworks */ = {isa = PBXBuildFile; productRef = A2F519B325712D2800FEB810 /* CodeScanner */; };
 		A2F8575F23991354008A44E6 /* Signer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2F8575E23991354008A44E6 /* Signer.swift */; };
 		A2F85761239918FF008A44E6 /* SignerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2F85760239918FF008A44E6 /* SignerTests.swift */; };
 		D9E078D843A0946168D9E8C8 /* Pods_NthKey_NthKeyUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC084A378751F9293E3E617F /* Pods_NthKey_NthKeyUITests.framework */; };
@@ -106,6 +107,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A2F519B425712D2800FEB810 /* CodeScanner in Frameworks */,
 				1F6A2E586F1545C3C5EFA149 /* Pods_NthKey.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -278,6 +280,9 @@
 			dependencies = (
 			);
 			name = NthKey;
+			packageProductDependencies = (
+				A2F519B325712D2800FEB810 /* CodeScanner */,
+			);
 			productName = Multisig;
 			productReference = A206E801238D65F300786824 /* NthKey.app */;
 			productType = "com.apple.product-type.application";
@@ -353,6 +358,9 @@
 				Base,
 			);
 			mainGroup = A206E7F8238D65F300786824;
+			packageReferences = (
+				A2F519B225712D2800FEB810 /* XCRemoteSwiftPackageReference "CodeScanner" */,
+			);
 			productRefGroup = A206E802238D65F300786824 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -856,6 +864,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		A2F519B225712D2800FEB810 /* XCRemoteSwiftPackageReference "CodeScanner" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/twostraws/CodeScanner";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.7;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		A2F519B325712D2800FEB810 /* CodeScanner */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A2F519B225712D2800FEB810 /* XCRemoteSwiftPackageReference "CodeScanner" */;
+			productName = CodeScanner;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = A206E7F9238D65F300786824 /* Project object */;
 }
