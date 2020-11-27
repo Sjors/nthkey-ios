@@ -111,6 +111,13 @@ struct SignView : View {
                             Text("Save")
                         }
                     }
+                    if (appState.psbtManager.signed) {
+                        Button(action: {
+                            UIPasteboard.general.string = self.appState.psbtManager.psbt!.description
+                        }) {
+                            Text("Copy")
+                        }
+                    }
                     Button(action: {
                         self.appState.psbtManager.clear()
                     }) {
