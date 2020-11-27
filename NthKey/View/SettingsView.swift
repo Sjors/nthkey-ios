@@ -10,6 +10,7 @@ import Foundation
 import SwiftUI
 import Combine
 import CoreImage.CIFilterBuiltins
+import CodeScanner
 
 struct SettingsView : View {
 
@@ -17,6 +18,7 @@ struct SettingsView : View {
 
     @State private var showMnemonic = false
     @State private var showPubKeyQR = false
+    @State private var isShowingScanner = false
 
     let settings = SettingsViewController()
     
@@ -40,6 +42,19 @@ struct SettingsView : View {
     
     func togglePubKeyQR() {
         self.showPubKeyQR = !self.showPubKeyQR
+    }
+    
+    func handleScan(result: Result<String, CodeScannerView.ScanError>) {
+       self.isShowingScanner = false
+        switch result {
+        case .success(let code):
+            DispatchQueue.main.async() {
+                self.appState.walletManager.loadWallet(code.data(using: .utf8)!)
+            }
+        case .failure(let error):
+            print("Scanning failed")
+            print(error)
+        }
     }
     
     func loadWalletFile(_ url: URL) {
@@ -78,15 +93,15 @@ struct SettingsView : View {
                         Text("Wallet").font(.headline)
                     }
                     if !self.appState.walletManager.hasWallet {
-//                        Button(action: {
-//                            self.settings.addCosigner(self.scanWalletQR)
-//                        }) {
-//                            Text("Scan Specter wallet QR")
-//                        }
+                        Button(action: {
+                            self.isShowingScanner = true
+                        }) {
+                            Text("Scan Specter QR")
+                        }
                         Button(action: {
                             self.settings.loadWallet(self.loadWalletFile)
                         }) {
-                            Text("Import Specter wallet JSON")
+                            Text("Import Specter JSON")
                         }
                     } else {
                         Text("Threshold: \(self.appState.walletManager.threshold)")
@@ -118,6 +133,8 @@ struct SettingsView : View {
             }
         }.alert(isPresented: $showMnemonic) {
             Alert(title: Text("BIP 39 mnemonic"), message: Text(self.appState.walletManager.mnemonic()), dismissButton: .default(Text("OK")))
+        }.sheet(isPresented: $isShowingScanner) {
+            CodeScannerView(codeTypes: [.qr], completion: self.handleScan)
         }
     }
 }
