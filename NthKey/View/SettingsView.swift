@@ -67,66 +67,78 @@ struct SettingsView : View {
         ScrollView {
             HStack{
                 VStack(alignment: .leading, spacing: 20.0){
-                    VStack(alignment: .leading, spacing: 20.0) {
-                        Text("Announce").font(.headline)
-                        Text("In Specter go to 'Add new device', select Other and scan the QR code.")
-                    }
-                    Button(action: {
-                        self.togglePubKeyQR()
-                    }) {
-                        Text(self.showPubKeyQR ? "Hide QR" : "Show QR")
-                    }
-                    if (self.showPubKeyQR) {
-                        Image(uiImage: generateQRCode(from: String(data: self.appState.walletManager.ourPubKey(), encoding: .utf8)!))
-                            .interpolation(.none)
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 350, height: 350)
-                    }
-                    Button(action: {
-                        self.settings.exportPublicKey(data: self.appState.walletManager.ourPubKey())
-                    }) {
-                        Text("Save as JSON")
-                    }
-                    Spacer()
-                    VStack(alignment: .leading, spacing: 20.0) {
-                        Text("Wallet").font(.headline)
-                    }
-                    if !self.appState.walletManager.hasWallet {
-                        Button(action: {
-                            self.isShowingScanner = true
-                        }) {
-                            Text("Scan Specter QR")
+                    if self.appState.walletManager.hasSeed {
+                        VStack(alignment: .leading, spacing: 20.0) {
+                            Text("Announce").font(.headline)
+                            Text("In Specter go to 'Add new device', select Other and scan the QR code.")
                         }
                         Button(action: {
-                            self.settings.loadWallet(self.loadWalletFile)
+                            self.togglePubKeyQR()
                         }) {
-                            Text("Import Specter JSON")
+                            Text(self.showPubKeyQR ? "Hide QR" : "Show QR")
                         }
-                    } else {
-                        Text("Threshold: \(self.appState.walletManager.threshold)")
-                    }
-                    Spacer()
-                    VStack(alignment: .leading, spacing: 20.0) {
-                        Text("Cosigners").font(.headline)
-                        Text("* \( appState.walletManager.us.fingerprint.hexString )").font(.system(.body, design: .monospaced)) + Text(" (us)")
-                        ForEach(appState.walletManager.cosigners) { cosigner in
-                            Text("* \( cosigner.fingerprint.hexString )" ).font(.system(.body, design: .monospaced)) + Text(cosigner.name != "" ? " (\(cosigner.name))" : "")
+                        if (self.showPubKeyQR) {
+                            Image(uiImage: generateQRCode(from: String(data: self.appState.walletManager.ourPubKey(), encoding: .utf8)!))
+                                .interpolation(.none)
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 350, height: 350)
                         }
-                        if (self.appState.walletManager.hasWallet) {
+                        Button(action: {
+                            self.settings.exportPublicKey(data: self.appState.walletManager.ourPubKey())
+                        }) {
+                            Text("Save as JSON")
+                        }
+                        Spacer()
+                        VStack(alignment: .leading, spacing: 20.0) {
+                            Text("Wallet").font(.headline)
+                        }
+                        if !self.appState.walletManager.hasWallet {
                             Button(action: {
-                                self.appState.walletManager.wipeWallet()
+                                self.isShowingScanner = true
                             }) {
-                                Text("Wipe wallet")
+                                Text("Scan Specter QR")
+                            }
+                            Button(action: {
+                                self.settings.loadWallet(self.loadWalletFile)
+                            }) {
+                                Text("Import Specter JSON")
+                            }
+                        } else {
+                            Text("Threshold: \(self.appState.walletManager.threshold)")
+                        }
+                        Spacer()
+                        VStack(alignment: .leading, spacing: 20.0) {
+                            Text("Cosigners").font(.headline)
+                            Text("* \( appState.walletManager.us!.fingerprint.hexString )").font(.system(.body, design: .monospaced)) + Text(" (us)")
+                            ForEach(appState.walletManager.cosigners) { cosigner in
+                                Text("* \( cosigner.fingerprint.hexString )" ).font(.system(.body, design: .monospaced)) + Text(cosigner.name != "" ? " (\(cosigner.name))" : "")
+                            }
+                            if (self.appState.walletManager.hasWallet) {
+                                Button(action: {
+                                    self.appState.walletManager.wipeWallet()
+                                }) {
+                                    Text("Wipe wallet")
+                                }
                             }
                         }
-                    }
-                    VStack(alignment: .leading, spacing: 20.0) {
-                        Text("Misc").font(.headline)
+                        VStack(alignment: .leading, spacing: 20.0) {
+                            Text("Misc").font(.headline)
+                            Button(action: {
+                                self.showMnemonic = true
+                            }) {
+                                Text("Show mnemonic")
+                            }
+                        }
+                    } else {
+                        VStack(alignment: .leading, spacing: 20.0) {
+                            Text("Your keys").font(.headline)
+                            Text("The app generates a fresh cryptographic key for you, or you can recover from a backup by entering its 24 words.")
+                        }
                         Button(action: {
-                            self.showMnemonic = true
+                            self.appState.walletManager.generateSeed()
                         }) {
-                            Text("Show mnemonic")
+                            Text("Generate fresh keys")
                         }
                     }
                 }

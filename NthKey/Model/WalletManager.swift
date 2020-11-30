@@ -11,58 +11,60 @@ import LibWally
 import OutputDescriptors
 
 struct WalletManager {
-    var us: Signer
+    var us: Signer?
     var cosigners: [Signer]
     var threshold: Int = 0
-    var hasWallet: Bool = false
+    var hasWallet: Bool
+    var hasSeed: Bool
 
     init() {
-        (us, cosigners) = Signer.getSigners()
-        threshold = UserDefaults.standard.integer(forKey:"threshold")
-        hasWallet = UserDefaults.standard.bool(forKey:"hasWallet")
+        if let fingerprint = UserDefaults.standard.data(forKey: "masterKeyFingerprint") {
+            let mnemonic = WalletManager.getMnemonic(fingerprint);
+            let seedHex = mnemonic.seedHex()
+            let masterKey = HDKey(seedHex, .testnet)!
+            assert(masterKey.fingerprint == fingerprint)
+            hasSeed = true
+            (us, cosigners) = Signer.getSigners()
+            threshold = UserDefaults.standard.integer(forKey:"threshold")
+            hasWallet = UserDefaults.standard.bool(forKey:"hasWallet")
+        } else {
+            us = nil
+            cosigners = []
+            threshold = 0
+            hasWallet = false
+            hasSeed = false
+        }
     }
 
     var hasCosigners: Bool {
         return cosigners.count > 0
     }
 
-    static func initialize() {
-        var masterKey: HDKey
-        let defaults = UserDefaults.standard
-
-        if let fingerprint = defaults.data(forKey: "masterKeyFingerprint") {
-            let mnemonic = getMnemonic(fingerprint);
-            let seedHex = mnemonic.seedHex()
-            masterKey = HDKey(seedHex, .testnet)!
-            assert(masterKey.fingerprint == fingerprint)
-        } else {
-            var bytes = [Int8](repeating: 0, count: 32)
-            let status = SecRandomCopyBytes(kSecRandomDefault, bytes.count, &bytes)
-            let entropy = BIP39Entropy(Data(bytes: bytes, count: bytes.count))
-            let seedHex = BIP39Mnemonic(entropy)!.seedHex()
-            masterKey = HDKey(seedHex, .testnet)!
-
-            if status == errSecSuccess { // Always test the status.
-                let seedItem = KeychainEntropyItem(service: "NthKeyService", fingerprint: masterKey.fingerprint, accessGroup: nil)
-                // TODO: handle error
-                try! seedItem.saveEntropy(entropy)
-                defaults.set(masterKey.fingerprint, forKey: "masterKeyFingerprint")
-            }
-
-        }
-    }
-
     static func getMnemonic(_ fingerprint: Data) -> BIP39Mnemonic {
         let entropyItem = KeychainEntropyItem(service: "NthKeyService", fingerprint: fingerprint, accessGroup: nil)
-
-        // Uncomment to reset
-//             defaults.removeObject(forKey: "masterKeyFingerprint")
-//             try! entropyItem.deleteItem()
-//             return false
 
         // TODO: handle error
         let entropy = try! entropyItem.readEntropy()
         return BIP39Mnemonic(entropy)!
+    }
+    
+    mutating func generateSeed() {
+       var bytes = [Int8](repeating: 0, count: 32)
+       let status = SecRandomCopyBytes(kSecRandomDefault, bytes.count, &bytes)
+       let entropy = BIP39Entropy(Data(bytes: bytes, count: bytes.count))
+       let seedHex = BIP39Mnemonic(entropy)!.seedHex()
+       let masterKey = HDKey(seedHex, .testnet)!
+
+       if status == errSecSuccess { // Always test the status.
+           let seedItem = KeychainEntropyItem(service: "NthKeyService", fingerprint: masterKey.fingerprint, accessGroup: nil)
+           // TODO: handle error
+           try! seedItem.saveEntropy(entropy)
+           UserDefaults.standard.set(masterKey.fingerprint, forKey: "masterKeyFingerprint")
+       }
+        self.hasSeed = true
+        (us, cosigners) = Signer.getSigners()
+        threshold = UserDefaults.standard.integer(forKey:"threshold")
+        hasWallet = UserDefaults.standard.bool(forKey:"hasWallet")
     }
     
     func ourPubKey()  -> Data {
@@ -114,13 +116,13 @@ struct WalletManager {
                         return
                     }
                     if !desc.extendedKeys.contains(where: { (key) -> Bool in
-                        key.fingerprint == us.fingerprint.hexString
+                        key.fingerprint == us!.fingerprint.hexString
                     }) {
                         print("We're not part of the wallet")
                         return
                     }
                     desc.extendedKeys.forEach { (key) in
-                        if (key.fingerprint == us.fingerprint.hexString) { return }
+                        if (key.fingerprint == us!.fingerprint.hexString) { return }
                             let extendedKey = Data(base58: key.xpub)!
                             // Check that this is a testnet tpub
                             let marker = Data(extendedKey.subdata(in: 0..<4))
@@ -177,7 +179,11 @@ struct WalletManager {
     }
 
     func mnemonic() -> String {
-        return WalletManager.getMnemonic(us.fingerprint).description
+        if let us = us {
+            return WalletManager.getMnemonic(us.fingerprint).description
+        } else {
+            return ""
+        }
     }
 
     func writeFile(folderUrl: URL, fileName: String, textData: Data) {
