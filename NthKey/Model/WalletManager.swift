@@ -48,23 +48,37 @@ struct WalletManager {
         return BIP39Mnemonic(entropy)!
     }
     
+    mutating func setEntropy(_ entropy: BIP39Entropy) {
+        let seedHex = BIP39Mnemonic(entropy)!.seedHex()
+        let masterKey = HDKey(seedHex, .testnet)!
+        let seedItem = KeychainEntropyItem(service: "NthKeyService", fingerprint: masterKey.fingerprint, accessGroup: nil)
+        // TODO: handle error
+        do {
+            try seedItem.saveEntropy(entropy)
+        } catch NthKey.KeychainEntropyItem.KeychainError.entropyAlreadyExists {
+            // Ignore existing entry
+            // TODO: the keychain is not wiped when you uninstall the app.
+            //       We should generate additional entropy, put that in NSUserDefaults (which does get wiped),
+            //       and then XOR the keychain entropy with it, so it becomes useless after uninstall.
+            //       Same for the fingerprint.
+        } catch {
+            print("Unknown unhandled error saving to keychain")
+            precondition(false)
+        }
+        UserDefaults.standard.set(masterKey.fingerprint, forKey: "masterKeyFingerprint")
+         self.hasSeed = true
+         (us, cosigners) = Signer.getSigners()
+         threshold = UserDefaults.standard.integer(forKey:"threshold")
+         hasWallet = UserDefaults.standard.bool(forKey:"hasWallet")
+    }
+    
     mutating func generateSeed() {
-       var bytes = [Int8](repeating: 0, count: 32)
-       let status = SecRandomCopyBytes(kSecRandomDefault, bytes.count, &bytes)
-       let entropy = BIP39Entropy(Data(bytes: bytes, count: bytes.count))
-       let seedHex = BIP39Mnemonic(entropy)!.seedHex()
-       let masterKey = HDKey(seedHex, .testnet)!
-
-       if status == errSecSuccess { // Always test the status.
-           let seedItem = KeychainEntropyItem(service: "NthKeyService", fingerprint: masterKey.fingerprint, accessGroup: nil)
-           // TODO: handle error
-           try! seedItem.saveEntropy(entropy)
-           UserDefaults.standard.set(masterKey.fingerprint, forKey: "masterKeyFingerprint")
-       }
-        self.hasSeed = true
-        (us, cosigners) = Signer.getSigners()
-        threshold = UserDefaults.standard.integer(forKey:"threshold")
-        hasWallet = UserDefaults.standard.bool(forKey:"hasWallet")
+        var bytes = [Int8](repeating: 0, count: 32)
+        let status = SecRandomCopyBytes(kSecRandomDefault, bytes.count, &bytes)
+        if status == errSecSuccess {
+            let entropy = BIP39Entropy(Data(bytes: bytes, count: bytes.count))
+            setEntropy(entropy)
+        }
     }
     
     func ourPubKey()  -> Data {
