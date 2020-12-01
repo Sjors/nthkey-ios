@@ -44,14 +44,11 @@ public class Signer: NSObject, NSSecureCoding, Identifiable {
         coder.encode(name, forKey:"name")
     }
 
-    public static func getSigners() -> (Signer, [Signer]) {
+    public static func getSigners(masterKey: HDKey? = nil) -> (Signer, [Signer]) {
         let encodedCosigners = UserDefaults.standard.array(forKey: "cosigners")
-        
         let fingerprint = UserDefaults.standard.data(forKey: "masterKeyFingerprint")!
         // TODO: deduplicate from MultisigAddress.swift
-        let entropy = try! KeychainEntropyItem.read(service: "NthKeyService", accessGroup: nil)
-        let mnemonic = BIP39Mnemonic(entropy)!
-        let seedHex = mnemonic.seedHex()
+        let seedHex = try! WalletManager.getMnemonic().seedHex()
         let masterKey = HDKey(seedHex, .testnet)!
         assert(masterKey.fingerprint == fingerprint)
 

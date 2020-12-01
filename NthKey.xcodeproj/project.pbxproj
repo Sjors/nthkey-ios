@@ -18,6 +18,7 @@
 		A206E81F238D65FC00786824 /* MultisigTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A206E81E238D65FC00786824 /* MultisigTests.swift */; };
 		A206E82A238D65FC00786824 /* MultisigUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A206E829238D65FC00786824 /* MultisigUITests.swift */; };
 		A20D76CE23A406C500A24A38 /* NthKey.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A20D76CD23A406AF00A24A38 /* NthKey.xcdatamodeld */; };
+		A25C032D25766E100048765E /* Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = A25C032C25766E100048765E /* Data.swift */; };
 		A27180B223A291B500E9F443 /* MultisigAddress.swift in Sources */ = {isa = PBXBuildFile; fileRef = A27180B123A291B500E9F443 /* MultisigAddress.swift */; };
 		A27180B623A293EA00E9F443 /* AddressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A27180B523A293EA00E9F443 /* AddressView.swift */; };
 		A27D4BF623A2B4F30055B0B8 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A27D4BF523A2B4F30055B0B8 /* SettingsView.swift */; };
@@ -79,6 +80,7 @@
 		A206E829238D65FC00786824 /* MultisigUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultisigUITests.swift; sourceTree = "<group>"; };
 		A206E82B238D65FC00786824 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A20D76CD23A406AF00A24A38 /* NthKey.xcdatamodeld */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodeld; name = NthKey.xcdatamodeld; path = NthKey/NthKey.xcdatamodeld; sourceTree = SOURCE_ROOT; };
+		A25C032C25766E100048765E /* Data.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Data.swift; sourceTree = "<group>"; };
 		A27180B123A291B500E9F443 /* MultisigAddress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultisigAddress.swift; sourceTree = "<group>"; };
 		A27180B523A293EA00E9F443 /* AddressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressView.swift; sourceTree = "<group>"; };
 		A27D4BF523A2B4F30055B0B8 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
@@ -185,6 +187,7 @@
 		A206E803238D65F300786824 /* NthKey */ = {
 			isa = PBXGroup;
 			children = (
+				A25C032B25766DF90048765E /* Extensions */,
 				A285870423AD0AF800930566 /* Artwork */,
 				A29DAAC2239180CC006B38D9 /* README.md */,
 				A27180B323A2939A00E9F443 /* Model */,
@@ -228,6 +231,14 @@
 				A206E82B238D65FC00786824 /* Info.plist */,
 			);
 			path = NthKeyUITests;
+			sourceTree = "<group>";
+		};
+		A25C032B25766DF90048765E /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				A25C032C25766E100048765E /* Data.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		A27180B323A2939A00E9F443 /* Model */ = {
@@ -522,6 +533,7 @@
 				A2C800F523A3943000111EAF /* FileViewControllerManager.swift in Sources */,
 				A2E9E37F23ACF1140049645D /* SignView.swift in Sources */,
 				A29DAAC523982271006B38D9 /* SettingsViewController.swift in Sources */,
+				A25C032D25766E100048765E /* Data.swift in Sources */,
 				A285870D23AD31C600930566 /* Destination.swift in Sources */,
 				A27180B223A291B500E9F443 /* MultisigAddress.swift in Sources */,
 				A2F8575F23991354008A44E6 /* Signer.swift in Sources */,

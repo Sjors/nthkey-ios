@@ -4,13 +4,11 @@
     license, see the accompanying file LICENSE.md
 
     Abstract:
-    A struct for accessing BIP39 entropy in the keychain. This entropy
+    A struct for accessing BIP39 entropy Data in the keychain. This entropy
     can be converted to a 12-24 word BIP39 mnemonic.
 */
 
 import Foundation
-
-import LibWally
 
 struct KeychainEntropyItem {
     // MARK: Types
@@ -25,7 +23,7 @@ struct KeychainEntropyItem {
     
     // MARK: Keychain access
     
-    static func read(service: String, accessGroup: String? = nil) throws -> BIP39Entropy  {
+    static func read(service: String, accessGroup: String? = nil) throws -> Data  {
         /*
             Build a query to find an "entropy" item (matching the service and
             access group)
@@ -53,10 +51,10 @@ struct KeychainEntropyItem {
             throw KeychainError.unexpectedEntropyData
         }
         
-        return BIP39Entropy(entropy)
+        return entropy
     }
     
-    static func save(entropy: BIP39Entropy, service: String, accessGroup: String? = nil) throws {
+    static func save(entropy: Data, service: String, accessGroup: String? = nil) throws {
         do {
             // Check for an existing item in the keychain.
             try _ = KeychainEntropyItem.read(service: service, accessGroup: accessGroup)
@@ -69,7 +67,7 @@ struct KeychainEntropyItem {
                 as a new keychain item.
             */
             var newItem = KeychainEntropyItem.keychainQuery(withService: service, accessGroup: accessGroup)
-            newItem[kSecValueData as String] = entropy.data as AnyObject?
+            newItem[kSecValueData as String] = entropy as AnyObject?
             
             // Add a the new item to the keychain.
             let status = SecItemAdd(newItem as CFDictionary, nil)

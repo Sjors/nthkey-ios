@@ -16,6 +16,10 @@ struct WalletManager {
     var threshold: Int = 0
     var hasWallet: Bool
     var hasSeed: Bool
+    
+    enum WalletManagerError: Error {
+        case noEntropyMask
+    }
 
     init() {
         us = nil
@@ -41,22 +45,29 @@ struct WalletManager {
     }
 
     static func getMnemonic() throws -> BIP39Mnemonic  {
-        let entropy = try KeychainEntropyItem.read(service: "NthKeyService", accessGroup: nil)
-        return BIP39Mnemonic(entropy)!
+        let data = try KeychainEntropyItem.read(service: "NthKeyService", accessGroup: nil)
+        if let mask = UserDefaults.standard.data(forKey: "entropyMask") {
+            let entropy = BIP39Entropy(data.xor(mask))
+            return BIP39Mnemonic(entropy)!
+        } else {
+            throw WalletManagerError.noEntropyMask
+        }
     }
     
     mutating func setEntropy(_ entropy: BIP39Entropy) {
         // Delete existing entry, if any:
         try! KeychainEntropyItem.delete(service: "NthKeyService", accessGroup: nil)
         
-        let seedHex = BIP39Mnemonic(entropy)!.seedHex()
-        let masterKey = HDKey(seedHex, .testnet)!
-        // TODO: the keychain is not wiped when you uninstall the app.
-        //       We should generate additional entropy, put that in NSUserDefaults (which does get wiped),
-        //       and then XOR the keychain entropy with it, so it becomes useless after uninstall.
-        //       Same for the fingerprint.
+        // Generate additional entropy, stored in NSUserDefaults, to XOR the keychain entry.
+        // The keychain is not wiped when you uninstall the app, but NSUserDefaults is, so
+        // this ensures the BIP39 entropy is really gone when the user removes the app.
+        var maskBytes = [Int8](repeating: 0, count: entropy.data.count)
+        let status = SecRandomCopyBytes(kSecRandomDefault, maskBytes.count, &maskBytes)
+        let mask = Data(bytes: maskBytes, count: maskBytes.count)
+        let maskedEntropy = entropy.data.xor(mask)
+        precondition(status == errSecSuccess)
         do {
-            try KeychainEntropyItem.save(entropy: entropy, service: "NthKeyService", accessGroup: nil)
+            try KeychainEntropyItem.save(entropy: maskedEntropy, service: "NthKeyService", accessGroup: nil)
         } catch NthKey.KeychainEntropyItem.KeychainError.entropyAlreadyExists {
             print("Keychain entropy entry was not properly wiped earlier in this function")
             precondition(false)
@@ -64,11 +75,14 @@ struct WalletManager {
             print("Unknown unhandled error saving to keychain")
             precondition(false)
         }
+        let seedHex = BIP39Mnemonic(entropy)!.seedHex()
+        let masterKey = HDKey(seedHex, .testnet)!
         UserDefaults.standard.set(masterKey.fingerprint, forKey: "masterKeyFingerprint")
-         self.hasSeed = true
-         (us, cosigners) = Signer.getSigners()
-         threshold = UserDefaults.standard.integer(forKey:"threshold")
-         hasWallet = UserDefaults.standard.bool(forKey:"hasWallet")
+        UserDefaults.standard.set(mask, forKey: "entropyMask")
+        self.hasSeed = true
+        (us, cosigners) = Signer.getSigners()
+        threshold = UserDefaults.standard.integer(forKey:"threshold")
+        hasWallet = UserDefaults.standard.bool(forKey:"hasWallet")
     }
     
     mutating func generateSeed() {
@@ -83,9 +97,7 @@ struct WalletManager {
     func ourPubKey()  -> Data {
         let fingerprint = UserDefaults.standard.data(forKey: "masterKeyFingerprint")!
         // TODO: handle error
-        let entropy = try! KeychainEntropyItem.read(service: "NthKeyService", accessGroup: nil)
-        let mnemonic = BIP39Mnemonic(entropy)!
-        let seedHex = mnemonic.seedHex()
+        let seedHex = try! WalletManager.getMnemonic().seedHex()
         let masterKey = HDKey(seedHex, .testnet)!
         assert(masterKey.fingerprint == fingerprint)
 
