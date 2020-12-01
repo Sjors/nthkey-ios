@@ -18,21 +18,21 @@ struct WalletManager {
     var hasSeed: Bool
 
     init() {
+        us = nil
+        cosigners = []
+        threshold = 0
+        hasWallet = false
+        hasSeed = false
         if let fingerprint = UserDefaults.standard.data(forKey: "masterKeyFingerprint") {
-            let mnemonic = WalletManager.getMnemonic(fingerprint);
-            let seedHex = mnemonic.seedHex()
-            let masterKey = HDKey(seedHex, .testnet)!
-            assert(masterKey.fingerprint == fingerprint)
-            hasSeed = true
-            (us, cosigners) = Signer.getSigners()
-            threshold = UserDefaults.standard.integer(forKey:"threshold")
-            hasWallet = UserDefaults.standard.bool(forKey:"hasWallet")
-        } else {
-            us = nil
-            cosigners = []
-            threshold = 0
-            hasWallet = false
-            hasSeed = false
+            if let mnemonic = try? WalletManager.getMnemonic() {
+                let seedHex = mnemonic.seedHex()
+                let masterKey = HDKey(seedHex, .testnet)!
+                assert(masterKey.fingerprint == fingerprint)
+                hasSeed = true
+                (us, cosigners) = Signer.getSigners()
+                threshold = UserDefaults.standard.integer(forKey:"threshold")
+                hasWallet = UserDefaults.standard.bool(forKey:"hasWallet")
+            }
         }
     }
 
@@ -40,27 +40,26 @@ struct WalletManager {
         return cosigners.count > 0
     }
 
-    static func getMnemonic(_ fingerprint: Data) -> BIP39Mnemonic {
-        let entropyItem = KeychainEntropyItem(service: "NthKeyService", fingerprint: fingerprint, accessGroup: nil)
-
-        // TODO: handle error
-        let entropy = try! entropyItem.readEntropy()
+    static func getMnemonic() throws -> BIP39Mnemonic  {
+        let entropy = try KeychainEntropyItem.read(service: "NthKeyService", accessGroup: nil)
         return BIP39Mnemonic(entropy)!
     }
     
     mutating func setEntropy(_ entropy: BIP39Entropy) {
+        // Delete existing entry, if any:
+        try! KeychainEntropyItem.delete(service: "NthKeyService", accessGroup: nil)
+        
         let seedHex = BIP39Mnemonic(entropy)!.seedHex()
         let masterKey = HDKey(seedHex, .testnet)!
-        let seedItem = KeychainEntropyItem(service: "NthKeyService", fingerprint: masterKey.fingerprint, accessGroup: nil)
-        // TODO: handle error
+        // TODO: the keychain is not wiped when you uninstall the app.
+        //       We should generate additional entropy, put that in NSUserDefaults (which does get wiped),
+        //       and then XOR the keychain entropy with it, so it becomes useless after uninstall.
+        //       Same for the fingerprint.
         do {
-            try seedItem.saveEntropy(entropy)
+            try KeychainEntropyItem.save(entropy: entropy, service: "NthKeyService", accessGroup: nil)
         } catch NthKey.KeychainEntropyItem.KeychainError.entropyAlreadyExists {
-            // Ignore existing entry
-            // TODO: the keychain is not wiped when you uninstall the app.
-            //       We should generate additional entropy, put that in NSUserDefaults (which does get wiped),
-            //       and then XOR the keychain entropy with it, so it becomes useless after uninstall.
-            //       Same for the fingerprint.
+            print("Keychain entropy entry was not properly wiped earlier in this function")
+            precondition(false)
         } catch {
             print("Unknown unhandled error saving to keychain")
             precondition(false)
@@ -83,10 +82,8 @@ struct WalletManager {
     
     func ourPubKey()  -> Data {
         let fingerprint = UserDefaults.standard.data(forKey: "masterKeyFingerprint")!
-        let entropyItem = KeychainEntropyItem(service: "NthKeyService", fingerprint: fingerprint, accessGroup: nil)
-
         // TODO: handle error
-        let entropy = try! entropyItem.readEntropy()
+        let entropy = try! KeychainEntropyItem.read(service: "NthKeyService", accessGroup: nil)
         let mnemonic = BIP39Mnemonic(entropy)!
         let seedHex = mnemonic.seedHex()
         let masterKey = HDKey(seedHex, .testnet)!
@@ -193,8 +190,8 @@ struct WalletManager {
     }
 
     func mnemonic() -> String {
-        if let us = us {
-            return WalletManager.getMnemonic(us.fingerprint).description
+        if us != nil {
+            return try! WalletManager.getMnemonic().description
         } else {
             return ""
         }

@@ -48,10 +48,8 @@ public class Signer: NSObject, NSSecureCoding, Identifiable {
         let encodedCosigners = UserDefaults.standard.array(forKey: "cosigners")
         
         let fingerprint = UserDefaults.standard.data(forKey: "masterKeyFingerprint")!
-        let entropyItem = KeychainEntropyItem(service: "NthKeyService", fingerprint: fingerprint, accessGroup: nil)
-
         // TODO: deduplicate from MultisigAddress.swift
-        let entropy = try! entropyItem.readEntropy()
+        let entropy = try! KeychainEntropyItem.read(service: "NthKeyService", accessGroup: nil)
         let mnemonic = BIP39Mnemonic(entropy)!
         let seedHex = mnemonic.seedHex()
         let masterKey = HDKey(seedHex, .testnet)!
