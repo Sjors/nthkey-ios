@@ -15,7 +15,7 @@ struct MultisigAddress : Identifiable {
     
     static var receivePublicHDkeys: [HDKey] = []
     
-    init(threshold: UInt, receiveIndex: UInt, network: Network = .testnet) {
+    init(threshold: UInt, receiveIndex: UInt, network: Network) {
         if MultisigAddress.receivePublicHDkeys.isEmpty {
             let (us, cosigners) = Signer.getSigners()
 

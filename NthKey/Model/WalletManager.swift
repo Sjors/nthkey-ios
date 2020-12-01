@@ -16,6 +16,7 @@ struct WalletManager {
     var threshold: Int = 0
     var hasWallet: Bool
     var hasSeed: Bool
+    var network: Network = .testnet
     
     enum WalletManagerError: Error {
         case noEntropyMask
@@ -27,17 +28,27 @@ struct WalletManager {
         threshold = 0
         hasWallet = false
         hasSeed = false
+        self.setKeys()
+    }
+    
+    mutating func setKeys() {        
         if let fingerprint = UserDefaults.standard.data(forKey: "masterKeyFingerprint") {
             if let mnemonic = try? WalletManager.getMnemonic() {
                 let seedHex = mnemonic.seedHex()
-                let masterKey = HDKey(seedHex, .testnet)!
+                self.network = UserDefaults.standard.bool(forKey:"mainnet") ? .mainnet : .testnet
+                let masterKey = HDKey(seedHex, self.network)!
                 assert(masterKey.fingerprint == fingerprint)
-                hasSeed = true
-                (us, cosigners) = Signer.getSigners()
-                threshold = UserDefaults.standard.integer(forKey:"threshold")
-                hasWallet = UserDefaults.standard.bool(forKey:"hasWallet")
+                self.hasSeed = true
+                (self.us, self.cosigners) = Signer.getSigners()
+                self.threshold = UserDefaults.standard.integer(forKey:"threshold")
+                self.hasWallet = UserDefaults.standard.bool(forKey:"hasWallet")
             }
         }
+    }
+    
+    mutating func setMainnet() {
+        UserDefaults.standard.set(true, forKey: "mainnet")
+        setKeys()
     }
 
     var hasCosigners: Bool {
@@ -76,7 +87,7 @@ struct WalletManager {
             precondition(false)
         }
         let seedHex = BIP39Mnemonic(entropy)!.seedHex()
-        let masterKey = HDKey(seedHex, .testnet)!
+        let masterKey = HDKey(seedHex, self.network)!
         UserDefaults.standard.set(masterKey.fingerprint, forKey: "masterKeyFingerprint")
         UserDefaults.standard.set(mask, forKey: "entropyMask")
         self.hasSeed = true
@@ -98,10 +109,10 @@ struct WalletManager {
         let fingerprint = UserDefaults.standard.data(forKey: "masterKeyFingerprint")!
         // TODO: handle error
         let seedHex = try! WalletManager.getMnemonic().seedHex()
-        let masterKey = HDKey(seedHex, .testnet)!
+        let masterKey = HDKey(seedHex, self.network)!
         assert(masterKey.fingerprint == fingerprint)
 
-        let path = BIP32Path("m/48h/1h/0h/2h")!
+        let path = BIP32Path("m/48h/\(self.network == .mainnet ? "0h" : "1h")/0h/2h")!
         let account = try! masterKey.derive(path)
 
         // Specter compatible JSON format:
@@ -111,7 +122,7 @@ struct WalletManager {
             var ExtPubKey: String
         }
         let xpub = Data(base58: account.xpub)!
-        let export = SpecterExport(MasterFingerprint: fingerprint.hexString.uppercased(), AccountKeyPath: "48h/1h/0h/2h", ExtPubKey: xpub.base58)
+        let export = SpecterExport(MasterFingerprint: fingerprint.hexString.uppercased(), AccountKeyPath: "48h/\(self.network == .mainnet ? "0h" : "1h")/0h/2h", ExtPubKey: xpub.base58)
 
         let encoder = JSONEncoder()
         return try! encoder.encode(export)
@@ -149,8 +160,8 @@ struct WalletManager {
                             let extendedKey = Data(base58: key.xpub)!
                             // Check that this is a testnet tpub
                             let marker = Data(extendedKey.subdata(in: 0..<4))
-                            if marker != Data("043587cf")! {
-                                NSLog("Expected tpub marker (0x043587cf), got 0x%@", marker.hexString)
+                            if marker != Data("043587cf")! && marker != Data("0488b21e") {
+                                NSLog("Expected tpub marker (0x043587cf) or xpub marker (0x0488b21e), got 0x%@", marker.hexString)
                                 return
                             }
                         if let hdKey = HDKey(key.xpub) {
@@ -160,6 +171,11 @@ struct WalletManager {
                             NSLog("Malformated cosigner xpub")
                             return
                         }
+                    }
+                    if self.cosigners.count != desc.extendedKeys.count - 1 {
+                        NSLog("Cosigner count does not match descriptor keys count")
+                        self.cosigners = []
+                        return
                     }
                     self.saveCosigners()
                     // Wallet creation:

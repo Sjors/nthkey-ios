@@ -15,6 +15,11 @@ struct PSBTManager {
     var fee: String = ""
     var canSign: Bool = false
     var destinations: [Destination]?
+    var network: Network
+    
+    init() {
+        self.network = UserDefaults.standard.bool(forKey:"mainnet") ? .mainnet : .testnet
+    }
     
     mutating func clear() {
         self.psbt = nil
@@ -40,13 +45,13 @@ struct PSBTManager {
 
     
     mutating func loadPSBT(_ psbt: String) {
-        if let psbt = try? PSBT(psbt, .testnet) {
+        if let psbt = try? PSBT(psbt, self.network) {
             processPSBT(psbt)
         }
     }
     
     mutating func loadPSBT(_ data: Data) {
-        if let psbt = try? PSBT(data, .testnet) {
+        if let psbt = try? PSBT(data, self.network) {
             processPSBT(psbt)
        } else {
            NSLog("Something went wrong parsing PSBT data")

@@ -47,12 +47,13 @@ public class Signer: NSObject, NSSecureCoding, Identifiable {
     public static func getSigners(masterKey: HDKey? = nil) -> (Signer, [Signer]) {
         let encodedCosigners = UserDefaults.standard.array(forKey: "cosigners")
         let fingerprint = UserDefaults.standard.data(forKey: "masterKeyFingerprint")!
+        let network: Network = UserDefaults.standard.bool(forKey:"mainnet") ? .mainnet : .testnet
         // TODO: deduplicate from MultisigAddress.swift
         let seedHex = try! WalletManager.getMnemonic().seedHex()
-        let masterKey = HDKey(seedHex, .testnet)!
+        let masterKey = HDKey(seedHex, network)!
         assert(masterKey.fingerprint == fingerprint)
 
-        let path = BIP32Path("m/48h/1h/0h/2h")!
+        let path = BIP32Path("m/48h/\(network == .mainnet ? "0h" : "1h")/0h/2h")!
         let ourKey = try! masterKey.derive(path)
         let us = Signer(fingerprint: fingerprint, derivation: path, hdKey: ourKey, name: "NthKey")
 
