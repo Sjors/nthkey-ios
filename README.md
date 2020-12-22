@@ -20,7 +20,7 @@ Install Ruby, e.g. using [RBenv](https://github.com/rbenv/rbenv):
 ```sh
 rbenv install `cat .ruby-version`
 bundle install
-pod install --verbose
+bundle exec pod install --verbose
 ```
 
 To preview documentation:
