@@ -17,7 +17,7 @@ EXTERNAL SOURCES:
 
 CHECKOUT OPTIONS:
   LibWally:
-    :commit: eac080bddd1c21a1ba41c2064cbfeb062bfcda8d
+    :commit: 8c2db2f18917caeb3226e2b076fdb07fc2229296
     :git: https://github.com/blockchain/LibWally-Swift.git
     :submodules: true
   OutputDescriptors:
