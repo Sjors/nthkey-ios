@@ -23,6 +23,7 @@ final class SignViewController :  UIHostingController<SignView>, ObservableObjec
     }
     
     override func viewDidLoad() {
+        super.viewDidLoad()
     }
     
     func openPSBT(_ callback: @escaping (URL) -> Void ) {

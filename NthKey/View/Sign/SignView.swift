@@ -63,7 +63,7 @@ struct SignView : View {
     var body: some View {
         ScrollView {
             Spacer()
-            HStack{
+            HStack {
                 VStack(alignment: .leading, spacing: 20.0){
                     Button(action: {
                         self.isShowingScanner = true
@@ -134,3 +134,10 @@ struct SignView : View {
     }
 }
 
+
+struct SignView_Previews: PreviewProvider {
+    static var previews: some View {
+        SignView()
+            .environmentObject(AppState())
+    }
+}
