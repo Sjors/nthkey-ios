@@ -17,6 +17,7 @@ final class SettingsViewController : UIViewController, UIDocumentPickerDelegate 
     var callbackDidGetURL: ((URL) -> Void)?
 
     override func viewDidLoad() {
+        super.viewDidLoad()
     }
 
     func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
