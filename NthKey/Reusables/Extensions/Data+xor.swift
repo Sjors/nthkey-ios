@@ -1,6 +1,6 @@
 //
-//  Data.swift
-//  Data
+//  Data+xor.swift
+//  NthKey
 //
 //  Created by Sjors Provoost on 01/12/2020.
 //  Copyright © 2020 Purple Dunes. Distributed under the MIT software
