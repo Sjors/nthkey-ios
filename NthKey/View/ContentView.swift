@@ -14,59 +14,41 @@ struct ContentView: View {
     @EnvironmentObject var appState: AppState
 
     var body: some View {
-        TabView(selection: $appState.selectedTab){
-            HStack {
-                VStack(alignment: .leading, spacing: 10.0){
-                    Text("Addresses")
-                        .font(.title)
-                    if (self.appState.walletManager.hasWallet) {
-                        List {
-                            ForEach((0...1000).map {i in MultisigAddress(threshold: UInt(self.appState.walletManager.threshold), receiveIndex: i, network: self.appState.walletManager.network)}) { address in
-                                AddressView(address)
-                            }
-                        }
-
-                    } else {
-                        Text("Go to Settings to add cosigners")
-                    }
-                }
-            }
-            .tabItem {
-                VStack {
-                    Image("first")
+        TabView {
+            
+            AddressessView(appState.walletManager)
+                .tabItem {
+                    Image(systemName: "house.fill")
                     Text("Addresses")
                 }
-            }
-            .tag(Tab.addresses)
-            SignViewController(rootView: SignView()).environmentObject(appState)
-            .tabItem {
-                VStack {
-                    Image("second")
+            
+            SignViewController(rootView: SignView())
+                .environmentObject(appState)
+                .tabItem {
+                    Image(systemName: "lock.fill")
                     Text("Sign")
                 }
-            }
-            .tag(Tab.sign)
+            
             SettingsView()
-            .tabItem {
-                VStack {
+                .tabItem {
+                    Image(systemName: "gearshape.fill")
                     Text("Settings")
                 }
-            }
-            .tag(Tab.settings)
         }
     }
 }
 
-//struct ContentView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        ContentView()
-//    }
-//}
-
 extension ContentView {
-    enum Tab: Hashable {
+    enum Tab {
         case addresses
         case sign
         case settings
+    }
+}
+
+struct ContentView_Previews: PreviewProvider {
+    static var previews: some View {
+        ContentView()
+            .environmentObject(AppState())
     }
 }
