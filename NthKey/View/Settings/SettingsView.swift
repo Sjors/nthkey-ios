@@ -23,10 +23,45 @@ struct SettingsView : View {
     @State private var validMnemonic = false
     @State private var promptMainnet = false
 
-    let settings = SettingsViewController()
+    private let settings = SettingsViewController()
     
-    func handleScan(result: Result<String, CodeScannerView.ScanError>) {
-       self.isShowingScanner = false
+    var body: some View {
+        ScrollView {
+            
+            VStack(alignment: .leading, spacing: 20.0) {
+                
+                if self.appState.walletManager.hasSeed {
+                    
+                    AnnounceView(manager: self.appState.walletManager, settings: settings)
+                    
+                    Spacer()
+                    
+                    WalletView(isShowingScanner: self.isShowingScanner, settings: settings)
+                    
+                    Spacer()
+                    
+                    CodeSignersView()
+                        .environmentObject(self.appState)
+                    
+                    MiscSettings()
+                        .environmentObject(self.appState)
+                    
+                } else {
+                    NoSeedView()
+                        .environmentObject(self.appState)
+                }
+            }
+            .padding(10)
+            
+        }.sheet(isPresented: $isShowingScanner) {
+            CodeScannerView(codeTypes: [.qr], completion: self.handleScan)
+        }
+    }
+    
+    // MARK: - Helpers
+    
+    private func handleScan(result: Result<String, CodeScannerView.ScanError>) {
+        self.isShowingScanner = false
         switch result {
         case .success(let code):
             DispatchQueue.main.async() {
@@ -35,64 +70,6 @@ struct SettingsView : View {
         case .failure(let error):
             print("Scanning failed")
             print(error)
-        }
-    }
-
-    var body: some View {
-        ScrollView {
-            HStack {
-                VStack(alignment: .leading, spacing: 20.0) {
-                    if self.appState.walletManager.hasSeed {
-                        
-                        AnnounceView(manager: self.appState.walletManager, settings: settings)
-                        
-                        Spacer()
-                        
-                        WalletView(isShowingScanner: self.isShowingScanner, settings: settings)
-                        
-                        Spacer()
-                        
-                        CodeSignersView()
-                            .environmentObject(self.appState)
-                        
-                        VStack(alignment: .leading, spacing: 20.0) {
-                            Text("Misc").font(.headline)
-                            Button(action: {
-                                self.showMnemonic = true
-                            }) {
-                                Text("Show mnemonic")
-                            }.alert(isPresented: $showMnemonic) {
-                                Alert(title: Text("BIP 39 mnemonic"), message: Text(self.appState.walletManager.mnemonic()), dismissButton: .default(Text("OK")))
-                            }
-                            if self.appState.walletManager.network == .testnet {
-                                Text("Feeling reckless?")
-                                if (self.appState.walletManager.hasWallet) {
-                                    Text("You need to wipe your existing testnet wallet first")
-                                }
-                                Button(action: {
-                                    self.promptMainnet = true
-                                }) {
-                                    Text("Switch to mainnet")
-                                }
-                                .disabled(self.appState.walletManager.hasWallet)
-                                .alert(isPresented:$promptMainnet) {
-                                    Alert(title: Text("Switch to mainnet?"),
-                                          message: Text("This app is still very new. Use only coins that you're willing to loose and write down your mnemonic. Switching back to testnet requires deleting and reinstalling the app."),
-                                          primaryButton: .destructive(Text("Confirm")) {
-                                            self.appState.walletManager.setMainnet()
-                                    }, secondaryButton: .cancel())
-                                }
-                            }
-                        }
-                    } else {
-                        NoSeedView()
-                            .environmentObject(self.appState)
-                    }
-                }
-                .padding(10)
-            }
-        }.sheet(isPresented: $isShowingScanner) {
-            CodeScannerView(codeTypes: [.qr], completion: self.handleScan)
         }
     }
     
