@@ -6,11 +6,8 @@
 //  Copyright © 2019 Purple Dunes. Distributed under the MIT software
 //  license, see the accompanying file LICENSE.md
 
-import Foundation
 import SwiftUI
-import Combine
 import CodeScanner
-import LibWally
 
 struct SettingsView : View {
 

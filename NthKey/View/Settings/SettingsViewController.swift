@@ -16,16 +16,14 @@ final class SettingsViewController : UIViewController, UIDocumentPickerDelegate 
 
     var callbackDidGetURL: ((URL) -> Void)?
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-    }
-
-    func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
-
+    func documentPicker(
+        _ controller: UIDocumentPickerViewController,
+        didPickDocumentsAt urls: [URL])
+    {
         precondition(activeFileViewControllerManager != nil)
         activeFileViewControllerManager!.didPickDocumentsAt(urls: urls)
         if let url = activeFileViewControllerManager!.url {
-            callbackDidGetURL!(url)
+            callbackDidGetURL?(url)
         }
         activeFileViewControllerManager = nil
     }
@@ -55,11 +53,18 @@ final class SettingsViewController : UIViewController, UIDocumentPickerDelegate 
 extension SettingsViewController: UIViewControllerRepresentable {
     typealias UIViewControllerType = SettingsViewController
 
-    func makeUIViewController(context: UIViewControllerRepresentableContext<SettingsViewController>) -> SettingsViewController.UIViewControllerType {
+    func makeUIViewController(
+        context: UIViewControllerRepresentableContext<SettingsViewController>)
+    -> SettingsViewController.UIViewControllerType
+    {
         return SettingsViewController()
     }
 
-    func updateUIViewController(_ uiViewController: SettingsViewController.UIViewControllerType, context: UIViewControllerRepresentableContext<SettingsViewController>) {
+    func updateUIViewController(
+        _ uiViewController: SettingsViewController.UIViewControllerType,
+        context: UIViewControllerRepresentableContext<SettingsViewController>)
+    {
+        // NOTHING HERE
     }
 
 }
