@@ -14,7 +14,7 @@ final class SignViewController :  UIHostingController<SignView>, ObservableObjec
 
     typealias UIViewControllerType = SignViewController
     
-    var activeFileViewControllerManager: FileViewControllerManager?
+    var activeFileViewControllerManager: DocumentPickerManager?
 
     var coordinator: Coordinator?
         
@@ -30,12 +30,12 @@ final class SignViewController :  UIHostingController<SignView>, ObservableObjec
         precondition(activeFileViewControllerManager == nil)
         precondition(UserDefaults.standard.array(forKey: "cosigners") != nil)
         coordinator!.callbackDidGetURL = callback
-        activeFileViewControllerManager = FileViewControllerManager(task: .loadPSBT)
+        activeFileViewControllerManager = DocumentPickerManager(task: .loadPSBT)
         activeFileViewControllerManager!.prompt(vc: self, delegate: coordinator!)
     }
     
     func savePSBT(_ psbt: PSBT, _ callback: @escaping () -> Void) {
-        activeFileViewControllerManager = FileViewControllerManager(task: .savePSBT)
+        activeFileViewControllerManager = DocumentPickerManager(task: .savePSBT)
         activeFileViewControllerManager!.payload = psbt.data
         activeFileViewControllerManager!.prompt(vc: self, delegate: coordinator!)
         coordinator!.callbackDidSave = callback

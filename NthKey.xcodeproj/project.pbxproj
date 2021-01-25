@@ -34,7 +34,7 @@
 		A29DAAC12391657F006B38D9 /* KeychainEntropyItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A29DAAC02391657F006B38D9 /* KeychainEntropyItem.swift */; };
 		A29DAAC3239180CC006B38D9 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = A29DAAC2239180CC006B38D9 /* README.md */; };
 		A29DAAC523982271006B38D9 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A29DAAC423982271006B38D9 /* SettingsViewController.swift */; };
-		A2C800F523A3943000111EAF /* FileViewControllerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2C800F423A3943000111EAF /* FileViewControllerManager.swift */; };
+		A2C800F523A3943000111EAF /* DocumentPickerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2C800F423A3943000111EAF /* DocumentPickerManager.swift */; };
 		A2C8546023B157F2008E4AA1 /* PSBTManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2C8545F23B157F2008E4AA1 /* PSBTManager.swift */; };
 		A2E9E37F23ACF1140049645D /* SignView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2E9E37E23ACF1140049645D /* SignView.swift */; };
 		A2E9E38123ACF1A30049645D /* SignViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2E9E38023ACF1A30049645D /* SignViewController.swift */; };
@@ -103,7 +103,7 @@
 		A29DAAC02391657F006B38D9 /* KeychainEntropyItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainEntropyItem.swift; sourceTree = "<group>"; };
 		A29DAAC2239180CC006B38D9 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = SOURCE_ROOT; };
 		A29DAAC423982271006B38D9 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
-		A2C800F423A3943000111EAF /* FileViewControllerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileViewControllerManager.swift; sourceTree = "<group>"; };
+		A2C800F423A3943000111EAF /* DocumentPickerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentPickerManager.swift; sourceTree = "<group>"; };
 		A2C8545F23B157F2008E4AA1 /* PSBTManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PSBTManager.swift; sourceTree = "<group>"; };
 		A2E9E37E23ACF1140049645D /* SignView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignView.swift; sourceTree = "<group>"; };
 		A2E9E38023ACF1A30049645D /* SignViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignViewController.swift; sourceTree = "<group>"; };
@@ -201,7 +201,7 @@
 		4AB1EA3E25AB318100EE6832 /* File */ = {
 			isa = PBXGroup;
 			children = (
-				A2C800F423A3943000111EAF /* FileViewControllerManager.swift */,
+				A2C800F423A3943000111EAF /* DocumentPickerManager.swift */,
 			);
 			path = File;
 			sourceTree = "<group>";
@@ -619,7 +619,7 @@
 				A2E9E38123ACF1A30049645D /* SignViewController.swift in Sources */,
 				4AB1EA7225AB375200EE6832 /* QRCodeBuilder.swift in Sources */,
 				A27180B623A293EA00E9F443 /* AddressView.swift in Sources */,
-				A2C800F523A3943000111EAF /* FileViewControllerManager.swift in Sources */,
+				A2C800F523A3943000111EAF /* DocumentPickerManager.swift in Sources */,
 				A2E9E37F23ACF1140049645D /* SignView.swift in Sources */,
 				A29DAAC523982271006B38D9 /* SettingsViewController.swift in Sources */,
 				A25C032D25766E100048765E /* Data+xor.swift in Sources */,

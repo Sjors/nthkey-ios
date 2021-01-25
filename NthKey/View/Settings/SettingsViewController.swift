@@ -12,7 +12,7 @@ import LibWally
 
 final class SettingsViewController : UIViewController, UIDocumentPickerDelegate {
 
-    var activeFileViewControllerManager: FileViewControllerManager?
+    var activeFileViewControllerManager: DocumentPickerManager?
 
     var callbackDidGetURL: ((URL) -> Void)?
 
@@ -35,7 +35,7 @@ final class SettingsViewController : UIViewController, UIDocumentPickerDelegate 
     func exportPublicKey(data: Data) {
         precondition(activeFileViewControllerManager == nil)
         precondition(UserDefaults.standard.data(forKey: "masterKeyFingerprint") != nil)
-        activeFileViewControllerManager = FileViewControllerManager(task: .savePublicKey)
+        activeFileViewControllerManager = DocumentPickerManager(task: .savePublicKey)
         activeFileViewControllerManager!.payload = data
         activeFileViewControllerManager!.prompt(vc: self, delegate: self)
     }
@@ -44,7 +44,7 @@ final class SettingsViewController : UIViewController, UIDocumentPickerDelegate 
         precondition(activeFileViewControllerManager == nil)
 
         self.callbackDidGetURL = callback
-        activeFileViewControllerManager = FileViewControllerManager(task: .loadWallet)
+        activeFileViewControllerManager = DocumentPickerManager(task: .loadWallet)
         activeFileViewControllerManager!.prompt(vc: self, delegate: self)
     }
 

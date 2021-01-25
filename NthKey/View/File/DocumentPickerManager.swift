@@ -1,6 +1,6 @@
 //
-//  FileViewControllerManager.swift
-//  FileViewControllerManager
+//  DocumentPickerManager.swift
+//  DocumentPickerManager
 //
 //  Created by Sjors Provoost on 13/12/2019.
 //  Copyright © 2019 Purple Dunes. Distributed under the MIT software
@@ -11,7 +11,8 @@ import MobileCoreServices
 import UIKit
 import LibWally
 
-struct FileViewControllerManager {
+struct DocumentPickerManager {
+    
     enum Task {
         case loadWallet
         case savePublicKey
@@ -30,17 +31,22 @@ struct FileViewControllerManager {
         case .loadWallet:
             let types: [String] = [kUTTypeJSON as String]
             documentPicker = UIDocumentPickerViewController(documentTypes: types, in: .import)
+            
         case .loadPSBT:
             documentPicker = UIDocumentPickerViewController(documentTypes: ["org.bitcoin.psbt"], in: .import)
-        case .savePublicKey, .savePSBT:
+            
+        case .savePublicKey,
+             .savePSBT:
+            
             documentPicker =
             UIDocumentPickerViewController(documentTypes: [kUTTypeFolder as String], in: .open)
         }
         documentPicker.delegate = delegate
         documentPicker.modalPresentationStyle = .formSheet
 
+        guard let topController = getTopMostViewController() else { return }
         DispatchQueue.main.async {
-            self.getTopMostViewController()!.present(documentPicker, animated: true, completion: nil)
+            topController.present(documentPicker, animated: true, completion: nil)
         }
     }
 
@@ -75,19 +81,20 @@ struct FileViewControllerManager {
     }
 
     func savePSBT(_ url: URL) {
-        precondition(self.payload != nil)
+        guard let payload = payload else { return }
 
         let fileName = "transaction-signed.psbt"; // TODO: use txid, and also save hex if complete
-        writeFile(folderUrl: url, fileName: fileName, textData: self.payload!)
+        writeFile(folderUrl: url, fileName: fileName, textData: payload)
     }
 
     func savePublicKeyFile(_ url: URL) {
-        precondition(self.payload != nil)
-        precondition(UserDefaults.standard.data(forKey: "masterKeyFingerprint") != nil)
-        let fingerprint = UserDefaults.standard.data(forKey: "masterKeyFingerprint")!
+        guard
+            let payload = payload,
+            let fingerprint = UserDefaults.standard.data(forKey: "masterKeyFingerprint")
+        else { return }
         
         let fileName = "ccxp-" + fingerprint.hexString.uppercased() + ".json";
-        writeFile(folderUrl: url, fileName: fileName, textData: self.payload!)
+        writeFile(folderUrl: url, fileName: fileName, textData: payload)
     }
 
     func writeFile(folderUrl: URL, fileName: String, textData: Data) {
@@ -107,6 +114,8 @@ struct FileViewControllerManager {
 
     }
 
+    // FIXME: WHAT ABOUT NAVIGATIONS & TAB CONTROLLERS?
+    // TODO: MOVE IT TO GLOBAL APP LEVEL HELPERS
     func getTopMostViewController() -> UIViewController? {
         let keyWindow = UIApplication.shared.connectedScenes
         .filter({$0.activationState == .foregroundActive})
