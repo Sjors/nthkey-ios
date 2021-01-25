@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		1F6A2E586F1545C3C5EFA149 /* Pods_NthKey.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CA4B65438CE45530547E491B /* Pods_NthKey.framework */; };
 		4A63319125BEE55E008B058B /* NoSeedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A63319025BEE55E008B058B /* NoSeedView.swift */; };
+		4A63319725BEE7E5008B058B /* CodeSignersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A63319625BEE7E5008B058B /* CodeSignersView.swift */; };
 		4AB1EA3425AB194F00EE6832 /* AddressesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AB1EA3325AB194F00EE6832 /* AddressesView.swift */; };
 		4AB1EA7225AB375200EE6832 /* QRCodeBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AB1EA7125AB375200EE6832 /* QRCodeBuilder.swift */; };
 		4AB1EA7A25AB3B5D00EE6832 /* AnnonceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AB1EA7925AB3B5D00EE6832 /* AnnonceView.swift */; };
@@ -66,6 +67,7 @@
 		18164F1856E6D3E381CF90EC /* Pods-Multisig.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Multisig.debug.xcconfig"; path = "Target Support Files/Pods-Multisig/Pods-Multisig.debug.xcconfig"; sourceTree = "<group>"; };
 		257350CD86D0746C6502196E /* Pods-Multisig-MultisigUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Multisig-MultisigUITests.debug.xcconfig"; path = "Target Support Files/Pods-Multisig-MultisigUITests/Pods-Multisig-MultisigUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		4A63319025BEE55E008B058B /* NoSeedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoSeedView.swift; sourceTree = "<group>"; };
+		4A63319625BEE7E5008B058B /* CodeSignersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeSignersView.swift; sourceTree = "<group>"; };
 		4AB1EA3325AB194F00EE6832 /* AddressesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressesView.swift; sourceTree = "<group>"; };
 		4AB1EA7125AB375200EE6832 /* QRCodeBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeBuilder.swift; sourceTree = "<group>"; };
 		4AB1EA7925AB3B5D00EE6832 /* AnnonceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnonceView.swift; sourceTree = "<group>"; };
@@ -188,6 +190,7 @@
 				4AB1EA7925AB3B5D00EE6832 /* AnnonceView.swift */,
 				4AB1EA7E25AB3B6300EE6832 /* WalletView.swift */,
 				4A63319025BEE55E008B058B /* NoSeedView.swift */,
+				4A63319625BEE7E5008B058B /* CodeSignersView.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -601,6 +604,7 @@
 			files = (
 				A29DAAC12391657F006B38D9 /* KeychainEntropyItem.swift in Sources */,
 				A20D76CE23A406C500A24A38 /* NthKey.xcdatamodeld in Sources */,
+				4A63319725BEE7E5008B058B /* CodeSignersView.swift in Sources */,
 				A206E805238D65F300786824 /* AppDelegate.swift in Sources */,
 				A206E807238D65F300786824 /* SceneDelegate.swift in Sources */,
 				A206E80C238D65F300786824 /* ContentView.swift in Sources */,

@@ -52,20 +52,9 @@ struct SettingsView : View {
                         
                         Spacer()
                         
-                        VStack(alignment: .leading, spacing: 20.0) {
-                            Text("Cosigners").font(.headline)
-                            Text("* \( appState.walletManager.us!.fingerprint.hexString )").font(.system(.body, design: .monospaced)) + Text(" (us)")
-                            ForEach(appState.walletManager.cosigners) { cosigner in
-                                Text("* \( cosigner.fingerprint.hexString )" ).font(.system(.body, design: .monospaced)) + Text(cosigner.name != "" ? " (\(cosigner.name))" : "")
-                            }
-                            if (self.appState.walletManager.hasWallet) {
-                                Button(action: {
-                                    self.appState.walletManager.wipeWallet()
-                                }) {
-                                    Text("Wipe wallet")
-                                }
-                            }
-                        }
+                        CodeSignersView()
+                            .environmentObject(self.appState)
+                        
                         VStack(alignment: .leading, spacing: 20.0) {
                             Text("Misc").font(.headline)
                             Button(action: {
