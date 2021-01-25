@@ -10,46 +10,42 @@ import SwiftUI
 
 struct AddressesView: View {
     
-    let walletManager: WalletManager
-    init(_ walletManager: WalletManager) {
-        self.walletManager = walletManager
-    }
+    @EnvironmentObject var appState: AppState
     
     var body: some View {
         
         NavigationView {
             
-            HStack {
-                VStack(alignment: .leading, spacing: 10.0) {
-                    
-                    if (self.walletManager.hasWallet) {
-                        List {
-                            ForEach(0..<1000) { i in
-                                AddressView(multisigAddress(for: i))
-                            }
+            VStack(alignment: .leading, spacing: 10.0) {
+                
+                if (self.appState.walletManager.hasWallet) {
+                    List {
+                        ForEach(0..<1000) { i in
+                            AddressView(multisigAddress(for: i))
                         }
-                        
-                    } else {
-                        Text("Go to Settings to add cosigners")
                     }
+                    
+                } else {
+                    Text("Go to Settings to add cosigners")
                 }
             }
             .navigationBarTitle("Address")
         }
     }
     
-    func multisigAddress(for index: Int) -> MultisigAddress {
+    private func multisigAddress(for index: Int) -> MultisigAddress {
         // TODO: PRE CREATE ALL OF THEM AND ONLY PASS BACK THE REQUESTED ONE
         MultisigAddress(
-            threshold: UInt(self.walletManager.threshold),
+            threshold: UInt(self.appState.walletManager.threshold),
             receiveIndex: UInt(index),
-            network: self.walletManager.network
+            network: self.appState.walletManager.network
         )
     }
 }
 
 struct AddressessView_Previews: PreviewProvider {
     static var previews: some View {
-        AddressesView(AppState().walletManager)
+        AddressesView()
+            .environmentObject(AppState())
     }
 }
