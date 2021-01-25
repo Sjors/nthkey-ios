@@ -44,7 +44,7 @@ struct SettingsView : View {
                 VStack(alignment: .leading, spacing: 20.0) {
                     if self.appState.walletManager.hasSeed {
                         
-                        AnnouneView(manager: self.appState.walletManager, settings: settings)
+                        AnnounceView(manager: self.appState.walletManager, settings: settings)
                         
                         Spacer()
                         

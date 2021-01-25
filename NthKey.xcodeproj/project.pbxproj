@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		1F6A2E586F1545C3C5EFA149 /* Pods_NthKey.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CA4B65438CE45530547E491B /* Pods_NthKey.framework */; };
-		4AB1EA3425AB194F00EE6832 /* AddressessView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AB1EA3325AB194F00EE6832 /* AddressessView.swift */; };
+		4AB1EA3425AB194F00EE6832 /* AddressesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AB1EA3325AB194F00EE6832 /* AddressesView.swift */; };
 		4AB1EA7225AB375200EE6832 /* QRCodeBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AB1EA7125AB375200EE6832 /* QRCodeBuilder.swift */; };
 		4AB1EA7A25AB3B5D00EE6832 /* AnnonceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AB1EA7925AB3B5D00EE6832 /* AnnonceView.swift */; };
 		4AB1EA7F25AB3B6300EE6832 /* WalletView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AB1EA7E25AB3B6300EE6832 /* WalletView.swift */; };
@@ -64,7 +64,7 @@
 		03E754B72B8C0A69CF96ECC6 /* Pods-MultisigTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MultisigTests.release.xcconfig"; path = "Target Support Files/Pods-MultisigTests/Pods-MultisigTests.release.xcconfig"; sourceTree = "<group>"; };
 		18164F1856E6D3E381CF90EC /* Pods-Multisig.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Multisig.debug.xcconfig"; path = "Target Support Files/Pods-Multisig/Pods-Multisig.debug.xcconfig"; sourceTree = "<group>"; };
 		257350CD86D0746C6502196E /* Pods-Multisig-MultisigUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Multisig-MultisigUITests.debug.xcconfig"; path = "Target Support Files/Pods-Multisig-MultisigUITests/Pods-Multisig-MultisigUITests.debug.xcconfig"; sourceTree = "<group>"; };
-		4AB1EA3325AB194F00EE6832 /* AddressessView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressessView.swift; sourceTree = "<group>"; };
+		4AB1EA3325AB194F00EE6832 /* AddressesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressesView.swift; sourceTree = "<group>"; };
 		4AB1EA7125AB375200EE6832 /* QRCodeBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeBuilder.swift; sourceTree = "<group>"; };
 		4AB1EA7925AB3B5D00EE6832 /* AnnonceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnonceView.swift; sourceTree = "<group>"; };
 		4AB1EA7E25AB3B6300EE6832 /* WalletView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletView.swift; sourceTree = "<group>"; };
@@ -160,13 +160,13 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
-		4AB1EA3B25AB314700EE6832 /* Adresses */ = {
+		4AB1EA3B25AB314700EE6832 /* Addresses */ = {
 			isa = PBXGroup;
 			children = (
-				4AB1EA3325AB194F00EE6832 /* AddressessView.swift */,
+				4AB1EA3325AB194F00EE6832 /* AddressesView.swift */,
 				A27180B523A293EA00E9F443 /* AddressView.swift */,
 			);
-			path = Adresses;
+			path = Addresses;
 			sourceTree = "<group>";
 		};
 		4AB1EA3C25AB314E00EE6832 /* Sign */ = {
@@ -341,7 +341,7 @@
 			isa = PBXGroup;
 			children = (
 				A206E80B238D65F300786824 /* ContentView.swift */,
-				4AB1EA3B25AB314700EE6832 /* Adresses */,
+				4AB1EA3B25AB314700EE6832 /* Addresses */,
 				4AB1EA3C25AB314E00EE6832 /* Sign */,
 				4AB1EA3D25AB315200EE6832 /* Settings */,
 				4AB1EA3E25AB318100EE6832 /* File */,
@@ -616,7 +616,7 @@
 				4AB1EA7F25AB3B6300EE6832 /* WalletView.swift in Sources */,
 				A27180B223A291B500E9F443 /* MultisigAddress.swift in Sources */,
 				A2F8575F23991354008A44E6 /* Signer.swift in Sources */,
-				4AB1EA3425AB194F00EE6832 /* AddressessView.swift in Sources */,
+				4AB1EA3425AB194F00EE6832 /* AddressesView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct AnnouneView: View {
+struct AnnounceView: View {
     
     @State private var showPubKeyQR = false
     
@@ -52,6 +52,6 @@ struct AnnouneView: View {
 
 struct AnnonceView_Previews: PreviewProvider {
     static var previews: some View {
-        AnnouneView(manager: AppState().walletManager, settings: SettingsViewController())
+        AnnounceView(manager: AppState().walletManager, settings: SettingsViewController())
     }
 }

@@ -16,7 +16,7 @@ struct ContentView: View {
     var body: some View {
         TabView {
             
-            AddressessView(appState.walletManager)
+            AddressesView(appState.walletManager)
                 .tabItem {
                     Image(systemName: "house.fill")
                     Text("Addresses")

@@ -1,6 +1,6 @@
 //
-//  AddressessView.swift
-//  AddressessView
+//  AddressesView.swift
+//  AddressesView
 //
 //  Created by Fathi on 10/1/21.
 //  Copyright © 2021 Purple Dunes. Distributed under the MIT software
@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct AddressessView: View {
+struct AddressesView: View {
     
     let walletManager: WalletManager
     init(_ walletManager: WalletManager) {
@@ -50,6 +50,6 @@ struct AddressessView: View {
 
 struct AddressessView_Previews: PreviewProvider {
     static var previews: some View {
-        AddressessView(AppState().walletManager)
+        AddressesView(AppState().walletManager)
     }
 }
