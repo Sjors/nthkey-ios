@@ -16,7 +16,7 @@ struct CodeSignersView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 20.0) {
             Text("Cosigners").font(.headline)
-            Text("* \(appState.walletManager.us!.fingerprint.hexString )")
+            Text("* \(appState.walletManager.us!.fingerprint.hexString)")
                 .font(.system(.body, design: .monospaced))
                 + Text(" (us)")
             ForEach(appState.walletManager.cosigners) { cosigner in
@@ -35,4 +35,11 @@ struct CodeSignersView: View {
         }
     }
     
+}
+
+struct CodeSignersView_Previews: PreviewProvider {
+    static var previews: some View {
+        CodeSignersView()
+            .environmentObject(AppState())
+    }
 }

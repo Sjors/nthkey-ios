@@ -49,3 +49,10 @@ struct MiscSettings: View {
         
     }
 }
+
+struct MiscSettings_Previews: PreviewProvider {
+    static var previews: some View {
+        MiscSettings()
+            .environmentObject(AppState())
+    }
+}
