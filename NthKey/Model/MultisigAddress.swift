@@ -9,7 +9,7 @@
 import Foundation
 import LibWally
 
-struct MultisigAddress : Identifiable {
+struct MultisigAddress: Identifiable {
     let receiveIndex: UInt
     let description: String
     
@@ -18,7 +18,7 @@ struct MultisigAddress : Identifiable {
     init(threshold: UInt, receiveIndex: UInt, network: Network) {
         if MultisigAddress.receivePublicHDkeys.isEmpty {
             let (us, cosigners) = Signer.getSigners()
-
+            
             MultisigAddress.receivePublicHDkeys.append(try! us.hdKey.derive(BIP32Path("0")!))
             for cosigner in cosigners {
                 MultisigAddress.receivePublicHDkeys.append(try! cosigner.hdKey.derive(BIP32Path("0")!))
@@ -26,16 +26,15 @@ struct MultisigAddress : Identifiable {
         }
         precondition(!MultisigAddress.receivePublicHDkeys.isEmpty)
         
-
         let pubKeys = MultisigAddress.receivePublicHDkeys.map {key -> PubKey in
             let path = try! BIP32Path(Int(receiveIndex), relative: true)
             let childKey: HDKey = try! key.derive(path)
             return childKey.pubKey
         }
-
+        
         let scriptPubKey = ScriptPubKey(multisig: pubKeys, threshold: threshold)
         let receiveAddress = Address(scriptPubKey, network)!
-
+        
         self.description = receiveAddress.description
         self.receiveIndex = receiveIndex
     }

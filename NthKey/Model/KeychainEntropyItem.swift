@@ -1,12 +1,12 @@
 /*
-    Copyright © 2016 Apple Inc. All Rights Reserved.
-    Copyright © 2019 Purple Dunes. Distributed under the MIT software
-    license, see the accompanying file LICENSE.md
-
-    Abstract:
-    A struct for accessing BIP39 entropy Data in the keychain. This entropy
-    can be converted to a 12-24 word BIP39 mnemonic.
-*/
+ Copyright © 2016 Apple Inc. All Rights Reserved.
+ Copyright © 2019 Purple Dunes. Distributed under the MIT software
+ license, see the accompanying file LICENSE.md
+ 
+ Abstract:
+ A struct for accessing BIP39 entropy Data in the keychain. This entropy
+ can be converted to a 12-24 word BIP39 mnemonic.
+ */
 
 import Foundation
 
@@ -25,9 +25,9 @@ struct KeychainEntropyItem {
     
     static func read(service: String, accessGroup: String? = nil) throws -> Data  {
         /*
-            Build a query to find an "entropy" item (matching the service and
-            access group)
-        */
+         Build a query to find an "entropy" item (matching the service and
+         access group)
+         */
         var query = KeychainEntropyItem.keychainQuery(withService: service, accessGroup: accessGroup)
         query[kSecAttrAccount as String] = "entropy" as AnyObject
         query[kSecMatchLimit as String] = kSecMatchLimitOne
@@ -46,7 +46,7 @@ struct KeychainEntropyItem {
         
         // Parse the entropy hex string from the query result.
         guard let existingItem = queryResult as? [String : AnyObject],
-            let entropy = existingItem[kSecValueData as String] as? Data
+              let entropy = existingItem[kSecValueData as String] as? Data
         else {
             throw KeychainError.unexpectedEntropyData
         }
@@ -63,9 +63,9 @@ struct KeychainEntropyItem {
         }
         catch KeychainError.noEntropy {
             /*
-                No entropy was found in the keychain. Create a dictionary to save
-                as a new keychain item.
-            */
+             No entropy was found in the keychain. Create a dictionary to save
+             as a new keychain item.
+             */
             var newItem = KeychainEntropyItem.keychainQuery(withService: service, accessGroup: accessGroup)
             newItem[kSecValueData as String] = entropy as AnyObject?
             
@@ -85,7 +85,7 @@ struct KeychainEntropyItem {
         // Throw an error if an unexpected status was returned.
         guard status == noErr || status == errSecItemNotFound else { throw KeychainError.unhandledError(status: status) }
     }
-
+    
     // MARK: Convenience
     
     private static func keychainQuery(withService service: String, accessGroup: String? = nil) -> [String : AnyObject] {
@@ -93,7 +93,7 @@ struct KeychainEntropyItem {
         query[kSecClass as String] = kSecClassGenericPassword
         query[kSecAttrService as String] = service as AnyObject?
         query[kSecAttrAccount as String] = "entropy" as AnyObject
-
+        
         if let accessGroup = accessGroup {
             query[kSecAttrAccessGroup as String] = accessGroup as AnyObject?
         }

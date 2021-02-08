@@ -12,19 +12,18 @@ import LibWally
 
 final class SettingsViewController : UIViewController, UIDocumentPickerDelegate {
 
-    var activeFileViewControllerManager: FileViewControllerManager?
+    var activeFileViewControllerManager: DocumentPickerManager?
 
     var callbackDidGetURL: ((URL) -> Void)?
 
-    override func viewDidLoad() {
-    }
-
-    func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
-
+    func documentPicker(
+        _ controller: UIDocumentPickerViewController,
+        didPickDocumentsAt urls: [URL])
+    {
         precondition(activeFileViewControllerManager != nil)
         activeFileViewControllerManager!.didPickDocumentsAt(urls: urls)
         if let url = activeFileViewControllerManager!.url {
-            callbackDidGetURL!(url)
+            callbackDidGetURL?(url)
         }
         activeFileViewControllerManager = nil
     }
@@ -36,7 +35,7 @@ final class SettingsViewController : UIViewController, UIDocumentPickerDelegate 
     func exportPublicKey(data: Data) {
         precondition(activeFileViewControllerManager == nil)
         precondition(UserDefaults.standard.data(forKey: "masterKeyFingerprint") != nil)
-        activeFileViewControllerManager = FileViewControllerManager(task: .savePublicKey)
+        activeFileViewControllerManager = DocumentPickerManager(task: .savePublicKey)
         activeFileViewControllerManager!.payload = data
         activeFileViewControllerManager!.prompt(vc: self, delegate: self)
     }
@@ -45,7 +44,7 @@ final class SettingsViewController : UIViewController, UIDocumentPickerDelegate 
         precondition(activeFileViewControllerManager == nil)
 
         self.callbackDidGetURL = callback
-        activeFileViewControllerManager = FileViewControllerManager(task: .loadWallet)
+        activeFileViewControllerManager = DocumentPickerManager(task: .loadWallet)
         activeFileViewControllerManager!.prompt(vc: self, delegate: self)
     }
 
@@ -54,11 +53,18 @@ final class SettingsViewController : UIViewController, UIDocumentPickerDelegate 
 extension SettingsViewController: UIViewControllerRepresentable {
     typealias UIViewControllerType = SettingsViewController
 
-    func makeUIViewController(context: UIViewControllerRepresentableContext<SettingsViewController>) -> SettingsViewController.UIViewControllerType {
+    func makeUIViewController(
+        context: UIViewControllerRepresentableContext<SettingsViewController>)
+    -> SettingsViewController.UIViewControllerType
+    {
         return SettingsViewController()
     }
 
-    func updateUIViewController(_ uiViewController: SettingsViewController.UIViewControllerType, context: UIViewControllerRepresentableContext<SettingsViewController>) {
+    func updateUIViewController(
+        _ uiViewController: SettingsViewController.UIViewControllerType,
+        context: UIViewControllerRepresentableContext<SettingsViewController>)
+    {
+        // NOTHING HERE
     }
 
 }

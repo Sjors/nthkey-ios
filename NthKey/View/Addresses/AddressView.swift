@@ -17,6 +17,17 @@ struct AddressView : View {
     }
     
     var body: some View {
-        Text(address.description).font(.system(.body, design: .monospaced))
+        Text(address.description)
+            .font(.system(.body, design: .monospaced))
+    }
+}
+
+struct AddressView_Previews: PreviewProvider {
+    static var previews: some View {
+        AddressView(
+            MultisigAddress(
+                threshold: 1,
+                receiveIndex: 1,
+                network: .testnet))
     }
 }
