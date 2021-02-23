@@ -14,6 +14,8 @@ struct MultisigAddress: Identifiable {
     let description: String
     
     static var receivePublicHDkeys: [HDKey] = []
+
+    var id: UInt { receiveIndex }
     
     init(threshold: UInt, receiveIndex: UInt, network: Network) {
         if MultisigAddress.receivePublicHDkeys.isEmpty {
@@ -38,7 +40,4 @@ struct MultisigAddress: Identifiable {
         self.description = receiveAddress.description
         self.receiveIndex = receiveIndex
     }
-    
-    var id: UInt { receiveIndex }
-    
 }

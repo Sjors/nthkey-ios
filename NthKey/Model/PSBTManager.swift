@@ -42,7 +42,6 @@ struct PSBTManager {
         }
         self.signed = false
     }
-
     
     mutating func loadPSBT(_ psbt: String) {
         if let psbt = try? PSBT(psbt, self.network) {
