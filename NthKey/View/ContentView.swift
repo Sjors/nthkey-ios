@@ -14,14 +14,14 @@ struct ContentView: View {
     @EnvironmentObject var appState: AppState
 
     var body: some View {
-        TabView {
-            
+        TabView(selection: $appState.selectedTab) {
             AddressesView()
                 .environmentObject(appState)
                 .tabItem {
                     Image(systemName: "house.fill")
                     Text("Addresses")
                 }
+                .tag(Tab.addresses)
             
             SignViewController(rootView: SignView())
                 .environmentObject(appState)
@@ -29,27 +29,44 @@ struct ContentView: View {
                     Image(systemName: "lock.fill")
                     Text("Sign")
                 }
+                .tag(Tab.sign)
             
             SettingsView()
                 .tabItem {
                     Image(systemName: "gearshape.fill")
                     Text("Settings")
                 }
+                .tag(Tab.settings)
         }
     }
 }
 
 extension ContentView {
-    enum Tab {
+    enum Tab: Hashable {
         case addresses
         case sign
         case settings
     }
 }
 
+#if DEBUG
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
-            .environmentObject(AppState())
+        var appState: AppState {
+            let result = AppState()
+            result.selectedTab = .sign
+            return result
+        }
+
+        let view = ContentView()
+            .environmentObject(appState)
+
+        return Group {
+            view
+
+            view
+                .preferredColorScheme(.dark)
+        }
     }
 }
+#endif
