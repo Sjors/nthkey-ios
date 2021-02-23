@@ -25,12 +25,12 @@ public class Signer: NSObject, NSSecureCoding, Identifiable {
     }
     
     required convenience public init(coder: NSCoder) {
-        let fingerprint = coder.decodeObject(forKey: "fingerprint") as! Data
-        let derivation = coder.decodeObject(forKey: "derivation") as! String // TODO: add raw initializer to BIP32Path
+        let fingerprint = coder.decodeObject(forKey: Keys.fingerprint) as! Data
+        let derivation = coder.decodeObject(forKey: Keys.derivation) as! String // TODO: add raw initializer to BIP32Path
         let path = BIP32Path(derivation)!
-        let xpub: String = coder.decodeObject(forKey: "xpub") as! String // TODO: add raw initializer to HDKey
+        let xpub: String = coder.decodeObject(forKey: Keys.xpub) as! String // TODO: add raw initializer to HDKey
         let hdKey = HDKey(xpub, masterKeyFingerprint:fingerprint)!
-        var name = coder.decodeObject(forKey: "name") as? String
+        var name = coder.decodeObject(forKey: Keys.name) as? String
         if name == nil {
             name = ""
         }
@@ -38,10 +38,10 @@ public class Signer: NSObject, NSSecureCoding, Identifiable {
     }
     
     public func encode(with coder: NSCoder) {
-        coder.encode(fingerprint, forKey:"fingerprint") // TODO: use constants for keys
-        coder.encode(derivation.description, forKey:"derivation")
-        coder.encode(hdKey.description, forKey:"xpub")
-        coder.encode(name, forKey:"name")
+        coder.encode(fingerprint, forKey: Keys.fingerprint) // TODO: use constants for keys
+        coder.encode(derivation.description, forKey: Keys.derivation)
+        coder.encode(hdKey.description, forKey: Keys.xpub)
+        coder.encode(name, forKey: Keys.name)
     }
     
     public static func getSigners(masterKey: HDKey? = nil) -> (Signer, [Signer]) {
@@ -75,5 +75,14 @@ public class Signer: NSObject, NSSecureCoding, Identifiable {
         let (us, _) = Signer.getSigners()
         psbtOut.sign(us.hdKey)
         return psbtOut
+    }
+}
+
+extension Signer {
+    struct Keys {
+        static let fingerprint = "fingerprint"
+        static let derivation = "derivation"
+        static let xpub = "xpub"
+        static let name = "name"
     }
 }
