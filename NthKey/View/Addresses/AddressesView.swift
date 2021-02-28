@@ -43,9 +43,20 @@ struct AddressesView: View {
     }
 }
 
+#if DEBUG
 struct AddressessView_Previews: PreviewProvider {
     static var previews: some View {
-        AddressesView()
-            .environmentObject(AppState())
+        let appState = AppState()
+        // FIXME: prepare mockups to preview all cases - appState.walletManager.hasWallet = true
+        let view = AddressesView()
+            .environmentObject(appState)
+        return Group {
+            view
+
+            NavigationView { view }
+                .colorScheme(.dark)
+        }
+
     }
 }
+#endif

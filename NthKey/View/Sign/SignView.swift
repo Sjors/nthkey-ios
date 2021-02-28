@@ -134,10 +134,18 @@ struct SignView : View {
     }
 }
 
-
+#if DEBUG
 struct SignView_Previews: PreviewProvider {
     static var previews: some View {
-        SignView()
+        // FIXME: Add mockups to present all cases
+        let view = SignView()
             .environmentObject(AppState())
+        return Group {
+            view
+
+            NavigationView { view }
+                .colorScheme(.dark)
+        }
     }
 }
+#endif

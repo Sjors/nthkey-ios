@@ -51,9 +51,24 @@ struct WalletView: View {
     
 }
 
+#if DEBUG
 struct WalletView_Previews: PreviewProvider {
     static var previews: some View {
-        WalletView(isShowingScanner: false, settings: SettingsViewController())
-            .environmentObject(AppState())
+        let appState = AppState()
+        appState.walletManager.hasWallet = true
+
+        let settingsController = SettingsViewController()
+
+        return Group {
+            WalletView(isShowingScanner: true, settings: settingsController)
+                .environmentObject(AppState())
+
+            NavigationView {
+                WalletView(isShowingScanner: true, settings: settingsController)
+                    .environmentObject(appState)
+            }
+            .colorScheme(.dark)
+        }
     }
 }
+#endif

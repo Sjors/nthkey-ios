@@ -54,7 +54,7 @@ struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         var appState: AppState {
             let result = AppState()
-            result.selectedTab = .sign
+            result.selectedTab = .addresses
             return result
         }
 
@@ -65,7 +65,7 @@ struct ContentView_Previews: PreviewProvider {
             view
 
             view
-                .preferredColorScheme(.dark)
+                .colorScheme(.dark)
         }
     }
 }

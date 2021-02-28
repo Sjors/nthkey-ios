@@ -72,9 +72,19 @@ struct SettingsView : View {
     
 }
 
+#if DEBUG
 struct SettingsView_Previews: PreviewProvider {
     static var previews: some View {
-        SettingsView()
+        let view = SettingsView()
             .environmentObject(AppState())
+        return Group {
+            view
+
+            NavigationView { view }
+                .colorScheme(.dark)
+        }
+    }
+}
+#endif
     }
 }

@@ -41,3 +41,16 @@ struct MultisigAddress: Identifiable {
         self.receiveIndex = receiveIndex
     }
 }
+
+#if DEBUG
+extension MultisigAddress {
+    static var mocks: Mocks = Mocks()
+
+    struct Mocks {
+        let testnet: MultisigAddress = MultisigAddress(
+            threshold: 1,
+            receiveIndex: 1,
+            network: .testnet)
+    }
+}
+#endif

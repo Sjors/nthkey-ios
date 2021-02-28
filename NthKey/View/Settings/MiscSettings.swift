@@ -50,9 +50,25 @@ struct MiscSettings: View {
     }
 }
 
+#if DEBUG
 struct MiscSettings_Previews: PreviewProvider {
     static var previews: some View {
-        MiscSettings()
-            .environmentObject(AppState())
+        let appStateWallet = AppState()
+        appStateWallet.walletManager.hasWallet = true
+
+        // FIXME: Add mocks for test all cases
+        let appStateReal = AppState()
+        appStateReal.walletManager.setMainnet()
+
+        let generalView = NavigationView { MiscSettings() }
+        return Group {
+            generalView
+                .environmentObject(appStateWallet)
+
+            generalView
+                .environmentObject(appStateReal)
+                .colorScheme(.dark)
+        }
     }
 }
+#endif

@@ -50,8 +50,18 @@ struct AnnounceView: View {
     }
 }
 
+#if DEBUG
 struct AnnonceView_Previews: PreviewProvider {
     static var previews: some View {
-        AnnounceView(manager: AppState().walletManager, settings: SettingsViewController())
+        // FIXME: Add wallet manager mock with pubkey for preview
+        let view = AnnounceView(manager: AppState().walletManager, settings: SettingsViewController())
+        
+        return Group {
+            view
+
+            NavigationView { view }
+                .colorScheme(.dark)
+        }
     }
 }
+#endif

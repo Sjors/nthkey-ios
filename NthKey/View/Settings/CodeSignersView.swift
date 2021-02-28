@@ -37,9 +37,23 @@ struct CodeSignersView: View {
     
 }
 
+#if DEBUG
 struct CodeSignersView_Previews: PreviewProvider {
     static var previews: some View {
-        CodeSignersView()
-            .environmentObject(AppState())
+        let appState = AppState()
+        // FIXME: Add mockups to display us and cosigners
+
+        let view = CodeSignersView()
+            .environmentObject(appState)
+
+        return Group {
+            view
+
+            view
+                .colorScheme(.dark)
+                .background(Color.black)
+        }
+        .previewLayout(.sizeThatFits)
     }
 }
+#endif

@@ -66,9 +66,18 @@ struct NoSeedView: View {
     }
 }
 
+#if DEBUG
 struct NoSeedView_Previews: PreviewProvider {
     static var previews: some View {
-        NoSeedView()
-            .environmentObject(AppState())
+        let view = NoSeedView()
+
+        return Group {
+            view
+
+            NavigationView { view }
+                .colorScheme(.dark)
+        }
+        .environmentObject(AppState())
     }
 }
+#endif
