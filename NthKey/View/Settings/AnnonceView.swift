@@ -20,33 +20,27 @@ struct AnnounceView: View {
     }
     
     var body: some View {
-        
         VStack(alignment: .leading, spacing: 20.0) {
             Text("Announce").font(.headline)
             Text("In Specter go to 'Add new device', select Other and scan the QR code.")
+
+            Button(self.showPubKeyQR ? "Hide QR" : "Show QR") {
+                self.showPubKeyQR.toggle()
+            }
+
+            if self.showPubKeyQR,
+            let qrCodeImage = QRCodeBuilder.generateQRCode(from: self.manager.ourPubKey()) {
+                Image(uiImage: qrCodeImage)
+                    .interpolation(.none)
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 350, height: 350)
+            }
+
+            Button("Save as JSON") {
+                self.settings.exportPublicKey(data: self.manager.ourPubKey())
+            }
         }
-        
-        Button(action: {
-            self.showPubKeyQR.toggle()
-        }) {
-            Text(self.showPubKeyQR ? "Hide QR" : "Show QR")
-        }
-        
-        if (self.showPubKeyQR) {
-            let qrCodeImage = QRCodeBuilder.generateQRCode(from: self.manager.ourPubKey())!
-            Image(uiImage: qrCodeImage)
-                .interpolation(.none)
-                .resizable()
-                .scaledToFit()
-                .frame(width: 350, height: 350)
-        }
-        
-        Button(action: {
-            self.settings.exportPublicKey(data: self.manager.ourPubKey())
-        }) {
-            Text("Save as JSON")
-        }
-        
     }
 }
 

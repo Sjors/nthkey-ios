@@ -65,18 +65,16 @@ struct SignView : View {
             Spacer()
             HStack {
                 VStack(alignment: .leading, spacing: 20.0){
-                    Button(action: {
+                    Button("Scan PSBT") {
                         self.isShowingScanner = true
-                    }) {
-                        Text("Scan PSBT")
                     }
                     .disabled(!self.appState.walletManager.hasWallet || self.appState.psbtManager.psbt != nil)
-                    Button(action: {
+
+                    Button("Load PSBT") {
                         self.vc!.openPSBT(self.openPSBT)
-                    }) {
-                        Text("Load PSBT")
                     }
                     .disabled(!self.appState.walletManager.hasWallet || self.appState.psbtManager.psbt != nil)
+
                     if self.appState.psbtManager.psbt != nil {
                         if self.appState.psbtManager.signed {
                             Text("Signed Transaction")
@@ -91,44 +89,37 @@ struct SignView : View {
                             }
                             Text("Fee: " + appState.psbtManager.fee)
                         }
-                        Button(action: {
+
+                        Button("Sign") {
                             let psbt = Signer.signPSBT(self.appState.psbtManager.psbt!)
                             self.appState.psbtManager.signed = true
                             self.appState.psbtManager.psbt = psbt
-                        }) {
-                            Text("Sign")
                         }
                         .disabled(!appState.psbtManager.canSign || appState.psbtManager.signed)
+
                         if (appState.psbtManager.signed) {
                             Image(uiImage: generateQRCode(from: self.appState.psbtManager.psbt!.description))
                                 .interpolation(.none)
                                 .resizable()
                                 .scaledToFit()
                                 .frame(width: 350, height: 350)
-                        }
-                        if (appState.psbtManager.signed) {
-                            Button(action: {
+
+                            Button("Save") {
                                 self.vc!.savePSBT(self.appState.psbtManager.psbt!, self.didSavePSBT)
-                            }) {
-                                Text("Save")
                             }
-                        }
-                        if (appState.psbtManager.signed) {
-                            Button(action: {
+
+                            Button("Copy") {
                                 UIPasteboard.general.string = self.appState.psbtManager.psbt!.description
-                            }) {
-                                Text("Copy")
                             }
                         }
-                        Button(action: {
+                        Button("Clear") {
                             self.appState.psbtManager.clear()
-                        }) {
-                            Text("Clear")
                         }
                     }
                 }
             }
-        }.sheet(isPresented: $isShowingScanner) {
+        }
+        .sheet(isPresented: $isShowingScanner) {
             CodeScannerView(codeTypes: [.qr], completion: self.handleScan)
         }
     }

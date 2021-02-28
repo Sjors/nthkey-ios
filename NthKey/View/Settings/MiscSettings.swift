@@ -14,39 +14,40 @@ struct MiscSettings: View {
     
     @State private var showMnemonic = false
     @State private var promptMainnet = false
-    
+
     var body: some View {
         
         VStack(alignment: .leading, spacing: 20.0) {
             Text("Misc").font(.headline)
-            Button(action: {
+            Button("Show mnemonic") {
                 self.showMnemonic = true
-            }) {
-                Text("Show mnemonic")
-            }.alert(isPresented: $showMnemonic) {
+            }
+            .alert(isPresented: $showMnemonic) {
                 Alert(title: Text("BIP 39 mnemonic"), message: Text(self.appState.walletManager.mnemonic()), dismissButton: .default(Text("OK")))
             }
             if self.appState.walletManager.network == .testnet {
                 Text("Feeling reckless?")
-                if (self.appState.walletManager.hasWallet) {
+                if self.appState.walletManager.hasWallet {
                     Text("You need to wipe your existing testnet wallet first")
                 }
-                Button(action: {
+                Button("Switch to mainnet") {
                     self.promptMainnet = true
-                }) {
-                    Text("Switch to mainnet")
                 }
                 .disabled(self.appState.walletManager.hasWallet)
                 .alert(isPresented: $promptMainnet) {
-                    Alert(title: Text("Switch to mainnet?"),
-                          message: Text("This app is still very new. Use only coins that you're willing to loose and write down your mnemonic. Switching back to testnet requires deleting and reinstalling the app."),
-                          primaryButton: .destructive(Text("Confirm")) {
-                            self.appState.walletManager.setMainnet()
-                          }, secondaryButton: .cancel())
+                    mainnetAlert()
                 }
             }
         }
-        
+    }
+
+    fileprivate func mainnetAlert() -> Alert {
+        return Alert(title: Text("Switch to mainnet?"),
+                     message: Text("This app is still very new. Use only coins that you're willing to loose and write down your mnemonic. Switching back to testnet requires deleting and reinstalling the app."),
+                     primaryButton: .destructive(Text("Confirm")) {
+                        self.appState.walletManager.setMainnet()
+                     },
+                     secondaryButton: .cancel())
     }
 }
 

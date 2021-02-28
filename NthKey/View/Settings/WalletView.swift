@@ -11,9 +11,9 @@ import SwiftUI
 struct WalletView: View {
     
     @EnvironmentObject var appState: AppState
-    
+    // FIXME: change it to Binding
     @State private var isShowingScanner = false
-    
+    // TODO: Incapsulate it in view model or on upper level
     private let settings: SettingsViewController
     init(isShowingScanner: Bool, settings: SettingsViewController) {
         self.settings = settings
@@ -21,26 +21,20 @@ struct WalletView: View {
     }
 
     var body: some View {
-        
         VStack(alignment: .leading, spacing: 20.0) {
             Text("Wallet").font(.headline)
-        }
-        
-        if !self.appState.walletManager.hasWallet {
-            Button(action: {
-                self.isShowingScanner = true
-            }) {
-                Text("Scan Specter QR")
+
+            if self.appState.walletManager.hasWallet {
+                Text("Threshold: \(self.appState.walletManager.threshold)")
+            } else {
+                Button("Scan Specter QR") {
+                    self.isShowingScanner = true
+                }
+                Button("Import Specter JSON") {
+                    self.settings.loadWallet(self.loadWalletFile)
+                }
             }
-            Button(action: {
-                self.settings.loadWallet(self.loadWalletFile)
-            }) {
-                Text("Import Specter JSON")
-            }
-        } else {
-            Text("Threshold: \(self.appState.walletManager.threshold)")
         }
-        
     }
     
     func loadWalletFile(_ url: URL) {
@@ -48,7 +42,6 @@ struct WalletView: View {
             self.appState.walletManager.loadWalletFile(url)
         }
     }
-    
 }
 
 #if DEBUG

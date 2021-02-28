@@ -16,20 +16,20 @@ struct CodeSignersView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 20.0) {
             Text("Cosigners").font(.headline)
-            Text("* \(appState.walletManager.us!.fingerprint.hexString)")
-                .font(.system(.body, design: .monospaced))
-                + Text(" (us)")
+            // TODO: move it to model
+            if appState.walletManager.us != nil {
+                Text("* \(appState.walletManager.us!.fingerprint.hexString)")
+                    .font(.system(.body, design: .monospaced))
+                    + Text(" (us)")
+            }
             ForEach(appState.walletManager.cosigners) { cosigner in
                 Text("* \( cosigner.fingerprint.hexString )" )
                     .font(.system(.body, design: .monospaced))
                     + Text(cosigner.name != "" ? " (\(cosigner.name))" : "")
             }
-            
             if self.appState.walletManager.hasWallet {
-                Button(action: {
+                Button("Wipe wallet") {
                     self.appState.walletManager.wipeWallet()
-                }) {
-                    Text("Wipe wallet")
                 }
             }
         }
