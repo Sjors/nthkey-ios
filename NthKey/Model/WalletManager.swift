@@ -32,22 +32,22 @@ struct WalletManager {
     }
     
     mutating func setKeys() {        
-        if let fingerprint = UserDefaults.standard.data(forKey: "masterKeyFingerprint") {
+        if let fingerprint = UserDefaults.fingerprint {
             if let mnemonic = try? WalletManager.getMnemonic() {
                 let seedHex = mnemonic.seedHex()
-                self.network = UserDefaults.standard.bool(forKey:"mainnet") ? .mainnet : .testnet
+                self.network = UserDefaults.mainnet ? .mainnet : .testnet
                 let masterKey = HDKey(seedHex, self.network)!
                 assert(masterKey.fingerprint == fingerprint)
                 self.hasSeed = true
                 (self.us, self.cosigners) = Signer.getSigners()
-                self.threshold = UserDefaults.standard.integer(forKey:"threshold")
-                self.hasWallet = UserDefaults.standard.bool(forKey:"hasWallet")
+                self.threshold = UserDefaults.threshold
+                self.hasWallet = UserDefaults.hasWallet
             }
         }
     }
     
     mutating func setMainnet() {
-        UserDefaults.standard.set(true, forKey: "mainnet")
+        UserDefaults.mainnet = true
         setKeys()
     }
 
@@ -57,12 +57,12 @@ struct WalletManager {
 
     static func getMnemonic() throws -> BIP39Mnemonic  {
         let data = try KeychainEntropyItem.read(service: "NthKeyService", accessGroup: nil)
-        if let mask = UserDefaults.standard.data(forKey: "entropyMask") {
-            let entropy = BIP39Entropy(data.xor(mask))
-            return BIP39Mnemonic(entropy)!
-        } else {
+        guard let mask = UserDefaults.entropyMask else {
             throw WalletManagerError.noEntropyMask
         }
+
+        let entropy = BIP39Entropy(data.xor(mask))
+        return BIP39Mnemonic(entropy)!
     }
     
     mutating func setEntropy(_ entropy: BIP39Entropy) {
@@ -88,12 +88,12 @@ struct WalletManager {
         }
         let seedHex = BIP39Mnemonic(entropy)!.seedHex()
         let masterKey = HDKey(seedHex, self.network)!
-        UserDefaults.standard.set(masterKey.fingerprint, forKey: "masterKeyFingerprint")
-        UserDefaults.standard.set(mask, forKey: "entropyMask")
+        UserDefaults.fingerprint = masterKey.fingerprint
+        UserDefaults.entropyMask = mask
         self.hasSeed = true
         (us, cosigners) = Signer.getSigners()
-        threshold = UserDefaults.standard.integer(forKey:"threshold")
-        hasWallet = UserDefaults.standard.bool(forKey:"hasWallet")
+        threshold = UserDefaults.threshold
+        hasWallet = UserDefaults.hasWallet
     }
     
     mutating func generateSeed() {
@@ -106,7 +106,7 @@ struct WalletManager {
     }
     
     func ourPubKey()  -> Data {
-        let fingerprint = UserDefaults.standard.data(forKey: "masterKeyFingerprint")!
+        let fingerprint = UserDefaults.fingerprint! // FIXME: Remove force unwrap
         // TODO: handle error
         let seedHex = try! WalletManager.getMnemonic().seedHex()
         let masterKey = HDKey(seedHex, self.network)!
@@ -129,9 +129,9 @@ struct WalletManager {
     }
 
     mutating func wipeWallet() {
-        UserDefaults.standard.removeObject(forKey: "cosigners")
+        UserDefaults.standard.remove(key: .cosigners)
         self.cosigners = []
-        UserDefaults.standard.removeObject(forKey: "hasWallet")
+        UserDefaults.standard.remove(key: .hasWallet)
         self.hasWallet = false
     }
     
@@ -179,10 +179,9 @@ struct WalletManager {
                     }
                     self.saveCosigners()
                     // Wallet creation:
-                    let defaults = UserDefaults.standard
                     self.threshold = threshold
-                    defaults.set(threshold, forKey: "threshold")
-                    defaults.set(true, forKey: "hasWallet")
+                    UserDefaults.threshold = threshold
+                    UserDefaults.hasWallet = true
                     self.hasWallet = true
                 default:
                     print("Expected sortedmulti descriptor")
@@ -213,8 +212,7 @@ struct WalletManager {
             let encoded = try! NSKeyedArchiver.archivedData(withRootObject: cosigner, requiringSecureCoding: true)
             encodedCosigners.append(encoded)
         }
-        let defaults = UserDefaults.standard
-        defaults.set(encodedCosigners, forKey: "cosigners")
+        UserDefaults.cosigners = encodedCosigners
     }
 
     func mnemonic() -> String {

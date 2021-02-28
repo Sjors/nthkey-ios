@@ -16,7 +16,7 @@ struct Destination : Identifiable, Equatable {
     
     init(output: PSBTOutput, inputs: [PSBTInput]) {
         // TODO: use wallet manager
-        let threshold = UInt(UserDefaults.standard.integer(forKey: "threshold"))
+        let threshold = UInt(UserDefaults.threshold)
         precondition(threshold > 0)
 
         self.description = String(output.txOutput.amount) + " sats" + ": " + output.txOutput.address!.description

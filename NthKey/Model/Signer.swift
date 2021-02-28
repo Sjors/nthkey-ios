@@ -45,9 +45,9 @@ public class Signer: NSObject, NSSecureCoding, Identifiable {
     }
     
     public static func getSigners(masterKey: HDKey? = nil) -> (Signer, [Signer]) {
-        let encodedCosigners = UserDefaults.standard.array(forKey: "cosigners")
-        let fingerprint = UserDefaults.standard.data(forKey: "masterKeyFingerprint")!
-        let network: Network = UserDefaults.standard.bool(forKey:"mainnet") ? .mainnet : .testnet
+        let encodedCosigners = UserDefaults.cosigners
+        let fingerprint = UserDefaults.fingerprint! // FIXME: remove unwraping
+        let network: Network = UserDefaults.mainnet ? .mainnet : .testnet
         
         // TODO: deduplicate from MultisigAddress.swift
         let seedHex = try! WalletManager.getMnemonic().seedHex()
@@ -57,13 +57,16 @@ public class Signer: NSObject, NSSecureCoding, Identifiable {
         let path = BIP32Path("m/48h/\(network == .mainnet ? "0h" : "1h")/0h/2h")!
         let ourKey = try! masterKey.derive(path)
         let us = Signer(fingerprint: fingerprint, derivation: path, hdKey: ourKey, name: "NthKey")
-        
-        guard encodedCosigners != nil && encodedCosigners!.count > 0 else {
+
+        guard !encodedCosigners.isEmpty else {
             return (us, [])
         }
         var cosigners: [Signer] = []
-        for encodedCosigner in encodedCosigners! {
-            let cosigner: Signer = try! NSKeyedUnarchiver.unarchivedObject(ofClass: Signer.self, from: encodedCosigner as! Data)!
+        for encodedCosigner in encodedCosigners {
+            guard let cosigner: Signer = try? NSKeyedUnarchiver.unarchivedObject(ofClass: Signer.self, from: encodedCosigner ) else {
+                print("Corrupted co-signers saved value")
+                return (us, [])
+            }
             cosigners.append(cosigner)
         }
         

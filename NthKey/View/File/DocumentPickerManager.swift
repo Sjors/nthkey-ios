@@ -90,7 +90,7 @@ struct DocumentPickerManager {
     func savePublicKeyFile(_ url: URL) {
         guard
             let payload = payload,
-            let fingerprint = UserDefaults.standard.data(forKey: "masterKeyFingerprint")
+            let fingerprint = UserDefaults.fingerprint
         else { return }
         
         let fileName = "ccxp-" + fingerprint.hexString.uppercased() + ".json";

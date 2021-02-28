@@ -24,7 +24,7 @@ final class SignViewController :  UIHostingController<SignView>, ObservableObjec
     
     func openPSBT(_ callback: @escaping (URL) -> Void ) {
         precondition(activeFileViewControllerManager == nil)
-        precondition(UserDefaults.standard.array(forKey: "cosigners") != nil)
+        precondition(!UserDefaults.cosigners.isEmpty)
         coordinator!.callbackDidGetURL = callback
         activeFileViewControllerManager = DocumentPickerManager(task: .loadPSBT)
         activeFileViewControllerManager!.prompt(vc: self, delegate: coordinator!)

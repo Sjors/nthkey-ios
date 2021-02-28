@@ -18,7 +18,7 @@ struct PSBTManager {
     var network: Network
     
     init() {
-        self.network = UserDefaults.standard.bool(forKey:"mainnet") ? .mainnet : .testnet
+        self.network = UserDefaults.mainnet ? .mainnet : .testnet
     }
     
     mutating func clear() {
