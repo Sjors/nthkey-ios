@@ -22,10 +22,6 @@ final class SignViewController :  UIHostingController<SignView>, ObservableObjec
         Coordinator(self)
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-    }
-    
     func openPSBT(_ callback: @escaping (URL) -> Void ) {
         precondition(activeFileViewControllerManager == nil)
         precondition(UserDefaults.standard.array(forKey: "cosigners") != nil)
@@ -42,14 +38,12 @@ final class SignViewController :  UIHostingController<SignView>, ObservableObjec
     }
 
     func makeUIViewController(context: UIViewControllerRepresentableContext<SignViewController>) -> SignViewController.UIViewControllerType {
-        
         self.coordinator = context.coordinator
         self.rootView.vc = self
         return self
     }
 
-    func updateUIViewController(_ uiViewController: SignViewController.UIViewControllerType, context: UIViewControllerRepresentableContext<SignViewController>) {
-    }
+    func updateUIViewController(_ uiViewController: SignViewController.UIViewControllerType, context: UIViewControllerRepresentableContext<SignViewController>) {}
     
 }
 
@@ -77,8 +71,7 @@ class Coordinator: NSObject, UIDocumentPickerDelegate {
         default:
             precondition(false)
         }
-        
-
     }
+
 }
 
