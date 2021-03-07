@@ -1,4 +1,29 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="15702" systemVersion="19C57" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
-    <elements/>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="17709" systemVersion="20E5196f" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="AddressEntity" representedClassName="AddressEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="address" attributeType="String"/>
+        <attribute name="receiveIndex" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="used" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
+        <relationship name="wallet" maxCount="1" deletionRule="Deny" destinationEntity="WalletEntity" inverseName="addresses" inverseEntity="WalletEntity"/>
+    </entity>
+    <entity name="CosignerEntity" representedClassName="CosignerEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="derivation" attributeType="String"/>
+        <attribute name="fingerprint" attributeType="Binary"/>
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <attribute name="xpub" attributeType="String"/>
+        <relationship name="wallet" maxCount="1" deletionRule="Deny" destinationEntity="WalletEntity" inverseName="cosigners" inverseEntity="WalletEntity"/>
+    </entity>
+    <entity name="WalletEntity" representedClassName="WalletEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="label" optional="YES" attributeType="String"/>
+        <attribute name="network" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="receive_descriptor" attributeType="String"/>
+        <attribute name="threshold" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <relationship name="addresses" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="AddressEntity" inverseName="wallet" inverseEntity="AddressEntity"/>
+        <relationship name="cosigners" toMany="YES" deletionRule="Cascade" destinationEntity="CosignerEntity" inverseName="wallet" inverseEntity="CosignerEntity"/>
+    </entity>
+    <elements>
+        <element name="AddressEntity" positionX="-245.3781127929688" positionY="-15.91807556152344" width="128" height="89"/>
+        <element name="CosignerEntity" positionX="112.3130493164063" positionY="-15.87921142578128" width="128" height="104"/>
+        <element name="WalletEntity" positionX="-63" positionY="-18" width="128" height="119"/>
+    </elements>
 </model>

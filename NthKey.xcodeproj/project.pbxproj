@@ -11,6 +11,7 @@
 		2AB30A0325EC00550061B717 /* UserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AB30A0225EC00550061B717 /* UserDefaults.swift */; };
 		2AB30A0425EC00550061B717 /* UserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AB30A0225EC00550061B717 /* UserDefaults.swift */; };
 		2AB30A0525EC00550061B717 /* UserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AB30A0225EC00550061B717 /* UserDefaults.swift */; };
+		2AEDBD4225F53C360018C5CF /* NthKey.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2AEDBD4025F53C360018C5CF /* NthKey.xcdatamodeld */; };
 		4A63319125BEE55E008B058B /* NoSeedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A63319025BEE55E008B058B /* NoSeedView.swift */; };
 		4A63319725BEE7E5008B058B /* CodeSignersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A63319625BEE7E5008B058B /* CodeSignersView.swift */; };
 		4A63319F25BEE8B0008B058B /* MiscSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A63319E25BEE8B0008B058B /* MiscSettings.swift */; };
@@ -27,7 +28,6 @@
 		A206E814238D65FB00786824 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A206E812238D65FB00786824 /* LaunchScreen.storyboard */; };
 		A206E81F238D65FC00786824 /* MultisigTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A206E81E238D65FC00786824 /* MultisigTests.swift */; };
 		A206E82A238D65FC00786824 /* MultisigUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A206E829238D65FC00786824 /* MultisigUITests.swift */; };
-		A20D76CE23A406C500A24A38 /* NthKey.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A20D76CD23A406AF00A24A38 /* NthKey.xcdatamodeld */; };
 		A25C032D25766E100048765E /* Data+xor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A25C032C25766E100048765E /* Data+xor.swift */; };
 		A27180B223A291B500E9F443 /* MultisigAddress.swift in Sources */ = {isa = PBXBuildFile; fileRef = A27180B123A291B500E9F443 /* MultisigAddress.swift */; };
 		A27180B623A293EA00E9F443 /* AddressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A27180B523A293EA00E9F443 /* AddressView.swift */; };
@@ -71,6 +71,7 @@
 		18164F1856E6D3E381CF90EC /* Pods-Multisig.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Multisig.debug.xcconfig"; path = "Target Support Files/Pods-Multisig/Pods-Multisig.debug.xcconfig"; sourceTree = "<group>"; };
 		257350CD86D0746C6502196E /* Pods-Multisig-MultisigUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Multisig-MultisigUITests.debug.xcconfig"; path = "Target Support Files/Pods-Multisig-MultisigUITests/Pods-Multisig-MultisigUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		2AB30A0225EC00550061B717 /* UserDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaults.swift; sourceTree = "<group>"; };
+		2AEDBD4125F53C360018C5CF /* NthKey.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = NthKey.xcdatamodel; sourceTree = "<group>"; };
 		4A63319025BEE55E008B058B /* NoSeedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoSeedView.swift; sourceTree = "<group>"; };
 		4A63319625BEE7E5008B058B /* CodeSignersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeSignersView.swift; sourceTree = "<group>"; };
 		4A63319E25BEE8B0008B058B /* MiscSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiscSettings.swift; sourceTree = "<group>"; };
@@ -97,7 +98,6 @@
 		A206E825238D65FC00786824 /* NthKeyUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NthKeyUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A206E829238D65FC00786824 /* MultisigUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultisigUITests.swift; sourceTree = "<group>"; };
 		A206E82B238D65FC00786824 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		A20D76CD23A406AF00A24A38 /* NthKey.xcdatamodeld */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodeld; name = NthKey.xcdatamodeld; path = NthKey/SupportingFiles/NthKey.xcdatamodeld; sourceTree = SOURCE_ROOT; };
 		A25C032C25766E100048765E /* Data+xor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data+xor.swift"; sourceTree = "<group>"; };
 		A27180B123A291B500E9F443 /* MultisigAddress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultisigAddress.swift; sourceTree = "<group>"; };
 		A27180B523A293EA00E9F443 /* AddressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressView.swift; sourceTree = "<group>"; };
@@ -233,7 +233,7 @@
 			isa = PBXGroup;
 			children = (
 				A206E815238D65FB00786824 /* Info.plist */,
-				A20D76CD23A406AF00A24A38 /* NthKey.xcdatamodeld */,
+				2AEDBD4025F53C360018C5CF /* NthKey.xcdatamodeld */,
 			);
 			path = SupportingFiles;
 			sourceTree = "<group>";
@@ -611,7 +611,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				A29DAAC12391657F006B38D9 /* KeychainEntropyItem.swift in Sources */,
-				A20D76CE23A406C500A24A38 /* NthKey.xcdatamodeld in Sources */,
 				4A63319725BEE7E5008B058B /* CodeSignersView.swift in Sources */,
 				A206E805238D65F300786824 /* AppDelegate.swift in Sources */,
 				A206E807238D65F300786824 /* SceneDelegate.swift in Sources */,
@@ -634,6 +633,7 @@
 				4AB1EA7F25AB3B6300EE6832 /* WalletView.swift in Sources */,
 				A27180B223A291B500E9F443 /* MultisigAddress.swift in Sources */,
 				A2F8575F23991354008A44E6 /* Signer.swift in Sources */,
+				2AEDBD4225F53C360018C5CF /* NthKey.xcdatamodeld in Sources */,
 				4AB1EA3425AB194F00EE6832 /* AddressesView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -997,6 +997,19 @@
 			productName = CodeScanner;
 		};
 /* End XCSwiftPackageProductDependency section */
+
+/* Begin XCVersionGroup section */
+		2AEDBD4025F53C360018C5CF /* NthKey.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				2AEDBD4125F53C360018C5CF /* NthKey.xcdatamodel */,
+			);
+			currentVersion = 2AEDBD4125F53C360018C5CF /* NthKey.xcdatamodel */;
+			path = NthKey.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = A206E7F9238D65F300786824 /* Project object */;
 }
