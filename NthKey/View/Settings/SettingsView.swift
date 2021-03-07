@@ -19,7 +19,6 @@ struct SettingsView : View {
     @State private var mnemonicInput = ""
     @State private var validMnemonic = false
     @State private var promptMainnet = false
-    @State private var showScanError: CodeScannerView.ScanError?
 
     private let settings = SettingsViewController()
     
@@ -54,11 +53,6 @@ struct SettingsView : View {
         }.sheet(isPresented: $isShowingScanner) {
             CodeScannerView(codeTypes: [.qr], completion: self.handleScan)
         }
-        .alert(item: $showScanError) {_ in
-            Alert(title: Text("Scanning failed"),
-                  message: Text("Error: \(showScanError?.id ?? -1)"),
-                  dismissButton: .default(Text("OK")))
-        }
     }
     
     // MARK: - Helpers
@@ -92,9 +86,3 @@ struct SettingsView_Previews: PreviewProvider {
     }
 }
 #endif
-
-extension CodeScannerView.ScanError: Identifiable {
-    public var id: Int {
-        self.hashValue
-    }
-}

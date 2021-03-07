@@ -1,6 +1,6 @@
 //
-//  AnnonceView.swift
-//  AnnonceView
+//  AnnounceView.swift
+//  AnnounceView
 //
 //  Created by Fathi on 10/1/21.
 //  Copyright © 2021 Purple Dunes. Distributed under the MIT software
@@ -45,7 +45,7 @@ struct AnnounceView: View {
 }
 
 #if DEBUG
-struct AnnonceView_Previews: PreviewProvider {
+struct AnnounceView_Previews: PreviewProvider {
     static var previews: some View {
         // FIXME: Add wallet manager mock with pubkey for preview
         let view = AnnounceView(manager: AppState().walletManager, settings: SettingsViewController())
