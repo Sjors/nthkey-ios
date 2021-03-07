@@ -11,14 +11,9 @@ import SwiftUI
 struct WalletView: View {
     
     @EnvironmentObject var appState: AppState
-    // FIXME: change it to Binding
-    @State private var isShowingScanner = false
+    @Binding var isShowingScanner: Bool
     // TODO: Incapsulate it in view model or on upper level
-    private let settings: SettingsViewController
-    init(isShowingScanner: Bool, settings: SettingsViewController) {
-        self.settings = settings
-        self.isShowingScanner = isShowingScanner
-    }
+    var settings: SettingsViewController
 
     var body: some View {
         VStack(alignment: .leading, spacing: 20.0) {
@@ -53,11 +48,11 @@ struct WalletView_Previews: PreviewProvider {
         let settingsController = SettingsViewController()
 
         return Group {
-            WalletView(isShowingScanner: true, settings: settingsController)
+            WalletView(isShowingScanner: .constant(false), settings: settingsController)
                 .environmentObject(AppState())
 
             NavigationView {
-                WalletView(isShowingScanner: true, settings: settingsController)
+                WalletView(isShowingScanner: .constant(false), settings: settingsController)
                     .environmentObject(appState)
             }
             .colorScheme(.dark)

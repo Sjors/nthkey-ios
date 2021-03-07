@@ -34,7 +34,7 @@ struct SettingsView : View {
                     
                     Spacer()
                     
-                    WalletView(isShowingScanner: self.isShowingScanner, settings: settings)
+                    WalletView(isShowingScanner: self.$isShowingScanner, settings: settings)
                     
                     Spacer()
                     
