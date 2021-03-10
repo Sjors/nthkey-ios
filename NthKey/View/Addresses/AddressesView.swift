@@ -7,24 +7,25 @@
 //  license, see the accompanying file LICENSE.md
 
 import SwiftUI
+import CoreData
 
 struct AddressesView: View {
     
     @EnvironmentObject var appState: AppState
-    
+    @Environment(\.managedObjectContext) private var viewContext
+
+    @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \AddressEntity.receiveIndex, ascending: true)])
+    private var items: FetchedResults<AddressEntity>
+
     var body: some View {
-        
         NavigationView {
-            
-            VStack(alignment: .leading, spacing: 10.0) {
-                
-                if (self.appState.walletManager.hasWallet) {
+            VStack(alignment: .leading, spacing: 30.0) {
+                if items.count > 0 {
                     List {
-                        ForEach(0..<1000) { i in
-                            AddressView(multisigAddress(for: i))
+                        ForEach(items) { item in
+                            AddressView(item: item)
                         }
                     }
-                    
                 } else {
                     Text("Go to Settings to add cosigners")
                 }
@@ -33,31 +34,21 @@ struct AddressesView: View {
         }
         .navigationViewStyle(StackNavigationViewStyle())
     }
-    
-    private func multisigAddress(for index: Int) -> MultisigAddress {
-        // TODO: PRE CREATE ALL OF THEM AND ONLY PASS BACK THE REQUESTED ONE
-        MultisigAddress(
-            threshold: UInt(self.appState.walletManager.threshold),
-            receiveIndex: UInt(index),
-            network: self.appState.walletManager.network
-        )
-    }
 }
 
 #if DEBUG
 struct AddressessView_Previews: PreviewProvider {
     static var previews: some View {
-        let appState = AppState()
-        // FIXME: prepare mockups to preview all cases - appState.walletManager.hasWallet = true
+        let context = PersistentStore.preview.container.viewContext
         let view = AddressesView()
-            .environmentObject(appState)
+            .environment(\.managedObjectContext, context)
+
         return Group {
             view
 
             NavigationView { view }
                 .colorScheme(.dark)
         }
-
     }
 }
 #endif
