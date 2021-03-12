@@ -7,22 +7,16 @@
 //  license, see the accompanying file LICENSE.md
 
 import SwiftUI
-import CoreData
 
 struct AddressesView: View {
-    
-    @EnvironmentObject var appState: AppState
-    @Environment(\.managedObjectContext) private var viewContext
-
-    @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \AddressEntity.receiveIndex, ascending: true)])
-    private var items: FetchedResults<AddressEntity>
+    @ObservedObject var model: AddressesViewModel
 
     var body: some View {
         NavigationView {
             VStack(alignment: .leading, spacing: 30.0) {
-                if items.count > 0 {
+                if model.items.count > 0 {
                     List {
-                        ForEach(items) { item in
+                        ForEach(model.items) { item in
                             AddressView(item: item)
                         }
                     }
@@ -33,15 +27,16 @@ struct AddressesView: View {
             .navigationBarTitle("Address")
         }
         .navigationViewStyle(StackNavigationViewStyle())
+        .onAppear {
+            model.viewDidAppear()
+        }
     }
 }
 
 #if DEBUG
 struct AddressessView_Previews: PreviewProvider {
     static var previews: some View {
-        let context = PersistentStore.preview.container.viewContext
-        let view = AddressesView()
-            .environment(\.managedObjectContext, context)
+        let view = AddressesView(model: AddressesViewModel.mock)
 
         return Group {
             view

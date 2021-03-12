@@ -12,7 +12,6 @@ import SwiftUI
 import LibWally
 
 class AppState: ObservableObject {
-    @Published var selectedTab: ContentView.Tab = .addresses
     @Published var psbtManager: PSBTManager = PSBTManager()
     @Published var walletManager: WalletManager = WalletManager()
 }
@@ -20,6 +19,9 @@ class AppState: ObservableObject {
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var appState = AppState()
+
+    private let store = PersistentStore(inMemory: false)
+    private lazy var contentViewModel = ContentViewModel(store: store)
     
     var window: UIWindow?
 
@@ -29,12 +31,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
 
-        // Get the managed object context from the shared persistent container.
-        let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-
         // Create the SwiftUI view and set the context as the value for the managedObjectContext environment keyPath.
         // Add `@Environment(\.managedObjectContext)` in the views that will need the context.
-        let contentView = ContentView().environmentObject(appState).environment(\.managedObjectContext, context)
+        let contentView = ContentView(model: contentViewModel)
+            .environmentObject(appState)
 
         // Use a UIHostingController as window root view controller.
         if let windowScene = scene as? UIWindowScene {
@@ -73,16 +73,14 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // to restore the scene back to its current state.
 
         // Save changes in the application's managed object context when the application transitions to the background.
-        (UIApplication.shared.delegate as? AppDelegate)?.saveContext()
+        // (UIApplication.shared.delegate as? AppDelegate)?.saveContext()
     }
     
     func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {
         if let context = URLContexts.first {
-            appState.selectedTab = .sign
+            contentViewModel.selectedTab = ContentViewTab.sign
             appState.psbtManager.open(context.url)
         }
     }
-
-
 }
 

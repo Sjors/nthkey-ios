@@ -12,16 +12,16 @@ import LibWally
 
 struct ContentView: View {
     @EnvironmentObject var appState: AppState
+    @ObservedObject var model: ContentViewModel
 
     var body: some View {
-        TabView(selection: $appState.selectedTab) {
-            AddressesView()
-                .environmentObject(appState)
+        TabView(selection: $model.selectedTab) {
+            AddressesView(model: model.addressesModel)
                 .tabItem {
                     Image(systemName: "house.fill")
                     Text("Addresses")
                 }
-                .tag(Tab.addresses)
+                .tag(ContentViewTab.addresses)
             
             SignViewController(rootView: SignView())
                 .environmentObject(appState)
@@ -29,37 +29,26 @@ struct ContentView: View {
                     Image(systemName: "lock.fill")
                     Text("Sign")
                 }
-                .tag(Tab.sign)
+                .tag(ContentViewTab.sign)
             
             SettingsView()
                 .tabItem {
                     Image(systemName: "gearshape.fill")
                     Text("Settings")
                 }
-                .tag(Tab.settings)
+                .tag(ContentViewTab.settings)
         }
-    }
-}
-
-extension ContentView {
-    enum Tab: Hashable {
-        case addresses
-        case sign
-        case settings
     }
 }
 
 #if DEBUG
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        var appState: AppState {
-            let result = AppState()
-            result.selectedTab = .addresses
-            return result
-        }
+        let model = ContentViewModel(store: PersistentStore.preview)
+        model.selectedTab = ContentViewTab.addresses
 
-        let view = ContentView()
-            .environmentObject(appState)
+        let view = ContentView(model: model)
+            .environmentObject(AppState())
 
         return Group {
             view

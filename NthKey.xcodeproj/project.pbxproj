@@ -13,6 +13,8 @@
 		2AB30A0525EC00550061B717 /* UserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AB30A0225EC00550061B717 /* UserDefaults.swift */; };
 		2AEDBD4225F53C360018C5CF /* NthKey.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2AEDBD4025F53C360018C5CF /* NthKey.xcdatamodeld */; };
 		2AEDBD5C25F595190018C5CF /* PersistentStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AEDBD5B25F595190018C5CF /* PersistentStore.swift */; };
+		2AEDBE2325FA9C780018C5CF /* ContentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AEDBE2225FA9C780018C5CF /* ContentViewModel.swift */; };
+		2AEDBE2C25FB3F0B0018C5CF /* AddressesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AEDBE2B25FB3F0B0018C5CF /* AddressesViewModel.swift */; };
 		4A63319125BEE55E008B058B /* NoSeedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A63319025BEE55E008B058B /* NoSeedView.swift */; };
 		4A63319725BEE7E5008B058B /* CodeSignersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A63319625BEE7E5008B058B /* CodeSignersView.swift */; };
 		4A63319F25BEE8B0008B058B /* MiscSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A63319E25BEE8B0008B058B /* MiscSettings.swift */; };
@@ -74,6 +76,8 @@
 		2AB30A0225EC00550061B717 /* UserDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaults.swift; sourceTree = "<group>"; };
 		2AEDBD4125F53C360018C5CF /* NthKey.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = NthKey.xcdatamodel; sourceTree = "<group>"; };
 		2AEDBD5B25F595190018C5CF /* PersistentStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistentStore.swift; sourceTree = "<group>"; };
+		2AEDBE2225FA9C780018C5CF /* ContentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentViewModel.swift; sourceTree = "<group>"; };
+		2AEDBE2B25FB3F0B0018C5CF /* AddressesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressesViewModel.swift; sourceTree = "<group>"; };
 		4A63319025BEE55E008B058B /* NoSeedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoSeedView.swift; sourceTree = "<group>"; };
 		4A63319625BEE7E5008B058B /* CodeSignersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeSignersView.swift; sourceTree = "<group>"; };
 		4A63319E25BEE8B0008B058B /* MiscSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiscSettings.swift; sourceTree = "<group>"; };
@@ -172,10 +176,20 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		2AEDBE2725FB3B780018C5CF /* MainTab */ = {
+			isa = PBXGroup;
+			children = (
+				A206E80B238D65F300786824 /* ContentView.swift */,
+				2AEDBE2225FA9C780018C5CF /* ContentViewModel.swift */,
+			);
+			path = MainTab;
+			sourceTree = "<group>";
+		};
 		4AB1EA3B25AB314700EE6832 /* Addresses */ = {
 			isa = PBXGroup;
 			children = (
 				4AB1EA3325AB194F00EE6832 /* AddressesView.swift */,
+				2AEDBE2B25FB3F0B0018C5CF /* AddressesViewModel.swift */,
 				A27180B523A293EA00E9F443 /* AddressView.swift */,
 			);
 			path = Addresses;
@@ -357,7 +371,7 @@
 		A27180B423A293BC00E9F443 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				A206E80B238D65F300786824 /* ContentView.swift */,
+				2AEDBE2725FB3B780018C5CF /* MainTab */,
 				4AB1EA3B25AB314700EE6832 /* Addresses */,
 				4AB1EA3C25AB314E00EE6832 /* Sign */,
 				4AB1EA3D25AB315200EE6832 /* Settings */,
@@ -618,6 +632,8 @@
 				2AEDBD5C25F595190018C5CF /* PersistentStore.swift in Sources */,
 				A206E805238D65F300786824 /* AppDelegate.swift in Sources */,
 				A206E807238D65F300786824 /* SceneDelegate.swift in Sources */,
+				2AEDBE2C25FB3F0B0018C5CF /* AddressesViewModel.swift in Sources */,
+				2AEDBE2325FA9C780018C5CF /* ContentViewModel.swift in Sources */,
 				A206E80C238D65F300786824 /* ContentView.swift in Sources */,
 				2AB30A0325EC00550061B717 /* UserDefaults.swift in Sources */,
 				4AB1EA7A25AB3B5D00EE6832 /* AnnounceView.swift in Sources */,
