@@ -31,6 +31,7 @@ struct AddressesView: View {
             }
             .navigationBarTitle("Address")
         }
+        .navigationViewStyle(StackNavigationViewStyle())
     }
     
     private func multisigAddress(for index: Int) -> MultisigAddress {
