@@ -7,7 +7,6 @@
 //  license, see the accompanying file LICENSE.md
 
 import SwiftUI
-import CoreData
 
 struct AddressView: View {
     let item: AddressEntity
@@ -26,6 +25,8 @@ struct AddressView: View {
 }
 
 #if DEBUG
+import CoreData
+
 struct AddressView_Previews: PreviewProvider {
     static var previews: some View {
         let context = PersistentStore.preview.container.viewContext
@@ -44,7 +45,6 @@ struct AddressView_Previews: PreviewProvider {
 
                 Group {
                     view
-
 
                     NavigationView { view }
                         .colorScheme(.dark)

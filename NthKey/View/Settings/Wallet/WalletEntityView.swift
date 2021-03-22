@@ -7,7 +7,6 @@
 //  license, see the accompanying file LICENSE.md
 
 import SwiftUI
-import CoreData
 import LibWally
 
 struct WalletEntityView: View {
@@ -41,13 +40,14 @@ extension WalletEntityView {
 }
 
 #if DEBUG
+import CoreData
+
 struct WalletEntityView_Previews: PreviewProvider {
     static var previews: some View {
         let context = PersistentStore.preview.container.viewContext
         let request = NSFetchRequest<WalletEntity>(entityName: "WalletEntity")
 
-        return
-            Group {
+        return Group {
             if let items = try? context.fetch(request),
                let item = items.first {
 

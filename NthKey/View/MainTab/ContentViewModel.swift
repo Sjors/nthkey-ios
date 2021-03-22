@@ -18,14 +18,14 @@ enum ContentViewTab: Hashable {
 class ContentViewModel: ObservableObject {
     @Published var selectedTab: ContentViewTab = .addresses
 
+    // TODO: remove constant model after avoiding constant redraw
     let addressesModel: AddressesViewModel
 
-    private let store: PersistentStore
+    private let dataManager: DataManager
 
-    init(store: PersistentStore) {
-        self.store = store
+    init(dataManager: DataManager) {
+        self.dataManager = dataManager
 
-        addressesModel = AddressesViewModel(store: store)
+        addressesModel = AddressesViewModel(dataManager: dataManager)
     }
 }
-

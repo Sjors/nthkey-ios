@@ -20,7 +20,7 @@ struct PersistentStore {
         for wallet in wallets {
             wallet.label = "\(first ? "A" : "") Testnet wallet"
             wallet.network = Int16(Network.testnet.rawValue)
-            wallet.receive_descriptor = "Something was received from Specter"
+            wallet.receive_descriptor = UUID().uuidString
             wallet.threshold = 0
 
             first = false

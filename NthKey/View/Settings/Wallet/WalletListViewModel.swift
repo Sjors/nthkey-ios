@@ -7,28 +7,30 @@
 //  license, see the accompanying file LICENSE.md
 
 import Foundation
-import CoreData
+import Combine
 
 final class WalletListViewModel: ObservableObject {
     @Published var selectedWallet: WalletEntity?
     @Published var items: [WalletEntity] = []
+    
+    private let dataManager: DataManager
+    private var cancellables = Set<AnyCancellable>()
 
-    private let store: PersistentStore
-    private let request = NSFetchRequest<WalletEntity>(entityName: "WalletEntity")
+    init(dataManager: DataManager) {
+        self.dataManager = dataManager
 
-    init(store: PersistentStore) {
-        self.store = store
-
-        request.sortDescriptors = [NSSortDescriptor(keyPath: \WalletEntity.label, ascending: true)]
+        setupObservables()
     }
 
-    func viewDidAppear() {
-        do {
-            items = try store.container.viewContext.fetch(request)
-        } catch {
-            items = []
-            // self.error = error as NSError
-        }
+    private func setupObservables() {
+        dataManager
+            .$walletList
+            .assign(to: \.items, on: self)
+            .store(in: &cancellables)
+
+        $selectedWallet
+            .assign(to: \.currentWallet, on: self.dataManager)
+            .store(in: &cancellables)
     }
 
     func addWallet() {
@@ -39,8 +41,7 @@ final class WalletListViewModel: ObservableObject {
 #if DEBUG
 extension WalletListViewModel {
     static var mock: WalletListViewModel {
-        let model = WalletListViewModel(store: PersistentStore.preview)
-        model.viewDidAppear()
+        let model = WalletListViewModel(dataManager: DataManager.preview)
         if let first = model.items.first {
             model.selectedWallet = first
         }

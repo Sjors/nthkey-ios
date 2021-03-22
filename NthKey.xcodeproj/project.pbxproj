@@ -18,6 +18,7 @@
 		2AEDBD5C25F595190018C5CF /* PersistentStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AEDBD5B25F595190018C5CF /* PersistentStore.swift */; };
 		2AEDBE2325FA9C780018C5CF /* ContentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AEDBE2225FA9C780018C5CF /* ContentViewModel.swift */; };
 		2AEDBE2C25FB3F0B0018C5CF /* AddressesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AEDBE2B25FB3F0B0018C5CF /* AddressesViewModel.swift */; };
+		2AF86BCF2608B18000A770AD /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AF86BCE2608B18000A770AD /* DataManager.swift */; };
 		4A63319125BEE55E008B058B /* NoSeedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A63319025BEE55E008B058B /* NoSeedView.swift */; };
 		4A63319725BEE7E5008B058B /* CodeSignersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A63319625BEE7E5008B058B /* CodeSignersView.swift */; };
 		4A63319F25BEE8B0008B058B /* MiscSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A63319E25BEE8B0008B058B /* MiscSettings.swift */; };
@@ -84,6 +85,7 @@
 		2AEDBD5B25F595190018C5CF /* PersistentStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistentStore.swift; sourceTree = "<group>"; };
 		2AEDBE2225FA9C780018C5CF /* ContentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentViewModel.swift; sourceTree = "<group>"; };
 		2AEDBE2B25FB3F0B0018C5CF /* AddressesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressesViewModel.swift; sourceTree = "<group>"; };
+		2AF86BCE2608B18000A770AD /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 		4A63319025BEE55E008B058B /* NoSeedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoSeedView.swift; sourceTree = "<group>"; };
 		4A63319625BEE7E5008B058B /* CodeSignersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeSignersView.swift; sourceTree = "<group>"; };
 		4A63319E25BEE8B0008B058B /* MiscSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiscSettings.swift; sourceTree = "<group>"; };
@@ -381,6 +383,7 @@
 				A2067AC023C8549700F46862 /* WalletManager.swift */,
 				A285870C23AD31C600930566 /* Destination.swift */,
 				2AEDBD5B25F595190018C5CF /* PersistentStore.swift */,
+				2AF86BCE2608B18000A770AD /* DataManager.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -645,6 +648,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A29DAAC12391657F006B38D9 /* KeychainEntropyItem.swift in Sources */,
+				2AF86BCF2608B18000A770AD /* DataManager.swift in Sources */,
 				4A63319725BEE7E5008B058B /* CodeSignersView.swift in Sources */,
 				2AEDBD5C25F595190018C5CF /* PersistentStore.swift in Sources */,
 				A206E805238D65F300786824 /* AppDelegate.swift in Sources */,

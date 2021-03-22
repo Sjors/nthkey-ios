@@ -27,9 +27,6 @@ struct AddressesView: View {
             .navigationBarTitle("Address")
         }
         .navigationViewStyle(StackNavigationViewStyle())
-        .onAppear {
-            model.viewDidAppear()
-        }
     }
 }
 

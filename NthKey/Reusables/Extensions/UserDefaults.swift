@@ -28,6 +28,8 @@ extension UserDefaults {
         case fingerprint = "masterKeyFingerprint"
         case mainnet = "mainnet"
         case entropyMask = "entropyMask"
+
+        case currentWalletDescriptor = "walletReceivedDescriptor"
     }
 }
 
@@ -49,6 +51,9 @@ extension UserDefaults {
 
     @UserDefault(key: Keys.entropyMask, defaultValue: nil)
     static var entropyMask: Data?
+
+    @UserDefault(key: Keys.currentWalletDescriptor, defaultValue: nil)
+    static var currentWalletDescriptor: String?
 
     func remove(key: UserDefaults.Keys) {
         UserDefaults.standard.removeObject(forKey: key.rawValue)

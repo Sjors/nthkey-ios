@@ -7,32 +7,30 @@
 //  license, see the accompanying file LICENSE.md
 
 import Foundation
-import CoreData
+import Combine
 
 class AddressesViewModel: ObservableObject {
     @Published var items: [AddressEntity] = []
 
-    private let store: PersistentStore
-    private let request = NSFetchRequest<AddressEntity>(entityName: "AddressEntity")
+    private let dataManager: DataManager
+    private var cancellables = Set<AnyCancellable>()
 
-    init(store: PersistentStore) {
-        self.store = store
+    init(dataManager: DataManager) {
+        self.dataManager = dataManager
 
-        request.sortDescriptors = [NSSortDescriptor(keyPath: \AddressEntity.receiveIndex, ascending: true)]
+        setupObservables()
     }
 
-    func viewDidAppear() {
-        do {
-            items = try store.container.viewContext.fetch(request)
-        } catch {
-            items = []
-            // self.error = error as NSError
-        }
+    private func setupObservables() {
+        dataManager
+            .$addressList
+            .assign(to: \.items, on: self)
+            .store(in: &cancellables)
     }
 }
 
 #if DEBUG
 extension AddressesViewModel {
-    static var mock: AddressesViewModel = AddressesViewModel(store: PersistentStore.preview)
+    static var mock: AddressesViewModel = AddressesViewModel(dataManager: DataManager.preview)
 }
 #endif

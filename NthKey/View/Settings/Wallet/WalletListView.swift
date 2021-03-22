@@ -29,16 +29,20 @@ struct WalletListView: View {
                 .foregroundColor(.accentColor)
             }
         }
-        .onAppear {
-            model.viewDidAppear()
-        }
     }
 }
 
 #if DEBUG
 struct WalletListView_Previews: PreviewProvider {
     static var previews: some View {
-        WalletListView(model: WalletListViewModel.mock)
+        let view = WalletListView(model: WalletListViewModel.mock)
+        return Group {
+            view
+
+            view
+                .colorScheme(.dark)
+        }
+        .previewLayout(.fixed(width: 350, height: 200))
     }
 }
 #endif

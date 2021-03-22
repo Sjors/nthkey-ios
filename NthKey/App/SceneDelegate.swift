@@ -20,8 +20,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var appState = AppState()
 
-    private let store = PersistentStore(inMemory: false)
-    private lazy var contentViewModel = ContentViewModel(store: store)
+    private let dataManager = DataManager(store: PersistentStore(inMemory: false))
+    private lazy var contentViewModel = ContentViewModel(dataManager: dataManager)
     
     var window: UIWindow?
 
@@ -55,6 +55,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func sceneDidBecomeActive(_ scene: UIScene) {
         // Called when the scene has moved from an inactive state to an active state.
         // Use this method to restart any tasks that were paused (or not yet started) when the scene was inactive.
+
+        dataManager.prepareData()
     }
 
     func sceneWillResignActive(_ scene: UIScene) {
