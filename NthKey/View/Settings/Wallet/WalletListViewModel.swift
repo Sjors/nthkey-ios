@@ -12,7 +12,8 @@ import Combine
 final class WalletListViewModel: ObservableObject {
     @Published var selectedWallet: WalletEntity?
     @Published var items: [WalletEntity] = []
-    
+
+    private let loadFileController: SettingsViewController = SettingsViewController()
     private let dataManager: DataManager
     private var cancellables = Set<AnyCancellable>()
 
@@ -33,8 +34,8 @@ final class WalletListViewModel: ObservableObject {
             .store(in: &cancellables)
     }
 
-    func addWallet() {
-        
+    func addWalletByFile() {
+        loadFileController.loadWallet { _ in }
     }
 }
 

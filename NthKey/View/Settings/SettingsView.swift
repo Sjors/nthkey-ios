@@ -10,7 +10,7 @@ import SwiftUI
 import CodeScanner
 
 struct SettingsView : View {
-
+    var model: SettingsViewModel
     @EnvironmentObject var appState: AppState
 
     @State private var showMnemonic = false
@@ -32,8 +32,11 @@ struct SettingsView : View {
                     AnnounceView(manager: self.appState.walletManager, settings: settings)
                     
                     Spacer()
-                    
-                    WalletView(isShowingScanner: self.$isShowingScanner, settings: settings)
+
+                    Text("Wallets")
+                        .font(.headline)
+                    WalletListView(model: model.walletListModel,
+                                   isShowingScanner: self.$isShowingScanner)
                     
                     Spacer()
                     
@@ -75,7 +78,7 @@ struct SettingsView : View {
 #if DEBUG
 struct SettingsView_Previews: PreviewProvider {
     static var previews: some View {
-        let view = SettingsView()
+        let view = SettingsView(model: SettingsViewModel(dataManager: DataManager.preview))
             .environmentObject(AppState())
         return Group {
             view

@@ -11,23 +11,36 @@ import SwiftUI
 struct WalletListView: View {
     @ObservedObject var model: WalletListViewModel
 
+    @Binding var isShowingScanner: Bool
+
     var body: some View {
-        List {
+        VStack(alignment: .leading, spacing: 20) {
             ForEach(model.items) { item in
                 WalletEntityView(item: item, selected: model.selectedWallet == item)
-                .onTapGesture {
-                    model.selectedWallet = item
-                }
+                    .contentShape(Rectangle())
+                    .onTapGesture {
+                        model.selectedWallet = item
+                    }
             }
             Button(action: {
-                model.addWallet()
+                isShowingScanner = true
             }) {
                 HStack {
                     Image(systemName: "plus.circle")
-                    Text("Add a wallet")
+                    Text("Add a wallet by scan QR")
                 }
                 .foregroundColor(.accentColor)
             }
+            Button(action: {
+                model.addWalletByFile()
+            }) {
+                HStack {
+                    Image(systemName: "plus.circle")
+                    Text("Add a wallet by import JSON")
+                }
+                .foregroundColor(.accentColor)
+            }
+            // TODO: Think about UX to remove a wallet
         }
     }
 }
@@ -35,7 +48,7 @@ struct WalletListView: View {
 #if DEBUG
 struct WalletListView_Previews: PreviewProvider {
     static var previews: some View {
-        let view = WalletListView(model: WalletListViewModel.mock)
+        let view = WalletListView(model: WalletListViewModel.mock, isShowingScanner: .constant(false))
         return Group {
             view
 

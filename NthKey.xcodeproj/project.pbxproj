@@ -20,6 +20,7 @@
 		2AEDBE2C25FB3F0B0018C5CF /* AddressesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AEDBE2B25FB3F0B0018C5CF /* AddressesViewModel.swift */; };
 		2AF86BCF2608B18000A770AD /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AF86BCE2608B18000A770AD /* DataManager.swift */; };
 		2AF86C34260B555C00A770AD /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AF86C33260B555B00A770AD /* Network.swift */; };
+		2AF86C39260B64B300A770AD /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AF86C38260B64B300A770AD /* SettingsViewModel.swift */; };
 		4A63319125BEE55E008B058B /* NoSeedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A63319025BEE55E008B058B /* NoSeedView.swift */; };
 		4A63319725BEE7E5008B058B /* CodeSignersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A63319625BEE7E5008B058B /* CodeSignersView.swift */; };
 		4A63319F25BEE8B0008B058B /* MiscSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A63319E25BEE8B0008B058B /* MiscSettings.swift */; };
@@ -88,6 +89,7 @@
 		2AEDBE2B25FB3F0B0018C5CF /* AddressesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressesViewModel.swift; sourceTree = "<group>"; };
 		2AF86BCE2608B18000A770AD /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 		2AF86C33260B555B00A770AD /* Network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
+		2AF86C38260B64B300A770AD /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
 		4A63319025BEE55E008B058B /* NoSeedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoSeedView.swift; sourceTree = "<group>"; };
 		4A63319625BEE7E5008B058B /* CodeSignersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeSignersView.swift; sourceTree = "<group>"; };
 		4A63319E25BEE8B0008B058B /* MiscSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiscSettings.swift; sourceTree = "<group>"; };
@@ -228,6 +230,7 @@
 			isa = PBXGroup;
 			children = (
 				A27D4BF523A2B4F30055B0B8 /* SettingsView.swift */,
+				2AF86C38260B64B300A770AD /* SettingsViewModel.swift */,
 				A29DAAC423982271006B38D9 /* SettingsViewController.swift */,
 				4AB1EA7925AB3B5D00EE6832 /* AnnounceView.swift */,
 				4AB1EA7E25AB3B6300EE6832 /* WalletView.swift */,
@@ -675,6 +678,7 @@
 				A2C800F523A3943000111EAF /* DocumentPickerManager.swift in Sources */,
 				A2E9E37F23ACF1140049645D /* SignView.swift in Sources */,
 				A29DAAC523982271006B38D9 /* SettingsViewController.swift in Sources */,
+				2AF86C39260B64B300A770AD /* SettingsViewModel.swift in Sources */,
 				A25C032D25766E100048765E /* Data+xor.swift in Sources */,
 				4A63319F25BEE8B0008B058B /* MiscSettings.swift in Sources */,
 				A285870D23AD31C600930566 /* Destination.swift in Sources */,

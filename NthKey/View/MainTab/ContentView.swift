@@ -31,7 +31,7 @@ struct ContentView: View {
                 }
                 .tag(ContentViewTab.sign)
             
-            SettingsView()
+            SettingsView(model: model.settingsModel)
                 .tabItem {
                     Image(systemName: "gearshape.fill")
                     Text("Settings")
