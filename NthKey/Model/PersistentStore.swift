@@ -19,7 +19,7 @@ struct PersistentStore {
         var first = true
         for wallet in wallets {
             wallet.label = "\(first ? "A" : "") Testnet wallet"
-            wallet.network = Int16(Network.testnet.rawValue)
+            wallet.network = Network.testnet.int16Value
             wallet.receive_descriptor = UUID().uuidString
             wallet.threshold = 0
 

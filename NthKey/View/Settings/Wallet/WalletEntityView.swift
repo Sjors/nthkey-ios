@@ -27,15 +27,11 @@ struct WalletEntityView: View {
 
 extension WalletEntityView {
     static func networkTitle(network: Int16?) -> String {
-        guard let net = network else { return "N/A" }
-        switch net {
-        case Int16(Network.mainnet.rawValue):
-            return "Mainnet"
-        case Int16(Network.testnet.rawValue):
-            return "Testnet"
-        default:
+        guard let net = network,
+              let value: Network = Network.valueFromInt16(net) else {
             return "N/A"
         }
+        return value.title
     }
 }
 
@@ -48,12 +44,11 @@ struct WalletEntityView_Previews: PreviewProvider {
         let request = NSFetchRequest<WalletEntity>(entityName: "WalletEntity")
 
         return Group {
-            if let items = try? context.fetch(request),
-               let item = items.first {
-
+            if let items = try? context.fetch(request) {
                 let view = List {
-                    WalletEntityView(item: item, selected: false)
-                    WalletEntityView(item: item, selected: true)
+                    ForEach(items) { item in
+                        WalletEntityView(item: item, selected: Bool.random())
+                    }
                 }
                 Group {
                     view
