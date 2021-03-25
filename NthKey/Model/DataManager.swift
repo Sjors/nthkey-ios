@@ -100,3 +100,117 @@ extension DataManager {
     }()
 }
 #endif
+
+// MARK: - Data processing
+
+import OutputDescriptors
+import LibWally
+
+/// Specter interactions
+enum DataProcessingError: Error, LocalizedError {
+    case wrongInputData
+    case unableParseDescriptor(String?)
+    case wrongDescriptor
+    case notEnoughKeys
+    case absentOurFingerprint
+    case wrongCosigner
+    case wrongNumberOfCosigners
+    case missedFingerprint
+
+    public var errorDescription: String? {
+        switch self {
+        case .wrongInputData:
+            return "JSON format not recognized"
+        case .unableParseDescriptor(let descriptor): //private ParseError not allow to share more info
+            return "Unable to parse descriptor: \(descriptor ?? "N/A")"
+        case .wrongDescriptor:
+            return "Expected sortedmulti descriptor"
+        case .notEnoughKeys:
+            return "Require at least 2 keys"
+        case .absentOurFingerprint:
+            return "We're not part of the wallet"
+        case .wrongCosigner:
+            return "Malformated cosigner xpub"
+        case .wrongNumberOfCosigners:
+            return "Cosigner count does not match descriptor keys count"
+        default:
+            return nil
+        }
+    }
+}
+
+extension DataManager {
+    /// Load wallet and save it in DB and return a name of the wallet.
+    func loadWalletUsingData(_ data: Data, completion: @escaping (Result<String, DataProcessingError>) -> Void) {
+        guard let ourHexString = UserDefaults.fingerprint?.hexString else {
+            completion(.failure(.missedFingerprint)) // our fingerprint should be filled on seed generation step
+            return
+        }
+
+        // Check if it is a JSON and uses Specter format:
+        guard let json = try? JSONSerialization.jsonObject(with: data, options: .mutableLeaves),
+            let jsonResult = json as? Dictionary<String, AnyObject>,
+              let descriptor = jsonResult["descriptor"] as? String else {
+            completion(.failure(.wrongInputData))
+            return
+        }
+
+        // Try to get descriptor
+        guard let desc = try? OutputDescriptor(descriptor) else {
+            completion(.failure(.unableParseDescriptor(descriptor)))
+            return
+        }
+
+        switch desc.descType {
+        case .sortedMulti(let threshold):
+            guard desc.extendedKeys.count > 1 else {
+                completion(.failure(.notEnoughKeys))
+                return
+            }
+
+            guard desc.extendedKeys.contains(where: { (key) -> Bool in
+                key.fingerprint == ourHexString
+            }) else {
+                completion(.failure(.absentOurFingerprint))
+                return
+            }
+
+            var hdKeys: [(ExtendedKey, HDKey)] = []
+            desc.extendedKeys.forEach { (key) in
+                if (key.fingerprint == ourHexString) { return }
+                let extendedKey = Data(base58: key.xpub)!
+                // Check that this is a testnet tpub
+                let marker = Data(extendedKey.subdata(in: 0..<4))
+                if marker != Data("043587cf")! && marker != Data("0488b21e") {
+                    NSLog("Expected tpub marker (0x043587cf) or xpub marker (0x0488b21e), got 0x%@", marker.hexString)
+                    return
+                }
+
+                guard let aKey = HDKey(key.xpub) else {
+                    completion(.failure(.wrongCosigner))
+                    return
+                }
+                hdKeys.append((key, aKey))
+            }
+            guard hdKeys.count == desc.extendedKeys.count - 1 else {
+                completion(.failure(.wrongNumberOfCosigners))
+                return
+            }
+
+            // FIXME: Make sure that it happen in main thread
+            let wallet = WalletEntity(context: store.container.viewContext)
+            wallet.threshold = Int16(threshold)
+
+            for (key, hdKey) in hdKeys {
+                let signer = CosignerEntity(context: store.container.viewContext)
+                signer.name = ""
+                signer.fingerprint = Data(key.fingerprint)
+                signer.derivation = BIP32Path(key.origin)?.description
+                signer.xpub = hdKey.description
+                wallet.addToCosigners(signer)
+            }
+        default:
+            completion(.failure(.wrongDescriptor))
+        }
+    }
+}
