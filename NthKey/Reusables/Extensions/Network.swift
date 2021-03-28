@@ -39,3 +39,11 @@ extension Network {
         }
     }
 }
+
+extension Network: CaseIterable {
+    public typealias AllCases = [Network]
+
+    public static var allCases: AllCases {
+        get { return [.mainnet, .testnet] }
+    }
+}
