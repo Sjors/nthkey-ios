@@ -14,6 +14,7 @@ import Combine
 final class DataManager: ObservableObject {
     @Published var addressList: [AddressEntity] = []
     @Published var walletList: [WalletEntity] = []
+    @Published var cosigners: [CosignerEntity] = []
 
     @Published var currentWallet: WalletEntity?
 
@@ -54,7 +55,6 @@ final class DataManager: ObservableObject {
 
     private func setupObservables() {
         $currentWallet
-            .dropFirst()
             .sink { [weak self] value in
                 guard let self = self else { return }
 
@@ -62,22 +62,18 @@ final class DataManager: ObservableObject {
                 UserDefaults.currentWalletDescriptor = wallet.receive_descriptor
 
                 let sortDesc = NSSortDescriptor(keyPath: \AddressEntity.receiveIndex, ascending: true)
-                guard let items = wallet.addresses,
-                      let itemsArray = items.sortedArray(using: [sortDesc]) as? [AddressEntity] else { return }
-                
-                self.addressList = itemsArray
+                if let items = wallet.addresses,
+                   let itemsArray = items.sortedArray(using: [sortDesc]) as? [AddressEntity] {
+
+                    self.addressList = itemsArray
+                }
+
+                if let items = wallet.cosigners,
+                    let itemsArray = items.allObjects as? [CosignerEntity] {
+                    self.cosigners = itemsArray
+                }
             }
             .store(in: &cancellables)
-
-
-        $walletList
-        .dropFirst()
-        .sink { items in
-
-            guard let first = items.first else { return }
-            self.currentWallet = first
-        }
-        .store(in: &cancellables)
     }
 }
 
@@ -90,7 +86,10 @@ extension DataManager {
             .$walletList
             .dropFirst()
             .sink { items in
-                guard let first = items.first else { return }
+                guard let first = items.first(where: { item -> Bool in
+                    guard let label = item.label else { return false }
+                    return label.contains("A ")
+                }) else { return }
                 result.currentWallet = first
             }
             .store(in: &result.cancellables)
