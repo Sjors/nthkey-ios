@@ -38,15 +38,3 @@ final class WalletListViewModel: ObservableObject {
         loadFileController.loadWallet { _ in }
     }
 }
-
-#if DEBUG
-extension WalletListViewModel {
-    static var mock: WalletListViewModel {
-        let model = WalletListViewModel(dataManager: DataManager.preview)
-        if let first = model.items.first {
-            model.selectedWallet = first
-        }
-        return model
-    }
-}
-#endif
