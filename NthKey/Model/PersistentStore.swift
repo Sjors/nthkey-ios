@@ -23,18 +23,24 @@ struct PersistentStore {
             wallet.receive_descriptor = UUID().uuidString
             wallet.threshold = 0
 
-            first = false
-        }
-
-        // co-signers
-        let cosigner = CosignerEntity(context: viewContext)
-        cosigner.derivation = ""
-        cosigner.fingerprint = Data("bd16bee5")
-        cosigner.name = "Ourself"
-        cosigner.xpub = ""
-
-        for wallet in wallets {
+            // co-signers
+            var cosigner = CosignerEntity(context: viewContext)
+            cosigner.derivation = ""
+            cosigner.fingerprint = Data("bd16bee5")
+            cosigner.name = "Trezor"
+            cosigner.xpub = ""
             wallet.addToCosigners(cosigner)
+
+            if first {
+                cosigner = CosignerEntity(context: viewContext)
+                cosigner.derivation = ""
+                cosigner.fingerprint = Data("f0ac8182")
+                cosigner.name = "My iPad"
+                cosigner.xpub = ""
+                wallet.addToCosigners(cosigner)
+            }
+            
+            first = false
         }
 
         /// Codes from the test net for mockup
