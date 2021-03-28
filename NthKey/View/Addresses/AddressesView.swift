@@ -33,7 +33,7 @@ struct AddressesView: View {
 #if DEBUG
 struct AddressessView_Previews: PreviewProvider {
     static var previews: some View {
-        let view = AddressesView(model: AddressesViewModel.mock)
+        let view = AddressesView(model: AddressesViewModel(dataManager: DataManager.preview))
 
         return Group {
             view

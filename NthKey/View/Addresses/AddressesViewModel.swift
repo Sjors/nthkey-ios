@@ -28,9 +28,3 @@ class AddressesViewModel: ObservableObject {
             .store(in: &cancellables)
     }
 }
-
-#if DEBUG
-extension AddressesViewModel {
-    static var mock: AddressesViewModel = AddressesViewModel(dataManager: DataManager.preview)
-}
-#endif
