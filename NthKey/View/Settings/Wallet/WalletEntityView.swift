@@ -16,9 +16,11 @@ struct WalletEntityView: View {
     var body: some View {
         HStack {
             Image(systemName: selected ? "checkmark.circle.fill" : "checkmark.circle")
-            Text("\(item.label!)")
+            Text("\(item.label ?? "N/A")")
 
             Spacer()
+
+            Text("Thr.: \(item.threshold)")
 
             Text(WalletEntityView.networkTitle(network: item.network))
         }
