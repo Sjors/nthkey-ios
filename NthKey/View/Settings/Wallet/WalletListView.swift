@@ -48,14 +48,16 @@ struct WalletListView: View {
 #if DEBUG
 struct WalletListView_Previews: PreviewProvider {
     static var previews: some View {
-        let view = WalletListView(model: WalletListViewModel.mock, isShowingScanner: .constant(false))
+        let view = WalletListView(model: WalletListViewModel(dataManager: DataManager.preview), isShowingScanner: .constant(false))
         return Group {
             view
 
-            view
+            NavigationView {
+                view
+            }
                 .colorScheme(.dark)
         }
-        .previewLayout(.fixed(width: 350, height: 200))
+        .previewLayout(.fixed(width: 350, height: 300))
     }
 }
 #endif
