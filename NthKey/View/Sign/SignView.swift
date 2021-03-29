@@ -12,6 +12,7 @@ import LibWally
 import CodeScanner
 
 struct SignView : View {
+    @ObservedObject var model: SignViewModel
     @EnvironmentObject var appState: AppState
 
     @State private var isShowingScanner = false
@@ -68,12 +69,12 @@ struct SignView : View {
                     Button("Scan PSBT") {
                         self.isShowingScanner = true
                     }
-                    .disabled(!self.appState.walletManager.hasWallet || self.appState.psbtManager.psbt != nil)
+                    .disabled(!model.hasWallet || self.appState.psbtManager.psbt != nil)
 
                     Button("Load PSBT") {
                         self.vc!.openPSBT(self.openPSBT)
                     }
-                    .disabled(!self.appState.walletManager.hasWallet || self.appState.psbtManager.psbt != nil)
+                    .disabled(!model.hasWallet || self.appState.psbtManager.psbt != nil)
 
                     if self.appState.psbtManager.psbt != nil {
                         if self.appState.psbtManager.signed {
@@ -129,14 +130,24 @@ struct SignView : View {
 struct SignView_Previews: PreviewProvider {
     static var previews: some View {
         // FIXME: Add mockups to present all cases
-        let view = SignView()
+        let view = SignView(model: SignViewModel(dataManager: DataManager.preview))
             .environmentObject(AppState())
+
+        let emptyView = SignView(model: SignViewModel(dataManager: DataManager.empty))
+            .environmentObject(AppState())
+
         return Group {
             view
 
+            emptyView
+
             NavigationView { view }
                 .colorScheme(.dark)
+
+            NavigationView { emptyView }
+                .colorScheme(.dark)
         }
+        .previewLayout(.fixed(width: 350, height: 170))
     }
 }
 #endif

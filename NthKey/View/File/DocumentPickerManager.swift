@@ -88,11 +88,10 @@ struct DocumentPickerManager {
     }
 
     func savePublicKeyFile(_ url: URL) {
-        guard
-            let payload = payload,
-            let fingerprint = UserDefaults.fingerprint
-        else { return }
-        
+        guard let payload = payload,
+              let fingerprints = UserDefaults.fingerprints,
+              let fingerprint = fingerprints[Network.testnet.int16Value] else { return }
+        // FIXME: TBD is it necessary to have fingerprint for network in filename
         let fileName = "ccxp-" + fingerprint.hexString.uppercased() + ".json";
         writeFile(folderUrl: url, fileName: fileName, textData: payload)
     }

@@ -97,6 +97,8 @@ extension DataManager {
 
         return result
     }()
+
+    static let empty: DataManager = DataManager(store: PersistentStore(inMemory: true))
 }
 #endif
 
@@ -141,7 +143,7 @@ enum DataProcessingError: Error, LocalizedError {
 extension DataManager {
     /// Load wallet and save it in DB and return a name of the wallet.
     func loadWalletUsingData(_ data: Data, completion: @escaping (Result<String, DataProcessingError>) -> Void) {
-        guard let ourHexString = UserDefaults.fingerprint?.hexString else {
+        guard let fingerprints = UserDefaults.fingerprints else {
             completion(.failure(.missedFingerprint)) // our fingerprint should be filled on seed generation step
             return
         }
@@ -167,8 +169,18 @@ extension DataManager {
                 return
             }
 
+            var receivedNetwork: Network = .testnet
+            var ourHexString: String = ""
             guard desc.extendedKeys.contains(where: { (key) -> Bool in
-                key.fingerprint == ourHexString
+                var result = false
+                for (network, fingerprint) in fingerprints {
+                    guard key.fingerprint == fingerprint.hexString,
+                          let net = Network.valueFromInt16(network) else { continue }
+                    result = true
+                    receivedNetwork = net
+                    ourHexString = fingerprint.hexString
+                }
+                return result
             }) else {
                 completion(.failure(.absentOurFingerprint))
                 return
@@ -199,6 +211,9 @@ extension DataManager {
             // FIXME: Make sure that it happen in main thread
             let wallet = WalletEntity(context: store.container.viewContext)
             wallet.threshold = Int16(threshold)
+            wallet.network = receivedNetwork.int16Value
+            wallet.receive_descriptor = descriptor
+            // TODO: wallet.label - fill it
 
             for (key, hdKey) in hdKeys {
                 let signer = CosignerEntity(context: store.container.viewContext)

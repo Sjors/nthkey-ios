@@ -9,27 +9,26 @@
 import SwiftUI
 
 struct AnnounceView: View {
-    
-    @State private var showPubKeyQR = false
-    
-    private let manager: WalletManager
-    private let settings: SettingsViewController
-    init(manager: WalletManager, settings: SettingsViewController) {
-        self.manager = manager
-        self.settings = settings
-    }
-    
+    @ObservedObject var model: AnnounceViewModel
+
     var body: some View {
         VStack(alignment: .leading, spacing: 20.0) {
-            Text("Announce").font(.headline)
             Text("In Specter go to 'Add new device', select Other and scan the QR code.")
 
-            Button(self.showPubKeyQR ? "Hide QR" : "Show QR") {
-                self.showPubKeyQR.toggle()
+            Picker(selection: $model.networkIndex, label: Text("Select Network")) {
+                ForEach(0..<model.networkTitles.count) {
+                    Text(model.networkTitles[$0])
+                }
+            }
+            .pickerStyle(SegmentedPickerStyle())
+            .padding()
+
+            Button(model.showPubKeyQR ? "Hide QR" : "Show QR \(model.networkTitle)") {
+                model.showPubKeyQR.toggle()
             }
 
-            if self.showPubKeyQR,
-            let qrCodeImage = QRCodeBuilder.generateQRCode(from: self.manager.ourPubKey()) {
+            if model.showPubKeyQR,
+               let qrCodeImage = model.pubKeyImage {
                 Image(uiImage: qrCodeImage)
                     .interpolation(.none)
                     .resizable()
@@ -37,8 +36,8 @@ struct AnnounceView: View {
                     .frame(width: 350, height: 350)
             }
 
-            Button("Save as JSON") {
-                self.settings.exportPublicKey(data: self.manager.ourPubKey())
+            Button("Save as JSON \(model.networkTitle)") {
+                model.exportPublicKey()
             }
         }
     }
@@ -48,7 +47,7 @@ struct AnnounceView: View {
 struct AnnounceView_Previews: PreviewProvider {
     static var previews: some View {
         // FIXME: Add wallet manager mock with pubkey for preview
-        let view = AnnounceView(manager: AppState().walletManager, settings: SettingsViewController())
+        let view = AnnounceView(model: AnnounceViewModel(manager: AppState().walletManager))
         
         return Group {
             view

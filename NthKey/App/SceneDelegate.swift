@@ -13,7 +13,7 @@ import LibWally
 
 class AppState: ObservableObject {
     @Published var psbtManager: PSBTManager = PSBTManager()
-    @Published var walletManager: WalletManager = WalletManager()
+    @Published var walletManager: SeedManager = SeedManager()
 }
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {

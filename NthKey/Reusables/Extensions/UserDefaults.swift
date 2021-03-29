@@ -22,32 +22,20 @@ struct UserDefault <Value> {
 
 extension UserDefaults {
     enum Keys: String {
-        case cosigners = "cosigners"
-        case hasWallet = "hasWallet"
-        case threshold = "threshold"
-        case fingerprint = "masterKeyFingerprint"
-        case mainnet = "mainnet"
-        case entropyMask = "entropyMask"
 
+        case threshold = "threshold"
+        case fingerprints = "networkFingerprint"
+        case entropyMask = "entropyMask"
         case currentWalletDescriptor = "walletReceivedDescriptor"
     }
 }
 
 extension UserDefaults {
-    @UserDefault(key: Keys.cosigners, defaultValue: [])
-    static var cosigners: [Data]
-
-    @UserDefault(key: Keys.hasWallet, defaultValue: false)
-    static var hasWallet: Bool
-
     @UserDefault(key: Keys.threshold, defaultValue: 0)
     static var threshold: Int
 
-    @UserDefault(key: Keys.fingerprint, defaultValue: nil)
-    static var fingerprint: Data?
-
-    @UserDefault(key: Keys.mainnet, defaultValue: false)
-    static var mainnet: Bool
+    @UserDefault(key: Keys.fingerprints, defaultValue: nil)
+    static var fingerprints: [Int16: Data]?
 
     @UserDefault(key: Keys.entropyMask, defaultValue: nil)
     static var entropyMask: Data?

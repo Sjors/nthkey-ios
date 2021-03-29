@@ -28,8 +28,11 @@ struct SettingsView : View {
             VStack(alignment: .leading, spacing: 20.0) {
                 
                 if self.appState.walletManager.hasSeed {
-                    
-                    AnnounceView(manager: self.appState.walletManager, settings: settings)
+
+                    Text("Announce").font(.headline)
+                    AnnounceView(model: AnnounceViewModel(manager: appState.walletManager))
+
+                    Divider()
                     
                     Spacer()
 
@@ -39,9 +42,10 @@ struct SettingsView : View {
                                    isShowingScanner: self.$isShowingScanner)
                     
                     Spacer()
-                    
-                    CodeSignersView()
-                        .environmentObject(self.appState)
+
+                    Text("Cosigners")
+                        .font(.headline)
+                    CodeSignersView(model: model.codeSignersModel)
                     
                     MiscSettings()
                         .environmentObject(self.appState)
@@ -54,37 +58,29 @@ struct SettingsView : View {
             .padding(10)
             
         }.sheet(isPresented: $isShowingScanner) {
-            CodeScannerView(codeTypes: [.qr], completion: self.handleScan)
+            CodeScannerView(codeTypes: [.qr], completion: model.handleScan)
         }
     }
-    
-    // MARK: - Helpers
-    
-    private func handleScan(result: Result<String, CodeScannerView.ScanError>) {
-        self.isShowingScanner = false
-        switch result {
-        case .success(let code):
-            DispatchQueue.main.async() {
-                self.appState.walletManager.loadWallet(code.data(using: .utf8)!)
-            }
-        case .failure(let error):
-            print("Scanning failed")
-            print(error)
-        }
-    }
-    
 }
 
 #if DEBUG
 struct SettingsView_Previews: PreviewProvider {
     static var previews: some View {
-        let view = SettingsView(model: SettingsViewModel(dataManager: DataManager.preview))
-            .environmentObject(AppState())
+        let seededAppState = AppState()
+        seededAppState.walletManager.hasSeed = true
+
+        let view = SettingsView(model: SettingsViewModel.mock)
+
         return Group {
             view
 
-            NavigationView { view }
-                .colorScheme(.dark)
+                .environmentObject(seededAppState)
+
+            NavigationView {
+                view
+                    .environmentObject(AppState())
+            }
+            .colorScheme(.dark)
         }
     }
 }

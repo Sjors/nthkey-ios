@@ -18,7 +18,7 @@ struct PSBTManager {
     var network: Network
     
     init() {
-        self.network = UserDefaults.mainnet ? .mainnet : .testnet
+        self.network = .testnet// FIXME: Before multiwallet app store it in UserDefaults.mainnet ? .mainnet : .testnet
     }
     
     mutating func clear() {

@@ -20,6 +20,7 @@ class ContentViewModel: ObservableObject {
 
     // TODO: remove constant model after avoiding constant redraw
     let addressesModel: AddressesViewModel
+    let signViewModel: SignViewModel
     let settingsModel: SettingsViewModel
 
     private let dataManager: DataManager
@@ -28,6 +29,7 @@ class ContentViewModel: ObservableObject {
         self.dataManager = dataManager
 
         addressesModel = AddressesViewModel(dataManager: dataManager)
+        signViewModel = SignViewModel(dataManager: dataManager)
         settingsModel = SettingsViewModel(dataManager: dataManager)
     }
 }
