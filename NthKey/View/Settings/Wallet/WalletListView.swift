@@ -12,6 +12,8 @@ struct WalletListView: View {
     @ObservedObject var model: WalletListViewModel
 
     @Binding var isShowingScanner: Bool
+    
+    @State private var walletToRemove: WalletEntity?
 
     var body: some View {
         VStack(alignment: .leading, spacing: 20) {
@@ -20,6 +22,9 @@ struct WalletListView: View {
                     .contentShape(Rectangle())
                     .onTapGesture {
                         model.selectedWallet = item
+                    }
+                    .onLongPressGesture {
+                        walletToRemove = item
                     }
             }
             Button(action: {
@@ -40,10 +45,18 @@ struct WalletListView: View {
                 }
                 .foregroundColor(.accentColor)
             }
-            // TODO: Think about UX to remove a wallet
         }
         .onAppear() {
             model.viewDidAppear()
+        }
+        .alert(item: $walletToRemove) { wallet in
+            Alert(title: Text("Remove wallet"),
+                  message: Text("Do you want to remove \(wallet.label ?? "this wallet")"),
+                  primaryButton: .destructive(Text("Delete")) {
+                    model.deleteWallet(wallet)
+                  },
+                  secondaryButton: .cancel()
+            )
         }
     }
 }

@@ -259,4 +259,16 @@ extension DataManager {
             completion(.failure(.wrongDescriptor))
         }
     }
+
+    func removeWallet(_ wallet: WalletEntity) {
+        print("Remove wallet: \(wallet.label ?? "N/A")")
+        if currentWallet == wallet {
+            UserDefaults.standard.remove(key: .currentWalletDescriptor)
+            currentWallet = nil
+        }
+
+        store.container.viewContext.delete(wallet)
+        self.store.saveData()
+        fetchWallets()
+    }
 }

@@ -60,5 +60,8 @@ final class WalletListViewModel: ObservableObject {
             }
         }
     }
+
+    func deleteWallet(_ wallet: WalletEntity) {
+        dataManager.removeWallet(wallet)
     }
 }
