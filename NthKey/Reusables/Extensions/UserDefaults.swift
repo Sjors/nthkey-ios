@@ -35,7 +35,7 @@ extension UserDefaults {
     static var threshold: Int
 
     @UserDefault(key: Keys.fingerprints, defaultValue: nil)
-    static var fingerprints: [Int16: Data]?
+    static var fingerprints: [String: Data]?
 
     @UserDefault(key: Keys.entropyMask, defaultValue: nil)
     static var entropyMask: Data?

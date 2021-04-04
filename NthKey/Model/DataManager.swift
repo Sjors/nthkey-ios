@@ -173,9 +173,9 @@ extension DataManager {
             var ourHexString: String = ""
             guard desc.extendedKeys.contains(where: { (key) -> Bool in
                 var result = false
-                for (network, fingerprint) in fingerprints {
+                for (networkKey, fingerprint) in fingerprints {
                     guard key.fingerprint == fingerprint.hexString,
-                          let net = Network.valueFromInt16(network) else { continue }
+                          let net = Network.valueFromStringKey(networkKey) else { continue }
                     result = true
                     receivedNetwork = net
                     ourHexString = fingerprint.hexString

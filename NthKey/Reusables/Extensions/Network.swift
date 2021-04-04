@@ -47,3 +47,15 @@ extension Network: CaseIterable {
         get { return [.mainnet, .testnet] }
     }
 }
+
+/// For work with UserDefaults
+extension Network {
+    var stringKey: String {
+        String(self.int16Value)
+    }
+
+    static func valueFromStringKey(_ key: String) -> Network? {
+        guard let value = Int16(key) else { return nil }
+        return valueFromInt16(value)
+    }
+}

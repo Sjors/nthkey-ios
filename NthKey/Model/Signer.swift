@@ -47,7 +47,7 @@ public class Signer: NSObject, NSSecureCoding, Identifiable {
     public static func getSigners(masterKey: HDKey? = nil) -> (Signer, [Signer]) {
         let encodedCosigners: [Data] = [] // Before multiwallet app store it in UserDefaults.cosigners
         let network: Network = .testnet // FIXME: Before multiwallet app store it in UserDefaults.mainnet ? .mainnet : .testnet
-        let fingerprint = UserDefaults.fingerprints![network.int16Value]!
+        let fingerprint = UserDefaults.fingerprints![network.stringKey]!
 
         // TODO: deduplicate from MultisigAddress.swift
         let seedHex = try! SeedManager.getMnemonic().seedHex()
