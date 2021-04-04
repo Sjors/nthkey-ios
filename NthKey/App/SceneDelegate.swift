@@ -20,11 +20,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var appState = AppState()
 
-    private let dataManager = DataManager(store: PersistentStore(inMemory: false))
+    private let store = PersistentStore(inMemory: false)
+    private lazy var dataManager = DataManager(store: store)
     private lazy var contentViewModel = ContentViewModel(dataManager: dataManager)
     
     var window: UIWindow?
-
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
@@ -76,6 +76,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         // Save changes in the application's managed object context when the application transitions to the background.
         // (UIApplication.shared.delegate as? AppDelegate)?.saveContext()
+        store.saveData()
+        UserDefaults.standard.synchronize()
     }
     
     func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {

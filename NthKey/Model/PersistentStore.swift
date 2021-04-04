@@ -92,9 +92,12 @@ struct PersistentStore {
     }()
 
     let container: NSPersistentContainer
+    private let isInMemory: Bool
 
     init(inMemory: Bool = false) {
         container = NSPersistentContainer(name: "NthKey")
+        isInMemory = inMemory
+
         if inMemory {
             container.persistentStoreDescriptions.first!.url = URL(fileURLWithPath: "/dev/null")
         }
@@ -114,5 +117,10 @@ struct PersistentStore {
                 fatalError("Unresolved error \(error), \(error.userInfo)")
             }
         })
+    }
+
+    func saveData() {
+        guard !isInMemory else { return }
+        try? container.viewContext.save()
     }
 }
