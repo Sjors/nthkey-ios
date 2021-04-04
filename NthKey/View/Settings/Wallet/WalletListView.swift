@@ -42,6 +42,9 @@ struct WalletListView: View {
             }
             // TODO: Think about UX to remove a wallet
         }
+        .onAppear() {
+            model.viewDidAppear()
+        }
     }
 }
 

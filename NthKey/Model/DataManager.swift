@@ -40,25 +40,26 @@ final class DataManager: ObservableObject {
         guard !dataWasPrepared else { return }
         dataWasPrepared = true
 
-        do {
-            walletList = try store.container.viewContext.fetch(walletsRequest)
+        fetchWallets()
 
-            /// Load previously selected wallet
-            if let value = UserDefaults.currentWalletDescriptor {
-                currentWallet = walletList.filter { $0.receive_descriptor == value }.first
-            }
-        } catch {
-            walletList = []
-            self.error = error
+        /// Load previously selected wallet
+        if let value = UserDefaults.currentWalletDescriptor {
+            currentWallet = walletList.filter { $0.receive_descriptor == value }.first
         }
     }
 
     private func setupObservables() {
         $currentWallet
+            .dropFirst()
+            .removeDuplicates()
             .sink { [weak self] value in
                 guard let self = self else { return }
 
-                guard let wallet = value else { return }
+                guard let wallet = value else {
+                    self.addressList.removeAll()
+                    self.cosigners.removeAll()
+                    return
+                }
                 UserDefaults.currentWalletDescriptor = wallet.receive_descriptor
 
                 let sortDesc = NSSortDescriptor(keyPath: \AddressEntity.receiveIndex, ascending: true)
@@ -74,6 +75,15 @@ final class DataManager: ObservableObject {
                 }
             }
             .store(in: &cancellables)
+    }
+
+    private func fetchWallets() {
+        do {
+            walletList =  try store.container.viewContext.fetch(walletsRequest)
+        } catch {
+            walletList = []
+            self.error = error
+        }
     }
 }
 
@@ -140,6 +150,7 @@ enum DataProcessingError: Error, LocalizedError {
     }
 }
 
+/// Wallet
 extension DataManager {
     /// Load wallet and save it in DB and return a name of the wallet.
     func loadWalletUsingData(_ data: Data, completion: @escaping (Result<String, DataProcessingError>) -> Void) {
@@ -213,7 +224,10 @@ extension DataManager {
             wallet.threshold = Int16(threshold)
             wallet.network = receivedNetwork.int16Value
             wallet.receive_descriptor = descriptor
-            // TODO: wallet.label - fill it
+
+            if let label = jsonResult["label"] as? String {
+                wallet.label = label
+            }
 
             for (key, hdKey) in hdKeys {
                 let signer = CosignerEntity(context: store.container.viewContext)
@@ -223,6 +237,24 @@ extension DataManager {
                 signer.xpub = hdKey.description
                 wallet.addToCosigners(signer)
             }
+
+            for idx in 0..<1000 {
+                let address = MultisigAddress(
+                    threshold: UInt(threshold),
+                    receiveIndex: UInt(idx),
+                    network: receivedNetwork)
+
+                let item = AddressEntity(context: store.container.viewContext)
+                item.receiveIndex = Int32(idx)
+                item.address = address.description
+
+                wallet.addToAddresses(item)
+            }
+
+            self.fetchWallets()
+            self.store.saveData()
+
+            completion(.success(wallet.label ?? ""))
         default:
             completion(.failure(.wrongDescriptor))
         }

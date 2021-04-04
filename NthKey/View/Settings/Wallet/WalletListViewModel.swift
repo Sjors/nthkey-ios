@@ -30,11 +30,35 @@ final class WalletListViewModel: ObservableObject {
             .store(in: &cancellables)
 
         $selectedWallet
+            .dropFirst()
             .assign(to: \.currentWallet, on: self.dataManager)
             .store(in: &cancellables)
     }
 
+    func viewDidAppear() {
+        guard let value = dataManager.currentWallet else { return }
+        selectedWallet = value
+    }
+
     func addWalletByFile() {
-        loadFileController.loadWallet { _ in }
+        loadFileController.loadWallet { [weak self] url in
+            do {
+                let data = try Data(contentsOf: URL(fileURLWithPath: url.path), options: .mappedIfSafe)
+                self?.dataManager.loadWalletUsingData(data) { result in
+                    switch result {
+                        case .failure(let error):
+                            print(error)
+                            break
+                        case .success(let successString):
+                            print(successString)
+                            break
+                    }
+                }
+            } catch {
+                NSLog("Something went wrong parsing JSON file")
+                return
+            }
+        }
+    }
     }
 }
