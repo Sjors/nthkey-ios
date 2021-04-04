@@ -26,7 +26,7 @@ extension UserDefaults {
         case threshold = "threshold"
         case fingerprints = "networkFingerprint"
         case entropyMask = "entropyMask"
-        case currentWalletDescriptor = "walletReceivedDescriptor"
+        case currentWalletId = "walletId"
     }
 }
 
@@ -40,8 +40,8 @@ extension UserDefaults {
     @UserDefault(key: Keys.entropyMask, defaultValue: nil)
     static var entropyMask: Data?
 
-    @UserDefault(key: Keys.currentWalletDescriptor, defaultValue: nil)
-    static var currentWalletDescriptor: String?
+    @UserDefault(key: Keys.currentWalletId, defaultValue: nil)
+    static var currentWalletId: String?
 
     func remove(key: UserDefaults.Keys) {
         UserDefaults.standard.removeObject(forKey: key.rawValue)

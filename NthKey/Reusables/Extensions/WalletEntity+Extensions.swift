@@ -14,4 +14,10 @@ extension WalletEntity {
         guard let value = Network.valueFromInt16(self.network) else { return "" }
         return value.stringKey
     }
+
+    public override func awakeFromInsert() {
+        super.awakeFromInsert()
+
+        id = UUID().uuidString
+    }
 }

@@ -43,8 +43,8 @@ final class DataManager: ObservableObject {
         fetchWallets()
 
         /// Load previously selected wallet
-        if let value = UserDefaults.currentWalletDescriptor {
-            currentWallet = walletList.filter { $0.receive_descriptor == value }.first
+        if let value = UserDefaults.currentWalletId {
+            currentWallet = walletList.filter { $0.id == value }.first
         }
     }
 
@@ -60,7 +60,7 @@ final class DataManager: ObservableObject {
                     self.cosigners.removeAll()
                     return
                 }
-                UserDefaults.currentWalletDescriptor = wallet.receive_descriptor
+                UserDefaults.currentWalletId = wallet.id
 
                 let sortDesc = NSSortDescriptor(keyPath: \AddressEntity.receiveIndex, ascending: true)
                 if let items = wallet.addresses,
@@ -263,7 +263,7 @@ extension DataManager {
     func removeWallet(_ wallet: WalletEntity) {
         print("Remove wallet: \(wallet.label ?? "N/A")")
         if currentWallet == wallet {
-            UserDefaults.standard.remove(key: .currentWalletDescriptor)
+            UserDefaults.standard.remove(key: .currentWalletId)
             currentWallet = nil
         }
 

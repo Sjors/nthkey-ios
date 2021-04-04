@@ -14,6 +14,7 @@
         <relationship name="wallet" maxCount="1" deletionRule="Deny" destinationEntity="WalletEntity" inverseName="cosigners" inverseEntity="WalletEntity"/>
     </entity>
     <entity name="WalletEntity" representedClassName="WalletEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="id" optional="YES" attributeType="String"/>
         <attribute name="label" optional="YES" attributeType="String"/>
         <attribute name="network" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="receive_descriptor" attributeType="String"/>
@@ -24,6 +25,6 @@
     <elements>
         <element name="AddressEntity" positionX="-245.3781127929688" positionY="-15.91807556152344" width="128" height="89"/>
         <element name="CosignerEntity" positionX="112.3130493164063" positionY="-15.87921142578128" width="128" height="104"/>
-        <element name="WalletEntity" positionX="-63" positionY="-18" width="128" height="119"/>
+        <element name="WalletEntity" positionX="-63" positionY="-18" width="128" height="134"/>
     </elements>
 </model>
