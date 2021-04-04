@@ -12,6 +12,7 @@ import Combine
 final class WalletListViewModel: ObservableObject {
     @Published var selectedWallet: WalletEntity?
     @Published var items: [WalletEntity] = []
+    @Published var loadWalletError: DataProcessingError?
 
     private let loadFileController: SettingsViewController = SettingsViewController()
     private let dataManager: DataManager
@@ -47,10 +48,9 @@ final class WalletListViewModel: ObservableObject {
                 self?.dataManager.loadWalletUsingData(data) { result in
                     switch result {
                         case .failure(let error):
-                            print(error)
+                            self?.loadWalletError = error
                             break
-                        case .success(let successString):
-                            print(successString)
+                        case .success(_):
                             break
                     }
                 }

@@ -118,7 +118,9 @@ import OutputDescriptors
 import LibWally
 
 /// Specter interactions
-enum DataProcessingError: Error, LocalizedError {
+enum DataProcessingError: Error, LocalizedError, Identifiable {
+    var id: String { errorDescription ?? "" }
+
     case wrongInputData
     case unableParseDescriptor(String?)
     case wrongDescriptor

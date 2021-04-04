@@ -49,14 +49,20 @@ struct WalletListView: View {
         .onAppear() {
             model.viewDidAppear()
         }
-        .alert(item: $walletToRemove) { wallet in
-            Alert(title: Text("Remove wallet"),
-                  message: Text("Do you want to remove \(wallet.label ?? "this wallet")"),
-                  primaryButton: .destructive(Text("Delete")) {
-                    model.deleteWallet(wallet)
-                  },
-                  secondaryButton: .cancel()
-            )
+        .actionSheet(item: $walletToRemove) { wallet in
+            ActionSheet(title: Text("Remove wallet"),
+                        message: Text("Do you want to remove \(wallet.label ?? "this wallet")"),
+                        buttons: [
+                            .destructive(Text("Delete"), action: {
+                                model.deleteWallet(wallet)
+                            }),
+                            .cancel()
+                        ])
+        }
+        .alert(item: $model.loadWalletError) { error in
+            Alert(title: Text("Load wallet error"),
+                  message: Text(error.errorDescription ?? "Unknown error"),
+                  dismissButton: .cancel())
         }
     }
 }
