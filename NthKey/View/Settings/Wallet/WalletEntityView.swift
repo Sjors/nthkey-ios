@@ -20,8 +20,6 @@ struct WalletEntityView: View {
 
             Spacer()
 
-            Text("Thr.: \(item.threshold)")
-
             Text(WalletEntityView.networkTitle(network: item.network))
         }
     }

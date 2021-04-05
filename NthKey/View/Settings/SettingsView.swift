@@ -43,7 +43,7 @@ struct SettingsView : View {
                     
                     Spacer()
 
-                    Text("Cosigners")
+                    Text("Wallet details")
                         .font(.headline)
                     CodeSignersView(model: model.codeSignersModel)
                     

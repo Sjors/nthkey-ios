@@ -32,7 +32,7 @@ struct WalletListView: View {
             }) {
                 HStack {
                     Image(systemName: "plus.circle")
-                    Text("Add a wallet by scan QR")
+                    Text("Scan wallet QR code")
                 }
                 .foregroundColor(.accentColor)
             }
@@ -41,7 +41,7 @@ struct WalletListView: View {
             }) {
                 HStack {
                     Image(systemName: "plus.circle")
-                    Text("Add a wallet by import JSON")
+                    Text("Import wallet JSON")
                 }
                 .foregroundColor(.accentColor)
             }

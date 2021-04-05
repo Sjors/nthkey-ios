@@ -14,6 +14,10 @@ struct CodeSignersView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 20.0) {
             if  model.hasOwnFingerprint {
+                Text("Threshold: \(model.threshold) of \(model.items.count + 1)")
+                    .font(.subheadline)
+                    .foregroundColor(.secondary)
+                
                 Text("* \(model.ourFingerprintString)")
                     .font(.system(.body, design: .monospaced))
                     + Text(" (us)")

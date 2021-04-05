@@ -26,6 +26,10 @@ final class CodeSignersViewModel: ObservableObject {
         return fingerprint.hexString
     }
 
+    var threshold: Int {
+        Int(dataManager.currentWallet?.threshold ?? 0)
+    }
+
     init(dataManager: DataManager) {
         self.dataManager = dataManager
 
