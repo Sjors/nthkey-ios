@@ -190,7 +190,7 @@ extension DataManager {
                     guard key.fingerprint == fingerprint.hexString,
                           let net = Network.valueFromStringKey(networkKey) else { continue }
                     result = true
-                    receivedNetwork = net
+                    receivedNetwork = net // TODO: Here we select network based on checking it's fingerprint. In case of fingrprints are the same then move network selection completely to the "Add wallet" flow.
                     ourHexString = fingerprint.hexString
                 }
                 return result
@@ -199,9 +199,23 @@ extension DataManager {
                 return
             }
 
+            var receivePublicHDkeys: [HDKey] = []
+            guard let pathForDerive = BIP32Path("0") else {
+                completion(.failure(.wrongCosigner))
+                return
+            }
+
             var hdKeys: [(ExtendedKey, HDKey)] = []
-            desc.extendedKeys.forEach { (key) in
-                if (key.fingerprint == ourHexString) { return }
+            desc.extendedKeys.forEach { key in
+                guard key.fingerprint != ourHexString else {
+                    guard let selfKey = HDKey(key.xpub) else {
+                        completion(.failure(.wrongCosigner))
+                        return
+                    }
+                    // ourself key
+                    receivePublicHDkeys.append(try! selfKey.derive(pathForDerive))
+                    return
+                }
                 let extendedKey = Data(base58: key.xpub)!
                 // Check that this is a testnet tpub
                 let marker = Data(extendedKey.subdata(in: 0..<4))
@@ -215,6 +229,8 @@ extension DataManager {
                     return
                 }
                 hdKeys.append((key, aKey))
+                // cosigners keys
+                receivePublicHDkeys.append(try! aKey.derive(pathForDerive))
             }
             guard hdKeys.count == desc.extendedKeys.count - 1 else {
                 completion(.failure(.wrongNumberOfCosigners))
@@ -241,14 +257,18 @@ extension DataManager {
             }
 
             for idx in 0..<1000 {
-                let address = MultisigAddress(
-                    threshold: UInt(threshold),
-                    receiveIndex: UInt(idx),
-                    network: receivedNetwork)
+                let pubKeys = receivePublicHDkeys.map {key -> PubKey in
+                    let path = try! BIP32Path(idx, relative: true)
+                    let childKey: HDKey = try! key.derive(path)
+                    return childKey.pubKey
+                }
+
+                let scriptPubKey = ScriptPubKey(multisig: pubKeys, threshold: UInt(threshold))
+                let receiveAddress = Address(scriptPubKey, receivedNetwork)!
 
                 let item = AddressEntity(context: store.container.viewContext)
                 item.receiveIndex = Int32(idx)
-                item.address = address.description
+                item.address = receiveAddress.description
 
                 wallet.addToAddresses(item)
             }
