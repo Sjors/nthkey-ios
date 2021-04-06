@@ -10,11 +10,11 @@ import SwiftUI
 import CodeScanner
 
 struct SettingsView : View {
-    var model: SettingsViewModel
+    @ObservedObject var model: SettingsViewModel
+
     @EnvironmentObject var appState: AppState
 
     @State private var showMnemonic = false
-    @State private var isShowingScanner = false
     @State private var enterMnemonnic = false
     @State private var mnemonicInput = ""
     @State private var validMnemonic = false
@@ -39,7 +39,7 @@ struct SettingsView : View {
                     Text("Wallets")
                         .font(.headline)
                     WalletListView(model: model.walletListModel,
-                                   isShowingScanner: self.$isShowingScanner)
+                                   isShowingScanner: $model.isShowingScanner)
                     
                     Spacer()
 
@@ -57,7 +57,7 @@ struct SettingsView : View {
             }
             .padding(10)
             
-        }.sheet(isPresented: $isShowingScanner) {
+        }.sheet(isPresented: $model.isShowingScanner) {
             CodeScannerView(codeTypes: [.qr], completion: model.handleScan)
         }
     }

@@ -9,7 +9,9 @@
 import Foundation
 import CodeScanner
 
-final class SettingsViewModel {
+final class SettingsViewModel: ObservableObject {
+    @Published var isShowingScanner = false
+
     private let dataManager: DataManager
 
     let walletListModel: WalletListViewModel
@@ -23,7 +25,7 @@ final class SettingsViewModel {
     }
 
     func handleScan(result: Result<String, CodeScannerView.ScanError>) {
-        // self.isShowingScanner = false
+        isShowingScanner = false
         switch result {
         case .success(let code):
             DispatchQueue.main.async() { [weak self] in
