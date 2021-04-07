@@ -125,7 +125,6 @@ enum DataProcessingError: Error, LocalizedError, Identifiable {
     case unableParseDescriptor(String?)
     case wrongDescriptor
     case notEnoughKeys
-    case absentOurFingerprint
     case wrongCosigner
     case wrongNumberOfCosigners
     case missedFingerprint
@@ -140,8 +139,6 @@ enum DataProcessingError: Error, LocalizedError, Identifiable {
             return "Expected sortedmulti descriptor"
         case .notEnoughKeys:
             return "Require at least 2 keys"
-        case .absentOurFingerprint:
-            return "We're not part of the wallet"
         case .wrongCosigner:
             return "Malformated cosigner xpub"
         case .wrongNumberOfCosigners:
@@ -156,10 +153,14 @@ enum DataProcessingError: Error, LocalizedError, Identifiable {
 extension DataManager {
     /// Load wallet and save it in DB and return a name of the wallet.
     func loadWalletUsingData(_ data: Data, completion: @escaping (Result<String, DataProcessingError>) -> Void) {
-        guard let fingerprints = UserDefaults.fingerprints else {
+        guard let fingerprints = UserDefaults.fingerprints,
+              let fingerprint = fingerprints.first else {
             completion(.failure(.missedFingerprint)) // our fingerprint should be filled on seed generation step
             return
         }
+
+        // FIXME: Fingerprint is unique for the device, not for (network/device) pair
+        let ourHexString = fingerprint.value.hexString
 
         // Check if it is a JSON and uses Specter format:
         guard let json = try? JSONSerialization.jsonObject(with: data, options: .mutableLeaves),
@@ -182,29 +183,38 @@ extension DataManager {
                 return
             }
 
-            var receivedNetwork: Network = .testnet
-            var ourHexString: String = ""
-            guard desc.extendedKeys.contains(where: { (key) -> Bool in
-                var result = false
-                for (networkKey, fingerprint) in fingerprints {
-                    guard key.fingerprint == fingerprint.hexString,
-                          let net = Network.valueFromStringKey(networkKey) else { continue }
-                    result = true
-                    receivedNetwork = net // TODO: Here we select network based on checking it's fingerprint. In case of fingrprints are the same then move network selection completely to the "Add wallet" flow.
-                    ourHexString = fingerprint.hexString
+            // Checking co-signers network
+            var receivedNetwork: Network?
+            for key in desc.extendedKeys {
+                var keyNetwork: Network?
+                switch key.xpub.prefix(4) {
+                    case "tpub":
+                        keyNetwork = .testnet
+                    case "xpub":
+                        keyNetwork = .mainnet
+                    default:
+                        completion(.failure(.wrongCosigner))
+                        return
                 }
-                return result
-            }) else {
-                completion(.failure(.absentOurFingerprint))
-                return
+
+                guard let net = receivedNetwork else {
+                    receivedNetwork = keyNetwork
+                    continue
+                }
+
+                guard net == keyNetwork else {
+                    completion(.failure(.wrongCosigner))
+                    return
+                }
             }
 
-            var receivePublicHDkeys: [HDKey] = []
-            guard let pathForDerive = BIP32Path("0") else {
+            guard let pathForDerive = BIP32Path("0"),
+                  let network = receivedNetwork else {
                 completion(.failure(.wrongCosigner))
                 return
             }
 
+            var receivePublicHDkeys: [HDKey] = []
             var hdKeys: [(ExtendedKey, HDKey)] = []
             desc.extendedKeys.forEach { key in
                 guard key.fingerprint != ourHexString else {
@@ -240,7 +250,7 @@ extension DataManager {
             // FIXME: Make sure that it happen in main thread
             let wallet = WalletEntity(context: store.container.viewContext)
             wallet.threshold = Int16(threshold)
-            wallet.network = receivedNetwork.int16Value
+            wallet.network = network.int16Value
             wallet.receive_descriptor = descriptor
 
             if let label = jsonResult["label"] as? String {
@@ -264,7 +274,7 @@ extension DataManager {
                 }
 
                 let scriptPubKey = ScriptPubKey(multisig: pubKeys, threshold: UInt(threshold))
-                let receiveAddress = Address(scriptPubKey, receivedNetwork)!
+                let receiveAddress = Address(scriptPubKey, network)!
 
                 let item = AddressEntity(context: store.container.viewContext)
                 item.receiveIndex = Int32(idx)
