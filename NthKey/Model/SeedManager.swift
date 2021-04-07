@@ -18,7 +18,7 @@ struct SeedManager {
     }
 
     init() {
-        hasSeed = UserDefaults.fingerprints != nil
+        hasSeed = UserDefaults.fingerprint != nil
     }
 
     static func getMnemonic() throws -> BIP39Mnemonic  {
@@ -53,13 +53,9 @@ struct SeedManager {
             precondition(false)
         }
         let seedHex = BIP39Mnemonic(entropy)!.seedHex()
+        let masterKey = HDKey(seedHex, .mainnet)!
 
-        var fingerprints: [String: Data] = [:]
-        for network in Network.allCases {
-            let masterKey = HDKey(seedHex, network)!
-            fingerprints[network.stringKey] = masterKey.fingerprint
-        }
-        UserDefaults.fingerprints = fingerprints
+        UserDefaults.fingerprint = masterKey.fingerprint
         UserDefaults.entropyMask = mask
 
         self.hasSeed = true
@@ -75,8 +71,7 @@ struct SeedManager {
     }
     
     func ourPubKey(network: Network)  -> Data {
-        guard let fingerprints = UserDefaults.fingerprints,
-              let fingerprint = fingerprints[network.stringKey] else {
+        guard let fingerprint = UserDefaults.fingerprint else {
             return Data.init()
         }
         // TODO: handle error

@@ -20,10 +20,7 @@ final class CodeSignersViewModel: ObservableObject {
     }
     
     var ourFingerprintString: String {
-        guard let fingerprints = UserDefaults.fingerprints,
-              let wallet = dataManager.currentWallet,
-              let fingerprint = fingerprints[wallet.networkKey] else { return "" }
-        return fingerprint.hexString
+        UserDefaults.fingerprint?.hexString ?? "N/A"
     }
 
     var threshold: Int {

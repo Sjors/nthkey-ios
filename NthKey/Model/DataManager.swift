@@ -153,14 +153,13 @@ enum DataProcessingError: Error, LocalizedError, Identifiable {
 extension DataManager {
     /// Load wallet and save it in DB and return a name of the wallet.
     func loadWalletUsingData(_ data: Data, completion: @escaping (Result<String, DataProcessingError>) -> Void) {
-        guard let fingerprints = UserDefaults.fingerprints,
-              let fingerprint = fingerprints.first else {
+        guard let fingerprint = UserDefaults.fingerprint else {
             completion(.failure(.missedFingerprint)) // our fingerprint should be filled on seed generation step
             return
         }
 
         // FIXME: Fingerprint is unique for the device, not for (network/device) pair
-        let ourHexString = fingerprint.value.hexString
+        let ourHexString = fingerprint.hexString
 
         // Check if it is a JSON and uses Specter format:
         guard let json = try? JSONSerialization.jsonObject(with: data, options: .mutableLeaves),

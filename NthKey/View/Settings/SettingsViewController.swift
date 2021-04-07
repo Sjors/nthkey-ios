@@ -34,7 +34,7 @@ final class SettingsViewController : UIViewController, UIDocumentPickerDelegate 
 
     func exportPublicKey(data: Data) {
         precondition(activeFileViewControllerManager == nil)
-        precondition(UserDefaults.fingerprints != nil)
+        precondition(UserDefaults.fingerprint != nil)
         activeFileViewControllerManager = DocumentPickerManager(task: .savePublicKey)
         activeFileViewControllerManager!.payload = data
         activeFileViewControllerManager!.prompt(vc: self, delegate: self)

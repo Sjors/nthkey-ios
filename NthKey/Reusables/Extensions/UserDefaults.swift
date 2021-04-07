@@ -24,7 +24,7 @@ extension UserDefaults {
     enum Keys: String {
 
         case threshold = "threshold"
-        case fingerprints = "networkFingerprint"
+        case fingerprint = "masterKeyFingerprint"
         case entropyMask = "entropyMask"
         case currentWalletId = "walletId"
     }
@@ -34,8 +34,8 @@ extension UserDefaults {
     @UserDefault(key: Keys.threshold, defaultValue: 0)
     static var threshold: Int
 
-    @UserDefault(key: Keys.fingerprints, defaultValue: nil)
-    static var fingerprints: [String: Data]?
+    @UserDefault(key: Keys.fingerprint, defaultValue: nil)
+    static var fingerprint: Data?
 
     @UserDefault(key: Keys.entropyMask, defaultValue: nil)
     static var entropyMask: Data?
