@@ -182,33 +182,7 @@ extension DataManager {
                 return
             }
 
-            // Checking co-signers network
-            var receivedNetwork: Network?
-            for key in desc.extendedKeys {
-                var keyNetwork: Network?
-                switch key.xpub.prefix(4) {
-                    case "tpub":
-                        keyNetwork = .testnet
-                    case "xpub":
-                        keyNetwork = .mainnet
-                    default:
-                        completion(.failure(.wrongCosigner))
-                        return
-                }
-
-                guard let net = receivedNetwork else {
-                    receivedNetwork = keyNetwork
-                    continue
-                }
-
-                guard net == keyNetwork else {
-                    completion(.failure(.wrongCosigner))
-                    return
-                }
-            }
-
-            guard let pathForDerive = BIP32Path("0"),
-                  let network = receivedNetwork else {
+            guard let pathForDerive = BIP32Path("0") else {
                 completion(.failure(.wrongCosigner))
                 return
             }
@@ -241,6 +215,26 @@ extension DataManager {
                 // cosigners keys
                 receivePublicHDkeys.append(try! aKey.derive(pathForDerive))
             }
+
+            // Checking co-signers network
+            var receivedNetwork: Network?
+            receivePublicHDkeys.forEach { hdKey in
+                guard let net = receivedNetwork else {
+                    receivedNetwork = hdKey.network
+                    return
+                }
+
+                guard net == hdKey.network else {
+                    completion(.failure(.wrongCosigner))
+                    return
+                }
+            }
+
+            guard let network = receivedNetwork else {
+                completion(.failure(.wrongCosigner))
+                return
+            }
+
             guard hdKeys.count == desc.extendedKeys.count - 1 else {
                 completion(.failure(.wrongNumberOfCosigners))
                 return
