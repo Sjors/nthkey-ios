@@ -122,6 +122,7 @@ enum DataProcessingError: Error, LocalizedError, Identifiable {
     var id: String { errorDescription ?? "" }
 
     case wrongInputData
+    case duplicateWallet
     case unableParseDescriptor(String?)
     case wrongDescriptor
     case notEnoughKeys
@@ -133,6 +134,8 @@ enum DataProcessingError: Error, LocalizedError, Identifiable {
         switch self {
         case .wrongInputData:
             return "JSON format not recognized"
+        case .duplicateWallet:
+            return "The wallet was imported before."
         case .unableParseDescriptor(let descriptor): //private ParseError not allow to share more info
             return "Unable to parse descriptor: \(descriptor ?? "N/A")"
         case .wrongDescriptor:
@@ -169,6 +172,14 @@ extension DataManager {
             return
         }
 
+        // Check if we already has this wallet
+        guard walletList.first(where: { walletEntity -> Bool in
+            walletEntity.receive_descriptor == descriptor
+        }) == nil else {
+            completion(.failure(.duplicateWallet))
+            return
+        }
+        
         // Try to get descriptor
         guard let desc = try? OutputDescriptor(descriptor) else {
             completion(.failure(.unableParseDescriptor(descriptor)))
