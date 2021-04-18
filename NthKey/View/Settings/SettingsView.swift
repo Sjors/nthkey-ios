@@ -19,8 +19,6 @@ struct SettingsView : View {
     @State private var mnemonicInput = ""
     @State private var validMnemonic = false
     @State private var promptMainnet = false
-
-    private let settings = SettingsViewController()
     
     var body: some View {
         ScrollView {
