@@ -11,6 +11,7 @@
 		2A41F8B72607AB9B00C6AF92 /* WalletListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A41F8B62607AB9B00C6AF92 /* WalletListView.swift */; };
 		2A41F8BF2607AC0200C6AF92 /* WalletListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A41F8BE2607AC0200C6AF92 /* WalletListViewModel.swift */; };
 		2A41F8F32607EBF500C6AF92 /* WalletEntityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A41F8F22607EBF500C6AF92 /* WalletEntityView.swift */; };
+		2AAC0EFF262CD56900C7B432 /* PSBT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AAC0EFE262CD56900C7B432 /* PSBT.swift */; };
 		2AB09973261131B100618B60 /* AnnounceViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AB09972261131B100618B60 /* AnnounceViewModel.swift */; };
 		2AB09986261149ED00618B60 /* SignViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AB09985261149ED00618B60 /* SignViewModel.swift */; };
 		2AB0998E2612321B00618B60 /* WalletEntity+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AB0998D2612321B00618B60 /* WalletEntity+Extensions.swift */; };
@@ -84,6 +85,7 @@
 		2A41F8B62607AB9B00C6AF92 /* WalletListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletListView.swift; sourceTree = "<group>"; };
 		2A41F8BE2607AC0200C6AF92 /* WalletListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletListViewModel.swift; sourceTree = "<group>"; };
 		2A41F8F22607EBF500C6AF92 /* WalletEntityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletEntityView.swift; sourceTree = "<group>"; };
+		2AAC0EFE262CD56900C7B432 /* PSBT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PSBT.swift; sourceTree = "<group>"; };
 		2AB09972261131B100618B60 /* AnnounceViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnounceViewModel.swift; sourceTree = "<group>"; };
 		2AB09985261149ED00618B60 /* SignViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignViewModel.swift; sourceTree = "<group>"; };
 		2AB0998D2612321B00618B60 /* WalletEntity+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WalletEntity+Extensions.swift"; sourceTree = "<group>"; };
@@ -398,6 +400,7 @@
 				2AB30A0225EC00550061B717 /* UserDefaults.swift */,
 				2AF86C33260B555B00A770AD /* Network.swift */,
 				2AB0998D2612321B00618B60 /* WalletEntity+Extensions.swift */,
+				2AAC0EFE262CD56900C7B432 /* PSBT.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -694,6 +697,7 @@
 				A2067AC123C8549700F46862 /* SeedManager.swift in Sources */,
 				A27D4BF623A2B4F30055B0B8 /* SettingsView.swift in Sources */,
 				A2C8546023B157F2008E4AA1 /* PSBTManager.swift in Sources */,
+				2AAC0EFF262CD56900C7B432 /* PSBT.swift in Sources */,
 				A2E9E38123ACF1A30049645D /* SignViewController.swift in Sources */,
 				4AB1EA7225AB375200EE6832 /* QRCodeBuilder.swift in Sources */,
 				A27180B623A293EA00E9F443 /* AddressView.swift in Sources */,
