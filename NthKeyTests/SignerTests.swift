@@ -27,15 +27,4 @@ class SignerTests: XCTestCase {
         XCTAssertEqual(signer.derivation.description, "m/0h/1")
         XCTAssertEqual(signer.hdKey.description, xpub)
     }
-
-    func testEncode() {
-        let signer1 = Signer(fingerprint: Data("3442193e")!, derivation: BIP32Path("m/0'/1")!, hdKey: HDKey(xpub)!, name: "NthKey")
-        let encoded = try! NSKeyedArchiver.archivedData(withRootObject: signer1, requiringSecureCoding: true)
-        let signer2 = try! NSKeyedUnarchiver.unarchivedObject(ofClass: Signer.self, from: encoded)!
-        
-        XCTAssertEqual(signer1.fingerprint, signer2.fingerprint)
-        XCTAssertEqual(signer1.derivation.description, signer2.derivation.description)
-        XCTAssertEqual(signer1.hdKey.xpub, signer2.hdKey.xpub)
-    }
-
 }

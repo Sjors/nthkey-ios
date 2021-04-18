@@ -9,8 +9,7 @@
 import Foundation
 import LibWally
 
-public class Signer: NSObject, NSSecureCoding, Identifiable {
-    public static var supportsSecureCoding = true
+public class Signer: NSObject, Identifiable {
     
     public let fingerprint: Data
     public let derivation: BIP32Path
@@ -24,28 +23,8 @@ public class Signer: NSObject, NSSecureCoding, Identifiable {
         self.hdKey = hdKey
     }
     
-    required convenience public init(coder: NSCoder) {
-        let fingerprint = coder.decodeObject(forKey: Keys.fingerprint) as! Data
-        let derivation = coder.decodeObject(forKey: Keys.derivation) as! String // TODO: add raw initializer to BIP32Path
-        let path = BIP32Path(derivation)!
-        let xpub: String = coder.decodeObject(forKey: Keys.xpub) as! String // TODO: add raw initializer to HDKey
-        let hdKey = HDKey(xpub, masterKeyFingerprint:fingerprint)!
-        var name = coder.decodeObject(forKey: Keys.name) as? String
-        if name == nil {
-            name = ""
-        }
-        self.init(fingerprint: fingerprint, derivation: path, hdKey: hdKey, name: name!)
-    }
-    
-    public func encode(with coder: NSCoder) {
-        coder.encode(fingerprint, forKey: Keys.fingerprint) // TODO: use constants for keys
-        coder.encode(derivation.description, forKey: Keys.derivation)
-        coder.encode(hdKey.description, forKey: Keys.xpub)
-        coder.encode(name, forKey: Keys.name)
-    }
     
     public static func getSigners(masterKey: HDKey? = nil) -> (Signer, [Signer]) {
-        let encodedCosigners: [Data] = [] // Before multiwallet app store it in UserDefaults.cosigners
         let network: Network = .testnet // FIXME: Before multiwallet app store it in UserDefaults.mainnet ? .mainnet : .testnet
         let fingerprint = UserDefaults.fingerprint! 
 
@@ -58,17 +37,7 @@ public class Signer: NSObject, NSSecureCoding, Identifiable {
         let ourKey = try! masterKey.derive(path)
         let us = Signer(fingerprint: fingerprint, derivation: path, hdKey: ourKey, name: "NthKey")
 
-        guard !encodedCosigners.isEmpty else {
-            return (us, [])
-        }
         var cosigners: [Signer] = []
-        for encodedCosigner in encodedCosigners {
-            guard let cosigner: Signer = try? NSKeyedUnarchiver.unarchivedObject(ofClass: Signer.self, from: encodedCosigner ) else {
-                print("Corrupted co-signers saved value")
-                return (us, [])
-            }
-            cosigners.append(cosigner)
-        }
         
         return (us, cosigners)
     }
@@ -78,14 +47,5 @@ public class Signer: NSObject, NSSecureCoding, Identifiable {
         let (us, _) = Signer.getSigners()
         psbtOut.sign(us.hdKey)
         return psbtOut
-    }
-}
-
-extension Signer {
-    struct Keys {
-        static let fingerprint = "fingerprint"
-        static let derivation = "derivation"
-        static let xpub = "xpub"
-        static let name = "name"
     }
 }
