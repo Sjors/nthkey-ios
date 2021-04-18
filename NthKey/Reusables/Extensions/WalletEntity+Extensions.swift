@@ -20,4 +20,20 @@ extension WalletEntity {
 
         id = UUID().uuidString
     }
+
+    var wrappedNetwork: Network? {
+        Network.valueFromInt16(network)
+    }
+
+    var cosignersHDKeys: [HDKey] {
+        var result: [HDKey] = []
+        guard let items = cosigners?.allObjects as? [CosignerEntity] else { return result }
+        for cosigner in items {
+            guard let xpub = cosigner.xpub,
+                  let master = cosigner.fingerprint,
+                  let key = HDKey(xpub, masterKeyFingerprint: master) else { continue }
+            result.append(key)
+        }
+        return result
+    }
 }
