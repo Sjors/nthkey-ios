@@ -14,18 +14,13 @@ struct Destination : Identifiable, Equatable {
     public let id: String
     public let isChange: Bool
     
-    init(output: PSBTOutput, inputs: [PSBTInput]) {
-        // TODO: use wallet manager
-        let threshold = UInt(UserDefaults.threshold)
+    init(output: PSBTOutput, inputs: [PSBTInput], threshold: UInt, cosignerKeys: [HDKey]) {
         precondition(threshold > 0)
 
         self.description = String(output.txOutput.amount) + " sats" + ": " + output.txOutput.address!.description
         self.id = output.id
-        let (us, cosigners) = Signer.getSigners()
-        let cosignerKeys = cosigners.map { (signer) -> HDKey in
-            signer.hdKey
-        }
+        let us = Signer.getOurselfSigner()
+
         self.isChange = output.isChange(signer: us.hdKey, inputs: inputs, cosigners: cosignerKeys, threshold: threshold)
     }
-    
 }

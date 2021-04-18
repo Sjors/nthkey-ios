@@ -13,141 +13,117 @@ import CodeScanner
 
 struct SignView : View {
     @ObservedObject var model: SignViewModel
-    @EnvironmentObject var appState: AppState
 
-    @State private var isShowingScanner = false
-    
-    var vc: SignViewController? = nil
-    
-    func handleScan(result: Result<String, CodeScannerView.ScanError>) {
-       self.isShowingScanner = false
-        switch result {
-        case .success(let code):
-            DispatchQueue.main.async() {
-                self.appState.psbtManager.loadPSBT(code)
-            }
-        case .failure(let error):
-            print("Scanning failed")
-            print(error)
-        }
-    }
-    
-    // TODO: deduplicate QR display code from SettingsView
-    let context = CIContext()
-    let filter = CIFilter.qrCodeGenerator()
+    var contentView: AnyView {
+        switch model.state {
+        case .initial:
+            return Text("Please select the wallet on settings")
+                .toAnyView
+        case .canLoad:
+            return VStack(alignment: .leading, spacing: 20.0) {
+                Button("Scan PSBT") {
+                    model.isShowingScanner = true
+                }
 
-    func generateQRCode(from string: String) -> UIImage {
-        let data = Data(string.utf8)
-        filter.setValue(data, forKey: "inputMessage")
-
-        if let outputImage = filter.outputImage {
-            if let cgimg = context.createCGImage(outputImage, from: outputImage.extent) {
-                return UIImage(cgImage: cgimg)
-            }
-        }
-
-        return UIImage(systemName: "xmark.circle") ?? UIImage()
-    }
-    
-    func openPSBT(_ url: URL) {
-        DispatchQueue.main.async() {
-            self.appState.psbtManager.open(url)
-        }
-    }
-    
-    func didSavePSBT() {
-        DispatchQueue.main.async() {
-            self.appState.psbtManager.signed = true
-        }
-    }
-    
-    var body: some View {
-        ScrollView {
-            Spacer()
-            HStack {
+                Button("Load PSBT") {
+                    model.loadFile()
+                }
+            }.toAnyView
+        case .loaded, .canSign, .signed:
+            return ScrollView {
                 VStack(alignment: .leading, spacing: 20.0){
-                    Button("Scan PSBT") {
-                        self.isShowingScanner = true
-                    }
-                    .disabled(!model.hasWallet || self.appState.psbtManager.psbt != nil)
-
-                    Button("Load PSBT") {
-                        self.vc!.openPSBT(self.openPSBT)
-                    }
-                    .disabled(!model.hasWallet || self.appState.psbtManager.psbt != nil)
-
-                    if self.appState.psbtManager.psbt != nil {
-                        if self.appState.psbtManager.signed {
+                    HStack {
+                        if model.state == .signed {
                             Text("Signed Transaction")
                         } else {
                             Text("Proposed Transaction")
                         }
-                        if self.appState.psbtManager.destinations != nil {
-                            ForEach(self.appState.psbtManager.destinations!.filter({ (dest) -> Bool in
-                                return !dest.isChange;
-                            })) { destination in
-                                Text(destination.description).font(.system(.body, design: .monospaced))
-                            }
-                            Text("Fee: " + appState.psbtManager.fee)
+                        Spacer()
+                    }
+
+                    ForEach(model.destinations.filter({ dest -> Bool in
+                        return !dest.isChange;
+                    })) { destination in
+                        Text(destination.description)
+                            .font(.system(.body, design: .monospaced))
+                    }
+                    Text(model.feeString)
+
+                    Button("Sign") {
+                        model.sign()
+                    }
+                    .disabled(model.state != .canSign)
+
+                    if model.state == .signed {
+                        Image(uiImage: model.psbtSignedImage)
+                            .interpolation(.none)
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 350, height: 350)
+
+                        Button("Save") {
+                            model.saveFile()
                         }
 
-                        Button("Sign") {
-                            let psbt = Signer.signPSBT(self.appState.psbtManager.psbt!)
-                            self.appState.psbtManager.signed = true
-                            self.appState.psbtManager.psbt = psbt
-                        }
-                        .disabled(!appState.psbtManager.canSign || appState.psbtManager.signed)
-
-                        if (appState.psbtManager.signed) {
-                            Image(uiImage: generateQRCode(from: self.appState.psbtManager.psbt!.description))
-                                .interpolation(.none)
-                                .resizable()
-                                .scaledToFit()
-                                .frame(width: 350, height: 350)
-
-                            Button("Save") {
-                                self.vc!.savePSBT(self.appState.psbtManager.psbt!, self.didSavePSBT)
-                            }
-
-                            Button("Copy") {
-                                UIPasteboard.general.string = self.appState.psbtManager.psbt!.description
-                            }
-                        }
-                        Button("Clear") {
-                            self.appState.psbtManager.clear()
+                        Button("Copy") {
+                            model.copyToClipboard()
                         }
                     }
+
+                    Button("Clear") {
+                        model.clear()
+                    }
+                    .padding(.bottom, 50)
                 }
             }
+            .toAnyView
         }
-        .sheet(isPresented: $isShowingScanner) {
-            CodeScannerView(codeTypes: [.qr], completion: self.handleScan)
-        }
+    }
+
+    var body: some View {
+        contentView
+            .padding(.horizontal)
+            .sheet(isPresented: $model.isShowingScanner) {
+                CodeScannerView(codeTypes: [.qr], completion: model.handleScan)
+            }
+            .alert(item: $model.errorMessage) { error in
+                Alert(title: Text("Error"),
+                      message: Text(error),
+                      dismissButton: .default(Text("Ok"), action: {
+                        model.clear()
+                      }))
+            }
     }
 }
 
 #if DEBUG
 struct SignView_Previews: PreviewProvider {
     static var previews: some View {
-        // FIXME: Add mockups to present all cases
-        let view = SignView(model: SignViewModel(dataManager: DataManager.preview))
-            .environmentObject(AppState())
-
-        let emptyView = SignView(model: SignViewModel(dataManager: DataManager.empty))
-            .environmentObject(AppState())
+        let view = List {
+            Section(header: Text("Initial. Wallet isn't selected")) {
+                SignView(model: SignViewModel.mocks.unselected)
+            }
+            Section(header: Text("Can scan or load")) {
+                SignView(model: SignViewModel.mocks.canLoad)
+            }
+            Section(header: Text("Loaded, but can't sign")) {
+                SignView(model: SignViewModel.mocks.loaded)
+            }
+            Section(header: Text("Loaded, can sign")) {
+                SignView(model: SignViewModel.mocks.canSign)
+            }
+            Section(header: Text("Signed")) {
+                SignView(model: SignViewModel.mocks.signed)
+            }
+        }
 
         return Group {
             view
 
-            emptyView
-
-            NavigationView { view }
-                .colorScheme(.dark)
-
-            NavigationView { emptyView }
+            view
                 .colorScheme(.dark)
         }
-        .previewLayout(.fixed(width: 350, height: 170))
+        .previewLayout(.fixed(width: 400, height: 1250))
     }
 }
 #endif

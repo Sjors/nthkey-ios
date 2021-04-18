@@ -23,8 +23,7 @@ struct ContentView: View {
                 }
                 .tag(ContentViewTab.addresses)
             
-            SignViewController(rootView: SignView(model: model.signViewModel))
-                .environmentObject(appState)
+            SignView(model: model.signViewModel)
                 .tabItem {
                     Image(systemName: "lock.fill")
                     Text("Sign")

@@ -12,8 +12,7 @@ import SwiftUI
 import LibWally
 
 class AppState: ObservableObject {
-    @Published var psbtManager: PSBTManager = PSBTManager()
-    @Published var walletManager: SeedManager = SeedManager()
+    @Published var walletManager: SeedManager = SeedManager() // TODO: Make it work as a generic class without instance
 }
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
@@ -81,9 +80,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
     
     func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {
-        if let context = URLContexts.first {
+        if let context = URLContexts.first, dataManager.currentWallet != nil {
+            // TODO: If wallet isn't selected yet then we cannot opet it from context. Network recognition should be implemented
+            contentViewModel.signViewModel.openPsbtUrl(context.url)
             contentViewModel.selectedTab = ContentViewTab.sign
-            appState.psbtManager.open(context.url)
         }
     }
 }

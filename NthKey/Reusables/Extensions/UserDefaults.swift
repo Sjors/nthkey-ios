@@ -22,8 +22,6 @@ struct UserDefault <Value> {
 
 extension UserDefaults {
     enum Keys: String {
-
-        case threshold = "threshold"
         case fingerprint = "masterKeyFingerprint"
         case entropyMask = "entropyMask"
         case currentWalletId = "walletId"
@@ -31,9 +29,6 @@ extension UserDefaults {
 }
 
 extension UserDefaults {
-    @UserDefault(key: Keys.threshold, defaultValue: 0)
-    static var threshold: Int
-
     @UserDefault(key: Keys.fingerprint, defaultValue: nil)
     static var fingerprint: Data?
 

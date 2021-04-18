@@ -10,68 +10,61 @@ import SwiftUI
 import UIKit
 import LibWally
 
-final class SignViewController :  UIHostingController<SignView>, ObservableObject, UIViewControllerRepresentable {
-
-    typealias UIViewControllerType = SignViewController
-    
+final class SignViewController : UIViewController {
     var activeFileViewControllerManager: DocumentPickerManager?
 
-    var coordinator: Coordinator?
-        
-    func makeCoordinator() -> Coordinator {
-        Coordinator(self)
-    }
+    var callbackDidGetURL: ((URL) -> Void)?
+    var callbackDidSave: (() -> Void)?
     
     func openPSBT(_ callback: @escaping (URL) -> Void ) {
         precondition(activeFileViewControllerManager == nil)
-// FIXME:        precondition(!UserDefaults.cosigners.isEmpty) TBC
-        coordinator!.callbackDidGetURL = callback
+        // TODO: TBC remove because of multiwallet
+        // precondition(!UserDefaults.cosigners.isEmpty)
+        callbackDidGetURL = callback
         activeFileViewControllerManager = DocumentPickerManager(task: .loadPSBT)
-        activeFileViewControllerManager!.prompt(vc: self, delegate: coordinator!)
+        activeFileViewControllerManager!.prompt(vc: self, delegate: self)
     }
     
     func savePSBT(_ psbt: PSBT, _ callback: @escaping () -> Void) {
+        precondition(activeFileViewControllerManager == nil)
+        callbackDidSave = callback
         activeFileViewControllerManager = DocumentPickerManager(task: .savePSBT)
         activeFileViewControllerManager!.payload = psbt.data
-        activeFileViewControllerManager!.prompt(vc: self, delegate: coordinator!)
-        coordinator!.callbackDidSave = callback
+        activeFileViewControllerManager!.prompt(vc: self, delegate: self)
     }
-
-    func makeUIViewController(context: UIViewControllerRepresentableContext<SignViewController>) -> SignViewController.UIViewControllerType {
-        self.coordinator = context.coordinator
-        self.rootView.vc = self
-        return self
-    }
-
-    func updateUIViewController(_ uiViewController: SignViewController.UIViewControllerType, context: UIViewControllerRepresentableContext<SignViewController>) {}
-    
 }
 
-class Coordinator: NSObject, UIDocumentPickerDelegate {
-    var callbackDidGetURL: ((URL) -> Void)?
-    var callbackDidSave: (() -> Void)?
-    var vc: SignViewController
+extension SignViewController: UIViewControllerRepresentable {
+    typealias UIViewControllerType = SignViewController
 
-    init(_ vc: SignViewController) {
-        self.vc = vc
+    func makeUIViewController(
+        context: UIViewControllerRepresentableContext<SignViewController>)
+    -> SignViewController.UIViewControllerType
+    {
+        return SignViewController()
     }
-    
+
+    func updateUIViewController(
+        _ uiViewController: SignViewController.UIViewControllerType,
+        context: UIViewControllerRepresentableContext<SignViewController>) {}
+}
+
+extension SignViewController: UIDocumentPickerDelegate {
     func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
-        switch vc.activeFileViewControllerManager!.task {
+        switch activeFileViewControllerManager!.task {
         case .loadPSBT:
-            precondition(vc.activeFileViewControllerManager != nil)
-            vc.activeFileViewControllerManager!.didPickDocumentsAt(urls: urls)
-            if let url = vc.activeFileViewControllerManager!.url {
+            precondition(activeFileViewControllerManager != nil)
+            activeFileViewControllerManager!.didPickDocumentsAt(urls: urls)
+            if let url = activeFileViewControllerManager!.url {
                 callbackDidGetURL!(url)
             }
-            vc.activeFileViewControllerManager = nil
+            activeFileViewControllerManager = nil
         case .savePSBT:
-            vc.activeFileViewControllerManager!.didPickDocumentsAt(urls: urls)
+            activeFileViewControllerManager!.didPickDocumentsAt(urls: urls)
             callbackDidSave!()
+            activeFileViewControllerManager = nil
         default:
             precondition(false)
         }
     }
-
 }
-

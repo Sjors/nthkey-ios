@@ -23,28 +23,23 @@ public class Signer: NSObject, Identifiable {
         self.hdKey = hdKey
     }
     
-    
-    public static func getSigners(masterKey: HDKey? = nil) -> (Signer, [Signer]) {
+    public static func getOurselfSigner(masterKey: HDKey? = nil) -> Signer {
         let network: Network = .testnet // FIXME: Before multiwallet app store it in UserDefaults.mainnet ? .mainnet : .testnet
         let fingerprint = UserDefaults.fingerprint! 
 
-        // TODO: deduplicate from MultisigAddress.swift
         let seedHex = try! SeedManager.getMnemonic().seedHex()
         let masterKey = HDKey(seedHex, network)!
         assert(masterKey.fingerprint == fingerprint)
         
         let path = BIP32Path("m/48h/\(network == .mainnet ? "0h" : "1h")/0h/2h")!
         let ourKey = try! masterKey.derive(path)
-        let us = Signer(fingerprint: fingerprint, derivation: path, hdKey: ourKey, name: "NthKey")
 
-        var cosigners: [Signer] = []
-        
-        return (us, cosigners)
+        return Signer(fingerprint: fingerprint, derivation: path, hdKey: ourKey, name: "NthKey")
     }
     
     static func signPSBT(_ psbt: PSBT) -> PSBT {
         var psbtOut = psbt
-        let (us, _) = Signer.getSigners()
+        let us = Signer.getOurselfSigner()
         psbtOut.sign(us.hdKey)
         return psbtOut
     }
