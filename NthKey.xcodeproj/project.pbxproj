@@ -300,7 +300,6 @@
 			isa = PBXGroup;
 			children = (
 				A206E815238D65FB00786824 /* Info.plist */,
-				2AEDBD4025F53C360018C5CF /* NthKey.xcdatamodeld */,
 			);
 			path = SupportingFiles;
 			sourceTree = "<group>";
@@ -418,6 +417,7 @@
 				A285870C23AD31C600930566 /* Destination.swift */,
 				2AEDBD5B25F595190018C5CF /* PersistentStore.swift */,
 				2AF86BCE2608B18000A770AD /* DataManager.swift */,
+				2AEDBD4025F53C360018C5CF /* NthKey.xcdatamodeld */,
 			);
 			path = Model;
 			sourceTree = "<group>";
