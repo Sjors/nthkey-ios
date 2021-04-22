@@ -21,7 +21,6 @@ struct AnnounceView: View {
                 }
             }
             .pickerStyle(SegmentedPickerStyle())
-            .padding()
 
             Button(model.showPubKeyQR ? "Hide QR" : "Show QR \(model.networkTitle)") {
                 model.showPubKeyQR.toggle()
