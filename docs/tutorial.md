@@ -9,11 +9,10 @@ author:
 Prerequisites:
 * install NthKey via [TestFlight](https://testflight.apple.com/join/Y6cbJbEe)
 * at least one other (hardware) wallet
-* Understand the [limitations](/#known-limitations)
 
 ## Wallet setup
 
-You will be using [Specter Desktop](https://github.com/cryptoadvance/specter-desktop#specter-desktop) to configure a mutlisig wallet consisting of your iOs
+You will be using [Specter Desktop](https://github.com/cryptoadvance/specter-desktop#specter-desktop) to configure a multisig wallet consisting of your iOs
 device and at least one other hardware wallet.
 
 After that you can either use Specter or just Bitcoin Core to generate
@@ -22,6 +21,8 @@ either Bitcoin Core or Specter to compose and sign transactions, but the latter
 will be easier.
 
 ### Install Bitcoin Core
+
+You may optionally skip this step and have Specter install Bitcoin Core for you.
 
 Download the most recent [release](https://bitcoincore.org/en/download/).
 
@@ -32,6 +33,8 @@ To launch with testnet on macOS:
 ```
 
 Use `-signet` if you want to use [Signet](http://nadobtc.btc.libsynpro.com/explaining-signet-nado-10) instead.
+
+We strongly recommend practicing this setup with testnet or signet before using real bitcoin on mainnet.
 
 ### Install Specter Desktop
 
@@ -47,7 +50,7 @@ To add nThKey, select Other in the list of device types:
 
 Enter a name at the top, and then click the "Scan QR code" at the bottom. In the nThKey app go to Settings and click Show QR:
 
-![](/assets/announce.png){:height="500pt"}
+![](/assets/ios_announce.png){:height="500pt"}
 
 It should fill in the fourth line in the table:
 
@@ -78,6 +81,23 @@ on all your devices before sending coins to it.
 
 I recommend funding the default Bitcoin Core testnet wallet from a [faucet](https://www.google.com/search?q=bitcoin+testnet+faucet), and then send a small amount to the mutlisig wallet. That way you can try again if the coins are permanently lost.
 If you use Signet, the faucet is [here](https://signet.bc-2.jp).
+
+## Backup seed phrase and wallet details
+
+This is a good time to backup your 24 words as well as the wallet metadata. You
+need both pieces of information to to restruct your multisig wallet and to be able
+to spend from it! This is different from a single signature wallet where typically
+the mnemonic is all you need to store.
+
+In the nthKey app, go to Settings and click on Show Mnemonic to write
+down the recovery phrase. If you ever delete the app or get a new phone, simply
+install the app and type this mnemonic.
+
+For the multisig wallet details, Specter lets you print a PDF with a QR code. After
+you enter your mnemonic, scan that QR code with nthKey and your wallet is back in the app.
+
+Your mnemonic backup is valid for mainnet, testnet and signet, but each wallet requires
+its own (QR) backup from Specter.
 
 ## Spend from wallet
 

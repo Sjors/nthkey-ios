@@ -43,12 +43,14 @@ You can run the app on different iOs devices, each with its own[^trust] private 
 ### Other hardware wallets
 
 The Specter desktop app supports many different hardware wallets. You can even
-import your nThKey recovery phrase into a different hardware wallet. 
+import your nThKey recovery phrase into a different hardware wallet.
 
-## Known limitations
+## Source code
 
-* Testnet and [Signet](http://nadobtc.btc.libsynpro.com/explaining-signet-nado-10) only
-* See [Github issues](https://github.com/Sjors/nthkey-ios/issues)
+* iOs app: [github.com/Sjors/nthkey-ios](https://github.com/Sjors/nthkey-ios/)
+* LibWally Swift: [github.com/blockchain/libwally-swift](https://github.com/blockchain/libwally-swift)
+* LibWally Core: [github.com/ElementsProject/libwally-core](https://github.com/ElementsProject/libwally-core)
+* Output Descriptors for Swift: [github.com/sjors/output-descriptors-swift](https://github.com/sjors/output-descriptors-swift)
 
 ## Contact
 
