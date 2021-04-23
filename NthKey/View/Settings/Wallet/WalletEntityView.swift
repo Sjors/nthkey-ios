@@ -28,7 +28,7 @@ struct WalletEntityView: View {
 extension WalletEntityView {
     static func networkTitle(network: Int16?) -> String {
         guard let net = network,
-              let value: Network = Network.valueFromInt16(net) else {
+              let value: WalletNetwork = WalletNetwork.valueFromInt16(net) else {
             return "N/A"
         }
         return value.title

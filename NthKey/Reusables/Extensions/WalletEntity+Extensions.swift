@@ -11,7 +11,7 @@ import LibWally
 
 extension WalletEntity {
     var networkKey: String {
-        guard let value = Network.valueFromInt16(self.network) else { return "" }
+        guard let value = WalletNetwork.valueFromInt16(self.network) else { return "" }
         return value.stringKey
     }
 
@@ -22,7 +22,7 @@ extension WalletEntity {
     }
 
     var wrappedNetwork: Network? {
-        Network.valueFromInt16(network)
+        WalletNetwork.valueFromInt16(network)?.networkValue
     }
 
     var cosignersHDKeys: [HDKey] {

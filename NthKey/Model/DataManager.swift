@@ -254,7 +254,7 @@ extension DataManager {
             // FIXME: Make sure that it happen in main thread
             let wallet = WalletEntity(context: store.container.viewContext)
             wallet.threshold = Int16(threshold)
-            wallet.network = network.int16Value
+            wallet.network = WalletNetwork.valueFromNetwork(network).int16Value
             wallet.receive_descriptor = descriptor
 
             if let label = jsonResult["label"] as? String {

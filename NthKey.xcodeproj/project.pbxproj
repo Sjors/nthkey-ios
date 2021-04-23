@@ -25,7 +25,7 @@
 		2AEDBE2C25FB3F0B0018C5CF /* AddressesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AEDBE2B25FB3F0B0018C5CF /* AddressesViewModel.swift */; };
 		2AEECEEE262C6A4100578819 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AEECEED262C6A4000578819 /* String.swift */; };
 		2AF86BCF2608B18000A770AD /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AF86BCE2608B18000A770AD /* DataManager.swift */; };
-		2AF86C34260B555C00A770AD /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AF86C33260B555B00A770AD /* Network.swift */; };
+		2AF86C34260B555C00A770AD /* WalletNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AF86C33260B555B00A770AD /* WalletNetwork.swift */; };
 		2AF86C39260B64B300A770AD /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AF86C38260B64B300A770AD /* SettingsViewModel.swift */; };
 		2AF86CE72610FF9300A770AD /* CodeSignersViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AF86CE62610FF9300A770AD /* CodeSignersViewModel.swift */; };
 		2AF86CEF261105B100A770AD /* CodeSignerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AF86CEE261105B100A770AD /* CodeSignerView.swift */; };
@@ -98,7 +98,7 @@
 		2AEDBE2B25FB3F0B0018C5CF /* AddressesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressesViewModel.swift; sourceTree = "<group>"; };
 		2AEECEED262C6A4000578819 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		2AF86BCE2608B18000A770AD /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
-		2AF86C33260B555B00A770AD /* Network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
+		2AF86C33260B555B00A770AD /* WalletNetwork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletNetwork.swift; sourceTree = "<group>"; };
 		2AF86C38260B64B300A770AD /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
 		2AF86CE62610FF9300A770AD /* CodeSignersViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeSignersViewModel.swift; sourceTree = "<group>"; };
 		2AF86CEE261105B100A770AD /* CodeSignerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeSignerView.swift; sourceTree = "<group>"; };
@@ -399,7 +399,7 @@
 			children = (
 				A25C032C25766E100048765E /* Data+xor.swift */,
 				2AB30A0225EC00550061B717 /* UserDefaults.swift */,
-				2AF86C33260B555B00A770AD /* Network.swift */,
+				2AF86C33260B555B00A770AD /* WalletNetwork.swift */,
 				2AB0998D2612321B00618B60 /* WalletEntity+Extensions.swift */,
 				2AEECEED262C6A4000578819 /* String.swift */,
 				2AAC0EFE262CD56900C7B432 /* PSBT.swift */,
@@ -687,7 +687,7 @@
 				4A63319725BEE7E5008B058B /* CodeSignersView.swift in Sources */,
 				2AEDBD5C25F595190018C5CF /* PersistentStore.swift in Sources */,
 				A206E805238D65F300786824 /* AppDelegate.swift in Sources */,
-				2AF86C34260B555C00A770AD /* Network.swift in Sources */,
+				2AF86C34260B555C00A770AD /* WalletNetwork.swift in Sources */,
 				A206E807238D65F300786824 /* SceneDelegate.swift in Sources */,
 				2AB09986261149ED00618B60 /* SignViewModel.swift in Sources */,
 				2AEDBE2C25FB3F0B0018C5CF /* AddressesViewModel.swift in Sources */,
