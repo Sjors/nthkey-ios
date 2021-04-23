@@ -12,6 +12,7 @@ import LibWally
 enum WalletNetwork: String, CaseIterable {
     case mainnet = "Mainnet"
     case testnet = "Testnet"
+    case signet = "Signet"
 
     var title: String { self.rawValue }
 }
@@ -26,7 +27,7 @@ extension WalletNetwork {
         case .mainnet:
             return .mainnet
 
-        case .testnet:
+        case .testnet, .signet:
             return .testnet
         }
     }
@@ -49,6 +50,8 @@ extension WalletNetwork {
             return 0
         case .testnet:
             return 1
+        case .signet:
+            return 2
         }
     }
 
@@ -58,6 +61,8 @@ extension WalletNetwork {
             return .mainnet
         case 1:
             return .testnet
+        case 2:
+            return .signet
         default:
             return nil
         }
