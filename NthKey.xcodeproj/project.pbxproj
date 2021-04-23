@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		1F6A2E586F1545C3C5EFA149 /* Pods_NthKey.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CA4B65438CE45530547E491B /* Pods_NthKey.framework */; };
+		2A2BA8992632F7C60053C2D5 /* NetworkPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A2BA8982632F7C60053C2D5 /* NetworkPickerView.swift */; };
 		2A41F8B72607AB9B00C6AF92 /* WalletListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A41F8B62607AB9B00C6AF92 /* WalletListView.swift */; };
 		2A41F8BF2607AC0200C6AF92 /* WalletListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A41F8BE2607AC0200C6AF92 /* WalletListViewModel.swift */; };
 		2A41F8F32607EBF500C6AF92 /* WalletEntityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A41F8F22607EBF500C6AF92 /* WalletEntityView.swift */; };
@@ -83,6 +84,7 @@
 		03E754B72B8C0A69CF96ECC6 /* Pods-MultisigTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MultisigTests.release.xcconfig"; path = "Target Support Files/Pods-MultisigTests/Pods-MultisigTests.release.xcconfig"; sourceTree = "<group>"; };
 		18164F1856E6D3E381CF90EC /* Pods-Multisig.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Multisig.debug.xcconfig"; path = "Target Support Files/Pods-Multisig/Pods-Multisig.debug.xcconfig"; sourceTree = "<group>"; };
 		257350CD86D0746C6502196E /* Pods-Multisig-MultisigUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Multisig-MultisigUITests.debug.xcconfig"; path = "Target Support Files/Pods-Multisig-MultisigUITests/Pods-Multisig-MultisigUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		2A2BA8982632F7C60053C2D5 /* NetworkPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkPickerView.swift; sourceTree = "<group>"; };
 		2A41F8B62607AB9B00C6AF92 /* WalletListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletListView.swift; sourceTree = "<group>"; };
 		2A41F8BE2607AC0200C6AF92 /* WalletListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletListViewModel.swift; sourceTree = "<group>"; };
 		2A41F8F22607EBF500C6AF92 /* WalletEntityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletEntityView.swift; sourceTree = "<group>"; };
@@ -262,6 +264,7 @@
 				A29DAAC423982271006B38D9 /* SettingsViewController.swift */,
 				4A63319025BEE55E008B058B /* NoSeedView.swift */,
 				4A63319E25BEE8B0008B058B /* MiscSettings.swift */,
+				2A2BA8982632F7C60053C2D5 /* NetworkPickerView.swift */,
 				2AB099712611314300618B60 /* AnnounceView */,
 				2AF86CE52610FF6A00A770AD /* Signers */,
 				2A41F8C32607AC0700C6AF92 /* Wallet */,
@@ -694,6 +697,7 @@
 				2AEDBE2325FA9C780018C5CF /* ContentViewModel.swift in Sources */,
 				2A41F8F32607EBF500C6AF92 /* WalletEntityView.swift in Sources */,
 				A206E80C238D65F300786824 /* ContentView.swift in Sources */,
+				2A2BA8992632F7C60053C2D5 /* NetworkPickerView.swift in Sources */,
 				2AB30A0325EC00550061B717 /* UserDefaults.swift in Sources */,
 				4AB1EA7A25AB3B5D00EE6832 /* AnnounceView.swift in Sources */,
 				4A63319125BEE55E008B058B /* NoSeedView.swift in Sources */,
