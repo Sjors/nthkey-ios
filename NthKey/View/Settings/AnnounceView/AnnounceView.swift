@@ -15,14 +15,9 @@ struct AnnounceView: View {
         VStack(alignment: .leading, spacing: 20.0) {
             Text("In Specter go to 'Add new device', select Other and scan the QR code.")
 
-            Picker(selection: $model.networkIndex, label: Text("Select Network")) {
-                ForEach(0..<model.networkTitles.count) {
-                    Text(model.networkTitles[$0])
-                }
-            }
-            .pickerStyle(SegmentedPickerStyle())
+            NetworkPickerView(network: $model.network)
 
-            Button(model.showPubKeyQR ? "Hide QR" : "Show QR \(model.networkTitle)") {
+            Button(model.showPubKeyQR ? "Hide QR" : "Show QR \(model.network.title)") {
                 model.showPubKeyQR.toggle()
             }
 
@@ -35,7 +30,7 @@ struct AnnounceView: View {
                     .frame(width: 350, height: 350)
             }
 
-            Button("Save as JSON \(model.networkTitle)") {
+            Button("Save as JSON \(model.network.title)") {
                 model.exportPublicKey()
             }
         }
