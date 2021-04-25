@@ -28,6 +28,10 @@ struct SettingsView : View {
                         AnnounceView(model: AnnounceViewModel(manager: appState.walletManager))
                     }
 
+                    SettingsSectionView("Import wallet") {
+                        ImportWalletView(model: model.importWalletModel,
+                                         isShowingScanner: $model.isShowingScanner)
+                    }
 
                     SettingsSectionView("Wallets") {
                         WalletListView(model: model.walletListModel)

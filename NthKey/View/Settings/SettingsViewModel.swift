@@ -14,12 +14,14 @@ final class SettingsViewModel: ObservableObject {
 
     private let dataManager: DataManager
 
+    let importWalletModel: ImportWalletViewModel
     let walletListModel: WalletListViewModel
     let codeSignersModel: CodeSignersViewModel
 
     init(dataManager: DataManager) {
         self.dataManager = dataManager
 
+        importWalletModel = ImportWalletViewModel(dataManager: dataManager)
         walletListModel = WalletListViewModel(dataManager: dataManager)
         codeSignersModel = CodeSignersViewModel(dataManager: dataManager)
     }
