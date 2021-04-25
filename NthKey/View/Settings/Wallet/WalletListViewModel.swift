@@ -25,7 +25,16 @@ final class WalletListViewModel: ObservableObject {
     private func setupObservables() {
         dataManager
             .$walletList
-            .assign(to: \.items, on: self)
+            .sink(receiveValue: { [weak self] value in
+                guard let self = self else { return }
+                self.items = value
+
+                if value.count > 0,
+                   self.dataManager.currentWallet == nil,
+                   let first = value.first {
+                    self.selectedWallet = first
+                }
+            })
             .store(in: &cancellables)
 
         $selectedWallet
