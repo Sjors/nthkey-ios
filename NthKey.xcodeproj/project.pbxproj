@@ -25,6 +25,8 @@
 		2AEDBE2325FA9C780018C5CF /* ContentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AEDBE2225FA9C780018C5CF /* ContentViewModel.swift */; };
 		2AEDBE2C25FB3F0B0018C5CF /* AddressesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AEDBE2B25FB3F0B0018C5CF /* AddressesViewModel.swift */; };
 		2AEECEEE262C6A4100578819 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AEECEED262C6A4000578819 /* String.swift */; };
+		2AF227F12635C77300D19047 /* ImportWalletView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AF227F02635C77300D19047 /* ImportWalletView.swift */; };
+		2AF227F92635C78300D19047 /* ImportWalletViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AF227F82635C78300D19047 /* ImportWalletViewModel.swift */; };
 		2AF227FF2635CBB900D19047 /* SettingsSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AF227FE2635CBB900D19047 /* SettingsSectionView.swift */; };
 		2AF86BCF2608B18000A770AD /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AF86BCE2608B18000A770AD /* DataManager.swift */; };
 		2AF86C34260B555C00A770AD /* WalletNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AF86C33260B555B00A770AD /* WalletNetwork.swift */; };
@@ -100,6 +102,8 @@
 		2AEDBE2225FA9C780018C5CF /* ContentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentViewModel.swift; sourceTree = "<group>"; };
 		2AEDBE2B25FB3F0B0018C5CF /* AddressesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressesViewModel.swift; sourceTree = "<group>"; };
 		2AEECEED262C6A4000578819 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
+		2AF227F02635C77300D19047 /* ImportWalletView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportWalletView.swift; sourceTree = "<group>"; };
+		2AF227F82635C78300D19047 /* ImportWalletViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportWalletViewModel.swift; sourceTree = "<group>"; };
 		2AF227FE2635CBB900D19047 /* SettingsSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsSectionView.swift; sourceTree = "<group>"; };
 		2AF86BCE2608B18000A770AD /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 		2AF86C33260B555B00A770AD /* WalletNetwork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletNetwork.swift; sourceTree = "<group>"; };
@@ -228,6 +232,15 @@
 			path = MainTab;
 			sourceTree = "<group>";
 		};
+		2AF227EF2635C4D200D19047 /* Import Wallet */ = {
+			isa = PBXGroup;
+			children = (
+				2AF227F02635C77300D19047 /* ImportWalletView.swift */,
+				2AF227F82635C78300D19047 /* ImportWalletViewModel.swift */,
+			);
+			path = "Import Wallet";
+			sourceTree = "<group>";
+		};
 		2AF86CE52610FF6A00A770AD /* Signers */ = {
 			isa = PBXGroup;
 			children = (
@@ -270,6 +283,7 @@
 				2A2BA8982632F7C60053C2D5 /* NetworkPickerView.swift */,
 				2AB099712611314300618B60 /* AnnounceView */,
 				2AF86CE52610FF6A00A770AD /* Signers */,
+				2AF227EF2635C4D200D19047 /* Import Wallet */,
 				2A41F8C32607AC0700C6AF92 /* Wallet */,
 			);
 			path = Settings;
@@ -691,6 +705,7 @@
 				A29DAAC12391657F006B38D9 /* KeychainEntropyItem.swift in Sources */,
 				2AF86BCF2608B18000A770AD /* DataManager.swift in Sources */,
 				2AF227FF2635CBB900D19047 /* SettingsSectionView.swift in Sources */,
+				2AF227F12635C77300D19047 /* ImportWalletView.swift in Sources */,
 				4A63319725BEE7E5008B058B /* CodeSignersView.swift in Sources */,
 				2AEDBD5C25F595190018C5CF /* PersistentStore.swift in Sources */,
 				A206E805238D65F300786824 /* AppDelegate.swift in Sources */,
@@ -727,6 +742,7 @@
 				2AEDBD4225F53C360018C5CF /* NthKey.xcdatamodeld in Sources */,
 				2AB0998E2612321B00618B60 /* WalletEntity+Extensions.swift in Sources */,
 				2AF86CE72610FF9300A770AD /* CodeSignersViewModel.swift in Sources */,
+				2AF227F92635C78300D19047 /* ImportWalletViewModel.swift in Sources */,
 				4AB1EA3425AB194F00EE6832 /* AddressesView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

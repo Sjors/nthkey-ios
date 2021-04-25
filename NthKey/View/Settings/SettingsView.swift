@@ -36,9 +36,8 @@ struct SettingsView : View {
 
                     Text("Wallets")
                         .font(.headline)
-                    WalletListView(model: model.walletListModel,
-                                   isShowingScanner: $model.isShowingScanner)
                     
+                    WalletListView(model: model.walletListModel)
                     Spacer()
 
                     Text("Wallet details")

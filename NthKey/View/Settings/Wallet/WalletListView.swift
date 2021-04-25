@@ -10,8 +10,6 @@ import SwiftUI
 
 struct WalletListView: View {
     @ObservedObject var model: WalletListViewModel
-
-    @Binding var isShowingScanner: Bool
     
     @State private var walletToRemove: WalletEntity?
 
@@ -27,24 +25,6 @@ struct WalletListView: View {
                         walletToRemove = item
                     }
             }
-            Button(action: {
-                isShowingScanner = true
-            }) {
-                HStack {
-                    Image(systemName: "plus.circle")
-                    Text("Scan wallet QR code")
-                }
-                .foregroundColor(.accentColor)
-            }
-            Button(action: {
-                model.addWalletByFile()
-            }) {
-                HStack {
-                    Image(systemName: "plus.circle")
-                    Text("Import wallet JSON")
-                }
-                .foregroundColor(.accentColor)
-            }
         }
         .onAppear() {
             model.viewDidAppear()
@@ -59,18 +39,13 @@ struct WalletListView: View {
                             .cancel()
                         ])
         }
-        .alert(item: $model.loadWalletError) { error in
-            Alert(title: Text("Load wallet error"),
-                  message: Text(error.errorDescription ?? "Unknown error"),
-                  dismissButton: .cancel())
-        }
     }
 }
 
 #if DEBUG
 struct WalletListView_Previews: PreviewProvider {
     static var previews: some View {
-        let view = WalletListView(model: WalletListViewModel(dataManager: DataManager.preview), isShowingScanner: .constant(false))
+        let view = WalletListView(model: WalletListViewModel(dataManager: DataManager.preview))
         return Group {
             view
 

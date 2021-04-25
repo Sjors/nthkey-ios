@@ -12,9 +12,7 @@ import Combine
 final class WalletListViewModel: ObservableObject {
     @Published var selectedWallet: WalletEntity?
     @Published var items: [WalletEntity] = []
-    @Published var loadWalletError: DataProcessingError?
 
-    private let loadFileController: SettingsViewController = SettingsViewController()
     private let dataManager: DataManager
     private var cancellables = Set<AnyCancellable>()
 
@@ -39,26 +37,6 @@ final class WalletListViewModel: ObservableObject {
     func viewDidAppear() {
         guard let value = dataManager.currentWallet else { return }
         selectedWallet = value
-    }
-
-    func addWalletByFile() {
-        loadFileController.loadWallet { [weak self] url in
-            do {
-                let data = try Data(contentsOf: URL(fileURLWithPath: url.path), options: .mappedIfSafe)
-                self?.dataManager.loadWalletUsingData(data) { result in
-                    switch result {
-                        case .failure(let error):
-                            self?.loadWalletError = error
-                            break
-                        case .success(_):
-                            break
-                    }
-                }
-            } catch {
-                NSLog("Something went wrong parsing JSON file")
-                return
-            }
-        }
     }
 
     func deleteWallet(_ wallet: WalletEntity) {
