@@ -37,6 +37,7 @@ struct NoSeedView: View {
                     .keyboardType(.alphabet)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                     .autocapitalization(.none)
+                    .disableAutocorrection(true)
                     .onReceive(Just(mnemonicInput)) { newValue in
                         // TODO:
                         // * check every word against BIP39Words
