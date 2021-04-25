@@ -22,31 +22,25 @@ struct SettingsView : View {
     
     var body: some View {
         ScrollView {
-            
             VStack(alignment: .leading, spacing: 20.0) {
-                
                 if self.appState.walletManager.hasSeed {
+                    SettingsSectionView("Announce") {
+                        AnnounceView(model: AnnounceViewModel(manager: appState.walletManager))
+                    }
 
-                    Text("Announce").font(.headline)
-                    AnnounceView(model: AnnounceViewModel(manager: appState.walletManager))
 
-                    Divider()
-                    
-                    Spacer()
+                    SettingsSectionView("Wallets") {
+                        WalletListView(model: model.walletListModel)
+                    }
 
-                    Text("Wallets")
-                        .font(.headline)
-                    
-                    WalletListView(model: model.walletListModel)
-                    Spacer()
+                    SettingsSectionView("Wallet details") {
+                        CodeSignersView(model: model.codeSignersModel)
+                    }
 
-                    Text("Wallet details")
-                        .font(.headline)
-                    CodeSignersView(model: model.codeSignersModel)
-                    
-                    MiscSettings()
-                        .environmentObject(self.appState)
-                    
+                    SettingsSectionView("Misc") {
+                        MiscSettings()
+                            .environmentObject(self.appState)
+                    }
                 } else {
                     NoSeedView()
                         .environmentObject(self.appState)

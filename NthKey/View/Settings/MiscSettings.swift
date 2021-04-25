@@ -14,14 +14,13 @@ struct MiscSettings: View {
     @State private var showMnemonic = false
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 20.0) {
-            Text("Misc").font(.headline)
-            Button("Show mnemonic") {
-                self.showMnemonic = true
-            }
-            .alert(isPresented: $showMnemonic) {
-                Alert(title: Text("BIP 39 mnemonic"), message: Text(self.appState.walletManager.mnemonic()), dismissButton: .default(Text("OK")))
-            }
+        Button("Show mnemonic") {
+            self.showMnemonic = true
+        }
+        .alert(isPresented: $showMnemonic) {
+            Alert(title: Text("BIP 39 mnemonic"),
+                  message: Text(self.appState.walletManager.mnemonic()),
+                  dismissButton: .default(Text("OK")))
         }
     }
 }
