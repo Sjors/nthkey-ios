@@ -31,7 +31,10 @@ final class ImportWalletViewModel: ObservableObject {
     }
 
     private func setupObservables() {
-        
+        $selectedNetwork
+            .map{ $0 as WalletNetwork? }
+            .assign(to: \.currentNetwork, on: self.dataManager)
+            .store(in: &cancellables)
     }
 
     func addWalletByFile() {
@@ -48,8 +51,7 @@ final class ImportWalletViewModel: ObservableObject {
                     }
                 }
             } catch {
-                NSLog("Something went wrong parsing JSON file")
-                return
+                self?.loadWalletError = .wrongInputData
             }
         }
     }

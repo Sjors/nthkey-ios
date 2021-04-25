@@ -17,6 +17,7 @@ final class DataManager: ObservableObject {
     @Published var cosigners: [CosignerEntity] = []
 
     @Published var currentWallet: WalletEntity?
+    @Published var currentNetwork: WalletNetwork?
 
     @Published var error: Error?
 
@@ -43,8 +44,12 @@ final class DataManager: ObservableObject {
         fetchWallets()
 
         /// Load previously selected wallet
-        if let value = UserDefaults.currentWalletId {
-            currentWallet = walletList.filter { $0.id == value }.first
+        if let value = UserDefaults.currentWalletId,
+           let wallet = walletList.filter({ $0.id == value }).first{
+            currentWallet = wallet
+            currentNetwork = WalletNetwork.valueFromInt16(wallet.network)
+        } else {
+            currentNetwork = .testnet
         }
     }
 
@@ -58,6 +63,7 @@ final class DataManager: ObservableObject {
                 guard let wallet = value else {
                     self.addressList.removeAll()
                     self.cosigners.removeAll()
+                    UserDefaults.standard.remove(key: .currentWalletId)
                     return
                 }
                 UserDefaults.currentWalletId = wallet.id
@@ -75,11 +81,27 @@ final class DataManager: ObservableObject {
                 }
             }
             .store(in: &cancellables)
+
+        $currentNetwork
+            .sink { [weak self] value in
+                guard let self = self else { return }
+
+                guard let network = value else {
+                    self.walletsRequest.predicate = nil
+                    self.fetchWallets()
+                    return
+                }
+
+                self.currentWallet = nil
+                self.walletsRequest.predicate = NSPredicate(format: "network == %i", network.int16Value)
+                self.fetchWallets()
+            }
+            .store(in: &cancellables)
     }
 
     private func fetchWallets() {
         do {
-            walletList =  try store.container.viewContext.fetch(walletsRequest)
+            walletList = try store.container.viewContext.fetch(walletsRequest)
         } catch {
             walletList = []
             self.error = error
@@ -129,6 +151,7 @@ enum DataProcessingError: Error, LocalizedError, Identifiable {
     case wrongCosigner
     case wrongNumberOfCosigners
     case missedFingerprint
+    case wrongNetwork
 
     public var errorDescription: String? {
         switch self {
@@ -146,6 +169,8 @@ enum DataProcessingError: Error, LocalizedError, Identifiable {
             return "Malformated cosigner xpub"
         case .wrongNumberOfCosigners:
             return "Cosigner count does not match descriptor keys count"
+        case .wrongNetwork:
+            return "Received wallet's network isn't equal to selected one"
         default:
             return nil
         }
@@ -246,6 +271,14 @@ extension DataManager {
                 return
             }
 
+            // For default/unselected
+            if let selectedNetwork = currentNetwork {
+                guard network == selectedNetwork.networkValue else {
+                    completion(.failure(.wrongNetwork))
+                    return
+                }
+            }
+
             guard hdKeys.count == desc.extendedKeys.count - 1 else {
                 completion(.failure(.wrongNumberOfCosigners))
                 return
@@ -254,7 +287,11 @@ extension DataManager {
             // FIXME: Make sure that it happen in main thread
             let wallet = WalletEntity(context: store.container.viewContext)
             wallet.threshold = Int16(threshold)
-            wallet.network = WalletNetwork.valueFromNetwork(network).int16Value
+            if let selectedNetwork = currentNetwork?.int16Value {
+                wallet.network = selectedNetwork
+            } else {
+                wallet.network = WalletNetwork.valueFromNetwork(network).int16Value
+            }
             wallet.receive_descriptor = descriptor
 
             if let label = jsonResult["label"] as? String {
