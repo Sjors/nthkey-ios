@@ -81,22 +81,6 @@ final class DataManager: ObservableObject {
                 }
             }
             .store(in: &cancellables)
-
-        $currentNetwork
-            .sink { [weak self] value in
-                guard let self = self else { return }
-
-                guard let network = value else {
-                    self.walletsRequest.predicate = nil
-                    self.fetchWallets()
-                    return
-                }
-
-                self.currentWallet = nil
-                self.walletsRequest.predicate = NSPredicate(format: "network == %i", network.int16Value)
-                self.fetchWallets()
-            }
-            .store(in: &cancellables)
     }
 
     private func fetchWallets() {
