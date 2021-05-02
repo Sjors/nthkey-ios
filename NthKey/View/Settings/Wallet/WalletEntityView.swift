@@ -7,7 +7,6 @@
 //  license, see the accompanying file LICENSE.md
 
 import SwiftUI
-import LibWally
 
 struct WalletEntityView: View {
     let item: WalletEntity

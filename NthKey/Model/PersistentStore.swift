@@ -7,7 +7,6 @@
 //  license, see the accompanying file LICENSE.md
 
 import CoreData
-import LibWally
 
 struct PersistentStore {
     static var preview: PersistentStore = {

@@ -6,10 +6,8 @@
 //  Copyright © 2019 Purple Dunes. Distributed under the MIT software
 //  license, see the accompanying file LICENSE.md
 
-import Foundation
 import MobileCoreServices
 import UIKit
-import LibWally
 
 struct DocumentPickerManager {
     

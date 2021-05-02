@@ -8,7 +8,6 @@
 //
 
 import UIKit
-import LibWally
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {

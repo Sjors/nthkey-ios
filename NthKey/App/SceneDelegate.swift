@@ -9,7 +9,6 @@
 
 import UIKit
 import SwiftUI
-import LibWally
 
 class AppState: ObservableObject {
     @Published var walletManager: SeedManager = SeedManager() // TODO: Make it work as a generic class without instance
