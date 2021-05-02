@@ -23,6 +23,20 @@ struct SettingsView : View {
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 20.0) {
+                if let url = URL(string:  "https://nthkey.com/tutorial") {
+                    SettingsSectionView("Tutorial") {
+                        HStack {
+                            if #available(iOS 14.0, *) {
+                                Link("Open tutorial", destination: url)
+                            } else {
+                                Button("Open tutorial") {
+                                    UIApplication.shared.open(url)
+                                }
+                            }
+                        }
+                    }
+                }
+
                 if self.appState.walletManager.hasSeed {
                     SettingsSectionView("Announce") {
                         AnnounceView(model: AnnounceViewModel(manager: appState.walletManager))
