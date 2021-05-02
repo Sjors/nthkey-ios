@@ -14,6 +14,7 @@
 		2A41F8F32607EBF500C6AF92 /* WalletEntityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A41F8F22607EBF500C6AF92 /* WalletEntityView.swift */; };
 		2AAC0EFF262CD56900C7B432 /* PSBT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AAC0EFE262CD56900C7B432 /* PSBT.swift */; };
 		2AAC0F04262CD87800C7B432 /* View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AAC0F03262CD87800C7B432 /* View.swift */; };
+		2AAC922A263EEFCF00A5D7D6 /* english.txt in Resources */ = {isa = PBXBuildFile; fileRef = 2AAC9229263EEFCF00A5D7D6 /* english.txt */; };
 		2AB09973261131B100618B60 /* AnnounceViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AB09972261131B100618B60 /* AnnounceViewModel.swift */; };
 		2AB09986261149ED00618B60 /* SignViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AB09985261149ED00618B60 /* SignViewModel.swift */; };
 		2AB0998E2612321B00618B60 /* WalletEntity+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AB0998D2612321B00618B60 /* WalletEntity+Extensions.swift */; };
@@ -93,6 +94,7 @@
 		2A41F8F22607EBF500C6AF92 /* WalletEntityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletEntityView.swift; sourceTree = "<group>"; };
 		2AAC0EFE262CD56900C7B432 /* PSBT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PSBT.swift; sourceTree = "<group>"; };
 		2AAC0F03262CD87800C7B432 /* View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = View.swift; sourceTree = "<group>"; };
+		2AAC9229263EEFCF00A5D7D6 /* english.txt */ = {isa = PBXFileReference; explicitFileType = text; path = english.txt; sourceTree = "<group>"; };
 		2AB09972261131B100618B60 /* AnnounceViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnounceViewModel.swift; sourceTree = "<group>"; };
 		2AB09985261149ED00618B60 /* SignViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignViewModel.swift; sourceTree = "<group>"; };
 		2AB0998D2612321B00618B60 /* WalletEntity+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WalletEntity+Extensions.swift"; sourceTree = "<group>"; };
@@ -223,6 +225,14 @@
 			path = AnnounceView;
 			sourceTree = "<group>";
 		};
+		2AB20D2B263EB08B00F7CE74 /* Mnemonic */ = {
+			isa = PBXGroup;
+			children = (
+				2AAC9229263EEFCF00A5D7D6 /* english.txt */,
+			);
+			path = Mnemonic;
+			sourceTree = "<group>";
+		};
 		2AEDBE2725FB3B780018C5CF /* MainTab */ = {
 			isa = PBXGroup;
 			children = (
@@ -274,6 +284,7 @@
 		4AB1EA3D25AB315200EE6832 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
+				2AB20D2B263EB08B00F7CE74 /* Mnemonic */,
 				A27D4BF523A2B4F30055B0B8 /* SettingsView.swift */,
 				2AF86C38260B64B300A770AD /* SettingsViewModel.swift */,
 				A29DAAC423982271006B38D9 /* SettingsViewController.swift */,
@@ -572,6 +583,7 @@
 				A206E814238D65FB00786824 /* LaunchScreen.storyboard in Resources */,
 				A285870623AD0B0300930566 /* psbt-128.png in Resources */,
 				A206E811238D65FB00786824 /* Preview Assets.xcassets in Resources */,
+				2AAC922A263EEFCF00A5D7D6 /* english.txt in Resources */,
 				A29DAAC3239180CC006B38D9 /* README.md in Resources */,
 				A206E80E238D65FB00786824 /* Assets.xcassets in Resources */,
 			);
