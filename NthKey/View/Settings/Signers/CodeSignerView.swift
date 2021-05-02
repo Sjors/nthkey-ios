@@ -12,9 +12,16 @@ struct CodeSignerView: View {
     var item: CosignerEntity
 
     var body: some View {
-        Text("* \( item.fingerprint?.hexString ?? "N/A" )" )
+        let text = Text("* \( item.fingerprint?.hexString ?? "N/A" )" )
             .font(.system(.body, design: .monospaced))
-            + Text(" (\(item.name ?? ""))")
+
+        return Group {
+            if let name = item.name, !name.isEmpty {
+                text + Text(" (\(name))")
+            } else {
+                text
+            }
+        }
     }
 }
 
