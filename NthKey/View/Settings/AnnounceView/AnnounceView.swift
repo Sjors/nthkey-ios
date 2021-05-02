@@ -13,9 +13,9 @@ struct AnnounceView: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 20.0) {
-            Text("In Specter go to 'Add new device', select Other and scan the QR code.")
-
             NetworkPickerView(network: $model.network)
+            
+            Text("In Specter go to 'Add new device', select Other and scan the QR code.")
 
             Button(model.showPubKeyQR ? "Hide QR" : "Show QR \(model.network.title)") {
                 model.showPubKeyQR.toggle()
