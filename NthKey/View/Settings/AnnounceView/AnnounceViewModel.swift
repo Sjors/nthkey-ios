@@ -7,14 +7,10 @@
 //  license, see the accompanying file LICENSE.md
 
 import UIKit
-import Combine
-import LibWally
 
 final class AnnounceViewModel: ObservableObject {
     @Published var network: WalletNetwork = .testnet
     @Published var showPubKeyQR = false
-
-    private var cancellables = Set<AnyCancellable>()
 
     private let fileSaveController: SettingsViewController = SettingsViewController()
     private let manager: SeedManager

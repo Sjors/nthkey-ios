@@ -8,7 +8,6 @@
 
 import SwiftUI
 import UIKit
-import LibWally
 
 final class SettingsViewController : UIViewController, UIDocumentPickerDelegate {
 

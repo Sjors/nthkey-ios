@@ -8,7 +8,6 @@
 //
 
 import SwiftUI
-import LibWally
 
 struct ContentView: View {
     @EnvironmentObject var appState: AppState
