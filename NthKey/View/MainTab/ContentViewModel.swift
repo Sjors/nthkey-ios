@@ -24,12 +24,14 @@ class ContentViewModel: ObservableObject {
     let settingsModel: SettingsViewModel
 
     private let dataManager: DataManager
+    private let subsManager: SubscriptionManager
 
-    init(dataManager: DataManager) {
+    init(dataManager: DataManager, subsManager: SubscriptionManager) {
         self.dataManager = dataManager
+        self.subsManager = subsManager
 
         addressesModel = AddressesViewModel(dataManager: dataManager)
-        signViewModel = SignViewModel(dataManager: dataManager)
-        settingsModel = SettingsViewModel(dataManager: dataManager)
+        signViewModel = SignViewModel(dataManager: dataManager, subsManager: subsManager)
+        settingsModel = SettingsViewModel(dataManager: dataManager, subsManager: subsManager)
     }
 }

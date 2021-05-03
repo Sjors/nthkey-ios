@@ -14,15 +14,17 @@ final class SettingsViewModel: ObservableObject {
     @Published var hasSeed: Bool = UserDefaults.fingerprint != nil
 
     private let dataManager: DataManager
+    private let subsManager: SubscriptionManager
 
     let importWalletModel: ImportWalletViewModel
     let walletListModel: WalletListViewModel
     let codeSignersModel: CodeSignersViewModel
 
-    init(dataManager: DataManager) {
+    init(dataManager: DataManager, subsManager: SubscriptionManager) {
         self.dataManager = dataManager
+        self.subsManager = subsManager
 
-        importWalletModel = ImportWalletViewModel(dataManager: dataManager)
+        importWalletModel = ImportWalletViewModel(dataManager: dataManager, subsManager: subsManager)
         walletListModel = WalletListViewModel(dataManager: dataManager)
         codeSignersModel = CodeSignersViewModel(dataManager: dataManager)
     }
@@ -51,7 +53,7 @@ final class SettingsViewModel: ObservableObject {
 #if DEBUG
 extension SettingsViewModel {
     static var mock: SettingsViewModel {
-        let model = SettingsViewModel(dataManager: DataManager.preview)
+        let model = SettingsViewModel(dataManager: DataManager.preview, subsManager: SubscriptionManager.mock)
         model.hasSeed = true
         if let first = model.walletListModel.items.first {
             model.walletListModel.selectedWallet = first
@@ -59,6 +61,6 @@ extension SettingsViewModel {
         return model
     }
 
-    static let notSeeded: SettingsViewModel = SettingsViewModel(dataManager: DataManager.preview)
+    static let notSeeded: SettingsViewModel = SettingsViewModel(dataManager: DataManager.preview, subsManager: SubscriptionManager.mock)
 }
 #endif

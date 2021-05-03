@@ -15,6 +15,7 @@ class SignViewModel: ObservableObject {
     @Published private(set) var state: State = State.initial
     @Published var isShowingScanner = false
     @Published var errorMessage: String?
+    @Published var showSubscription: Bool = false
 
     var psbtSignedImage: UIImage {
         var result = "Here should be a PSBT signed data"
@@ -29,11 +30,14 @@ class SignViewModel: ObservableObject {
     var feeString: String = ""
 
     private let dataManager: DataManager
+    //private FIXME: avoid deprivation
+    let subsManager: SubscriptionManager
     private let fileOperationsController = SignViewController()
     private var cancellables = Set<AnyCancellable>()
 
-    init(dataManager: DataManager) {
+    init(dataManager: DataManager, subsManager: SubscriptionManager) {
         self.dataManager = dataManager
+        self.subsManager = subsManager
 
         setupObservables()
     }
@@ -60,6 +64,13 @@ class SignViewModel: ObservableObject {
 
     func sign() {
         guard let unsigned = psbt else { return }
+
+        if unsigned.network == .mainnet,
+           !subsManager.hasSubscription {
+            self.showSubscription = true
+            return
+        }
+
         psbt = Signer.signPSBT(unsigned)
         state = .signed
     }
@@ -176,12 +187,12 @@ extension SignViewModel {
     }
     
     struct Mocks {
-        var unselected = SignViewModel(dataManager: DataManager.empty)
+        var unselected = SignViewModel(dataManager: DataManager.empty, subsManager: SubscriptionManager.mock)
 
-        var canLoad = SignViewModel(dataManager: DataManager.preview)
+        var canLoad = SignViewModel(dataManager: DataManager.preview, subsManager: SubscriptionManager.mock)
 
         var loaded: SignViewModel {
-            let result = SignViewModel(dataManager: DataManager.preview)
+            let result = SignViewModel(dataManager: DataManager.preview, subsManager: SubscriptionManager.mock)
 
             result.preparePSBT(PSBT.mock)
             result.state = .loaded
@@ -190,7 +201,7 @@ extension SignViewModel {
         }
 
         var canSign: SignViewModel {
-            let result = SignViewModel(dataManager: DataManager.preview)
+            let result = SignViewModel(dataManager: DataManager.preview, subsManager: SubscriptionManager.mock)
 
             result.preparePSBT(PSBT.mock)
             result.state = .canSign
@@ -199,7 +210,7 @@ extension SignViewModel {
         }
 
         var signed: SignViewModel {
-            let result = SignViewModel(dataManager: DataManager.preview)
+            let result = SignViewModel(dataManager: DataManager.preview, subsManager: SubscriptionManager.mock)
 
             result.preparePSBT(PSBT.mock)
             result.state = .signed

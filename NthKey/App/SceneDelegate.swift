@@ -14,7 +14,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     private let store = PersistentStore(inMemory: false)
     private lazy var dataManager = DataManager(store: store)
-    private lazy var contentViewModel = ContentViewModel(dataManager: dataManager)
+    private lazy var subsManager = SubscriptionManager()
+    private lazy var contentViewModel = ContentViewModel(dataManager: dataManager, subsManager: subsManager)
     
     var window: UIWindow?
 

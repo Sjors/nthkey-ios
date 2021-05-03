@@ -41,13 +41,17 @@ struct ImportWalletView: View {
                   message: Text(error.errorDescription ?? "Unknown error"),
                   dismissButton: .cancel())
         }
+        .sheet(isPresented: $model.showSubscription) {
+            SubscriptionView()
+                .environmentObject(model.subsManager)
+        }
     }
 }
 
 #if DEBUG
 struct ImportWalletView_Previews: PreviewProvider {
     static var previews: some View {
-        ImportWalletView(model: ImportWalletViewModel(dataManager: DataManager.preview),
+        ImportWalletView(model: ImportWalletViewModel(dataManager: DataManager.preview, subsManager: SubscriptionManager.mock),
                          isShowingScanner: .constant(false))
     }
 }

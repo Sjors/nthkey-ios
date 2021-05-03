@@ -79,18 +79,24 @@ struct SignView : View {
     }
 
     var body: some View {
-        contentView
-            .padding(.horizontal)
-            .sheet(isPresented: $model.isShowingScanner) {
-                CodeScannerView(codeTypes: [.qr], completion: model.handleScan)
-            }
-            .alert(item: $model.errorMessage) { error in
-                Alert(title: Text("Error"),
-                      message: Text(error),
-                      dismissButton: .default(Text("Ok"), action: {
-                        model.clear()
-                      }))
-            }
+        if model.showSubscription {
+            // TODO: Move it to sheet too
+            SubscriptionView()
+                .environmentObject(model.subsManager)
+        } else {
+            contentView
+                .padding(.horizontal)
+                .sheet(isPresented: $model.isShowingScanner) {
+                    CodeScannerView(codeTypes: [.qr], completion: model.handleScan)
+                }
+                .alert(item: $model.errorMessage) { error in
+                    Alert(title: Text("Error"),
+                          message: Text(error),
+                          dismissButton: .default(Text("Ok"), action: {
+                            model.clear()
+                          }))
+                }
+        }
     }
 }
 

@@ -41,7 +41,7 @@ struct ContentView: View {
 #if DEBUG
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        let model = ContentViewModel(dataManager: DataManager.preview)
+        let model = ContentViewModel(dataManager: DataManager.preview, subsManager: SubscriptionManager.mock)
         model.selectedTab = ContentViewTab.addresses
 
         let view = ContentView(model: model)
