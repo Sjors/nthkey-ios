@@ -11,7 +11,7 @@ import UIKit
 import SwiftUI
 
 class AppState: ObservableObject {
-    @Published var walletManager: SeedManager = SeedManager() // TODO: Make it work as a generic class without instance
+    @Published var hasSeed: Bool = UserDefaults.fingerprint != nil
 }
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {

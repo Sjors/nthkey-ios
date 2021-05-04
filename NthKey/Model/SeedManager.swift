@@ -11,14 +11,8 @@ import LibWally
 import OutputDescriptors
 
 struct SeedManager {
-    var hasSeed: Bool
-    
     enum WalletManagerError: Error {
         case noEntropyMask
-    }
-
-    init() {
-        hasSeed = UserDefaults.fingerprint != nil
     }
 
     static func getMnemonic() throws -> BIP39Mnemonic  {
@@ -31,7 +25,7 @@ struct SeedManager {
         return BIP39Mnemonic(entropy)!
     }
     
-    mutating func setEntropy(_ entropy: BIP39Entropy) {
+    static func setEntropy(_ entropy: BIP39Entropy) {
         // Delete existing entry, if any:
         try! KeychainEntropyItem.delete(service: "NthKeyService", accessGroup: nil)
         
@@ -57,11 +51,9 @@ struct SeedManager {
 
         UserDefaults.fingerprint = masterKey.fingerprint
         UserDefaults.entropyMask = mask
-
-        self.hasSeed = true
     }
     
-    mutating func generateSeed() {
+    static func generateSeed() {
         var bytes = [Int8](repeating: 0, count: 32)
         let status = SecRandomCopyBytes(kSecRandomDefault, bytes.count, &bytes)
         if status == errSecSuccess {
@@ -70,7 +62,7 @@ struct SeedManager {
         }
     }
     
-    func ourPubKey(network: Network)  -> Data {
+    static func ourPubKey(network: Network)  -> Data {
         guard let fingerprint = UserDefaults.fingerprint else {
             return Data.init()
         }
@@ -95,7 +87,7 @@ struct SeedManager {
         return try! encoder.encode(export)
     }
 
-    func mnemonic() -> String {
+    static func mnemonic() -> String {
         if UserDefaults.entropyMask != nil {
             return try! SeedManager.getMnemonic().description
         } else {

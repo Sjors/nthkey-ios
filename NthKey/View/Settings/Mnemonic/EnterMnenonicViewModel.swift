@@ -16,14 +16,11 @@ final class EnterMnenonicViewModel: ObservableObject {
     @Published var currentWord: String = ""
     @Published var suggestions: [String] = []
 
-    private var seedManager: SeedManager
     private var cancellables = Set<AnyCancellable>()
 
     private let words: [String]
 
-    init(seedManager: SeedManager) {
-        self.seedManager = seedManager
-
+    init() {
         if let filepath = Bundle.main.path(forResource: "english", ofType: "txt") {
             do {
                 let contents = try String(contentsOfFile: filepath)
@@ -40,7 +37,7 @@ final class EnterMnenonicViewModel: ObservableObject {
 
     func applyEntropy() {
         let words: [String] = self.mnemonicText.components(separatedBy: " ")
-        seedManager.setEntropy(LibWally.BIP39Mnemonic(words)!.entropy)
+        SeedManager.setEntropy(LibWally.BIP39Mnemonic(words)!.entropy)
     }
 
     func changeCurrentStringWith(_ text: String) {

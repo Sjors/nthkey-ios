@@ -13,17 +13,16 @@ final class AnnounceViewModel: ObservableObject {
     @Published var showPubKeyQR = false
 
     private let fileSaveController: SettingsViewController = SettingsViewController()
-    private let manager: SeedManager
+
+    private var ourPubKey: Data {
+        SeedManager.ourPubKey(network: network.networkValue)
+    }
 
     var pubKeyImage: UIImage? {
-        QRCodeBuilder.generateQRCode(from: self.manager.ourPubKey(network: network.networkValue))
-    }
-    
-    init(manager: SeedManager) {
-        self.manager = manager
+        QRCodeBuilder.generateQRCode(from: ourPubKey)
     }
 
     func exportPublicKey() {
-        fileSaveController.exportPublicKey(data: manager.ourPubKey(network: network.networkValue))
+        fileSaveController.exportPublicKey(data: ourPubKey)
     }
 }

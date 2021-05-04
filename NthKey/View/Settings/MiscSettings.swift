@@ -9,8 +9,6 @@
 import SwiftUI
 
 struct MiscSettings: View {
-    @EnvironmentObject var appState: AppState
-    
     @State private var showMnemonic = false
 
     var body: some View {
@@ -19,7 +17,7 @@ struct MiscSettings: View {
         }
         .alert(isPresented: $showMnemonic) {
             Alert(title: Text("BIP 39 mnemonic"),
-                  message: Text(self.appState.walletManager.mnemonic()),
+                  message: Text(SeedManager.mnemonic()),
                   dismissButton: .default(Text("OK")))
         }
     }
@@ -29,7 +27,6 @@ struct MiscSettings: View {
 struct MiscSettings_Previews: PreviewProvider {
     static var previews: some View {
         let view = MiscSettings()
-            .environmentObject(AppState())
 
         return Group {
             view

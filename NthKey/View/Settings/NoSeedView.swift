@@ -9,7 +9,6 @@
 import SwiftUI
 
 struct NoSeedView: View {
-    
     @EnvironmentObject var appState: AppState
     
     @State private var enterMnemonnic = false
@@ -20,7 +19,7 @@ struct NoSeedView: View {
             Text("The app generates a fresh cryptographic key for you, or you can recover from a backup by entering its 24 words.")
 
             Button("Generate fresh keys") {
-                self.appState.walletManager.generateSeed()
+                SeedManager.generateSeed()
             }
             .disabled(self.enterMnemonnic)
 
@@ -29,7 +28,8 @@ struct NoSeedView: View {
             }
 
             if self.enterMnemonnic {
-                EnterMnenonicView(model: EnterMnenonicViewModel(seedManager: appState.walletManager))
+                EnterMnenonicView(model: EnterMnenonicViewModel())
+                    .environmentObject(self.appState)
             }
         }
     }
@@ -46,7 +46,6 @@ struct NoSeedView_Previews: PreviewProvider {
             NavigationView { view }
                 .colorScheme(.dark)
         }
-        .environmentObject(AppState())
     }
 }
 #endif

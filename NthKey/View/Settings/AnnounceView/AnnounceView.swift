@@ -41,7 +41,7 @@ struct AnnounceView: View {
 struct AnnounceView_Previews: PreviewProvider {
     static var previews: some View {
         // FIXME: Add wallet manager mock with pubkey for preview
-        let view = AnnounceView(model: AnnounceViewModel(manager: AppState().walletManager))
+        let view = AnnounceView(model: AnnounceViewModel())
         
         return Group {
             view

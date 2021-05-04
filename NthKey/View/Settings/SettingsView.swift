@@ -37,9 +37,9 @@ struct SettingsView : View {
                     }
                 }
 
-                if self.appState.walletManager.hasSeed {
+                if self.appState.hasSeed {
                     SettingsSectionView("Announce") {
-                        AnnounceView(model: AnnounceViewModel(manager: appState.walletManager))
+                        AnnounceView(model: AnnounceViewModel())
                     }
 
                     SettingsSectionView("Import wallet") {
@@ -57,7 +57,6 @@ struct SettingsView : View {
 
                     SettingsSectionView("Misc") {
                         MiscSettings()
-                            .environmentObject(self.appState)
                     }
                 } else {
                     NoSeedView()
@@ -76,13 +75,12 @@ struct SettingsView : View {
 struct SettingsView_Previews: PreviewProvider {
     static var previews: some View {
         let seededAppState = AppState()
-        seededAppState.walletManager.hasSeed = true
+        seededAppState.hasSeed = true
 
         let view = SettingsView(model: SettingsViewModel.mock)
 
         return Group {
             view
-
                 .environmentObject(seededAppState)
 
             NavigationView {

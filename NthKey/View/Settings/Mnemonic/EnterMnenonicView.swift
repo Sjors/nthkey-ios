@@ -9,6 +9,8 @@
 import SwiftUI
 
 struct EnterMnenonicView: View {
+    @EnvironmentObject var appState: AppState
+
     @ObservedObject var model: EnterMnenonicViewModel
 
     var body: some View {
@@ -32,6 +34,7 @@ struct EnterMnenonicView: View {
 
             Button("OK") {
                 self.model.applyEntropy()
+                appState.hasSeed = true
             }
             .disabled(!model.validMnemonic)
         }
@@ -41,8 +44,9 @@ struct EnterMnenonicView: View {
 #if DEBUG
 struct EnterMnenonicView_Previews: PreviewProvider {
     static var previews: some View {
-        let view = EnterMnenonicView(model: EnterMnenonicViewModel(seedManager: SeedManager()))
+        let view = EnterMnenonicView(model: EnterMnenonicViewModel())
             .padding()
+            .environmentObject(AppState())
 
         return Group {
             view
