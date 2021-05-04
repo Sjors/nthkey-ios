@@ -11,6 +11,7 @@ import CodeScanner
 
 final class SettingsViewModel: ObservableObject {
     @Published var isShowingScanner = false
+    @Published var hasSeed: Bool = UserDefaults.fingerprint != nil
 
     private let dataManager: DataManager
 
@@ -51,10 +52,13 @@ final class SettingsViewModel: ObservableObject {
 extension SettingsViewModel {
     static var mock: SettingsViewModel {
         let model = SettingsViewModel(dataManager: DataManager.preview)
+        model.hasSeed = true
         if let first = model.walletListModel.items.first {
             model.walletListModel.selectedWallet = first
         }
         return model
     }
+
+    static let notSeeded: SettingsViewModel = SettingsViewModel(dataManager: DataManager.preview)
 }
 #endif

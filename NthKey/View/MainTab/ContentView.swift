@@ -10,7 +10,6 @@
 import SwiftUI
 
 struct ContentView: View {
-    @EnvironmentObject var appState: AppState
     @ObservedObject var model: ContentViewModel
 
     var body: some View {
@@ -30,7 +29,6 @@ struct ContentView: View {
                 .tag(ContentViewTab.sign)
             
             SettingsView(model: model.settingsModel)
-                .environmentObject(appState)
                 .tabItem {
                     Image(systemName: "gearshape.fill")
                     Text("Settings")
@@ -47,7 +45,6 @@ struct ContentView_Previews: PreviewProvider {
         model.selectedTab = ContentViewTab.addresses
 
         let view = ContentView(model: model)
-            .environmentObject(AppState())
 
         return Group {
             view

@@ -9,9 +9,9 @@
 import SwiftUI
 
 struct EnterMnenonicView: View {
-    @EnvironmentObject var appState: AppState
-
     @ObservedObject var model: EnterMnenonicViewModel
+
+    @Binding var hasSeed: Bool
 
     var body: some View {
         VStack {
@@ -33,8 +33,8 @@ struct EnterMnenonicView: View {
             })
 
             Button("OK") {
-                self.model.applyEntropy()
-                appState.hasSeed = true
+                model.applyEntropy()
+                hasSeed = true
             }
             .disabled(!model.validMnemonic)
         }
@@ -44,9 +44,9 @@ struct EnterMnenonicView: View {
 #if DEBUG
 struct EnterMnenonicView_Previews: PreviewProvider {
     static var previews: some View {
-        let view = EnterMnenonicView(model: EnterMnenonicViewModel())
+        let view = EnterMnenonicView(model: EnterMnenonicViewModel(),
+                                     hasSeed: .constant(false))
             .padding()
-            .environmentObject(AppState())
 
         return Group {
             view

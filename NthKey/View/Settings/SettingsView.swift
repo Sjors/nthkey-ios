@@ -12,8 +12,6 @@ import CodeScanner
 struct SettingsView : View {
     @ObservedObject var model: SettingsViewModel
 
-    @EnvironmentObject var appState: AppState
-
     @State private var showMnemonic = false
     @State private var enterMnemonnic = false
     @State private var mnemonicInput = ""
@@ -37,7 +35,7 @@ struct SettingsView : View {
                     }
                 }
 
-                if self.appState.hasSeed {
+                if model.hasSeed {
                     SettingsSectionView("Announce") {
                         AnnounceView(model: AnnounceViewModel())
                     }
@@ -59,8 +57,7 @@ struct SettingsView : View {
                         MiscSettings()
                     }
                 } else {
-                    NoSeedView()
-                        .environmentObject(self.appState)
+                    NoSeedView(hasSeed: $model.hasSeed)
                 }
             }
             .padding(10)
@@ -72,20 +69,14 @@ struct SettingsView : View {
 }
 
 #if DEBUG
+
 struct SettingsView_Previews: PreviewProvider {
     static var previews: some View {
-        let seededAppState = AppState()
-        seededAppState.hasSeed = true
-
-        let view = SettingsView(model: SettingsViewModel.mock)
-
-        return Group {
-            view
-                .environmentObject(seededAppState)
+        Group {
+            SettingsView(model: SettingsViewModel.mock)
 
             NavigationView {
-                view
-                    .environmentObject(AppState())
+                SettingsView(model: SettingsViewModel.notSeeded)
             }
             .colorScheme(.dark)
         }
