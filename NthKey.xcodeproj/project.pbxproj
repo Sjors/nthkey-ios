@@ -12,6 +12,8 @@
 		2A41F8B72607AB9B00C6AF92 /* WalletListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A41F8B62607AB9B00C6AF92 /* WalletListView.swift */; };
 		2A41F8BF2607AC0200C6AF92 /* WalletListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A41F8BE2607AC0200C6AF92 /* WalletListViewModel.swift */; };
 		2A41F8F32607EBF500C6AF92 /* WalletEntityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A41F8F22607EBF500C6AF92 /* WalletEntityView.swift */; };
+		2A42A6A426442081001B9D16 /* SubscriptionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A42A6A326442081001B9D16 /* SubscriptionViewModel.swift */; };
+		2A42A6B626442B4E001B9D16 /* SubscriptionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AB7E4A2263F69DC007B7813 /* SubscriptionManager.swift */; };
 		2AAC0EFF262CD56900C7B432 /* PSBT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AAC0EFE262CD56900C7B432 /* PSBT.swift */; };
 		2AAC0F04262CD87800C7B432 /* View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AAC0F03262CD87800C7B432 /* View.swift */; };
 		2AAC922A263EEFCF00A5D7D6 /* english.txt in Resources */ = {isa = PBXBuildFile; fileRef = 2AAC9229263EEFCF00A5D7D6 /* english.txt */; };
@@ -24,7 +26,6 @@
 		2AB30A0325EC00550061B717 /* UserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AB30A0225EC00550061B717 /* UserDefaults.swift */; };
 		2AB30A0425EC00550061B717 /* UserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AB30A0225EC00550061B717 /* UserDefaults.swift */; };
 		2AB30A0525EC00550061B717 /* UserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AB30A0225EC00550061B717 /* UserDefaults.swift */; };
-		2AB7E4A3263F69DC007B7813 /* SubscriptionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AB7E4A2263F69DC007B7813 /* SubscriptionManager.swift */; };
 		2AB7E4A9263F6F03007B7813 /* SubscriptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AB7E4A8263F6F03007B7813 /* SubscriptionView.swift */; };
 		2AEDBD4225F53C360018C5CF /* NthKey.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2AEDBD4025F53C360018C5CF /* NthKey.xcdatamodeld */; };
 		2AEDBD5C25F595190018C5CF /* PersistentStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AEDBD5B25F595190018C5CF /* PersistentStore.swift */; };
@@ -97,6 +98,7 @@
 		2A41F8B62607AB9B00C6AF92 /* WalletListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletListView.swift; sourceTree = "<group>"; };
 		2A41F8BE2607AC0200C6AF92 /* WalletListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletListViewModel.swift; sourceTree = "<group>"; };
 		2A41F8F22607EBF500C6AF92 /* WalletEntityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletEntityView.swift; sourceTree = "<group>"; };
+		2A42A6A326442081001B9D16 /* SubscriptionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionViewModel.swift; sourceTree = "<group>"; };
 		2AAC0EFE262CD56900C7B432 /* PSBT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PSBT.swift; sourceTree = "<group>"; };
 		2AAC0F03262CD87800C7B432 /* View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = View.swift; sourceTree = "<group>"; };
 		2AAC9229263EEFCF00A5D7D6 /* english.txt */ = {isa = PBXFileReference; explicitFileType = text; path = english.txt; sourceTree = "<group>"; };
@@ -250,6 +252,7 @@
 			isa = PBXGroup;
 			children = (
 				2AB7E4A8263F6F03007B7813 /* SubscriptionView.swift */,
+				2A42A6A326442081001B9D16 /* SubscriptionViewModel.swift */,
 			);
 			path = Subscription;
 			sourceTree = "<group>";
@@ -416,7 +419,6 @@
 				4AB1EA4225AB31BA00EE6832 /* SupportingFiles */,
 				A206E80F238D65FB00786824 /* Preview Content */,
 				A29DAAC2239180CC006B38D9 /* README.md */,
-				2AB7E4A2263F69DC007B7813 /* SubscriptionManager.swift */,
 			);
 			path = NthKey;
 			sourceTree = "<group>";
@@ -464,6 +466,7 @@
 		A27180B323A2939A00E9F443 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				2AB7E4A2263F69DC007B7813 /* SubscriptionManager.swift */,
 				A29DAAC02391657F006B38D9 /* KeychainEntropyItem.swift */,
 				A2F8575E23991354008A44E6 /* Signer.swift */,
 				A2067AC023C8549700F46862 /* SeedManager.swift */,
@@ -736,7 +739,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2AB7E4A3263F69DC007B7813 /* SubscriptionManager.swift in Sources */,
+				2A42A6A426442081001B9D16 /* SubscriptionViewModel.swift in Sources */,
 				2AEECEEE262C6A4100578819 /* String.swift in Sources */,
 				A29DAAC12391657F006B38D9 /* KeychainEntropyItem.swift in Sources */,
 				2AF86BCF2608B18000A770AD /* DataManager.swift in Sources */,
@@ -781,6 +784,7 @@
 				A2F8575F23991354008A44E6 /* Signer.swift in Sources */,
 				2AEDBD4225F53C360018C5CF /* NthKey.xcdatamodeld in Sources */,
 				2AB0998E2612321B00618B60 /* WalletEntity+Extensions.swift in Sources */,
+				2A42A6B626442B4E001B9D16 /* SubscriptionManager.swift in Sources */,
 				2AF86CE72610FF9300A770AD /* CodeSignersViewModel.swift in Sources */,
 				2AF227F92635C78300D19047 /* ImportWalletViewModel.swift in Sources */,
 				4AB1EA3425AB194F00EE6832 /* AddressesView.swift in Sources */,

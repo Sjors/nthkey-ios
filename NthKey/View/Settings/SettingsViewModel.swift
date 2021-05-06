@@ -10,27 +10,31 @@ import Foundation
 import CodeScanner
 
 final class SettingsViewModel: ObservableObject {
-    @Published var isShowingScanner = false
+    @Published var activeSheet: SettingsView.ActiveSheet?
     @Published var hasSeed: Bool = UserDefaults.fingerprint != nil
 
     private let dataManager: DataManager
     private let subsManager: SubscriptionManager
 
+    let announceModel: AnnounceViewModel
     let importWalletModel: ImportWalletViewModel
     let walletListModel: WalletListViewModel
     let codeSignersModel: CodeSignersViewModel
+    let subsViewModel: SubscriptionViewModel
 
     init(dataManager: DataManager, subsManager: SubscriptionManager) {
         self.dataManager = dataManager
         self.subsManager = subsManager
 
+        announceModel = AnnounceViewModel(subsManager: subsManager)
         importWalletModel = ImportWalletViewModel(dataManager: dataManager, subsManager: subsManager)
         walletListModel = WalletListViewModel(dataManager: dataManager)
         codeSignersModel = CodeSignersViewModel(dataManager: dataManager)
+        subsViewModel = SubscriptionViewModel(subsManager: subsManager)
     }
 
     func handleScan(result: Result<String, CodeScannerView.ScanError>) {
-        isShowingScanner = false
+        activeSheet = nil
         switch result {
         case .success(let code):
             DispatchQueue.main.async() { [weak self] in

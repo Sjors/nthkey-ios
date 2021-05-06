@@ -28,16 +28,17 @@ class SignViewModel: ObservableObject {
     private var psbt: PSBT?
     var destinations: [Destination] = []
     var feeString: String = ""
+    let subsViewModel: SubscriptionViewModel
 
     private let dataManager: DataManager
-    //private FIXME: avoid deprivation
-    let subsManager: SubscriptionManager
+    private let subsManager: SubscriptionManager
     private let fileOperationsController = SignViewController()
     private var cancellables = Set<AnyCancellable>()
 
     init(dataManager: DataManager, subsManager: SubscriptionManager) {
         self.dataManager = dataManager
         self.subsManager = subsManager
+        self.subsViewModel = SubscriptionViewModel(subsManager: subsManager)
 
         setupObservables()
     }

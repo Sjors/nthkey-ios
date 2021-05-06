@@ -11,14 +11,23 @@ import SwiftUI
 struct ImportWalletView: View {
     @ObservedObject var model: ImportWalletViewModel
 
-    @Binding var isShowingScanner: Bool
+    @Binding var activeSheet: SettingsView.ActiveSheet?
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 20) {
-            NetworkPickerView(network: $model.selectedNetwork)
+        let binding = Binding<WalletNetwork>(get: { model.selectedNetwork }) { network in
+            guard network == .mainnet && !model.hasSubscription else {
+                model.selectedNetwork = network
+                return
+            }
+
+            activeSheet = .subscription
+        }
+
+        return VStack(alignment: .leading, spacing: 20) {
+            NetworkPickerView(network: binding)
             
             Button(action: {
-                isShowingScanner = true
+                activeSheet = SettingsView.ActiveSheet.scanner
             }) {
                 HStack {
                     Image(systemName: "plus.circle")
@@ -41,18 +50,15 @@ struct ImportWalletView: View {
                   message: Text(error.errorDescription ?? "Unknown error"),
                   dismissButton: .cancel())
         }
-        .sheet(isPresented: $model.showSubscription) {
-            SubscriptionView()
-                .environmentObject(model.subsManager)
-        }
     }
 }
 
 #if DEBUG
 struct ImportWalletView_Previews: PreviewProvider {
     static var previews: some View {
-        ImportWalletView(model: ImportWalletViewModel(dataManager: DataManager.preview, subsManager: SubscriptionManager.mock),
-                         isShowingScanner: .constant(false))
+        ImportWalletView(model: ImportWalletViewModel(dataManager: DataManager.preview,
+                                                      subsManager: SubscriptionManager.mock),
+                         activeSheet: .constant(SettingsView.ActiveSheet.scanner))
     }
 }
 #endif

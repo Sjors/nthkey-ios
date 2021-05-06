@@ -12,12 +12,14 @@ import Combine
 final class ImportWalletViewModel: ObservableObject {
     @Published var selectedNetwork: WalletNetwork
     @Published var loadWalletError: DataProcessingError?
-    @Published var showSubscription: Bool = false
+
+    var hasSubscription: Bool {
+        subsManager.hasSubscription
+    }
     
     private let loadFileController: SettingsViewController = SettingsViewController()
     private let dataManager: DataManager
-    //private FIXME: Avoid deprivation
-    let subsManager: SubscriptionManager
+    private let subsManager: SubscriptionManager
     private var cancellables = Set<AnyCancellable>()
 
     init(dataManager: DataManager, subsManager: SubscriptionManager) {
@@ -36,17 +38,8 @@ final class ImportWalletViewModel: ObservableObject {
 
     private func setupObservables() {
         $selectedNetwork
-            .map { $0 as WalletNetwork? }
-            .sink { [weak self] value in
-                guard let self = self else { return }
-                if value == WalletNetwork.mainnet,
-                   !self.subsManager.hasSubscription {
-                    self.showSubscription = true
-                    return
-                }
-
-                self.dataManager.currentNetwork = value
-            }
+            .map{ $0 as WalletNetwork? }
+            .assign(to: \.currentNetwork, on: self.dataManager)
             .store(in: &cancellables)
     }
 

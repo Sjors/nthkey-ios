@@ -10,14 +10,16 @@ import SwiftUI
 import CodeScanner
 
 struct SettingsView : View {
+    enum ActiveSheet: Identifiable {
+        case scanner, subscription
+
+        var id: Int {
+            hashValue
+        }
+    }
+
     @ObservedObject var model: SettingsViewModel
 
-    @State private var showMnemonic = false
-    @State private var enterMnemonnic = false
-    @State private var mnemonicInput = ""
-    @State private var validMnemonic = false
-    @State private var promptMainnet = false
-    
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 20.0) {
@@ -37,12 +39,13 @@ struct SettingsView : View {
 
                 if model.hasSeed {
                     SettingsSectionView("Announce") {
-                        AnnounceView(model: AnnounceViewModel())
+                        AnnounceView(model: model.announceModel,
+                                     activeSheet: $model.activeSheet)
                     }
 
                     SettingsSectionView("Import wallet") {
                         ImportWalletView(model: model.importWalletModel,
-                                         isShowingScanner: $model.isShowingScanner)
+                                         activeSheet: $model.activeSheet)
                     }
 
                     SettingsSectionView("Wallets") {
@@ -61,9 +64,14 @@ struct SettingsView : View {
                 }
             }
             .padding(10)
-            
-        }.sheet(isPresented: $model.isShowingScanner) {
-            CodeScannerView(codeTypes: [.qr], completion: model.handleScan)
+        }
+        .sheet(item: $model.activeSheet) { value in
+            switch value {
+                case ActiveSheet.scanner:
+                    CodeScannerView(codeTypes: [.qr], completion: model.handleScan)
+                case ActiveSheet.subscription:
+                    SubscriptionView(model: model.subsViewModel)
+            }
         }
     }
 }

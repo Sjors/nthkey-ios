@@ -12,14 +12,23 @@ final class AnnounceViewModel: ObservableObject {
     @Published var network: WalletNetwork = .testnet
     @Published var showPubKeyQR = false
 
-    private let fileSaveController: SettingsViewController = SettingsViewController()
+    var hasSubscription: Bool {
+        subsManager.hasSubscription
+    }
+
+    var pubKeyImage: UIImage? {
+        QRCodeBuilder.generateQRCode(from: ourPubKey)
+    }
 
     private var ourPubKey: Data {
         SeedManager.ourPubKey(network: network.networkValue)
     }
 
-    var pubKeyImage: UIImage? {
-        QRCodeBuilder.generateQRCode(from: ourPubKey)
+    private let subsManager: SubscriptionManager
+    private let fileSaveController: SettingsViewController = SettingsViewController()
+
+    init(subsManager: SubscriptionManager) {
+        self.subsManager = subsManager
     }
 
     func exportPublicKey() {

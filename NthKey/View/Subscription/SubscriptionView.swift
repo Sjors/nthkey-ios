@@ -9,16 +9,15 @@
 import SwiftUI
 
 struct SubscriptionView: View {
-    @EnvironmentObject var subsManager: SubscriptionManager
+    var model: SubscriptionViewModel
 
     var body: some View {
-        Text((subsManager.hasSubscription ? "Have " : "Don't ") + "have subscription")
+        Text((model.hasSubscription ? "Have " : "Don't ") + "have subscription")
     }
 }
 
 struct SubscriptionView_Previews: PreviewProvider {
     static var previews: some View {
-        SubscriptionView()
-            .environmentObject(SubscriptionManager.mock)
+        SubscriptionView(model: SubscriptionViewModel(subsManager: SubscriptionManager.mock))
     }
 }

@@ -81,8 +81,7 @@ struct SignView : View {
     var body: some View {
         if model.showSubscription {
             // TODO: Move it to sheet too
-            SubscriptionView()
-                .environmentObject(model.subsManager)
+            SubscriptionView(model: model.subsViewModel)
         } else {
             contentView
                 .padding(.horizontal)

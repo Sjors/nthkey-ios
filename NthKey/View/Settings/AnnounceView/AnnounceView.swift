@@ -11,9 +11,20 @@ import SwiftUI
 struct AnnounceView: View {
     @ObservedObject var model: AnnounceViewModel
 
+    @Binding var activeSheet: SettingsView.ActiveSheet?
+
     var body: some View {
-        VStack(alignment: .leading, spacing: 20.0) {
-            NetworkPickerView(network: $model.network)
+        let binding = Binding<WalletNetwork>(get: { model.network }) { network in
+            guard network == .mainnet && !model.hasSubscription else {
+                model.network = network
+                return
+            }
+
+            activeSheet = .subscription
+        }
+
+        return VStack(alignment: .leading, spacing: 20.0) {
+            NetworkPickerView(network: binding)
             
             Text("In Specter go to 'Add new device', select Other and scan the QR code.")
 
@@ -41,8 +52,8 @@ struct AnnounceView: View {
 struct AnnounceView_Previews: PreviewProvider {
     static var previews: some View {
         // FIXME: Add wallet manager mock with pubkey for preview
-        let view = AnnounceView(model: AnnounceViewModel())
-        
+        let view = AnnounceView(model: AnnounceViewModel(subsManager: SubscriptionManager.mock),
+                                activeSheet: .constant(SettingsView.ActiveSheet.subscription))
         return Group {
             view
 
