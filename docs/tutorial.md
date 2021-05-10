@@ -26,15 +26,13 @@ You may optionally skip this step and have Specter install Bitcoin Core for you.
 
 Download the most recent [release](https://bitcoincore.org/en/download/).
 
-To launch with testnet on macOS:
+In order to test without putting any real coins at risk, launch with [-signet](http://nadobtc.btc.libsynpro.com/explaining-signet-nado-10) on macOS:
 
 ```sh
-/Applications/Bitcoin-Qt.app/Contents/MacOS/Bitcoin-Qt -testnet
+/Applications/Bitcoin-Qt.app/Contents/MacOS/Bitcoin-Qt -signet
 ```
 
-Use `-signet` if you want to use [Signet](http://nadobtc.btc.libsynpro.com/explaining-signet-nado-10) instead.
-
-We strongly recommend practicing this setup with testnet or signet before using real bitcoin on mainnet.
+We strongly recommend practicing this setup with signet before using real bitcoin on mainnet.
 
 ### Install Specter Desktop
 
@@ -79,8 +77,7 @@ on all your devices before sending coins to it.
 
 ![](/assets/ios_addresses.png){:height="300pt"}
 
-I recommend funding the default Bitcoin Core testnet wallet from a [faucet](https://www.google.com/search?q=bitcoin+testnet+faucet), and then send a small amount to the mutlisig wallet. That way you can try again if the coins are permanently lost.
-If you use Signet, the faucet is [here](https://signet.bc-2.jp).
+To get some coins to play with, go to the signet [faucet](https://signet.bc-2.jp) and paste your address.
 
 ## Backup seed phrase and wallet details
 
