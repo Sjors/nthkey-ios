@@ -8,15 +8,35 @@
 
 import Foundation
 
-final class SubscriptionViewModel {
 
-    var hasSubscription: Bool {
-        subsManager.hasSubscription
+final class SubscriptionViewModel: ObservableObject {
+    @Published var currentProductIndex: Int = 0
+
+    var productTitles: [String] {
+        subsManager.products.map{ $0.subscriptionPeriod?.localizedPeriod() ?? $0.localizedTitle }
+    }
+
+    var productPrices: [String] {
+        subsManager.products.map{ $0.formattedPrice() }
+    }
+
+    var productDescriptions: [String] {
+        subsManager.products.map{ $0.discounts.compactMap{ $0.localizedDiscount() }
+            .joined(separator: ", ") }
     }
 
     private var subsManager: SubscriptionManager
 
     init(subsManager: SubscriptionManager) {
         self.subsManager = subsManager
+    }
+
+    func purchaseCurrentProduct() {
+        let product = subsManager.products[currentProductIndex]
+        _ = subsManager.purchase(product: product)
+    }
+
+    func restorePurchases() {
+        subsManager.restorePurchases()
     }
 }
