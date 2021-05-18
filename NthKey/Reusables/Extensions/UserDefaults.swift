@@ -25,6 +25,7 @@ extension UserDefaults {
         case fingerprint = "masterKeyFingerprint"
         case entropyMask = "entropyMask"
         case currentWalletId = "walletId"
+        case subscriptionDate = "iapDate"
     }
 }
 
@@ -37,6 +38,9 @@ extension UserDefaults {
 
     @UserDefault(key: Keys.currentWalletId, defaultValue: nil)
     static var currentWalletId: String?
+
+    @UserDefault(key: Keys.subscriptionDate, defaultValue: nil)
+    static var subscriptionDate: Date?
 
     func remove(key: UserDefaults.Keys) {
         UserDefaults.standard.removeObject(forKey: key.rawValue)

@@ -14,7 +14,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     private let store = PersistentStore(inMemory: false)
     private lazy var dataManager = DataManager(store: store)
-    private lazy var subsManager = SubscriptionManager()
+    private lazy var subsManager = SubscriptionManager(identifiers: ["com.nthkey.monthly"])
     private lazy var contentViewModel = ContentViewModel(dataManager: dataManager, subsManager: subsManager)
     
     var window: UIWindow?
@@ -26,6 +26,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         // Create the SwiftUI view and set the context as the value for the managedObjectContext environment keyPath.
         // Add `@Environment(\.managedObjectContext)` in the views that will need the context.
+        subsManager.startObserving()
         let contentView = ContentView(model: contentViewModel)
 
         // Use a UIHostingController as window root view controller.
@@ -42,6 +43,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // This occurs shortly after the scene enters the background, or when its session is discarded.
         // Release any resources associated with this scene that can be re-created the next time the scene connects.
         // The scene may re-connect later, as its session was not neccessarily discarded (see `application:didDiscardSceneSessions` instead).
+        subsManager.stopObserving()
     }
 
     func sceneDidBecomeActive(_ scene: UIScene) {
@@ -49,6 +51,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Use this method to restart any tasks that were paused (or not yet started) when the scene was inactive.
 
         dataManager.prepareData()
+        subsManager.prepareData()
     }
 
     func sceneWillResignActive(_ scene: UIScene) {
