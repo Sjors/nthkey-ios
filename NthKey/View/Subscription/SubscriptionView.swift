@@ -12,12 +12,15 @@ struct SubscriptionView: View {
     @ObservedObject var model: SubscriptionViewModel
 
     @Environment(\.colorScheme) var colorScheme
+
+    let closeBlock: () -> Void
+
     private var selectionColor: Color {
         colorScheme == .dark ? Color.white : Color.black
     }
 
     var body: some View {
-        VStack {
+        let contentView = VStack {
             Text("Unlock access to Mainnet")
                 .font(.title)
 
@@ -62,7 +65,16 @@ struct SubscriptionView: View {
                     .foregroundColor(.gray)
                     .padding()
             })
+        }
 
+        return NavigationView {
+            contentView
+                .toolbar {
+                    ToolbarItemGroup(placement: .navigationBarTrailing) {
+                        Button(action: closeBlock,
+                               label: { Text("Close") })
+                    }
+                }
         }
     }
 
@@ -78,10 +90,10 @@ struct SubscriptionView_Previews: PreviewProvider {
     static var previews: some View {
         let view = VStack {
             ProductRowView(title: "Monthly",
-                                         details: "Free trial for 3 days",
-                                         price: "$ 3.99")
-
-            SubscriptionView(model: SubscriptionViewModel(subsManager: SubscriptionManager.mock))
+                           details: "Free trial for 3 days",
+                           price: "$ 3.99")
+            SubscriptionView(model: SubscriptionViewModel(subsManager: SubscriptionManager.mock),
+                             closeBlock: {})
         }
 
         return Group {

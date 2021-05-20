@@ -70,7 +70,8 @@ struct SettingsView : View {
                 case ActiveSheet.scanner:
                     CodeScannerView(codeTypes: [.qr], completion: model.handleScan)
                 case ActiveSheet.subscription:
-                    SubscriptionView(model: model.subsViewModel)
+                    SubscriptionView(model: model.subsViewModel,
+                                     closeBlock: { model.activeSheet = nil })
             }
         }
     }
