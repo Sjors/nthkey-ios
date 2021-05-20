@@ -30,6 +30,7 @@
 		2AB30A0425EC00550061B717 /* UserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AB30A0225EC00550061B717 /* UserDefaults.swift */; };
 		2AB30A0525EC00550061B717 /* UserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AB30A0225EC00550061B717 /* UserDefaults.swift */; };
 		2AB7E4A9263F6F03007B7813 /* SubscriptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AB7E4A8263F6F03007B7813 /* SubscriptionView.swift */; };
+		2AC5E27D2656F29E00210EFD /* LoaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AC5E27C2656F29E00210EFD /* LoaderView.swift */; };
 		2AEDBD4225F53C360018C5CF /* NthKey.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2AEDBD4025F53C360018C5CF /* NthKey.xcdatamodeld */; };
 		2AEDBD5C25F595190018C5CF /* PersistentStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AEDBD5B25F595190018C5CF /* PersistentStore.swift */; };
 		2AEDBE2325FA9C780018C5CF /* ContentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AEDBE2225FA9C780018C5CF /* ContentViewModel.swift */; };
@@ -118,6 +119,7 @@
 		2AB30A0225EC00550061B717 /* UserDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaults.swift; sourceTree = "<group>"; };
 		2AB7E4A2263F69DC007B7813 /* SubscriptionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionManager.swift; sourceTree = "<group>"; };
 		2AB7E4A8263F6F03007B7813 /* SubscriptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionView.swift; sourceTree = "<group>"; };
+		2AC5E27C2656F29E00210EFD /* LoaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoaderView.swift; sourceTree = "<group>"; };
 		2AEDBD4125F53C360018C5CF /* NthKey.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = NthKey.xcdatamodel; sourceTree = "<group>"; };
 		2AEDBD5B25F595190018C5CF /* PersistentStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistentStore.swift; sourceTree = "<group>"; };
 		2AEDBE2225FA9C780018C5CF /* ContentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentViewModel.swift; sourceTree = "<group>"; };
@@ -267,6 +269,14 @@
 			path = Subscription;
 			sourceTree = "<group>";
 		};
+		2AC5E27B2656F28600210EFD /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				2AC5E27C2656F29E00210EFD /* LoaderView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		2AEDBE2725FB3B780018C5CF /* MainTab */ = {
 			isa = PBXGroup;
 			children = (
@@ -372,6 +382,7 @@
 		4AB1EA4F25AB32FE00EE6832 /* Reusables */ = {
 			isa = PBXGroup;
 			children = (
+				2AC5E27B2656F28600210EFD /* Views */,
 				4AB1EA7025AB374700EE6832 /* Helpers */,
 				A25C032B25766DF90048765E /* Extensions */,
 			);
@@ -782,6 +793,7 @@
 				A27D4BF623A2B4F30055B0B8 /* SettingsView.swift in Sources */,
 				2AB20D2D263EB0AA00F7CE74 /* EnterMnenonicViewModel.swift in Sources */,
 				2AAC0EFF262CD56900C7B432 /* PSBT.swift in Sources */,
+				2AC5E27D2656F29E00210EFD /* LoaderView.swift in Sources */,
 				A2E9E38123ACF1A30049645D /* SignViewController.swift in Sources */,
 				4AB1EA7225AB375200EE6832 /* QRCodeBuilder.swift in Sources */,
 				A27180B623A293EA00E9F443 /* AddressView.swift in Sources */,
