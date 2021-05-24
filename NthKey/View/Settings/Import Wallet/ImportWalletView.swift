@@ -11,7 +11,7 @@ import SwiftUI
 struct ImportWalletView: View {
     @ObservedObject var model: ImportWalletViewModel
 
-    @Binding var activeSheet: SettingsView.ActiveSheet?
+    @Binding var activeSheet: ActiveSheet?
 
     var body: some View {
         let binding = Binding<WalletNetwork>(get: { model.selectedNetwork }) { network in
@@ -27,7 +27,7 @@ struct ImportWalletView: View {
             NetworkPickerView(network: binding)
             
             Button(action: {
-                activeSheet = SettingsView.ActiveSheet.scanner
+                activeSheet = .scanner
             }) {
                 HStack {
                     Image(systemName: "plus.circle")
@@ -58,7 +58,7 @@ struct ImportWalletView_Previews: PreviewProvider {
     static var previews: some View {
         ImportWalletView(model: ImportWalletViewModel(dataManager: DataManager.preview,
                                                       subsManager: SubscriptionManager.mock),
-                         activeSheet: .constant(SettingsView.ActiveSheet.scanner))
+                         activeSheet: .constant(.scanner))
     }
 }
 #endif

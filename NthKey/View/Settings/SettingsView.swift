@@ -10,14 +10,6 @@ import SwiftUI
 import CodeScanner
 
 struct SettingsView : View {
-    enum ActiveSheet: Identifiable {
-        case scanner, subscription
-
-        var id: Int {
-            hashValue
-        }
-    }
-
     @ObservedObject var model: SettingsViewModel
 
     var body: some View {
@@ -67,9 +59,9 @@ struct SettingsView : View {
         }
         .sheet(item: $model.activeSheet) { value in
             switch value {
-                case ActiveSheet.scanner:
+                case .scanner:
                     CodeScannerView(codeTypes: [.qr], completion: model.handleScan)
-                case ActiveSheet.subscription:
+                case .subscription:
                     SubscriptionView(model: model.subsViewModel,
                                      closeBlock: { model.activeSheet = nil })
             }

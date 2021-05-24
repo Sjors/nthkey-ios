@@ -10,7 +10,7 @@ import Foundation
 import CodeScanner
 
 final class SettingsViewModel: ObservableObject {
-    @Published var activeSheet: SettingsView.ActiveSheet?
+    @Published var activeSheet: ActiveSheet?
     @Published var hasSeed: Bool = UserDefaults.fingerprint != nil
 
     private let dataManager: DataManager

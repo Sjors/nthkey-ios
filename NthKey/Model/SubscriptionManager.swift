@@ -171,7 +171,7 @@ extension SubscriptionManager: SKRequestDelegate {
 
 #if DEBUG
 extension SubscriptionManager {
-    static var mock: SubscriptionManager = SubscriptionManager(identifiers: ["com.nthkey.monthly", "com.nthkey.annual"])
+    static var mock: SubscriptionManager = SubscriptionManager(identifiers: ["com.nthkey.monthly"])
 
     static var alreadyBought: SubscriptionManager {
         let result = SubscriptionManager(identifiers: ["com.test.subscription"])

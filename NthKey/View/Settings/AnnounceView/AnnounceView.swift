@@ -11,7 +11,7 @@ import SwiftUI
 struct AnnounceView: View {
     @ObservedObject var model: AnnounceViewModel
 
-    @Binding var activeSheet: SettingsView.ActiveSheet?
+    @Binding var activeSheet: ActiveSheet?
 
     var body: some View {
         let binding = Binding<WalletNetwork>(get: { model.network }) { network in
@@ -53,7 +53,7 @@ struct AnnounceView_Previews: PreviewProvider {
     static var previews: some View {
         // FIXME: Add wallet manager mock with pubkey for preview
         let view = AnnounceView(model: AnnounceViewModel(subsManager: SubscriptionManager.mock),
-                                activeSheet: .constant(SettingsView.ActiveSheet.subscription))
+                                activeSheet: .constant(.subscription))
         return Group {
             view
 

@@ -11,6 +11,7 @@
 		2A244F982651BCBF0007D8CC /* SKProduct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A244F972651BCBF0007D8CC /* SKProduct.swift */; };
 		2A244F9E2651CE7F0007D8CC /* Configuration.storekit in Resources */ = {isa = PBXBuildFile; fileRef = 2A244F9D2651CE7F0007D8CC /* Configuration.storekit */; };
 		2A2BA8992632F7C60053C2D5 /* NetworkPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A2BA8982632F7C60053C2D5 /* NetworkPickerView.swift */; };
+		2A2D993D265E8876001CE407 /* ActiveSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A2D993C265E8875001CE407 /* ActiveSheet.swift */; };
 		2A41F8B72607AB9B00C6AF92 /* WalletListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A41F8B62607AB9B00C6AF92 /* WalletListView.swift */; };
 		2A41F8BF2607AC0200C6AF92 /* WalletListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A41F8BE2607AC0200C6AF92 /* WalletListViewModel.swift */; };
 		2A41F8F32607EBF500C6AF92 /* WalletEntityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A41F8F22607EBF500C6AF92 /* WalletEntityView.swift */; };
@@ -102,6 +103,7 @@
 		2A244F972651BCBF0007D8CC /* SKProduct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SKProduct.swift; sourceTree = "<group>"; };
 		2A244F9D2651CE7F0007D8CC /* Configuration.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = Configuration.storekit; sourceTree = "<group>"; };
 		2A2BA8982632F7C60053C2D5 /* NetworkPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkPickerView.swift; sourceTree = "<group>"; };
+		2A2D993C265E8875001CE407 /* ActiveSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActiveSheet.swift; sourceTree = "<group>"; };
 		2A41F8B62607AB9B00C6AF92 /* WalletListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletListView.swift; sourceTree = "<group>"; };
 		2A41F8BE2607AC0200C6AF92 /* WalletListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletListViewModel.swift; sourceTree = "<group>"; };
 		2A41F8F22607EBF500C6AF92 /* WalletEntityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletEntityView.swift; sourceTree = "<group>"; };
@@ -273,6 +275,7 @@
 			isa = PBXGroup;
 			children = (
 				2AC5E27C2656F29E00210EFD /* LoaderView.swift */,
+				2A2D993C265E8875001CE407 /* ActiveSheet.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -786,6 +789,7 @@
 				2AB30A0325EC00550061B717 /* UserDefaults.swift in Sources */,
 				4AB1EA7A25AB3B5D00EE6832 /* AnnounceView.swift in Sources */,
 				2AB20D27263EB08600F7CE74 /* EnterMnenonicView.swift in Sources */,
+				2A2D993D265E8876001CE407 /* ActiveSheet.swift in Sources */,
 				4A63319125BEE55E008B058B /* NoSeedView.swift in Sources */,
 				2A41F8BF2607AC0200C6AF92 /* WalletListViewModel.swift in Sources */,
 				A2067AC123C8549700F46862 /* SeedManager.swift in Sources */,
