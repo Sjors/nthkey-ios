@@ -7,9 +7,10 @@
 //  license, see the accompanying file LICENSE.md
 
 import Foundation
-
+import Combine
 
 final class SubscriptionViewModel: ObservableObject {
+    @Published private(set) var state: State = State.initial
     @Published var currentProductIndex: Int = 0
 
     var productTitles: [String] {
@@ -21,17 +22,20 @@ final class SubscriptionViewModel: ObservableObject {
     }
 
     var productDescriptions: [String] {
-        subsManager.products.map{ $0.discounts.compactMap{ $0.localizedDiscount() }
-            .joined(separator: ", ") }
+        subsManager.products.map{ $0.localizedDescription }
     }
 
-    private var subsManager: SubscriptionManager
+    private var cancellables = Set<AnyCancellable>()
+    private let subsManager: SubscriptionManager
 
     init(subsManager: SubscriptionManager) {
         self.subsManager = subsManager
+
+        setupObservables()
     }
 
     func purchaseCurrentProduct() {
+        guard currentProductIndex < subsManager.products.count else { return }
         let product = subsManager.products[currentProductIndex]
         _ = subsManager.purchase(product: product)
     }
@@ -39,4 +43,34 @@ final class SubscriptionViewModel: ObservableObject {
     func restorePurchases() {
         subsManager.restorePurchases()
     }
+
+    // MARK: - Private
+
+    func setupObservables() {
+        subsManager
+            .$products
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] products in
+                self?.state = ( products.count == 0 ? .initial : .ready )
+            }
+            .store(in: &cancellables)
+    }
 }
+
+// MARK: FSM
+extension SubscriptionViewModel {
+    enum State {
+        case initial
+        case ready
+    }
+}
+
+#if DEBUG
+extension SubscriptionViewModel {
+    static var readyToPurchaseMock: SubscriptionViewModel {
+        let result = SubscriptionViewModel(subsManager: SubscriptionManager.mock)
+        result.state = .ready
+        return result
+    }
+}
+#endif

@@ -68,13 +68,21 @@ struct SubscriptionView: View {
         }
 
         return NavigationView {
-            contentView
-                .toolbar {
-                    ToolbarItemGroup(placement: .navigationBarTrailing) {
-                        Button(action: closeBlock,
-                               label: { Text("Close") })
-                    }
+            Group {
+                switch model.state {
+                case .initial:
+                    Text("Request AppStore")
+                        .loaderOverlay()
+                case .ready:
+                    contentView
                 }
+            }
+            .toolbar {
+                ToolbarItemGroup(placement: .navigationBarTrailing) {
+                    Button(action: closeBlock,
+                           label: { Text("Close") })
+                }
+            }
         }
     }
 
@@ -93,6 +101,9 @@ struct SubscriptionView_Previews: PreviewProvider {
                            details: "Free trial for 3 days",
                            price: "$ 3.99")
             SubscriptionView(model: SubscriptionViewModel(subsManager: SubscriptionManager.mock),
+                             closeBlock: {})
+
+            SubscriptionView(model: SubscriptionViewModel.readyToPurchaseMock,
                              closeBlock: {})
         }
 
