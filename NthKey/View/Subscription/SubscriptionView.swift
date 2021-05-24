@@ -21,7 +21,7 @@ struct SubscriptionView: View {
 
     var body: some View {
         let contentView = VStack {
-            Text("Unlock access to Mainnet")
+            Text("Use real Bitcoin (mainnet)")
                 .font(.title)
 
             ForEach(0 ..< model.productTitles.count, id:\.self) { idx in
@@ -71,7 +71,7 @@ struct SubscriptionView: View {
             Group {
                 switch model.state {
                 case .initial:
-                    Text("Request AppStore")
+                    Text("Connecting to App Store")
                         .loaderOverlay()
                 case .ready:
                     contentView
