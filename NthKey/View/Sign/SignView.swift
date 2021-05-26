@@ -20,11 +20,22 @@ struct SignView : View {
         case .canLoad:
             return VStack(alignment: .leading, spacing: 20.0) {
                 Button("Scan PSBT") {
-                    model.isShowingScanner = true
+                    model.openScanner()
                 }
+                .disabled(model.needSubscription)
 
                 Button("Load PSBT") {
                     model.loadFile()
+                }
+                .disabled(model.needSubscription)
+
+                if model.needSubscription {
+                    Button(action: {
+                        model.openSubscriptions()
+                    }, label: {
+                        Text("A subscription is required to sign with this wallet")
+                            .underline()
+                    })
                 }
             }.toAnyView
         case .loaded, .canSign, .signed:
@@ -79,24 +90,24 @@ struct SignView : View {
     }
 
     var body: some View {
-        if model.showSubscription {
-            // TODO: Move it to sheet too
-            SubscriptionView(model: model.subsViewModel,
-                             closeBlock: { model.showSubscription = false })
-        } else {
-            contentView
-                .padding(.horizontal)
-                .sheet(isPresented: $model.isShowingScanner) {
-                    CodeScannerView(codeTypes: [.qr], completion: model.handleScan)
+        contentView
+            .padding(.horizontal)
+            .sheet(item: $model.activeSheet) { value in
+                switch value {
+                    case .scanner:
+                        CodeScannerView(codeTypes: [.qr], completion: model.handleScan)
+                    case .subscription:
+                        SubscriptionView(model: model.subsViewModel,
+                                         closeBlock: { model.activeSheet = nil })
                 }
-                .alert(item: $model.errorMessage) { error in
-                    Alert(title: Text("Error"),
-                          message: Text(error),
-                          dismissButton: .default(Text("Ok"), action: {
-                            model.clear()
-                          }))
-                }
-        }
+            }
+            .alert(item: $model.errorMessage) { error in
+                Alert(title: Text("Error"),
+                      message: Text(error),
+                      dismissButton: .default(Text("Ok"), action: {
+                        model.clear()
+                      }))
+            }
     }
 }
 

@@ -13,9 +13,9 @@ import LibWally
 
 class SignViewModel: ObservableObject {
     @Published private(set) var state: State = State.initial
-    @Published var isShowingScanner = false
+    @Published var activeSheet: ActiveSheet?
     @Published var errorMessage: String?
-    @Published var showSubscription: Bool = false
+    @Published var needSubscription: Bool = false
 
     var psbtSignedImage: UIImage {
         var result = "Here should be a PSBT signed data"
@@ -43,8 +43,12 @@ class SignViewModel: ObservableObject {
         setupObservables()
     }
 
+    func openScanner() {
+        activeSheet = .scanner
+    }
+
     func handleScan(result: Result<String, CodeScannerView.ScanError>) {
-        isShowingScanner = false
+        activeSheet = nil
         switch result {
         case .success(let psbtString):
             DispatchQueue.main.async() { [weak self] in
@@ -63,14 +67,12 @@ class SignViewModel: ObservableObject {
         }
     }
 
+    func openSubscriptions() {
+        activeSheet = .subscription
+    }
+
     func sign() {
         guard let unsigned = psbt else { return }
-
-        if unsigned.network == .mainnet,
-           !subsManager.hasSubscription {
-            self.showSubscription = true
-            return
-        }
 
         psbt = Signer.signPSBT(unsigned)
         state = .signed
@@ -110,6 +112,16 @@ class SignViewModel: ObservableObject {
             .$currentWallet
             .map{ $0 != nil ? State.canLoad : State.initial }
             .assign(to: \.state, on: self)
+            .store(in: &cancellables)
+
+        dataManager
+            .$currentWallet
+            .compactMap { $0?.wrappedNetwork }
+            .combineLatest(subsManager.$hasSubscription)
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] (network, hasSubscription) in
+                self?.needSubscription = (network == .mainnet) && !hasSubscription
+            }
             .store(in: &cancellables)
     }
 
