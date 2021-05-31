@@ -51,7 +51,8 @@ struct SignView : View {
                     }
 
                     ForEach(model.destinations.filter({ dest -> Bool in
-                        return !dest.isChange;
+                        // Hide change address, except if it's the only destination
+                        return !dest.isChange || model.destinations.count == 1;
                     })) { destination in
                         Text(destination.description)
                             .font(.system(.body, design: .monospaced))
