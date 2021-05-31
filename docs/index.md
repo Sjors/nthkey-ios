@@ -54,6 +54,7 @@ import your nThKey recovery phrase into a different hardware wallet.
 
 ## Contact
 
-[sjors@sprovoost.nl](mailto:sjors@sprovoost.nl) ([PGP](/assets/CC301009.asc))
+* [support@nthkey.com](mailto:support@nthkey.com) ([PGP](/assets/D4A570A5.asc))
+* [sjors@sprovoost.nl](mailto:sjors@sprovoost.nl) ([PGP](/assets/CC301009.asc))
 
 {% include social.html %}
