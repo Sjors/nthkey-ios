@@ -152,7 +152,7 @@ class SignViewModel: ObservableObject {
         if let fee = psbt.fee {
             self.feeString = "Fee: \(fee) sats"
         }
-        let us = Signer.getOurselfSigner()
+        let us = Signer.getSignerUs(psbt.network)
         var canBeSigned = false
         for input in psbt.inputs {
             canBeSigned = canBeSigned || input.canSign(us.hdKey) as Bool

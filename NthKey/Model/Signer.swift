@@ -23,9 +23,8 @@ public class Signer: NSObject, Identifiable {
         self.hdKey = hdKey
     }
     
-    public static func getOurselfSigner(masterKey: HDKey? = nil) -> Signer {
-        let network: Network = .testnet // FIXME: Before multiwallet app store it in UserDefaults.mainnet ? .mainnet : .testnet
-        let fingerprint = UserDefaults.fingerprint! 
+    public static func getSignerUs(_ network: Network) -> Signer {
+        let fingerprint = UserDefaults.fingerprint!
 
         let seedHex = try! SeedManager.getMnemonic().seedHex()
         let masterKey = HDKey(seedHex, network)!
@@ -39,7 +38,7 @@ public class Signer: NSObject, Identifiable {
     
     static func signPSBT(_ psbt: PSBT) -> PSBT {
         var psbtOut = psbt
-        let us = Signer.getOurselfSigner()
+        let us = Signer.getSignerUs(psbt.network)
         psbtOut.sign(us.hdKey)
         return psbtOut
     }
