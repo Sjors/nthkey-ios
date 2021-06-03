@@ -12,6 +12,8 @@ import Combine
 final class SubscriptionViewModel: ObservableObject {
     @Published private(set) var state: State = State.initial
     @Published var currentProductIndex: Int = 0
+    @Published var purchased: Bool = false
+
 
     var productTitles: [String] {
         subsManager.products.map{ $0.subscriptionPeriod?.localizedPeriod() ?? $0.localizedTitle }
@@ -53,6 +55,12 @@ final class SubscriptionViewModel: ObservableObject {
             .sink { [weak self] products in
                 self?.state = ( products.count == 0 ? .initial : .ready )
             }
+            .store(in: &cancellables)
+
+        subsManager
+            .$hasSubscription
+            .receive(on: DispatchQueue.main)
+            .assign(to: \.purchased, on: self)
             .store(in: &cancellables)
     }
 }

@@ -84,6 +84,10 @@ struct SubscriptionView: View {
                 }
             }
         }
+        .onReceive(model.$purchased) { value in
+            guard value else { return }
+            closeBlock()
+        }
     }
 
     fileprivate func ProductView(_ idx: Int) -> some View {
