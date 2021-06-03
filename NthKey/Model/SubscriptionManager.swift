@@ -92,9 +92,14 @@ final class SubscriptionManager: NSObject, ObservableObject {
     /// Allow to have raw estimation of subscription vithout validation
     private func checkExpirationDateFromPayment(_ payment: SKPayment) {
         let productId = payment.productIdentifier
-        for item in ["month": 30, "year": 365] {
+        for item in ["month": (1,0), "year": (0,1)] {
             guard productId.contains(item.key) else { continue }
-            let date = Date(timeIntervalSinceNow: TimeInterval(60*60*24*item.value))
+
+            var dateComponent = DateComponents()
+            dateComponent.month = item.value.0
+            dateComponent.year = item.value.1
+
+            let date = Calendar.current.date(byAdding: dateComponent, to: Date())
             UserDefaults.subscriptionDate = date
             checkPurchaseStatus()
         }
