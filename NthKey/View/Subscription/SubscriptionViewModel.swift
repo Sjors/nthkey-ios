@@ -13,7 +13,7 @@ final class SubscriptionViewModel: ObservableObject {
     @Published private(set) var state: State = State.initial
     @Published var currentProductIndex: Int = 0
     @Published var purchased: Bool = false
-
+    @Published var disablePurchaseButton: Bool = false
 
     var productTitles: [String] {
         subsManager.products.map{ $0.subscriptionPeriod?.localizedPeriod() ?? $0.localizedTitle }
@@ -38,11 +38,13 @@ final class SubscriptionViewModel: ObservableObject {
 
     func purchaseCurrentProduct() {
         guard currentProductIndex < subsManager.products.count else { return }
+        disablePurchaseButton = true
         let product = subsManager.products[currentProductIndex]
-        _ = subsManager.purchase(product: product)
+        subsManager.purchase(product: product)
     }
 
     func restorePurchases() {
+        disablePurchaseButton = true
         subsManager.restorePurchases()
     }
 
@@ -61,6 +63,21 @@ final class SubscriptionViewModel: ObservableObject {
             .$hasSubscription
             .receive(on: DispatchQueue.main)
             .assign(to: \.purchased, on: self)
+            .store(in: &cancellables)
+
+        subsManager
+            .$state
+            .sink { [weak self] managerState in
+                guard let self = self,
+                      self.disablePurchaseButton else { return }
+                switch managerState {
+                case .notPurchased, .failed(_):
+                    self.disablePurchaseButton = false
+                default:
+                    break
+                }
+
+            }
             .store(in: &cancellables)
     }
 }

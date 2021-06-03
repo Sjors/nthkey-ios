@@ -13,6 +13,7 @@ import StoreKit
 final class SubscriptionManager: NSObject, ObservableObject {
     @Published private(set) var hasSubscription: Bool = false
     @Published private(set) var products: [SKProduct] = []
+    @Published private(set) var state: State = .initial
 
     // Used for direct user notifications about purchase flow
     let purchasePublisher = PassthroughSubject<(String, Bool), Never>()
@@ -44,20 +45,23 @@ final class SubscriptionManager: NSObject, ObservableObject {
 
     func prepareData() {
         getProducts()
+        state = .requestProducts
     }
 
+    @discardableResult
     func purchase(product: SKProduct) -> Bool {
         guard SubscriptionManager.canMakePayments else { return false }
 
         let payment = SKPayment(product: product)
         SKPaymentQueue.default().add(payment)
-
+        state = .startPurchase
         return true
     }
 
     func restorePurchases() {
         totalRestoredPurchases = 0
         SKPaymentQueue.default().restoreCompletedTransactions()
+        state = .startRestore
     }
 
     // MARK: - Private
@@ -107,6 +111,7 @@ extension SubscriptionManager: SKProductsRequestDelegate {
         #endif
 
         products = response.products
+        state = .receivedProducts
     }
 }
 
@@ -117,14 +122,16 @@ extension SubscriptionManager: SKPaymentTransactionObserver {
             case .purchased:
                 purchasePublisher.send(("Purchased ",true))
                 checkExpirationDateFromPayment(transaction.payment)
+                state = .purchased
             case .restored:
                 totalRestoredPurchases += 1
                 purchasePublisher.send(("Restored ",true))
-
                 checkExpirationDateFromPayment(transaction.payment)
+                state = .purchased
             case .failed:
                 if let error = transaction.error as? SKError {
                     purchasePublisher.send(("Payment Error \(error.code) ",false))
+                    state = .failed(error)
                 }
             case .deferred:
                 purchasePublisher.send(("Payment Deferred ",false))
@@ -145,11 +152,13 @@ extension SubscriptionManager: SKPaymentTransactionObserver {
     // Sent when all transactions from the user's purchase history have successfully been added back to the queue.
     func paymentQueueRestoreCompletedTransactionsFinished(_ queue: SKPaymentQueue) {
         guard totalRestoredPurchases != 0 else {
-            purchasePublisher.send(("IAP: No purchases to restore!",true))
+            purchasePublisher.send(("IAP: No purchases to restore!",false))
+            state = .notPurchased
             return
         }
 
         purchasePublisher.send(("IAP: Purchases successfull restored!",true))
+        state = .purchased
     }
 
     // Sent when an error is encountered while adding transactions from the user's purchase history back to the queue.
@@ -157,6 +166,7 @@ extension SubscriptionManager: SKPaymentTransactionObserver {
         guard let error = error as? SKError else { return }
         let reason = error.code != .paymentCancelled ? " Restore" : ""
         purchasePublisher.send(("IAP\(reason) Error: " + error.localizedDescription, false))
+        state = .failed(error)
     }
 
     // TODO: Possible should implement for any transactions which will be revoked
@@ -165,7 +175,22 @@ extension SubscriptionManager: SKPaymentTransactionObserver {
 
 extension SubscriptionManager: SKRequestDelegate {
     func request(_ request: SKRequest, didFailWithError error: Error) {
-        purchasePublisher.send(("Purchase request failed ",true))
+        purchasePublisher.send(("Purchase request failed ",false))
+        state = .failed(error)
+    }
+}
+
+// MARK: FSM
+extension SubscriptionManager {
+    enum State {
+        case initial
+        case requestProducts
+        case receivedProducts
+        case startPurchase
+        case startRestore
+        case purchased
+        case notPurchased
+        case failed(Error)
     }
 }
 
