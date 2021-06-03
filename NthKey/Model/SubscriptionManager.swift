@@ -77,18 +77,6 @@ final class SubscriptionManager: NSObject, ObservableObject {
         hasSubscription = Date() < date
     }
 
-    static private func expirationDateFromResponse(jsonResponse: NSDictionary) -> NSDate? {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss VV"
-
-        guard let receiptInfo: NSArray = jsonResponse["latest_receipt_info"] as? NSArray,
-              let lastReceipt = receiptInfo.lastObject as? NSDictionary,
-              let dateString = lastReceipt["expires_date"] as? String,
-              let expirationDate = formatter.date(from: dateString) as NSDate? else { return nil }
-
-        return expirationDate
-    }
-
     /// Allow to have raw estimation of subscription vithout validation
     private func checkExpirationDateFromPayment(_ payment: SKPayment) {
         let productId = payment.productIdentifier
@@ -117,6 +105,13 @@ extension SubscriptionManager: SKProductsRequestDelegate {
 
         products = response.products
         state = .receivedProducts
+
+        // Here we try to ask if iAP still purchased, because we didn't validate receipt, yet.
+        guard let date = UserDefaults.subscriptionDate,
+              Date() > date,
+              products.count == 1,
+              let unique = products.first else { return }
+        purchase(product: unique)
     }
 }
 
