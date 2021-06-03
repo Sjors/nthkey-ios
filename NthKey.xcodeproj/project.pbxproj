@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		1F6A2E586F1545C3C5EFA149 /* Pods_NthKey.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CA4B65438CE45530547E491B /* Pods_NthKey.framework */; };
+		2A15A47526693AE000A9B2E1 /* LargeButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A15A47426693AE000A9B2E1 /* LargeButtonStyle.swift */; };
 		2A244F982651BCBF0007D8CC /* SKProduct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A244F972651BCBF0007D8CC /* SKProduct.swift */; };
 		2A244F9E2651CE7F0007D8CC /* Configuration.storekit in Resources */ = {isa = PBXBuildFile; fileRef = 2A244F9D2651CE7F0007D8CC /* Configuration.storekit */; };
 		2A2BA8992632F7C60053C2D5 /* NetworkPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A2BA8982632F7C60053C2D5 /* NetworkPickerView.swift */; };
@@ -100,6 +101,7 @@
 		03E754B72B8C0A69CF96ECC6 /* Pods-MultisigTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MultisigTests.release.xcconfig"; path = "Target Support Files/Pods-MultisigTests/Pods-MultisigTests.release.xcconfig"; sourceTree = "<group>"; };
 		18164F1856E6D3E381CF90EC /* Pods-Multisig.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Multisig.debug.xcconfig"; path = "Target Support Files/Pods-Multisig/Pods-Multisig.debug.xcconfig"; sourceTree = "<group>"; };
 		257350CD86D0746C6502196E /* Pods-Multisig-MultisigUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Multisig-MultisigUITests.debug.xcconfig"; path = "Target Support Files/Pods-Multisig-MultisigUITests/Pods-Multisig-MultisigUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		2A15A47426693AE000A9B2E1 /* LargeButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LargeButtonStyle.swift; sourceTree = "<group>"; };
 		2A244F972651BCBF0007D8CC /* SKProduct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SKProduct.swift; sourceTree = "<group>"; };
 		2A244F9D2651CE7F0007D8CC /* Configuration.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = Configuration.storekit; sourceTree = "<group>"; };
 		2A2BA8982632F7C60053C2D5 /* NetworkPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkPickerView.swift; sourceTree = "<group>"; };
@@ -276,6 +278,7 @@
 			children = (
 				2AC5E27C2656F29E00210EFD /* LoaderView.swift */,
 				2A2D993C265E8875001CE407 /* ActiveSheet.swift */,
+				2A15A47426693AE000A9B2E1 /* LargeButtonStyle.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -769,6 +772,7 @@
 			files = (
 				2A42A6A426442081001B9D16 /* SubscriptionViewModel.swift in Sources */,
 				2AEECEEE262C6A4100578819 /* String.swift in Sources */,
+				2A15A47526693AE000A9B2E1 /* LargeButtonStyle.swift in Sources */,
 				A29DAAC12391657F006B38D9 /* KeychainEntropyItem.swift in Sources */,
 				2AF86BCF2608B18000A770AD /* DataManager.swift in Sources */,
 				2AAD62A0265472EB009BDC32 /* ProductRowView.swift in Sources */,

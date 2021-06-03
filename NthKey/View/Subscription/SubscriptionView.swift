@@ -47,15 +47,11 @@ struct SubscriptionView: View {
                 model.purchaseCurrentProduct()
             }, label: {
                 Text("Subscribe Now")
-                    .bold()
-                    .font(.title)
-                    .foregroundColor(selectionColor)
-                    .padding()
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 20)
-                            .stroke(selectionColor, lineWidth: 2)
-                    )
             })
+            .buttonStyle(LargeButtonStyle(backgroundColor: Color.clear,
+                                          foregroundColor: selectionColor,
+                                          isDisabled: model.disablePurchaseButton,
+                                          cornerRadius: 20))
 
             Button(action: {
                 model.restorePurchases()
@@ -65,6 +61,7 @@ struct SubscriptionView: View {
                     .foregroundColor(.gray)
                     .padding()
             })
+            .disabled(model.disablePurchaseButton)
         }
 
         return NavigationView {
