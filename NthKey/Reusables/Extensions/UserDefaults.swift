@@ -40,7 +40,7 @@ extension UserDefaults {
     static var currentWalletId: String?
 
     @UserDefault(key: Keys.subscriptionDate, defaultValue: nil)
-    static var subscriptionDate: Date?
+    static var subscriptionRenewalDate: Date?
 
     func remove(key: UserDefaults.Keys) {
         UserDefaults.standard.removeObject(forKey: key.rawValue)

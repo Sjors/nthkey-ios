@@ -73,7 +73,7 @@ final class SubscriptionManager: NSObject, ObservableObject {
     }
 
     private func checkPurchaseStatus() {
-        guard let date = UserDefaults.subscriptionDate else { return }
+        guard let date = UserDefaults.subscriptionRenewalDate else { return }
         hasSubscription = Date() < date
     }
 
@@ -88,7 +88,7 @@ final class SubscriptionManager: NSObject, ObservableObject {
             dateComponent.year = item.value.1
 
             let date = Calendar.current.date(byAdding: dateComponent, to: Date())
-            UserDefaults.subscriptionDate = date
+            UserDefaults.subscriptionRenewalDate = date
             checkPurchaseStatus()
         }
     }
@@ -107,7 +107,7 @@ extension SubscriptionManager: SKProductsRequestDelegate {
         state = .receivedProducts
 
         // Here we try to ask if iAP still purchased, because we didn't validate receipt, yet.
-        guard let date = UserDefaults.subscriptionDate,
+        guard let date = UserDefaults.subscriptionRenewalDate,
               Date() > date,
               products.count == 1,
               let unique = products.first else { return }
