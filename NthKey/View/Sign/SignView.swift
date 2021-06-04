@@ -63,6 +63,16 @@ struct SignView : View {
                         model.sign()
                     }
                     .disabled(model.state != .canSign)
+                    .disabled(model.needSubscription)
+
+                    if model.needSubscription {
+                        Button(action: {
+                            model.openSubscriptions()
+                        }, label: {
+                            Text("A subscription is required to sign with this wallet")
+                                .underline()
+                        })
+                    }
 
                     if model.state == .signed {
                         Image(uiImage: model.psbtSignedImage)
@@ -74,10 +84,12 @@ struct SignView : View {
                         Button("Save") {
                             model.saveFile()
                         }
+                        .disabled(model.needSubscription)
 
                         Button("Copy") {
                             model.copyToClipboard()
                         }
+                        .disabled(model.needSubscription)
                     }
 
                     Button("Clear") {
