@@ -20,6 +20,7 @@ struct ImportWalletView: View {
                 return
             }
 
+            model.selectMainnetAfterPurchase = true
             activeSheet = .subscription
         }
 

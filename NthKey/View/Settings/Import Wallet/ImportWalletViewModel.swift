@@ -13,9 +13,8 @@ final class ImportWalletViewModel: ObservableObject {
     @Published var selectedNetwork: WalletNetwork
     @Published var loadWalletError: DataProcessingError?
 
-    var hasSubscription: Bool {
-        subsManager.hasSubscription
-    }
+    var hasSubscription: Bool = false
+    var selectMainnetAfterPurchase: Bool = false
     
     private let loadFileController: SettingsViewController = SettingsViewController()
     private let dataManager: DataManager
@@ -40,6 +39,19 @@ final class ImportWalletViewModel: ObservableObject {
         $selectedNetwork
             .map{ $0 as WalletNetwork? }
             .assign(to: \.currentNetwork, on: self.dataManager)
+            .store(in: &cancellables)
+
+        // TODO: DRY TBC here and in AnnounceViewModel
+        subsManager
+            .$hasSubscription
+            .sink { [weak self] value in
+                guard let self = self else { return }
+                self.hasSubscription = value
+
+                guard self.selectMainnetAfterPurchase && value else { return }
+                self.selectMainnetAfterPurchase = false
+                self.selectedNetwork = .mainnet
+            }
             .store(in: &cancellables)
     }
 

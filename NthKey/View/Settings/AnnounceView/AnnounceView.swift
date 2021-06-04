@@ -20,6 +20,7 @@ struct AnnounceView: View {
                 return
             }
 
+            model.selectMainnetAfterPurchase = true
             activeSheet = .subscription
         }
 
