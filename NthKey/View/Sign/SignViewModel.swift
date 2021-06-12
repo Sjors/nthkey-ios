@@ -16,6 +16,7 @@ class SignViewModel: ObservableObject {
     @Published var activeSheet: ActiveSheet?
     @Published var errorMessage: String?
     @Published var needSubscription: Bool = false
+    @Published var currentWalletTitle: String = ""
 
     var psbtSignedImage: UIImage {
         var result = "Here should be a PSBT signed data"
@@ -110,8 +111,15 @@ class SignViewModel: ObservableObject {
     private func setupObservables() {
         dataManager
             .$currentWallet
-            .map{ $0 != nil ? State.canLoad : State.initial }
-            .assign(to: \.state, on: self)
+            .sink { [weak self] value in
+                guard let self = self else { return }
+                self.state = value == nil ? State.initial : State.canLoad
+
+                guard let wallet = value,
+                      let title = wallet.label,
+                      let networkTitle = WalletNetwork.valueFromInt16(wallet.network)?.rawValue else { return}
+                self.currentWalletTitle = "\(title) (\(networkTitle.lowercased()))"
+            }
             .store(in: &cancellables)
 
         dataManager

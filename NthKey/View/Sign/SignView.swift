@@ -28,15 +28,6 @@ struct SignView : View {
                     model.loadFile()
                 }
                 .disabled(model.needSubscription)
-
-                if model.needSubscription {
-                    Button(action: {
-                        model.openSubscriptions()
-                    }, label: {
-                        Text("A subscription is required to sign with this wallet")
-                            .underline()
-                    })
-                }
             }.toAnyView
         case .loaded, .canSign, .signed:
             return ScrollView {
@@ -63,16 +54,6 @@ struct SignView : View {
                         model.sign()
                     }
                     .disabled(model.state != .canSign)
-                    .disabled(model.needSubscription)
-
-                    if model.needSubscription {
-                        Button(action: {
-                            model.openSubscriptions()
-                        }, label: {
-                            Text("A subscription is required to sign with this wallet")
-                                .underline()
-                        })
-                    }
 
                     if model.state == .signed {
                         Image(uiImage: model.psbtSignedImage)
@@ -102,9 +83,27 @@ struct SignView : View {
     }
 
     var body: some View {
-        contentView
-            .padding(.horizontal)
-            .sheet(item: $model.activeSheet) { value in
+        VStack(alignment: .leading) {
+            Text(model.currentWalletTitle)
+                .font(.title)
+                .padding(.vertical)
+
+            if model.needSubscription {
+                Button(action: {
+                    model.openSubscriptions()
+                }, label: {
+                    Text("A subscription is required to sign with this wallet")
+                        .underline()
+                        .padding(.vertical)
+                })
+            }
+
+            contentView
+
+            Spacer()
+        }
+        .padding(.horizontal)
+        .sheet(item: $model.activeSheet) { value in
                 switch value {
                     case .scanner:
                         CodeScannerView(codeTypes: [.qr], completion: model.handleScan)
