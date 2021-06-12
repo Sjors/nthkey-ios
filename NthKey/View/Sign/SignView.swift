@@ -79,7 +79,6 @@ struct SignView : View {
                             .interpolation(.none)
                             .resizable()
                             .scaledToFit()
-                            .frame(width: 350, height: 350)
 
                         Button("Save") {
                             model.saveFile()

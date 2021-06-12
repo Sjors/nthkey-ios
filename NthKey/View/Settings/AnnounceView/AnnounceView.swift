@@ -39,7 +39,6 @@ struct AnnounceView: View {
                     .interpolation(.none)
                     .resizable()
                     .scaledToFit()
-                    .frame(width: 350, height: 350)
             }
 
             Button("Save as JSON \(model.network.title)") {
