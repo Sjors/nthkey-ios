@@ -12,6 +12,7 @@ import CodeScanner
 final class SettingsViewModel: ObservableObject {
     @Published var activeSheet: ActiveSheet?
     @Published var hasSeed: Bool = UserDefaults.fingerprint != nil
+    @Published var scanQRError: DataProcessingError?
 
     private let dataManager: DataManager
     private let subsManager: SubscriptionManager
@@ -39,17 +40,24 @@ final class SettingsViewModel: ObservableObject {
         case .success(let code):
             DispatchQueue.main.async() { [weak self] in
                 guard let data = code.data(using: .utf8) else {
-                    // TODO: show error
+                    self?.scanQRError = .wrongEncoding
                     return
                 }
                 self?.dataManager.loadWalletUsingData(data) { result in
-                    // TODO: show error or success
+                    switch result {
+                        case .failure(let error):
+                            self?.scanQRError = error
+                            break
+                        case .success(_):
+                            break
+                    }
                 }
             }
         case .failure(let error):
-            // TODO: show error
-            print("Scanning failed")
-            print(error)
+            scanQRError = .badInputOutput
+            #if targetEnvironment(simulator)
+            print("Scanning failed: \(error)")
+            #endif
         }
     }
 }

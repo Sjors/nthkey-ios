@@ -112,13 +112,13 @@ struct SignView : View {
                                          closeBlock: { model.activeSheet = nil })
                 }
             }
-            .alert(item: $model.errorMessage) { error in
-                Alert(title: Text("Error"),
-                      message: Text(error),
-                      dismissButton: .default(Text("Ok"), action: {
-                        model.clear()
-                      }))
-            }
+        .alert(item: $model.error) { error in
+            Alert(title: Text("Import PSBT error"),
+                  message: Text(error.errorDescription ?? "Unknown error"),
+                  dismissButton: .default(Text("Ok"), action: {
+                    model.clear()
+                  }))
+        }
     }
 }
 

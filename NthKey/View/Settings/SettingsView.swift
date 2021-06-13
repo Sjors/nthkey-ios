@@ -66,6 +66,11 @@ struct SettingsView : View {
                                      closeBlock: { model.activeSheet = nil })
             }
         }
+        .alert(item: $model.scanQRError) { error in
+            Alert(title: Text("Scan wallet QR error"),
+                  message: Text(error.errorDescription ?? "Unknown error"),
+                  dismissButton: .cancel())
+        }
     }
 }
 

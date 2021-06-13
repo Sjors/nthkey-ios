@@ -14,7 +14,7 @@ import LibWally
 class SignViewModel: ObservableObject {
     @Published private(set) var state: State = State.initial
     @Published var activeSheet: ActiveSheet?
-    @Published var errorMessage: String?
+    @Published var error: DataProcessingError?
     @Published var needSubscription: Bool = false
     @Published var currentWalletTitle: String = ""
 
@@ -56,7 +56,10 @@ class SignViewModel: ObservableObject {
                 self?.loadPsbtString(psbtString)
             }
         case .failure(let error):
-            self.errorMessage = "Scanning failed: \(error.localizedDescription)"
+            self.error = .badInputOutput
+            #if targetEnvironment(simulator)
+            print("Scanning PSBT failed: \(error)")
+            #endif
         }
     }
 
@@ -102,7 +105,10 @@ class SignViewModel: ObservableObject {
             let psbt = try PSBT(payload, network)
             processPSBT(psbt)
         } catch {
-           errorMessage = "Something went wrong parsing PSBT file"
+            self.error = .wrongPSBT
+            #if targetEnvironment(simulator)
+            print("Open PSBT failed: \(error)")
+            #endif
         }
     }
 
@@ -139,7 +145,10 @@ class SignViewModel: ObservableObject {
             let psbt = try PSBT(string, network)
             processPSBT(psbt)
         } catch {
-            errorMessage = error.localizedDescription
+            self.error = .wrongPSBT
+            #if targetEnvironment(simulator)
+            print("Create PSBT failed: \(error)")
+            #endif
         }
     }
 
