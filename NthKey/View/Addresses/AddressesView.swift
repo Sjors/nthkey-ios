@@ -7,13 +7,29 @@
 //  license, see the accompanying file LICENSE.md
 
 import SwiftUI
+import CodeScanner
 
 struct AddressesView: View {
     @ObservedObject var model: AddressesViewModel
 
+    @State var showScanner: Bool = false
+
     var body: some View {
         NavigationView {
             VStack(alignment: .leading, spacing: 30.0) {
+                HStack {
+                    Spacer()
+                    Button("Scan to check") {
+                        showScanner.toggle()
+                    }
+                    .buttonStyle(LargeButtonStyle(backgroundColor: Color.clear,
+                                                  foregroundColor: .primary,
+                                                  isDisabled: false,
+                                                  cornerRadius: 20))
+                    Spacer()
+                }
+                .padding(.top)
+
                 if model.items.count > 0 {
                     List {
                         ForEach(model.items) { item in
@@ -29,6 +45,9 @@ struct AddressesView: View {
                 }
             }
             .navigationBarTitle("Address")
+            .sheet(isPresented: $showScanner) {
+                CodeScannerView(codeTypes: [.qr], completion: model.handleScan)
+            }
         }
         .navigationViewStyle(StackNavigationViewStyle())
     }
