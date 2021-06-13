@@ -74,6 +74,9 @@ struct DocumentPickerManager {
                 NSLog("Please select 1 directory")
             }
             precondition(urls[0].hasDirectoryPath)
+            #if targetEnvironment(simulator)
+            print(urls[0])
+            #endif
             savePSBT(urls[0])
         }
     }
