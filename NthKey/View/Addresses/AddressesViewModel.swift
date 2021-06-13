@@ -27,4 +27,8 @@ class AddressesViewModel: ObservableObject {
             .assign(to: \.items, on: self)
             .store(in: &cancellables)
     }
+
+    func markAsUsed(indexSet: IndexSet) {
+        dataManager.markAddressesAsUsed(indexSet: indexSet)
+    }
 }

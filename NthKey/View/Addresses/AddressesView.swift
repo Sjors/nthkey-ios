@@ -19,6 +19,9 @@ struct AddressesView: View {
                         ForEach(model.items) { item in
                             AddressView(item: item)
                         }
+                        .onDelete { indexSet in
+                            model.markAsUsed(indexSet: indexSet)
+                        }
                     }
                 } else {
                     Text("Go to Settings to add cosigners")

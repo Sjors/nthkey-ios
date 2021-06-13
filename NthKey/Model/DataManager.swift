@@ -290,4 +290,12 @@ extension DataManager {
         self.store.saveData()
         fetchWallets()
     }
+
+    func markAddressesAsUsed(indexSet: IndexSet) {
+        for idx in indexSet {
+            addressList[idx].used = true
+        }
+
+        self.store.saveData()
+    }
 }
