@@ -46,6 +46,7 @@
 		2AF86C39260B64B300A770AD /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AF86C38260B64B300A770AD /* SettingsViewModel.swift */; };
 		2AF86CE72610FF9300A770AD /* CodeSignersViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AF86CE62610FF9300A770AD /* CodeSignersViewModel.swift */; };
 		2AF86CEF261105B100A770AD /* CodeSignerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AF86CEE261105B100A770AD /* CodeSignerView.swift */; };
+		2AFDD1E526767E0500C45FCD /* DataProcessingError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AFDD1E426767E0500C45FCD /* DataProcessingError.swift */; };
 		2AFED80C2648A111004574E1 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2AFED80B2648A111004574E1 /* StoreKit.framework */; };
 		4A63319125BEE55E008B058B /* NoSeedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A63319025BEE55E008B058B /* NoSeedView.swift */; };
 		4A63319725BEE7E5008B058B /* CodeSignersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A63319625BEE7E5008B058B /* CodeSignersView.swift */; };
@@ -137,6 +138,7 @@
 		2AF86C38260B64B300A770AD /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
 		2AF86CE62610FF9300A770AD /* CodeSignersViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeSignersViewModel.swift; sourceTree = "<group>"; };
 		2AF86CEE261105B100A770AD /* CodeSignerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeSignerView.swift; sourceTree = "<group>"; };
+		2AFDD1E426767E0500C45FCD /* DataProcessingError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataProcessingError.swift; sourceTree = "<group>"; };
 		2AFED80B2648A111004574E1 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		4A63319025BEE55E008B058B /* NoSeedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoSeedView.swift; sourceTree = "<group>"; };
 		4A63319625BEE7E5008B058B /* CodeSignersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeSignersView.swift; sourceTree = "<group>"; };
@@ -503,6 +505,7 @@
 				A285870C23AD31C600930566 /* Destination.swift */,
 				2AEDBD5B25F595190018C5CF /* PersistentStore.swift */,
 				2AF86BCE2608B18000A770AD /* DataManager.swift */,
+				2AFDD1E426767E0500C45FCD /* DataProcessingError.swift */,
 				2AEDBD4025F53C360018C5CF /* NthKey.xcdatamodeld */,
 			);
 			path = Model;
@@ -789,6 +792,7 @@
 				2AEDBE2325FA9C780018C5CF /* ContentViewModel.swift in Sources */,
 				2A41F8F32607EBF500C6AF92 /* WalletEntityView.swift in Sources */,
 				A206E80C238D65F300786824 /* ContentView.swift in Sources */,
+				2AFDD1E526767E0500C45FCD /* DataProcessingError.swift in Sources */,
 				2A2BA8992632F7C60053C2D5 /* NetworkPickerView.swift in Sources */,
 				2AB30A0325EC00550061B717 /* UserDefaults.swift in Sources */,
 				4AB1EA7A25AB3B5D00EE6832 /* AnnounceView.swift in Sources */,
