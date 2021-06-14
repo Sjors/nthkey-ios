@@ -49,7 +49,10 @@ struct SettingsView : View {
                             Link("Privacy Policy", destination: URL(string:  "https://nthkey.com/privacy")!)
                         }
                         HStack {
-                            Link("Terms of Use", destination: URL(string:  "https://nthkey.com/terms-of-use")!)
+                            Link("End User License Agreement", destination: URL(string:  "https://www.apple.com/legal/internet-services/itunes/dev/stdeula/")!)
+                        }
+                        HStack {
+                            Link("MIT License and source code", destination: URL(string: "https://github.com/Sjors/nthkey-ios/blob/master/LICENSE.md")!)
                         }
                     }
                 } else {
