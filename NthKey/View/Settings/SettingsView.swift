@@ -43,6 +43,15 @@ struct SettingsView : View {
                     SettingsSectionView("Misc") {
                         MiscSettings()
                     }
+                    
+                    SettingsSectionView("Legal") {
+                        HStack {
+                            Link("Privacy Policy", destination: URL(string:  "https://nthkey.com/privacy")!)
+                        }
+                        HStack {
+                            Link("Terms of Use", destination: URL(string:  "https://nthkey.com/terms-of-use")!)
+                        }
+                    }
                 } else {
                     NoSeedView(hasSeed: $model.hasSeed)
                 }
