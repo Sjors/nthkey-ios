@@ -33,6 +33,6 @@ To get the simulator working directory, export your public key in Settings. The 
 
 ## Usage
 
-Install from [TestFlight](https://testflight.apple.com/join/Y6cbJbEe) and follow the [tutorial](https://nthkey.com/tutorial).
+Download from the [App Store](https://apps.apple.com/us/app/nthkey/id1491367033) and follow the [tutorial](https://nthkey.com/tutorial).
 
 ## Known issues
