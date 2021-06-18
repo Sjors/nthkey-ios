@@ -4,7 +4,7 @@ image: /assets/ios_confirm.png
 ---
 # Your iOs device in a Bitcoin multi-sig
 
-[Try it on TestFlight](https://testflight.apple.com/join/Y6cbJbEe) by following the [tutorial](tutorial).
+Just download nthKey from the [App Store](https://apps.apple.com/us/app/nthkey/id1491367033) and follow the [tutorial](tutorial). You can try it for free and without risk using valueless testnet and signet coins from a faucet. Then upgrade to a mainnet subscription if you like it.
 
 ## Use with Bitcoin Core and Specter
 

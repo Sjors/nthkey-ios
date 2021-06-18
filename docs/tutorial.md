@@ -7,7 +7,7 @@ author:
 # nthKey Tutorial
 
 Prerequisites:
-* install NthKey via [TestFlight](https://testflight.apple.com/join/Y6cbJbEe)
+* install NthKey from the [App Store](https://apps.apple.com/us/app/nthkey/id1491367033)
 * at least one other (hardware) wallet
 
 ## Wallet setup
