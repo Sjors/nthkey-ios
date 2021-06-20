@@ -291,11 +291,10 @@ extension DataManager {
         fetchWallets()
     }
 
-    func markAddressesAsUsed(indexSet: IndexSet) {
-        for idx in indexSet {
-            addressList[idx].used = true
-        }
+    func toggleUsedFor(item: AddressEntity) {
+        guard let idx = addressList.firstIndex(of: item) else { return }
+        addressList[idx].used.toggle()
 
-        self.store.saveData()
+        store.saveData()
     }
 }

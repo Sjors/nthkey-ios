@@ -17,10 +17,9 @@ struct AddressesView: View {
                 if model.items.count > 0 {
                     List {
                         ForEach(model.items) { item in
-                            AddressView(item: item)
-                        }
-                        .onDelete { indexSet in
-                            model.markAsUsed(indexSet: indexSet)
+                            AddressView(item: item) {
+                                model.toggleUsed(for: item)
+                            }
                         }
                     }
                 } else {

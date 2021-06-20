@@ -28,7 +28,7 @@ class AddressesViewModel: ObservableObject {
             .store(in: &cancellables)
     }
 
-    func markAsUsed(indexSet: IndexSet) {
-        dataManager.markAddressesAsUsed(indexSet: indexSet)
+    func toggleUsed(for item: AddressEntity) {
+        dataManager.toggleUsedFor(item: item)
     }
 }

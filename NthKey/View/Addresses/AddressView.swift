@@ -10,16 +10,23 @@ import SwiftUI
 
 struct AddressView: View {
     let item: AddressEntity
-    var address: String {
+    let markAction: () -> Void
+
+    private var address: String {
         item.address ?? "N/A"
     }
 
     var body: some View {
-        if item.used {
+        HStack {
+            Button(action: markAction, label: {
+                Image(systemName: item.used ? "checkmark.circle.fill" : "checkmark.circle")
+                    .font(.title)
+                    .foregroundColor(.primary)
+            })
+            .contentShape(Rectangle())
+
             Text(address)
-                .strikethrough()
-        } else {
-            Text(address)
+                .strikethrough(item.used)
         }
     }
 }
@@ -36,8 +43,8 @@ struct AddressView_Previews: PreviewProvider {
             if let items = try? context.fetch(request),
                let itemUsed = items.first{ $0.used } ,
                let itemNotUsed = items.first{ !$0.used } {
-                let viewUsed =  AddressView(item: itemUsed)
-                let viewNotUsed = AddressView(item: itemNotUsed)
+                let viewUsed =  AddressView(item: itemUsed) {}
+                let viewNotUsed = AddressView(item: itemNotUsed) {}
                 let view = VStack(spacing: 30) {
                     viewUsed
                     viewNotUsed
