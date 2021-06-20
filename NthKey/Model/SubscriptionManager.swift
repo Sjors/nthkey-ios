@@ -77,7 +77,7 @@ final class SubscriptionManager: NSObject, ObservableObject {
         hasSubscription = Date() < date
     }
 
-    /// Allow to have raw estimation of subscription vithout validation
+    /// Allow to have raw estimation of subscription without validation
     private func checkExpirationDateFromPayment(_ payment: SKPayment) {
         let productId = payment.productIdentifier
         for item in ["month": (1,0), "year": (0,1)] {
