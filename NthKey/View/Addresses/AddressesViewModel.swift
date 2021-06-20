@@ -10,7 +10,7 @@ import Foundation
 import Combine
 
 class AddressesViewModel: ObservableObject {
-    @Published var items: [AddressEntity] = []
+    @Published var items: [AddressProxy] = []
 
     private let dataManager: DataManager
     private var cancellables = Set<AnyCancellable>()
@@ -28,7 +28,7 @@ class AddressesViewModel: ObservableObject {
             .store(in: &cancellables)
     }
 
-    func toggleUsed(for item: AddressEntity) {
+    func toggleUsed(for item: AddressProxy) {
         dataManager.toggleUsedFor(item: item)
     }
 }

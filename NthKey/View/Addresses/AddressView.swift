@@ -9,23 +9,15 @@
 import SwiftUI
 
 struct AddressView: View {
-    let item: AddressEntity
-    let markAction: () -> Void
-
-    private var address: String {
-        item.address ?? "N/A"
-    }
+    let item: AddressProxy
 
     var body: some View {
         HStack {
-            Button(action: markAction, label: {
-                Image(systemName: item.used ? "checkmark.circle.fill" : "checkmark.circle")
-                    .font(.title)
-                    .foregroundColor(.primary)
-            })
-            .contentShape(Rectangle())
+            Image(systemName: item.used ? "checkmark.circle.fill" : "checkmark.circle")
+                .font(.title)
+                .foregroundColor(.primary)
 
-            Text(address)
+            Text(item.address)
                 .strikethrough(item.used)
         }
     }
@@ -41,21 +33,16 @@ struct AddressView_Previews: PreviewProvider {
 
         return Group {
             if let items = try? context.fetch(request),
-               let itemUsed = items.first{ $0.used } ,
-               let itemNotUsed = items.first{ !$0.used } {
-                let viewUsed =  AddressView(item: itemUsed) {}
-                let viewNotUsed = AddressView(item: itemNotUsed) {}
-                let view = VStack(spacing: 30) {
-                    viewUsed
-                    viewNotUsed
-                }
+               let addressUsed = items.first{ $0.used }?.address,
+               let addressNotUsed = items.first{ !$0.used }?.address {
 
-                Group {
-                    view
-
-                    NavigationView { view }
-                        .colorScheme(.dark)
-                        .previewLayout(.fixed(width: 350, height: 200))
+                ForEach(ColorScheme.allCases, id: \.self) { scheme in
+                    List {
+                        AddressView(item: AddressProxy(address: addressUsed, used: true))
+                        AddressView(item: AddressProxy(address: addressNotUsed, used: false))
+                    }
+                    .frame(idealHeight: 100, maxHeight: 150)
+                    .colorScheme(scheme)
                 }
                 .previewLayout(.sizeThatFits)
             } else {

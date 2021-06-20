@@ -12,7 +12,7 @@ import Combine
 
 /// Incapsulates all data changes and persistent store interaction inside
 final class DataManager: ObservableObject {
-    @Published var addressList: [AddressEntity] = []
+    @Published var addressList: [AddressProxy] = []
     @Published var walletList: [WalletEntity] = []
     @Published var cosigners: [CosignerEntity] = []
 
@@ -72,7 +72,7 @@ final class DataManager: ObservableObject {
                 if let items = wallet.addresses,
                    let itemsArray = items.sortedArray(using: [sortDesc]) as? [AddressEntity] {
 
-                    self.addressList = itemsArray
+                    self.addressList = itemsArray.map{ AddressProxy(address: $0.address ?? "N/A", used: $0.used) }
                 }
 
                 if let items = wallet.cosigners,
@@ -291,10 +291,14 @@ extension DataManager {
         fetchWallets()
     }
 
-    func toggleUsedFor(item: AddressEntity) {
+    func toggleUsedFor(item: AddressProxy) {
         guard let idx = addressList.firstIndex(of: item) else { return }
         addressList[idx].used.toggle()
 
+        guard let addresses = currentWallet?.addresses?.array as? [AddressEntity] ,
+              let entity = addresses.first(where: { $0.address == item.address } ) else { return }
+
+        entity.used = addressList[idx].used
         store.saveData()
     }
 }
