@@ -13,12 +13,12 @@ struct AddressView: View {
 
     var body: some View {
         HStack {
+            Text(item.address)
+                .strikethrough(item.used)
+            Spacer()
             Image(systemName: item.used ? "checkmark.circle.fill" : "checkmark.circle")
                 .font(.title)
                 .foregroundColor(.primary)
-
-            Text(item.address)
-                .strikethrough(item.used)
         }
     }
 }
