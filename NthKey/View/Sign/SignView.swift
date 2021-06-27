@@ -56,10 +56,15 @@ struct SignView : View {
                     .disabled(model.state != .canSign)
 
                     if model.state == .signed {
-                        Image(uiImage: model.psbtSignedImage)
-                            .interpolation(.none)
-                            .resizable()
-                            .scaledToFit()
+                        if let qrImage = model.psbtSignedImage {
+                            Image(uiImage: qrImage)
+                                .interpolation(.none)
+                                .resizable()
+                                .scaledToFit()
+                        } else {
+                            Text("PSBT is too large to display as a QR code")
+                                .font(.title)
+                        }
 
                         Button("Save") {
                             model.saveFile()

@@ -16,7 +16,7 @@ class QRCodeBuilder {
     private static let context = CIContext()
     private static let filter = CIFilter.qrCodeGenerator()
 
-    static func generateQRCode(from string: String) -> UIImage {
+    static func generateQRCode(from string: String) -> UIImage? {
         let data = Data(string.utf8)
         filter.setValue(data, forKey: "inputMessage")
 
@@ -26,7 +26,7 @@ class QRCodeBuilder {
             }
         }
 
-        return UIImage(systemName: "xmark.circle") ?? UIImage()
+        return nil
     }
     
     static func generateQRCode(from data: Data) -> UIImage? {

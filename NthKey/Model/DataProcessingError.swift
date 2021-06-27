@@ -25,6 +25,7 @@ enum DataProcessingError: Error, LocalizedError, Identifiable {
     // scan QR
     case wrongEncoding
     case badInputOutput
+    case addressNotInList
 
     // PSBT
     case wrongPSBT
@@ -54,6 +55,8 @@ enum DataProcessingError: Error, LocalizedError, Identifiable {
             return "Data from QR has wrong encoding"
         case .badInputOutput:
             return "Can't recognize QR image"
+        case .addressNotInList:
+            return "Adress not in list"
 
         // PSBT
         case .wrongPSBT:

@@ -18,7 +18,7 @@ class SignViewModel: ObservableObject {
     @Published var needSubscription: Bool = false
     @Published var currentWalletTitle: String = ""
 
-    var psbtSignedImage: UIImage {
+    var psbtSignedImage: UIImage? {
         var result = "Here should be a PSBT signed data"
         if let signed = psbt?.description {
             result = signed
