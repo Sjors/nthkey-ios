@@ -88,7 +88,7 @@ the mnemonic is all you need to store.
 
 In the nthKey app, go to Settings and click on Show Mnemonic to write
 down the recovery phrase. If you ever delete the app or get a new phone, simply
-install the app and type this mnemonic.
+install the app and type this mnemonic (more details on recovery [here](/recovery)).
 
 For the multisig wallet details, Specter lets you print a PDF with a QR code. After
 you enter your mnemonic, scan that QR code with nthKey and your wallet is back in the app.
