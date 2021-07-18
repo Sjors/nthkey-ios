@@ -20,20 +20,20 @@ struct AddressesView: View {
     var body: some View {
         NavigationView {
             VStack(alignment: .leading, spacing: 30.0) {
-                HStack {
-                    Spacer()
-                    Button("Scan to check") {
-                        model.showScanner.toggle()
-                    }
-                    .buttonStyle(LargeButtonStyle(backgroundColor: Color.clear,
-                                                  foregroundColor: .primary,
-                                                  isDisabled: false,
-                                                  cornerRadius: 20))
-                    Spacer()
-                }
-                .padding(.top)
-
                 if model.items.count > 0 {
+                    HStack {
+                        Spacer()
+                        Button("Scan to check") {
+                            model.showScanner.toggle()
+                        }
+                        .buttonStyle(LargeButtonStyle(backgroundColor: Color.clear,
+                                                      foregroundColor: .primary,
+                                                      isDisabled: false,
+                                                      cornerRadius: 20))
+                        Spacer()
+                    }
+                    .padding(.top)
+                    
                     ScrollViewReader { proxy in
                         List {
                             ForEach(model.items, id: \.self.id) { item in
