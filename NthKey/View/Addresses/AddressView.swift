@@ -10,15 +10,21 @@ import SwiftUI
 
 struct AddressView: View {
     let item: AddressProxy
+    let checkmarkTap: () -> Void
 
     var body: some View {
         HStack {
             Text(item.address)
                 .strikethrough(item.used)
             Spacer()
+
             Image(systemName: item.used ? "checkmark.circle.fill" : "checkmark.circle")
                 .font(.title)
                 .foregroundColor(.primary)
+                .contentShape(Rectangle())
+                .onTapGesture {
+                    checkmarkTap()
+                }
         }
     }
 }
@@ -38,8 +44,8 @@ struct AddressView_Previews: PreviewProvider {
 
                 ForEach(ColorScheme.allCases, id: \.self) { scheme in
                     List {
-                        AddressView(item: AddressProxy(address: addressUsed, used: true))
-                        AddressView(item: AddressProxy(address: addressNotUsed, used: false))
+                        AddressView(item: AddressProxy(address: addressUsed, used: true)) {}
+                        AddressView(item: AddressProxy(address: addressNotUsed, used: false)) {}
                     }
                     .frame(idealHeight: 100, maxHeight: 150)
                     .colorScheme(scheme)
