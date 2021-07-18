@@ -16,6 +16,15 @@ class AddressesViewModel: ObservableObject {
     @Published var scanQRError: DataProcessingError?
     @Published private(set) var addressToScroll: String?
 
+    var errorAlertTitle: String {
+        switch scanQRError {
+        case .wrongEncoding, .badInputOutput, .addressNotInList:
+            return "Scan address error"
+        default:
+            return "Import PSBT error"
+        }
+    }
+
     private let dataManager: DataManager
     private var cancellables = Set<AnyCancellable>()
 

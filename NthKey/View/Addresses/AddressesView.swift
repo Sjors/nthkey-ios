@@ -69,7 +69,7 @@ struct AddressesView: View {
                 CodeScannerView(codeTypes: [.qr], completion: model.handleScan)
             }
             .alert(item: $model.scanQRError) { error in
-                Alert(title: Text("Import PSBT error"),
+                Alert(title: Text(model.errorAlertTitle),
                       message: Text(error.errorDescription ?? "Unknown error"),
                       dismissButton: .cancel())
             }
