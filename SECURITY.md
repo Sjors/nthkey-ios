@@ -2,8 +2,7 @@
 
 ## Reporting a Vulnerability
 
-If the issue is in [LibWally](https://github.com/ElementsProject/libwally-core) or in [LibWallySwift](https://github.com/blockchain/libwally-swift),
-please report it there first. However I do appreciate being kept in the loop.
+Please also report any issues with [LibWallySwift](https://github.com/blockchain/libwally-swift) to me. If the issue is in [LibWally](https://github.com/ElementsProject/libwally-core), please report it there first. However I do appreciate being kept in the loop.
 
 Email: sjors@sprovoost.nl
 

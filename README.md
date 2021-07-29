@@ -5,7 +5,7 @@ Use your iOs device as part of a Bitcoin multi-signature setup.
 Best used with [Specter Desktop](https://github.com/cryptoadvance/specter-desktop#specter-desktop).
 
 Uses [LibWally](https://github.com/ElementsProject/libwally-core) via a
-[Swift wrapper](https://github.com/blockchain/libwally-swift).
+[Swift wrapper](https://github.com/Sjors/libwally-swift).
 
 ## Build
 

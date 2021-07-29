@@ -48,7 +48,7 @@ import your nThKey recovery phrase into a different hardware wallet.
 ## Source code
 
 * iOs app: [github.com/Sjors/nthkey-ios](https://github.com/Sjors/nthkey-ios/)
-* LibWally Swift: [github.com/blockchain/libwally-swift](https://github.com/blockchain/libwally-swift)
+* LibWally Swift: [github.com/Sjors/libwally-swift](https://github.com/Sjors/libwally-swift)
 * LibWally Core: [github.com/ElementsProject/libwally-core](https://github.com/ElementsProject/libwally-core)
 * Output Descriptors for Swift: [github.com/sjors/output-descriptors-swift](https://github.com/sjors/output-descriptors-swift)
 
