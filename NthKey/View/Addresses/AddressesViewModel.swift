@@ -52,15 +52,22 @@ class AddressesViewModel: ObservableObject {
         case .success(let code):
             DispatchQueue.main.async() { [weak self] in
                 guard let self = self else { return }
-                let separator: Character = ":"
-                guard code.contains(separator),
-                      let suffix = code.split(separator: separator).last,
+                let suffixSeparator: Character = ":"
+                guard code.contains(suffixSeparator),
+                      var suffix = code.split(separator: suffixSeparator).last,
                       !suffix.isEmpty else {
                     self.scanQRError = .wrongEncoding
                     return
                 }
 
-                let address = String(suffix)
+                let prefixSeparator: Character = "?"
+                if suffix.contains(prefixSeparator),
+                   let prefix = suffix.split(separator: prefixSeparator).first,
+                   !prefix.isEmpty {
+                    suffix = prefix
+                }
+
+                let address = String(suffix).lowercased()
                 if let index = self.items.firstIndex(where: { $0.address == address }) {
                     #if DEBUG
                     print("Let's scroll to: \(index)")
