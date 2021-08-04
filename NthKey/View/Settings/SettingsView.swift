@@ -15,10 +15,9 @@ struct SettingsView : View {
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 20.0) {
-                SettingsSectionView("Tutorial") {
-                    HStack {
-                        Link("Open tutorial", destination: URL(string:  "https://nthkey.com/tutorial")!)
-                    }
+                SettingsSectionView("Support") {
+                    Link("Tutorial", destination: URL(string:  "https://nthkey.com/tutorial")!)
+                    Link("support@nthkey.com", destination: URL(string:  "mailto:support@nthkey.com")!)
                 }
 
                 if model.hasSeed {
