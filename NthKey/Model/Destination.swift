@@ -19,7 +19,7 @@ struct Destination : Identifiable, Equatable {
         precondition(cosignerKeys.count > 0)
         let network: Network = cosignerKeys.first!.network
 
-        self.description = String(output.txOutput.amount) + " sats" + ": " + output.txOutput.address!.description
+        self.description = String(output.txOutput.amount) + " sats" + ": " + (output.txOutput.address ?? output.txOutput.scriptPubKey.bytes.hexString).description
         self.id = output.id
         let us = Signer.getSignerUs(network)
 
