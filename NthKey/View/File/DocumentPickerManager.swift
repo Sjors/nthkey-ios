@@ -8,6 +8,13 @@
 
 import MobileCoreServices
 import UIKit
+import UniformTypeIdentifiers
+
+extension UTType {
+    // All psbt files are greyed out when using this:
+    // public static let psbtFormat = UTType(exportedAs: "org.bitcoin.psbt")
+    public static let psbt = UTType(filenameExtension: "psbt")!
+}
 
 struct DocumentPickerManager {
     
@@ -27,17 +34,12 @@ struct DocumentPickerManager {
 
         switch task {
         case .loadWallet:
-            let types: [String] = [kUTTypeJSON as String]
-            documentPicker = UIDocumentPickerViewController(documentTypes: types, in: .import)
-            
+            documentPicker = UIDocumentPickerViewController(forOpeningContentTypes: [UTType.json])
         case .loadPSBT:
-            documentPicker = UIDocumentPickerViewController(documentTypes: ["org.bitcoin.psbt"], in: .import)
-            
+            documentPicker = UIDocumentPickerViewController(forOpeningContentTypes: [UTType.psbt])
         case .savePublicKey,
              .savePSBT:
-            
-            documentPicker =
-            UIDocumentPickerViewController(documentTypes: [kUTTypeFolder as String], in: .open)
+            documentPicker = UIDocumentPickerViewController(forOpeningContentTypes: [UTType.folder])
         }
         documentPicker.delegate = delegate
         documentPicker.modalPresentationStyle = .formSheet

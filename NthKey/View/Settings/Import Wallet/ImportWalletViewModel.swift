@@ -58,7 +58,13 @@ final class ImportWalletViewModel: ObservableObject {
     func addWalletByFile() {
         loadFileController.loadWallet { [weak self] url in
             do {
+                guard url.startAccessingSecurityScopedResource() else {
+                    self?.loadWalletError = .fileAccessError
+                    return
+                }
                 let data = try Data(contentsOf: URL(fileURLWithPath: url.path), options: .mappedIfSafe)
+                // Make sure you release the security-scoped resource when you finish.
+                defer { url.stopAccessingSecurityScopedResource() }
                 self?.dataManager.loadWalletUsingData(data) { result in
                     switch result {
                         case .failure(let error):

@@ -29,6 +29,9 @@ enum DataProcessingError: Error, LocalizedError, Identifiable {
 
     // PSBT
     case wrongPSBT
+    
+    // File access
+    case fileAccessError
 
     public var errorDescription: String? {
         switch self {
@@ -61,6 +64,9 @@ enum DataProcessingError: Error, LocalizedError, Identifiable {
         // PSBT
         case .wrongPSBT:
             return "Something went wrong parsing PSBT file"
+            
+        case .fileAccessError:
+            return "Unable to access file"
 
         default:
             return nil

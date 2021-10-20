@@ -99,16 +99,22 @@ class SignViewModel: ObservableObject {
     }
 
     func openPsbtUrl(_ url: URL) {
+
         guard let network = dataManager.currentWallet?.wrappedNetwork else { return }
         do {
-           let payload = try Data(contentsOf: URL(fileURLWithPath: url.path), options: .mappedIfSafe)
+            // Start accessing a security-scoped resource.
+            guard url.startAccessingSecurityScopedResource() else {
+                self.error = .fileAccessError
+                return
+            }
+            let payload = try Data(contentsOf: URL(fileURLWithPath: url.path), options: .mappedIfSafe)
+            // Make sure you release the security-scoped resource when you finish.
+            defer { url.stopAccessingSecurityScopedResource() }
             let psbt = try PSBT(payload, network)
             processPSBT(psbt)
         } catch {
             self.error = .wrongPSBT
-            #if targetEnvironment(simulator)
             print("Open PSBT failed: \(error)")
-            #endif
         }
     }
 
