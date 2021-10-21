@@ -30,6 +30,11 @@ struct SettingsView : View {
                         ImportWalletView(model: model.importWalletModel,
                                          activeSheet: $model.activeSheet)
                     }
+                    .alert(item: $model.scanQRError) { error in
+                        Alert(title: Text("Scan wallet QR error"),
+                              message: Text(error.errorDescription ?? "Unknown error"),
+                              dismissButton: .cancel())
+                    }
 
                     SettingsSectionView("Wallets") {
                         WalletListView(model: model.walletListModel)
@@ -68,11 +73,6 @@ struct SettingsView : View {
                     SubscriptionView(model: model.subsViewModel,
                                      closeBlock: { model.activeSheet = nil })
             }
-        }
-        .alert(item: $model.scanQRError) { error in
-            Alert(title: Text("Scan wallet QR error"),
-                  message: Text(error.errorDescription ?? "Unknown error"),
-                  dismissButton: .cancel())
         }
     }
 }
