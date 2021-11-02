@@ -66,6 +66,16 @@ class SignViewModel: ObservableObject {
     func loadFile() {
         fileOperationsController.openPSBT { [weak self] url in
             DispatchQueue.main.async() {
+                // When a user selects a file, it may be outside the app
+                // sandbox, so we need to ask the system permission.
+                // This is not needed, and in fact will fail, when using
+                // Airdrop or "open with", so we do this here rather than
+                // in openPsbtUrl.
+                guard url.startAccessingSecurityScopedResource() else {
+                    self!.error = .fileAccessError
+                    return
+                }
+                defer { url.stopAccessingSecurityScopedResource() }
                 self?.openPsbtUrl(url)
             }
         }
@@ -99,17 +109,9 @@ class SignViewModel: ObservableObject {
     }
 
     func openPsbtUrl(_ url: URL) {
-
         guard let network = dataManager.currentWallet?.wrappedNetwork else { return }
         do {
-            // Start accessing a security-scoped resource.
-            guard url.startAccessingSecurityScopedResource() else {
-                self.error = .fileAccessError
-                return
-            }
             let payload = try Data(contentsOf: URL(fileURLWithPath: url.path), options: .mappedIfSafe)
-            // Make sure you release the security-scoped resource when you finish.
-            defer { url.stopAccessingSecurityScopedResource() }
             let psbt = try PSBT(payload, network)
             processPSBT(psbt)
         } catch {
