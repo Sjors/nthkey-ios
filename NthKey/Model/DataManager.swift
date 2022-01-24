@@ -234,6 +234,7 @@ extension DataManager {
                 wallet.network = WalletNetwork.valueFromNetwork(network).int16Value
             }
             wallet.receive_descriptor = descriptor
+            let desc = try! Descriptor(descriptor, network)
 
             if let label = jsonResult["label"] as? String {
                 wallet.label = label
@@ -249,17 +250,9 @@ extension DataManager {
             }
 
             for idx in 0..<1000 {
-                let pubKeys = receivePublicHDkeys.map {key -> PubKey in
-                    let childKey: HDKey = try! key.derive(String(idx))
-                    return childKey.pubKey
-                }
-
-                let scriptPubKey = ScriptPubKey(multisig: pubKeys, threshold: UInt(threshold))
-                let receiveAddress = Address(scriptPubKey, network)!
-
                 let item = AddressEntity(context: store.container.viewContext)
                 item.receiveIndex = Int32(idx)
-                item.address = receiveAddress.description
+                item.address = try! desc.getAddress(UInt32(idx)).description
 
                 wallet.addToAddresses(item)
             }
