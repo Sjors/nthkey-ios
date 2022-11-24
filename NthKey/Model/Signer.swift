@@ -12,11 +12,11 @@ import LibWally
 public class Signer: NSObject, Identifiable {
     
     public let fingerprint: Data
-    public let derivation: BIP32Path
+    public let derivation: String
     public let hdKey: HDKey // TODO: store derivation and fingerprint in HDKey?
     public let name: String
     
-    public init(fingerprint: Data, derivation: BIP32Path, hdKey: HDKey, name: String) {
+    public init(fingerprint: Data, derivation: String, hdKey: HDKey, name: String) {
         self.fingerprint = fingerprint
         self.name = name
         self.derivation = derivation
@@ -30,7 +30,7 @@ public class Signer: NSObject, Identifiable {
         let masterKey = HDKey(seedHex, network)!
         assert(masterKey.fingerprint == fingerprint)
         
-        let path = BIP32Path("m/48h/\(network == .mainnet ? "0h" : "1h")/0h/2h")!
+        let path = "m/48h/\(network == .mainnet ? "0h" : "1h")/0h/2h"
         let ourKey = try! masterKey.derive(path)
 
         return Signer(fingerprint: fingerprint, derivation: path, hdKey: ourKey, name: "NthKey")
