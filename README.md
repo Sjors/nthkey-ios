@@ -29,7 +29,7 @@ To preview documentation:
 bundle exec jekyll server --incremental --source docs
 ```
 
-To get the simulator working directory, export your public key in Settings. The path is printed in the log.  
+To get the simulator working directory, export your public key in Settings. The path is printed in the log.
 
 ## Usage
 
