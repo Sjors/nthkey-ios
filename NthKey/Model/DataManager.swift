@@ -164,11 +164,6 @@ extension DataManager {
                 return
             }
 
-            guard let pathForDerive = BIP32Path("0") else {
-                completion(.failure(.wrongCosigner))
-                return
-            }
-
             var receivePublicHDkeys: [HDKey] = []
             var hdKeys: [(ExtendedKey, HDKey)] = []
             desc.extendedKeys.forEach { key in
@@ -178,7 +173,7 @@ extension DataManager {
                         return
                     }
                     // ourself key
-                    receivePublicHDkeys.append(try! selfKey.derive(pathForDerive))
+                    receivePublicHDkeys.append(try! selfKey.derive("0"))
                     return
                 }
                 let extendedKey = Data(base58: key.xpub)!
@@ -195,7 +190,7 @@ extension DataManager {
                 }
                 hdKeys.append((key, aKey))
                 // cosigners keys
-                receivePublicHDkeys.append(try! aKey.derive(pathForDerive))
+                receivePublicHDkeys.append(try! aKey.derive("0"))
             }
 
             // Checking co-signers network
@@ -248,15 +243,14 @@ extension DataManager {
                 let signer = CosignerEntity(context: store.container.viewContext)
                 signer.name = ""
                 signer.fingerprint = Data(key.fingerprint)
-                signer.derivation = BIP32Path(key.origin)?.description
+                signer.derivation = key.origin
                 signer.xpub = hdKey.description
                 wallet.addToCosigners(signer)
             }
 
             for idx in 0..<1000 {
                 let pubKeys = receivePublicHDkeys.map {key -> PubKey in
-                    let path = try! BIP32Path(idx, relative: true)
-                    let childKey: HDKey = try! key.derive(path)
+                    let childKey: HDKey = try! key.derive(String(idx))
                     return childKey.pubKey
                 }
 

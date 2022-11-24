@@ -71,7 +71,7 @@ struct SeedManager {
         let masterKey = HDKey(seedHex, network)!
         assert(masterKey.fingerprint == fingerprint)
 
-        let path = BIP32Path("m/48h/\(network == .mainnet ? "0h" : "1h")/0h/2h")!
+        let path = "m/48h/\(network == .mainnet ? "0h" : "1h")/0h/2h"
         let account = try! masterKey.derive(path)
 
         // Specter compatible JSON format:
