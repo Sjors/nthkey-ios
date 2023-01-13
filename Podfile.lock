@@ -3,14 +3,14 @@ PODS:
   - OutputDescriptors (0.0.1)
 
 DEPENDENCIES:
-  - LibWally (from `https://github.com/sjors/LibWally-Swift.git`, tag `v0.0.7`)
+  - LibWally (from `https://github.com/sjors/LibWally-Swift.git`, tag `v0.0.8`)
   - OutputDescriptors (from `https://github.com/sjors/output-descriptors-swift.git`, tag `v0.0.2`)
 
 EXTERNAL SOURCES:
   LibWally:
     :git: https://github.com/sjors/LibWally-Swift.git
     :submodules: true
-    :tag: v0.0.7
+    :tag: v0.0.8
   OutputDescriptors:
     :git: https://github.com/sjors/output-descriptors-swift.git
     :tag: v0.0.2
@@ -19,7 +19,7 @@ CHECKOUT OPTIONS:
   LibWally:
     :git: https://github.com/sjors/LibWally-Swift.git
     :submodules: true
-    :tag: v0.0.7
+    :tag: v0.0.8
   OutputDescriptors:
     :git: https://github.com/sjors/output-descriptors-swift.git
     :tag: v0.0.2
@@ -28,6 +28,6 @@ SPEC CHECKSUMS:
   LibWally: ce1e98813b64aa26b4cc3a92d3c7f57db97b2fb2
   OutputDescriptors: 700e55b31d3997fb2bf6d9d84f6172ac17a3d573
 
-PODFILE CHECKSUM: 763e5e07a7bf1996fe1d09c9a02fe59870b62a0f
+PODFILE CHECKSUM: bd40e787c18cb24fd85f105ea5280a81e9fb806d
 
 COCOAPODS: 1.11.3
