@@ -11,7 +11,11 @@ import Combine
 import StoreKit
 
 final class SubscriptionManager: NSObject, ObservableObject {
+#if DEBUG
+    @Published private(set) var hasSubscription: Bool = true
+#else
     @Published private(set) var hasSubscription: Bool = false
+#endif
     @Published private(set) var products: [SKProduct] = []
     @Published private(set) var state: State = .initial
 
