@@ -59,7 +59,7 @@ GEM
     coffee-script-source (1.11.1)
     colorator (1.1.0)
     colored2 (3.1.2)
-    commonmarker (0.23.6)
+    commonmarker (0.23.7)
     concurrent-ruby (1.1.10)
     dnsruby (1.61.9)
       simpleidn (~> 0.1)
