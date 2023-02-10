@@ -5,7 +5,7 @@ target 'NthKey' do
   # Comment the next line if you don't want to use dynamic frameworks
   use_frameworks!
 
-  pod 'LibWally', :git => 'https://github.com/sjors/LibWally-Swift.git', :tag => "v0.0.8", :submodules => true
+  pod 'LibWally', :git => 'https://github.com/sjors/LibWally-Swift.git', :tag => "v0.0.9", :submodules => true
   pod 'OutputDescriptors', :git => 'https://github.com/sjors/output-descriptors-swift.git', :tag => "v0.0.2"
 
   target 'NthKeyTests' do
